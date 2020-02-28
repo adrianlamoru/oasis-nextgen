@@ -1,0 +1,27 @@
+<div class="client-container-content">
+  <div class="row">
+    <div class="col-12">
+      <div class="row align-items-center container-header">
+        <div class="col-12 container-title">
+          <span>Reports</span>
+        </div>
+      </div>
+      <div class="row align-items-center container-nav-pills-margin-bottom">
+        <div class="col-12">
+            <ul class="nav nav-pills" role="tablist">
+                <ng-container *ngFor="let option of subnavMenu?.subMenuOptions">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="{{option.route}}" routerLinkActive="active">{{option.label}}</a>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

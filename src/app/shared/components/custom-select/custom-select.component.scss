@@ -1,0 +1,21 @@
+@import '~sass/variables';
+
+:host {
+  &.ng-invalid.ng-touched {
+    border: none !important;
+
+    .custom-dropdown-component:not(.show) .form-control-dropdown {
+      border-color: $danger;
+    }
+  }
+
+  .dropdown-overflow{
+    max-height: 170px;
+    overflow-y: overlay;
+  }
+
+  .dropdown .dropdown-toggle {
+    padding-left: 0.65rem;
+    padding-right: 0.65rem;
+  }
+}

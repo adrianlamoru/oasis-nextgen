@@ -1,0 +1,115 @@
+@import '~sass/variables';
+
+.payroll-information-reports {
+  margin-left: 48px;
+  margin-top: 60px;
+  max-width: 1240px;
+
+  .checkbox-row{
+    margin: 7px 0 -7px 0;
+    align-self: center;
+
+    .checkbox-section{
+      align-self: center;
+    }
+  }
+
+  .checkbox-row2{
+    margin: 7px 0 13px 0;
+    align-self: center;
+
+    .checkbox-section{
+      align-self: center;
+    }
+  }
+
+  .general-ledger-label{
+    font-weight: bold !important;
+    margin-bottom: 7px;
+    font-size: 16px;
+    margin-top: 7px;
+  }
+  
+  .taxes-paragraph{   
+    border-radius: 5px;
+    background-color: #f0f2f5;
+    padding: 25px 30px;
+    margin-bottom: 0px;
+    line-height: 36px;
+  }
+
+  .form-checkbox-width {
+    width: fit-content;
+    float: right;
+  }
+
+
+  .dropdown-menu.show[aria-labelledby="themes"] {
+    display: flex;
+    width: 420px;
+    flex-wrap: wrap;
+  
+    .dropdown-item {
+      width: 33.333%;
+  
+      &:first-child {
+        width: 100%;
+      }
+    }
+  }
+
+  .horizontal-separator{
+    height: 1px;
+    background-color: $gray-300;
+    margin: 20px 0;
+  }
+
+  .horizontal-separator-title{
+    height: 1px;
+    background-color: $gray-300;
+    margin: 21px 0 24px 0;
+  }
+
+  .horizontal-separator-title2{
+    height: 1px;
+    background-color: $gray-300;
+    margin: 21px 0 30px 0;
+  }
+
+  .horizontal-separator-title3{
+    height: 1px;
+    background-color: $gray-300;
+    margin: 21px 0 17px 0;
+  }
+
+  .payroll-information-section-title {
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  .payroll-information-details {
+    margin-left: 15px;
+  }
+
+  .space-down {
+    margin-bottom: 20px;
+  }
+
+  .payroll-reports-title{
+    font-size: 20px;
+    margin-top: 32px;
+  }
+
+  .payroll-reports-title2{
+    font-size: 20px;
+    margin-top: 12px;
+  }
+  
+  .payroll-reports-title3{
+    font-size: 20px;
+    margin-top: 36px;
+    margin-bottom: 4px;
+  }
+
+
+}

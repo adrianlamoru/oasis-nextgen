@@ -1,0 +1,51 @@
+<div class="row" *ngIf="!isLoading" id="contentToRender">
+	<div class="col-12">
+    <dx-data-grid [dataSource]="compensationEarningsSummary" class="pair-row-color-gray-100 grid-head-font-weight-500 dx-data-grid-tab-title"
+      [columnAutoWidth]="true" [wordWrapEnabled]="true" keyExpr="id">
+      <dxo-paging [enabled]="false"></dxo-paging>
+      <dxi-column dataField="id" caption="ID" alignment="left" [allowSorting]="false"></dxi-column>
+      <dxi-column dataField="expenseReimbursements" caption="Expense Reimbursements" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="fringeBenefits" caption="Fringe Benefits" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="reportedTips" caption="Reported Tips" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="allocatedTips" caption="Allocated Tips" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="grossEarnings" caption="Gross Earnings" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="payrollDeductions" caption="Payroll Deductions" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="federalIncomeTaxes" caption="Federal Income Taxes" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="earnedIncomeCredit" caption="Earned Income Credit" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="socialSecurityTaxes" caption="Social Security Taxes" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="medicareTaxes" caption="Medicare Taxes" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="stateIncomeTaxes" caption="State Income Taxes" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="stateDIUITaxes" caption="State DI/UI Taxes" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="otherStateLocalTaxes" caption="Other State Local Taxes" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="netEarnings" caption="Net Earnings" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+    </dx-data-grid>
+  </div>
+</div>

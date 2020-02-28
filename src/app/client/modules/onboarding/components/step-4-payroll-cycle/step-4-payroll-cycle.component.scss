@@ -1,0 +1,77 @@
+@import '~sass/variables';
+
+.payroll-cycle-component{
+    margin-left: 48px;
+    margin-top: 54px;
+    max-width: 1240px;
+
+    .checkbox-row{
+        margin: 5px 0 7px 0;
+        align-self: center;
+  
+        .checkbox-section{
+          align-self: center;
+        }
+      }
+  
+      .checkbox-row2{
+        margin: 0px 0 7px 0;
+        align-self: center;
+  
+        .checkbox-section{
+          align-self: center;
+        }
+      }
+
+      .checkbox-row3{
+        margin: 0px 0 -8px 0;
+        align-self: center;
+  
+        .checkbox-section{
+          align-self: center;
+        }
+      }
+   
+    
+    .input-field-margin{
+        margin-bottom: 9px;
+    }
+
+    .form-checkbox-width {
+        width: fit-content;
+        float: right;
+    }
+
+    .horizontal-separator{
+        height: 1px;
+        background-color: $gray-300;
+        margin: 20px 0;
+    }
+
+    .custom-input-field {
+        width: 100%;
+    }
+
+    .input-icon{
+        line-height: 34px;
+    }
+
+    .dropdown-overflow{
+        max-height: 170px;
+        //overflow-y: overlay;
+        overflow-y: scroll;
+    }
+
+    .radio-button-row{
+        align-self: center;
+    }
+
+    .cb-holiday-after{
+        margin-left: 9px;
+    }
+
+    .cb-addl-paycycles-no{
+        margin-left: 27px;
+    }
+
+}

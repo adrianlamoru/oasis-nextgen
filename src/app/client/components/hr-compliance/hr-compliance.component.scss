@@ -1,0 +1,52 @@
+@import "~bootstrap/scss/functions"; 
+@import '~sass/variables';
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "../../../shared/components/dashboard-news/dashboard-news.component.scss";
+
+.hr-compliance-body {
+
+    display:table;
+    width: 100%;
+    position:relative;
+    margin-top: 11px;
+
+    .hr-compliance-list-news {
+        list-style: none;
+        padding-left: 0;
+        max-height: 230px;
+        overflow: auto;
+        margin: 0px !important;
+
+        .hr-compliance-list-news-item {
+            margin-bottom: 13px;
+
+            &:last-child {
+                margin-bottom: 0px;
+            }
+
+            .hr-compliance-news-title {
+                display: block;
+                font-size: 14px;
+                line-height: 1.29;
+                font-weight: bold;
+                margin-bottom: 0;
+            }
+
+            .hr-compliance-news-link {
+                font-size: 12px;
+                font-weight: 500;
+                color: $gray-700;
+            }
+        }
+    }    
+}
+
+
+/deep/ .hr-compliance-modal {
+    .modal-body {
+        .item-body {
+            height: 17px !important;
+        }
+    }   
+}

@@ -1,0 +1,23 @@
+<div class="oasis-newsletter" id="employeeEnrichmentArea" [ngbCollapse]="isEnrichmentAreaCollapsed">
+  <div class="row">
+    <div class="col-9 order-1 col-lg-4 order-lg-1 col-xl-4 order-xl-1 offset-xl-1 text-right">
+      <img class="oasis-newsletter-icon icon-1" src="/assets/images/oasis-newsletter.png" alt="Oasis Newsletter">
+    </div>
+    <div class="col-12 order-12 py-1 col-lg-7 order-lg-2 col-xl-6 order-xl-2 py-xl-5 align-self-center">
+      <h4 class="oasis-newsletter-header">The Oasis Newsletter is now available!</h4>
+      <p class="oasis-newsletter-body">Nam non blandit nibh maecenas nulla velit vulputate et dapibus nullam aliquet Nunc libero libero porta vel dolor sed volutpat suscipit purus sed gravida</p>
+      <button class="btn btn-primary btn-learn-more">LEARN MORE</button>
+    </div>
+    <div class="col-3 order-2 col-lg-1 order-lg-3 col-xl-1 order-xl-3">
+        <button
+                aria-label="Close"
+                class="close close-btn"
+                type="button" 
+                (click)="isEnrichmentAreaCollapsed = !isEnrichmentAreaCollapsed"
+                [attr.aria-expanded]="!isEnrichmentAreaCollapsed"
+                aria-controls="employeeEnrichmentArea">
+                  <span class="icon icon-close"></span>
+        </button>
+    </div>
+  </div>
+</div>

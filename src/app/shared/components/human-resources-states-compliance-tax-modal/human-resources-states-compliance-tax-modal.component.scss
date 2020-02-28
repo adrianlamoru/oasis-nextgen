@@ -1,0 +1,89 @@
+@import '~sass/variables';
+.workers-comp-download {
+    .modal-body {
+        padding: 30px;
+        hr {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    }
+    .list-actions {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0;
+        .list-action-item {
+            font-weight: bold;
+            &:last-child hr {
+                margin-bottom: 0;
+            }
+            .icon {
+                font-size: 14px;
+                line-height: 18px;
+                &.color-blue {
+                    color: $blue;
+                }
+            }
+            .item-value {
+                font-size: 14px;
+                line-height: 1.29;
+                font-weight: bold;
+                color: $gray-800;
+                margin-bottom: 0;
+                margin-left: 16px;
+            }
+            &:hover {
+                font-weight: bold;
+                cursor: pointer;
+            }
+            .value-item-group {
+                display: inline-block;
+                .item-detail {
+                    font-size: 12px;
+                    line-height: normal;
+                    font-weight: 500;
+                    color: $gray-300;
+                    &:hover {
+                        font-weight: bold;
+                        cursor: pointer;
+                    }
+                }
+            }
+            .mr-right-10 {
+                margin-right: 10px;
+            }
+        }
+    }
+    .state-poster-wrapper {
+        background-color: $gray-200;
+        margin: 0px 0px 30px 0px;
+        height: 66px;
+        .stateName {
+            height: 21px;
+            font-family: $font-family-sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            color: $gray-800;
+        }
+        .btnDownloadPoster {
+            width: 142px;
+            margin-left: -15px;
+        }
+    }
+    .otherFormsLabel {
+        height: 17px;
+        font-family: $font-family-sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.55;
+        letter-spacing: 0.2px;
+        color: $gray-710;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+    }
+}

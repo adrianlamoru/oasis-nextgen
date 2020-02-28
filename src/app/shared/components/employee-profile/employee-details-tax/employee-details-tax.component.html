@@ -1,0 +1,138 @@
+<div class="employee-details-tax container-section">
+	<div class="reports-container">
+		<div class="section">
+				<div class="row">
+					<div class="col-6">
+						<h3 class="tab-title-employee-tax" *ngIf="isClient()">Federal Tax Withholding </h3>
+						<h3 class="tab-title-employee-tax" *ngIf="!isClient()">Tax Information</h3>
+					</div>
+					<div class="col-6">
+						<div class="float-right section-title-buttons">
+							<button type="button" class="btn btn-link btn-link-icon p-0" (click)="requestedFunction('print')" [hidden]="!isClient()">
+								<span class="icon icon-pint"></span>
+								<span>PRINT</span>
+							</button>
+							<button type="button" class="btn btn-link btn-link-icon p-0" (click)="goToUrl('https://demo.oasispayroll.com/servlet/com.oasis.employee.administration.controllers.ChangeW4Servlet?target=_blank')" [hidden]="isClient()">
+								<span class="icon icon-pencil"></span>
+								<span>UPDATE TAX INFORMATION</span>
+							</button>
+						</div>
+					</div>
+				</div>
+		</div>
+		<div class="row" *ngIf="!isClient()">
+			<div class="col-6">
+					<dx-form  [(formData)]="federalGovernmentData"
+					labelLocation="top"
+					[readOnly]="true"
+					[showColonAfterLabel]="false">
+				<dxi-item itemType="group" [colCount]="1">
+					<dxi-item dataField="filingStatus" [label]="{ text: 'Federal Filing Status'}"></dxi-item>
+					<dxi-item dataField="exemptions" [label]="{ text: 'Federal Exemptions'}"></dxi-item>
+					<dxi-item dataField="overrideType" [label]="{ text: 'Federal Override Code'}"></dxi-item>
+					<dxi-item dataField="overrideAmount" [label]="{ text: 'Federal Override Amount'}"></dxi-item>
+					<dxi-item dataField="eicFileStatus" [label]="{ text: 'EIC Status'}"></dxi-item>
+				</dxi-item>
+				</dx-form>
+			</div>
+			<div class="col-6">
+					<dx-form  [(formData)]="stateGovernmentData"
+					labelLocation="top"
+					[readOnly]="true"
+					[showColonAfterLabel]="false">
+				<dxi-item itemType="group" [colCount]="1">
+					<dxi-item dataField="state1.state" [label]="{ text: 'State'}"></dxi-item>
+					<dxi-item dataField="state1.filingStatus" [label]="{ text: 'State Filing Status'}"></dxi-item>
+					<dxi-item dataField="state1.exemption" [label]="{ text: 'State Exemptions'}"></dxi-item>
+					<dxi-item dataField="state1.overType" [label]="{ text: 'State Override Code'}"></dxi-item>
+					<dxi-item dataField="state1.overAmount" [label]="{ text: 'State Override Amount'}"></dxi-item>
+				</dxi-item>
+				</dx-form>
+			</div>
+		</div>
+				
+		<div *ngIf="isClient()">
+			<dx-form  [(formData)]="federalGovernmentData"
+								labelLocation="top"
+								[readOnly]="true"
+								[showColonAfterLabel]="false">
+				<dxi-item itemType="group" [colCount]="3">
+					<dxi-item dataField="fedFilingStatus" [label]="{ text: 'Filing Status'}"></dxi-item>
+					<dxi-item dataField="withholding"></dxi-item>
+					<dxi-item dataField="overrideType"></dxi-item>
+					<dxi-item dataField="overrideAmount"></dxi-item>
+					<dxi-item dataField="eicFileStatus" [label]="{ text: 'EIC File Status'}"></dxi-item>
+					<dxi-item dataField="w4FiledYear" [label]="{ text: 'W-4 Filed/Year'}"></dxi-item>
+					<dxi-item dataField="w5FiledYear" [label]="{ text: 'W-5 Filed/Year'}"></dxi-item>
+				</dxi-item>
+			</dx-form>
+	
+			<hr/>
+	
+			<div class="section">
+				<div class="row">
+					<div class="col-12">
+						<h3 class="tab-title-employee-tax mb-3">State Tax Withholding</h3>
+					</div>
+				</div>
+			</div>
+	
+			<dx-form  [(formData)]="stateGovernmentData"
+								labelLocation="top"
+								[readOnly]="true"
+								[showColonAfterLabel]="false"
+								[colCount]="2">
+				<dxi-item cssClass="mt-0" itemType="group" caption="State 1">
+					<dxi-item dataField="state1.state" [label]="{ text: 'State'}"></dxi-item>
+					<dxi-item dataField="state1.filingStatus" [label]="{ text: 'Filing Status'}"></dxi-item>
+					<dxi-item dataField="state1.altCalc" [label]="{ text: 'Alternate Calculation'}"></dxi-item>
+					<dxi-item dataField="state1.allowance" [label]="{ text: 'Allowance'}"></dxi-item>
+					<dxi-item dataField="state1.secAllowance" [label]="{ text: 'Secondary Allowance'}"></dxi-item>
+					<dxi-item dataField="state1.exemption" [label]="{ text: 'Exemption'}"></dxi-item>
+					<dxi-item dataField="state1.suppExempt" [label]="{ text: 'Supplemental Exemption'}"></dxi-item>
+					<dxi-item dataField="state1.nonResCert" [label]="{ text: 'Non-Resident Certification'}"></dxi-item>
+					<dxi-item dataField="state1.overType" [label]="{ text: 'OverType'}"></dxi-item>
+					<dxi-item dataField="state1.overAmount" [label]="{ text: 'Over Amount'}"></dxi-item>
+				</dxi-item>
+				<dxi-item cssClass="mt-0" itemType="group" caption="State 2">
+					<dxi-item dataField="state2.state" [label]="{ text: 'State'}"></dxi-item>
+					<dxi-item dataField="state2.filingStatus" [label]="{ text: 'Filing Status'}"></dxi-item>
+					<dxi-item dataField="state2.altCalc" [label]="{ text: 'Alternate Calculation'}"></dxi-item>
+					<dxi-item dataField="state2.allowance" [label]="{ text: 'Allowance'}"></dxi-item>
+					<dxi-item dataField="state2.secAllowance" [label]="{ text: 'Secondary Allowance'}"></dxi-item>
+					<dxi-item dataField="state2.exemption" [label]="{ text: 'Exemption'}"></dxi-item>
+					<dxi-item dataField="state2.suppExempt" [label]="{ text: 'Supplemental Exemption'}"></dxi-item>
+					<dxi-item dataField="state2.nonResCert" [label]="{ text: 'Non-Resident Certification'}"></dxi-item>
+					<dxi-item dataField="state2.overType" [label]="{ text: 'OverType'}"></dxi-item>
+					<dxi-item dataField="state2.overAmount" [label]="{ text: 'Over Amount'}"></dxi-item>
+				</dxi-item>
+			</dx-form>
+	
+			<hr/>
+	
+			<div class="section">
+				<div class="row">
+					<div class="col-12">
+						<h3 class="tab-title-employee-tax">I-9 Information</h3>
+					</div>
+				</div>
+			</div>
+	
+			<dx-form  [(formData)]="formInformationData"
+								labelLocation="top"
+								[readOnly]="true"
+								[showColonAfterLabel]="false">
+				<dxi-item itemType="group" [colCount]="3">
+					<dxi-item dataField="i9Completed" [label]="{ text: 'Completed INS Form' }"></dxi-item>
+					<dxi-item dataField="i9IrcaIdNr"  [label]="{ text: 'IRCA Identification # ' }"></dxi-item>
+					<dxi-item dataField="i9EligDoc" [label]="{ text: 'IRCA Eligibility Document' }"></dxi-item>
+					<dxi-item dataField="i9AlienRegistration" [label]="{ text: 'Alien Registration #' }"></dxi-item>
+					<dxi-item dataField="i9 RenewalDate"></dxi-item>
+					<dxi-item dataField="i9FicaExempt" [label]="{ text: 'FICA Exempt'}"></dxi-item>
+				</dxi-item>
+			</dx-form>
+		</div>	
+	</div>
+	
+</div>
+

@@ -1,0 +1,80 @@
+<div class="custom-modal-window payroll-action-notes">
+    <div class="modal-header">
+      <h4 class="modal-title align-self-center float-left">Notes</h4>
+      <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+          <span class="icon icon-close"></span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12">  
+                <div class="custom-grid">
+                    <div class="custom-grid-header">
+                        <label for="tx-area-note" class="note-custom-label">Note</label>
+                        <dx-text-area #txAreaNote id="tx-area-note"
+                            valueChangeEvent="keyup"
+                            [(value)]="currentNote"
+                            placeholder="Enter Note"></dx-text-area>                                              
+                    </div> 
+                    <div class="custom-grid-header text-right">
+                        <dx-button [disabled]="txAreaNote.value === ''" text="Add" class="btn btn-primary" (onClick)="addNote()" [width]="100">
+                        </dx-button>                       
+                    </div>   
+                    <dx-data-grid #notesDataGrid 
+                        class="dx-data-grid-row-background-hover-transparent"
+                        [dataSource]="notesData"  
+                        [showColumnHeaders]="false"         
+                        keyExpr="ID"
+                        (onInitNewRow)="onInitNewRow($event)"
+                        (onEditingStart)="onEditingStart($event)"
+                        (onEditorPreparing)="onEditorPreparing($event)">
+
+                        <dxo-paging [enabled]="false"></dxo-paging>                        
+                        <dxo-editing mode="popup"
+                            [allowAdding]="false" 
+                            [allowDeleting]="false" 
+                            [allowUpdating]="false">
+
+                            <dxo-popup
+                                [title]="popupTitle"                                                                
+                                [showTitle]="true"
+                                [maxWidth]="580"
+                                [height]="'auto'"
+                                [showCloseButton]="false"
+                                [position]="{ my: 'middle', at: 'middle', of: window }"
+                                [dragEnabled]="false"
+                                [closeOnOutsideClick]="true"
+                                [toolbarItems]="[
+                                { widget: 'dxButton', location: 'after', options: { text: '', elementAttr: { class: ' btn btn-link btn-link-icon icon icon-close align-self-center vertical-middle' } }, toolbar: 'top', onClick: onCancelClick },
+                                { widget: 'dxButton', location: 'after', options: { text: 'Cancel', elementAttr: { class: ' btn btn-outline-primary' } }, toolbar: 'bottom', onClick: onCancelClick },
+                                { widget: 'dxButton', location: 'after', options: { text: 'Save', elementAttr: { class: ' btn btn-primary' }  }, toolbar: 'bottom', onClick: onSubmitClick }]">                                
+                            </dxo-popup>
+                            
+                            <dxo-form [colCount]="1" labelLocation="top"[showColonAfterLabel]="false">
+                                <dxi-item dataField="note" editorType="dxTextArea"
+                                [editorOptions]="{ minHeight: '120px'}"></dxi-item>
+                            </dxo-form>
+                        </dxo-editing>
+                        <dxi-column cellTemplate="noteTemplate" dataField="note" [allowSorting]="false">
+                            <div *dxTemplate="let data of 'noteTemplate'">
+                                <div class="dx-custom-field dx-note-headers">                                
+                                    Note • {{ data.data.date | date:'MMM d, y' }}
+                                </div>
+                                <div class="dx-custom-field dx-note-field">
+                                    {{ data.data.note }}
+                                </div>
+                                <div class="dx-custom-command-edit dx-custom-command-edit-without-padding">                                
+                                    <a class="dx-link dx-link-edit" tabindex="0" (click)="onEditRow(data)" (keydown)="onEditKeyDown($event, data)">Edit</a>
+                                    <a class="dx-link dx-link-delete" tabindex="0"  (click)="onDeleteRow(data)" (keydown)="onDeleteKeyDown($event, data)">Delete</a>
+                                </div>
+                            </div>
+                        </dxi-column>
+                    </dx-data-grid>    
+                </div>                  
+            </div>    
+        </div>           
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="modalCloseFunc('Cross click')">Cancel</button>
+    </div>
+</div>

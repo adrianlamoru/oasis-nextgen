@@ -1,0 +1,38 @@
+@import '~sass/variables';
+
+.custom-left-rail-margin-bottom {
+    margin-bottom: 100px;
+}
+
+:host ::ng-deep {
+    .left-panel-container {
+        padding: 9px 15px 11px 20px;
+    }        
+
+    .main-area-container {
+        border-radius: 10px;                
+        padding: 25px 34px;
+        background-color: $white;
+        box-shadow: 0 6px 16px 0 rgba(32,44,86,0.04);                
+    }
+
+    hr {
+        margin-left: 20px;
+        margin-right: 15px;
+    }
+}
+
+.client-content {
+    padding: 20px 30px;
+    background-color: $background;
+
+    .row {
+        margin-bottom: 30px;
+    }
+}
+
+
+:host ::ng-deep .messages-component {
+  margin: -20px -20px 20px -20px;
+  padding-bottom: -20px;
+}

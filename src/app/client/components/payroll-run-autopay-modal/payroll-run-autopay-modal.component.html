@@ -1,0 +1,226 @@
+<div class="custom-modal-window payrollRunAutoModalComponent" #payrollRunAutoModalComponent>
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">{{formTitle}}</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+      <span class="icon icon-close"></span>
+    </button>
+  </div>
+  <div class="step" *ngIf="step === 1">
+    <form #form="ngForm" [formGroup]="formGroup" ngNativeValidate novalidate (ngSubmit)="saveForm(form)">
+      <div class="modal-body">
+
+        <div class="custom-grid">
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <h4 for="payCode">Pay Code</h4>
+                <div ngbDropdown class="d-inline-block custom-dropdown-component" #ddPayCode="ngbDropdown">
+                  <input type="hidden" class="form-control" id="payCode" formControlName="payCode" [(ngModel)]="model.payCode" />
+                  <button type="button" class="btn btn-form-control form-control-dropdown text-left" ngbDropdownToggle (click)="isddPayCodeBtnOpened = !isddPayCodeBtnOpened">
+                    <span>
+                      {{model.payCode ? model.payCode.type + ' - ' + model.payCode.name : '-- Select Pay Code --'}}
+                      <i class="icon icon-shape float-right"></i>
+                    </span>
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="Pay Code">
+                    <ng-container *ngFor="let payCodeType of payCodeTypeList">
+                      <div class="custom-dropdown-item-header">
+                        <h5>{{payCodeType.key}}</h5>
+                      </div>
+                      <button type="button" class="dropdown-item" *ngFor="let payCode of payCodeType.items" (click)="ngbDropdownChange(model, 'payCode', payCode); ddPayCode.close()">{{payCode.name}}</button>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <h4 for="payGroup">Pay Group</h4>
+                <div ngbDropdown class="d-inline-block" #ddPayGroup="ngbDropdown">
+                  <input type="hidden" class="form-control" id="payGroup" formControlName="payGroup" [(ngModel)]="model.payGroup" />
+                  <button type="button" class="btn  btn-form-control form-control-dropdown text-left" #ddPayGroupBtn ngbDropdownToggle [disabled]="true">
+                    <span>
+                      {{model.payGroup?.name}}
+                      <!--<i class="icon icon-shape icon icon-shape float-right"></i>-->
+                    </span>
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="Pay Group">
+                    <button type="button" class="dropdown-item" *ngFor="let payGroup of payGroupList" (click)="ngbDropdownChange(model, 'payGroup', payGroup); ddPayGroup.close()">{{payGroup.name}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <h4 for="payGroup">Pay Date</h4>
+                <div ngbDropdown class="d-inline-block" #ddPayPeriod="ngbDropdown">
+                  <input type="hidden" class="form-control" id="payPeriod" formControlName="payPeriod" [(ngModel)]="model.payPeriod" />
+                  <button type="button" class="btn  btn-form-control form-control-dropdown text-left" #ddPayPeriodBtn ngbDropdownToggle (click)="isddPayPeriodBtnOpened = !isddPayPeriodBtnOpened">
+                    <span>
+                      {{model.payPeriod?.description || '-- Select Pay Date --'}}
+                      <i class="icon icon-shape float-right"></i>
+                    </span>
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="Pay Date">
+                    <button type="button" class="dropdown-item" *ngFor="let payPeriod of payPeriodList" (click)="ngbDropdownChange(model, 'payPeriod', payPeriod); ddPayPeriod.close()">{{payPeriod.name}}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <h4 for="value" *ngIf="model.payCode">{{ model.payCode?.type.toLowerCase() === 'hourly' ? 'Hours' : 'Amount' }}</h4>
+                <h4 for="value" *ngIf="!model.payCode">Hours/Amount</h4>
+                <dx-number-box formControlName="value"
+                               format="{{model.payCode?.editorOptions?.format}}"
+                               min="{{model.payCode?.editorOptions?.min}}"
+                               max="{{model.payCode?.editorOptions?.max}}"
+                               [(value)]="model.value"
+                               [disabled]="!model.payCode"></dx-number-box>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <h4 for="value">Employees to be paid</h4>
+                <div ngbDropdown class="d-inline-block" placement="bottom-left">
+                  <button type="button" class="btn  btn-form-control form-control-dropdown text-left" ngbDropdownToggle (click)="isdxEmployeeListOpened = !isdxEmployeeListOpened">
+                    <span>
+                      {{dxEmployeeList?.selectedItemKeys?.length || 0}} Employee{{dxEmployeeList?.selectedItemKeys?.length === 1 ? '' : 's'}} Selected
+                      <i class="icon  icon-shape float-right"></i>
+                    </span>
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="SelectedEmployees" class="custom-dropdown-menu payroll-batch-dropdown-menu">
+                    <dx-list #dxEmployeeList height="100%" [dataSource]="model.employees"
+                             selectionMode="all"
+                             [showSelectionControls]="true"
+                             [height]="250"
+                             [selectedItemKeys]="model.employees | searchfilter: 'isSelected' : true"
+                             (onSelectionChanged)="employee_itemSelectionChanged($event)"
+                             (onItemClick)="employee_itemClick($event)"
+                             class="payroll-batch-code-listview">
+                      <div *dxTemplate="let item of 'item'">
+                        <div>
+                          {{item.employeeName}}
+                        </div>
+                      </div>
+                    </dx-list>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <h4 for="subtractFromDefault">&nbsp;</h4>
+                <dx-check-box text="Subtract from default timesheet hours?" [(value)]="model.subtractFromDefault" class="cbSubtractFromDefault"></dx-check-box>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary mr-2" (click)="modalCloseFunc('Close click')">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">{{saveBtnLabel}}</button>
+      </div>
+    </form>
+  </div>
+  <div class="step" *ngIf="step === 2">
+    <div class="modal-body">
+      <div *ngIf="showError" class="messages-component">
+        <div class="alert alert-danger alert-dismissible">
+          <button aria-label="Close" class="close" type="button" (click)="closeErrorMessage(false, false)">
+            <span aria-hidden="true">×</span>
+          </button>
+          <span class="icon icon-danger"></span>
+          <span class="message">
+            {{ errorMessage !== ''? errorMessage: 'An error has occurred' }}
+          </span>
+        </div>
+      </div>
+      <dx-data-grid #gridContainer
+                    id="gridContainer"
+                    class="payroll-batch-grid"
+                    [dataSource]="model.employees"
+                    keyExpr="id"
+                    [columnAutoWidth]="true"
+                    [hoverStateEnabled]="true"
+                    [(selectedRowKeys)]="model.selectedEmployeeKeys"
+                    (onSelectionChanged)="onGridSelectionChanged($event)"
+                    height="300">
+        <dxo-scrolling mode="virtual"></dxo-scrolling>
+        <dxo-paging [enabled]="false"></dxo-paging>
+        <dxo-selection mode="multiple" showCheckBoxesMode="always"></dxo-selection>
+        <dxi-column dataField="employeeName" [height]="50" [allowEditing]="false"
+                    [allowSorting]="false"
+                    headerCellTemplate="columnHeaderTemplate"></dxi-column>
+        <dxi-column dataField="autoPayDefaultValue" [height]="50" [allowEditing]="false"
+                    [allowSorting]="false"
+                    [format]="valueFormat"
+                    [precision]="model.payCode?.summaryOptions.precision"
+                    caption="Current Default"
+                    headerCellTemplate="columnHeaderTemplate"></dxi-column>
+        <dxi-column dataField="autoPayValue" [height]="50" [allowEditing]="false"
+                    [allowSorting]="false"
+                    [dataType]="number"
+                    [format]="valueFormat"
+                    [precision]="model.payCode?.summaryOptions.precision"
+                    [caption]="model.payCode?.name"></dxi-column>
+        <dxi-column dataField="autoPayUpdatedDefaultValue" [height]="50" [allowEditing]="false"
+                    [allowSorting]="false"
+                    [format]="valueFormat"
+                    [precision]="model.payCode?.summaryOptions.precision"
+                    caption="Updated Default"
+                    headerCellTemplate="columnHeaderTemplate"
+                    cssClass="currency-label"></dxi-column>
+        <dxo-summary [calculateCustomSummary]="calculateSelectedRowSummary">
+          <dxi-total-item name="selectedRowsSummary"
+                          summaryType="custom"
+                          [valueFormat]="valueFormat"
+                          displayFormat="Subtotal: {0}"
+                          [precision]="model.payCode?.summaryOptions.precision"
+                          showInColumn="autoPayValue">
+          </dxi-total-item>
+          <dxi-total-item column="autoPayValue"
+                          summaryType="sum"
+                          [valueFormat]="valueFormat"
+                          [precision]="model.payCode?.summaryOptions.precision"
+                          displayFormat="Grand Total: {0}">
+          </dxi-total-item>
+        </dxo-summary>
+
+        <div *dxTemplate="let info of 'columnHeaderTemplate'">
+          <div class="column-aggregate-header">{{info.column.caption}}</div>
+          <div class="column-aggregate-total">&nbsp;</div>
+        </div>
+        <div *dxTemplate="let info of 'columnHeaderTemplateForHourly'">
+          <div class="column-aggregate-header">{{info.column.caption}}</div>
+          <div class="column-aggregate-total"><!--{{rosterSummary[info.column.dataField + sumColumnMappingNameSuffix]}}h--></div>
+        </div>
+        <div *dxTemplate="let info of 'valueCellTemplate'">
+          {{model.value}}
+        </div>
+
+
+
+
+
+
+      </dx-data-grid>
+    </div>
+    <div class="modal-footer">
+      <div class="col-3 p-0">
+        <button type="button" class="btn btn-outline-primary" (click)="goBack()">Back</button>
+      </div>
+      <div class="col-9 text-right p-0">
+        <button type="button" class="btn btn-outline-primary mr-2" (click)="goBack(true)">Delete</button>
+        <button type="submit" class="btn btn-primary" (click)="confirm()" [disabled]="showError || errorMessage !== '' || this.model.selectedEmployeeKeys.length === 0">{{saveBtnLabel}}</button>
+      </div>
+
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,144 @@
+<div class="reports-container payroll-pto-hours-taken {{pageSource === 'employeeReports'? 'employee-custom-report-margin': ''}}">
+  <div class="section">
+    <div class="row breadcrumb-container-reports" *ngIf="pageSource !== 'employeeReports'">
+      <div class="col-12">
+        <div class="breadcrumb-component">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item back-link">
+              <a (click)="goToBack()">Reports</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              <span class="breadcrumb-item-active">PTO Hours Taken</span>
+            </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-7 report-title align-self-center">
+        <span>PTO Hours Taken</span>
+        <span class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-5 align-self-center">                   
+          <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-8">
+        <div class="form-inline form-group">
+          <div class="form-group custom-margin-right">
+            <h4 for="eventCodes">Absence Code</h4>
+            <div class="d-inline-flex">
+              <div ngbDropdown class="d-inline-block custom-dropdown-component" #ddstatus="ngbDropdown">
+                <button type="button" class="btn  btn-form-control form-control-dropdown text-left" ngbDropdownToggle (click)="isOpened = !isOpened">
+                  <span class="truncate-dropdown-text">
+                  {{ selectedAbsence.Text }}
+                  <i class="icon  icon-shape float-right"></i>
+                  </span>
+                 </button>
+                <div ngbDropdownMenu aria-labelledby="ddstatus" class="custom-dropdown-events">
+                    <button type="button" class="dropdown-item" *ngFor="let e of absenceCodes" (click)="selectEvent(e)">{{e.Text}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <h4>Start Date</h4>
+            <div class="d-inline-flex">
+              <div class="custom-date-picker">
+                <div class="input-icon icon icon-calendar"></div>
+                <input class="form-control custom-input-field"
+                placeholder="Month dd, yyyy"
+                name="startDate"
+                [(ngModel)]="selectedStartDate"
+                (ngModelChange)="enableViewReportButton()"
+                ngbDatepicker
+                [displayMonths]="2"
+                [navigation]="'arrows'"
+                [firstDayOfWeek]="7"
+                #startDate="ngbDatepicker">
+                <button class="btn input-btn icon-shape"
+                (click)="startDate.toggle();"
+                type="button"></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <h4>End Date</h4>
+            <div class="d-inline-flex">
+              <div class="custom-date-picker">
+                <div class="input-icon icon icon-calendar"></div>
+                <input class="form-control custom-input-field"
+                placeholder="Month dd, yyyy"
+                name="endDate"
+                [(ngModel)]="selectedEndDate"
+                (ngModelChange)="enableViewReportButton()"
+                ngbDatepicker
+                [displayMonths]="2"
+                [navigation]="'arrows'"
+                [firstDayOfWeek]="7"
+                #endDate="ngbDatepicker">
+                <button class="btn input-btn icon-shape"
+                (click)="endDate.toggle();"
+                type="button"></button>
+              </div>
+              <button class="btn btn-primary" (click)="getFilteredData()" [disabled]="disableViewReportButton">View Report</button>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+
+    <div class="custom-grid pt-3 mb-0">
+      <hr class="m-0 mb-1 p-0"/>
+      <div class="col-12" *ngIf="isLoading">
+          <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <div class="row pt-3 mb-0" *ngIf="!isLoading">
+          <div class="col-12 align-self-center">
+              <div class="float-right custom-margin-bottom-dropdown">
+              <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                      (click)="requestedFunction('print')">
+                  <span class="icon icon-pint"></span>
+                  <span>PRINT</span>
+              </button>
+              <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+                <button class="btn btn-light" id="downloadDD" ngbDropdownToggle>
+                    <span>Download
+                        <i class="icon icon-shape"></i>
+                    </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="Download">
+                  <button type="button" class="dropdown-item" *ngFor="let item of dropdownOptions[0].items" (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}</button>
+                </div>
+            </div>
+              </div>
+          </div>
+      </div>
+      <div class="row custom-grid-padding" *ngIf="!isLoading">
+        <div class="col-lg-12">
+          <dx-data-grid id="gridContainer"
+          class="historical-grid pair-row-color-gray-100"
+          [dataSource]="filteredPtoHoursTakenRows"
+          [columnAutoWidth]="true"
+          keyExpr="employeeID">
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="absenceCode" [allowSorting]="false" caption="Absence Code"></dxi-column>
+            <dxi-column dataField="employeeID" [allowSorting]="false" caption="Employee ID"></dxi-column>
+            <dxi-column dataField="employeeName" [allowSorting]="false" caption="Employee Name"></dxi-column>
+            <dxi-column dataField="absenceDate" [allowSorting]="false" caption="Absence Date" format="MM/dd/yyyy"></dxi-column>
+            <dxi-column dataField="reason" [allowSorting]="false" caption="Reason"></dxi-column>
+            <dxi-column dataField="hours" [allowSorting]="false" caption="Hours"></dxi-column>
+          </dx-data-grid>
+        </div>
+      </div>
+  </div>
+
+  </div>
+</div>

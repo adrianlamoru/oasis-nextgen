@@ -1,0 +1,131 @@
+<div class="row container-content">
+    <div *ngFor="let benefitItem of benefitsPlanList; let index = index;" class="col custom-col-card">
+        <div *ngIf="benefitItem.display === true" class="card benefits-card" [ngClass]="{'benefits-card-available': benefitItem.planStatus === 'AVAILABLE'}">
+            <div class="card-body">
+                <div class="benefits-card-row">
+                
+                <div *ngIf="benefitItem.planStatus === 'ENROLLED'" class="enrolled-label">
+                    <span class="badge badge-label-discount-programs">{{ benefitItem.planStatus }}</span>
+                </div>
+
+                <div *ngIf="benefitItem.planStatus === 'AVAILABLE'" class="enrolled-label available-label">
+                  <span class="badge badge-label-retail">{{ benefitItem.planStatus }}</span>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <h3 class="benefits-plan-year-title">Plan Year <span class="benefits-plan-year">{{ benefitItem.planYear }}</span></h3>
+                </div>
+              </div>
+              <div class="custom-benefits-card-icon">
+                  <span class="{{ benefitItem.icon }}">
+                    <!-- <span class="path1"></span><span class="path2"></span> -->
+                  </span>
+              </div>
+              <h3 class="benefits-card-title">{{ benefitItem.title }}</h3>
+              <p class="benefits-card-description">{{ benefitItem.description | slice:0:100 }}{{benefitItem.description.length > 100? '...':''}}</p>
+                <div class="benefits-features-items">
+                    <ul class="benefits-features-items m-0">
+                      <li *ngFor="let featureItem of benefitItem.features"  class="media">
+                        <span class="custom-features-bullet-icon icon-triangle" > </span>
+                        <div class="media-body">
+                          {{ featureItem }}
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+            <div class="row">
+              <div class="col">
+                <button type="button" class="btn btn-primary btn-primary-benefits-card-footer" (click)="openBenefitsDetailsModal('xs', benefitsModalContent, index)">
+                  DETAILS
+                </button>
+                <span class="mr-2"></span>
+                <button type="button" class="btn btn-outline-primary btn-primary-benefits-card-footer" (click)="openWebsiteLink(benefitItem.websiteLink)">WEBSITE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #benefitsModalContent let-c="close" let-d="dismiss">
+
+<div class="custom-modal-window  benefits-medical-modal">
+  <div class="modal-header benefits-modal-header">   
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click')">
+      <span class="icon icon-close"></span>
+    </button>
+    <div class="product-card-title">{{ benefitsDetailsModalData.title }}</div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a href="javascript: void(0)" class="nav-link" [ngClass]="showDetails ? 'active' : ''" (click)="activeTabDetails(true)" data-toggle="tab">Details</a>
+        </li>
+        <li class="nav-item">
+            <a href="javascript: void(0)" class="nav-link" [ngClass]="!showDetails ? 'active' : ''" (click)="activeTabDetails(false)" data-toggle="tab">Employees on Plan</a>
+        </li>
+    </ul>   
+  </div>
+  <div *ngIf="showDetails" class="modal-body benefits-modal-body fixed-height">
+    <div class="icon custom-benefits-tile-icon">
+      <span class="icon-hospital-32">
+        <!-- <span class="icon-hospital-32"> -->
+      </span>
+    </div>
+    <div class="benefits-item">
+      <div class="d-flex">      
+        <span *ngIf="benefitsDetailsModalData.planStatus === 'ENROLLED'" class="badge badge-label-discount-programs mb-2 mr-1" tabindex="0">{{ benefitsDetailsModalData.planStatus }}</span>
+        <span *ngIf="benefitsDetailsModalData.planStatus === 'AVAILABLE'" class="badge badge-label-retail mb-2 mr-1" tabindex="0">{{ benefitsDetailsModalData.planStatus }}</span>      
+        <h3 class="custom-plan-modal-title align-self-center ml-2">Plan Year <span class="plan-year-text">{{ benefitsDetailsModalData.planYear }}</span></h3>
+      </div>
+      <div class="product-card-title">{{ benefitsDetailsModalData.title }}</div>
+      <div class="product-card-description readLess" [ngClass]="{ 'readMore' : toggleBenfitsText, 'readLess': !toggleBenfitsText }">{{ benefitsDetailsModalData.description }}</div>
+      <div class="item-footer">
+        <a href="javascript: void(0)" *ngIf="!toggleBenfitsText" (click)="toggleBenfitsText = !toggleBenfitsText">READ MORE
+          <i class="icon icon-shape"></i>
+        </a>
+        <a class="readLessIcon" href="javascript: void(0)" *ngIf="toggleBenfitsText" (click)="toggleBenfitsText = !toggleBenfitsText">READ LESS
+            <i class="icon icon-shape-reverse"></i>
+        </a>
+      </div>
+      <div class="product-card-features">
+        <span>FEATURES</span>
+      </div>
+      <div class="features-items">
+        <ul class="features-items">
+          <li *ngFor="let featureItem of benefitsDetailsModalData.features" class="media">
+            <span class="custom-features-bullet-icon icon-triangle" > </span>
+            <div class="media-body">
+              {{ featureItem }}
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="product-card-features additional-info">
+        <span>ADDITIONAL INFO</span>
+      </div>
+      <div class="modal-body benefits-modal-body additional-info-list">
+        <ul>
+          <li *ngFor="let additionalInfoItem of benefitsDetailsModalData.additionalInfo">
+            <span class="benefits-modal-link" (click)="openAdditionalInfoAction(additionalInfoItem)"> {{ additionalInfoItem.text }} </span><hr>
+            <!-- <span class="benefits-modal-link" (click)="openButtonAction(additionalInfoItem.link)"> {{ benefitsDetailsModalData.additionalInfoSite }} </span><hr> -->
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!showDetails" class="modal-body benefits-modal-body fixed-height">
+      <div class="benefits-item benefits-item-parent-padding no-padding">
+        <div class="features-items features-with-borders">
+          <ul class="features-items">
+            <li class="media link" *ngFor="let employee of employees" (click)="c('Close click'); goToDetails(employee.ID);">                 
+                <div class="media-body">{{employee.Name}}</div>
+                <span class="custom-features-bullet-icon-2 icon-side-chevron" > </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer modal-footer-benefits">
+    <button type="button" class="btn btn-outline-primary" (click)="c('Close click'); activeTabDetails(true);">Close</button>
+  </div>
+</div>
+</ng-template>

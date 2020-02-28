@@ -1,0 +1,23 @@
+@import '~sass/variables';
+
+.manager-onboarding-component {
+    margin: 20px 0 60px;
+    padding: 25px 15px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 6px 16px 0 rgba(32, 44, 86, 0.04);
+    min-height: 100px;
+
+    .content-title {
+        padding: 0 !important;
+        height: 36px;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 36px;
+        margin-bottom:  22px
+    }
+
+    .content-block {
+        padding: 0 !important;
+    }
+}

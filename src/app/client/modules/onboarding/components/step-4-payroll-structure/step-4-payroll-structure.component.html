@@ -1,0 +1,329 @@
+<div class="payroll-structure-component">
+  <form [formGroup]="formGroup" autocomplete="off">
+    <div class="row">
+      <div class="col-8">
+        <div class="row">
+          <div class="col-12">
+            <h3 class="display-3 section-title-payroll">Payroll Structure</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator-title"></div>
+          </div>
+        </div>
+        <div formGroupName="frequentPayCodesGroup" class="row">
+          <div class="form-group col-12 d-inline-block pr-3">
+            <label class="select-pay-codes-padding" for="">Select the most frequently utilized pay codes</label>
+            <div class="row mb-24">
+              <div class="col-3">
+                <dx-check-box formControlName="reg" text="REG"></dx-check-box>
+              </div>
+              <div class="col-3">
+                <dx-check-box formControlName="ot" text="OT"></dx-check-box>
+              </div>
+              <div class="col-3">
+                <dx-check-box formControlName="tiphrs" text="TIPHRS"></dx-check-box>
+              </div>
+              <div class="col-3">
+                <dx-check-box formControlName="cashtips" text="CASHTIPS"></dx-check-box>
+              </div>
+            </div>
+            <div class="row mb-24">
+              <div class="col-3">
+                <dx-check-box formControlName="chgtips" text="CHGTIPS"></dx-check-box>
+              </div>
+              <div class="col-3">
+                <dx-check-box formControlName="hol" text="HOL"></dx-check-box>
+              </div>
+              <div class="col-3">
+                <dx-check-box formControlName="vac" text="VAC"></dx-check-box>
+              </div>
+              <div class="col-3">
+                <dx-check-box formControlName="sick" text="SICK"></dx-check-box>
+              </div>
+            </div>
+            <div class="row mb-24">
+              <div class="col-3">
+                <dx-check-box formControlName="personal" text="PERSONAL"></dx-check-box>
+              </div>
+              <div class="col-3">
+                <dx-check-box formControlName="pto" text="PTO"></dx-check-box>
+              </div>
+              <div class="col-3">
+                <dx-check-box formControlName="expNt" text="EXP-NT"></dx-check-box>
+              </div>
+              <div class="col-3">
+                <dx-check-box formControlName="mileNt" text="MILE-NT"></dx-check-box>
+              </div>
+            </div>
+            <div class="row mb-24">
+              <div class="col-3">
+                <dx-check-box formControlName="retro" text="RETRO"></dx-check-box>
+              </div>
+              <div class="col-3">
+                <dx-check-box formControlName="retroHrs" text="RETRO-HRS"></dx-check-box>
+              </div>
+              <div class="col-3">
+                <dx-check-box formControlName="juryDuty" text="JURY DUTY"></dx-check-box>
+              </div>
+              <div class="col-3">
+                <dx-check-box formControlName="bonus" text="BONUS"></dx-check-box>
+              </div>
+            </div>
+            <div class="row mb-24">
+              <div class="col-3">
+                <dx-check-box formControlName="bonusSuppl" text="BONUS-SUPPL"></dx-check-box>
+              </div>
+              <div class="col-3">
+                <dx-check-box formControlName="salary" text="SALARY"></dx-check-box>
+              </div>
+              <div class="col-3">
+                <dx-check-box formControlName="bereavement" text="BEREAVEMENT"></dx-check-box>
+              </div>
+              <div class="col-3">
+                <dx-check-box formControlName="comm" text="COMM"></dx-check-box>
+              </div>
+            </div>
+            <div class="row mb-24">
+              <div class="col-3">
+                <dx-check-box [value]='otherValue' formControlName="other" (onValueChanged)="otherValue = !otherValue" text="Other"></dx-check-box>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-12 d-inline-block pr-3">
+            <label for="exampleTextarea">Please provide details</label>
+            <textarea class="form-control" [disabled]="!otherValue" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="taxes-paragraph">
+              Supplemental wages paid separately from regular wages (separate check) will be taxed at the IRS regulation of a flat 22%
+              (Federal Income Tax).
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row checkbox-row">
+          <div class="form-group col-8 d-inline-block p-0">
+            <label class="vertical-sub mb-0">Do you pay non-taxable reimbursements?</label>
+          </div>
+          <div class="form-group col-4 checkbox-section p-0">
+            <!-- <dx-check-box [(ngModel)]="TaxableReimbursementsCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('TaxableReimbursementsCheckboxGroup', 'yes', $event)"></dx-check-box>
+            <dx-check-box [(ngModel)]="TaxableReimbursementsCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('TaxableReimbursementsCheckboxGroup', 'no', $event)"></dx-check-box> -->
+            <div formGroupName="nonTaxableReimbursementsGroup" class="form-checkbox-width">
+              <dx-check-box formControlName="nonTaxableReimbursementsYes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('nonTaxableReimbursementsYes', 'nonTaxableReimbursementsGroup', $event)"></dx-check-box>
+
+              <dx-check-box class="mr-0 cb-holiday-after" formControlName="nonTaxableReimbursementsNo" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('nonTaxableReimbursementsNo', 'nonTaxableReimbursementsGroup', $event)"></dx-check-box>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-12 d-inline-block pr-3">
+            <label for="exampleTextarea">Please provide details</label>
+            <textarea class="form-control" [disabled]="nonTaxableReimbursementsName !== 'nonTaxableReimbursementsYes'" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row checkbox-row">
+          <div class="form-group col-8 d-inline-block p-0">
+            <label class="vertical-sub mb-0">Do you pay taxable allowances?</label>
+          </div>
+          <div class="form-group col-4 checkbox-section p-0">
+            <!-- <dx-check-box [(ngModel)]="TaxableAllowancesCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('TaxableAllowancesCheckboxGroup', 'yes', $event)"></dx-check-box>
+              <dx-check-box [(ngModel)]="TaxableAllowancesCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('TaxableAllowancesCheckboxGroup', 'no', $event)"></dx-check-box> -->
+            <div formGroupName="taxableAllowancesGroup" class="form-checkbox-width">
+              <dx-check-box formControlName="taxableAllowancesYes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('taxableAllowancesYes', 'taxableAllowancesGroup', $event)"></dx-check-box>
+
+              <dx-check-box class="mr-0 cb-holiday-after" formControlName="taxableAllowancesNo" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('taxableAllowancesNo', 'taxableAllowancesGroup', $event)"></dx-check-box>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-12 d-inline-block pr-3">
+            <label for="">Please provide details</label>
+            <textarea class="form-control" [disabled]="taxableAllowancesName !== 'taxableAllowancesYes'" rows="3"></textarea>
+          </div>
+        </div>
+        <!-- <div class="row">
+          <div class="form-group col-12 d-inline-block pr-3">
+            <h3 class="display-3 mb-24">Miscellaneous Deductions</h3>
+          </div>
+        </div> -->
+        
+        <!-- <label class="company-sponsored-label" for="compsponsored">Miscellaneous Deductions</label> -->
+
+        <div class="row">
+          <div class="col-12">
+              <h3 class="display-3 section-title-payroll2">Miscellaneous Deductions</h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator-title2"></div>
+          </div>
+        </div>
+
+        <div class="row checkbox-row2">
+          <div class="form-group col-9 d-inline-block mb-0 p-0">
+            <label class="vertical-sub mb-0">Do you have company sponsored miscellaneous deductions (e.g. cell phone, uniform, meals)?</label>
+          </div>
+          <div class="form-group col-3 checkbox-section p-0">
+            <!-- <dx-check-box [(ngModel)]="companySponsoredCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('companySponsoredCheckboxGroup', 'yes', $event)"></dx-check-box>
+            <dx-check-box [(ngModel)]="companySponsoredCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('companySponsoredCheckboxGroup', 'no', $event)"></dx-check-box> -->
+            <div formGroupName="miscDeductionsGroup" class="form-checkbox-width">
+              <dx-check-box formControlName="miscDeductionsYes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('miscDeductionsYes', 'miscDeductionsGroup', $event)"></dx-check-box>
+
+              <dx-check-box class="mr-0 cb-holiday-after" formControlName="miscDeductionsNo" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('miscDeductionsNo', 'miscDeductionsGroup', $event)"></dx-check-box>
+            </div>
+          </div>
+        </div>      
+      </div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-10">
+        <div class="custom-grid-header">
+          <dx-data-grid #dxDataGrid5 [dataSource]="companySponsored"
+            [columnAutoWidth]="true" [disabled]="miscDeductionsName !== 'miscDeductionsYes'"
+            class="payroll-batch-grid row-edited-data-grid"
+            keyExpr="ID">
+            
+            <dxo-paging [enabled]="false"></dxo-paging>
+
+            <dxo-editing mode="batch" [allowUpdating]="true">
+            </dxo-editing>
+
+            <dxi-column dataField="EmployeeName" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+            </dxi-column>
+            <dxi-column dataField="SocialSecurityNumber" alignment="left" [allowSorting]="false" cellTemplate="SSNTemplate" editCellTemplate="editSSNTemplate">
+              <div *dxTemplate="let cell of 'SSNTemplate'">
+                <dx-text-box class="ssnReadOnlyMask" value="••• •• ••••">
+                </dx-text-box>
+              </div>
+              <div *dxTemplate="let cell of 'editSSNTemplate'">
+                <dx-text-box mask="XXX XX XXXX" [maskRules]="rules" [(ngModel)]="cell.data.SocialSecurityNumber" (onValueChanged)="onValueChanged($event, data)">
+                </dx-text-box>
+              </div>
+            </dxi-column>
+
+            <dxi-column dataField="Description" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+            </dxi-column>
+
+            <dxi-column dataField="SocialSecurityNumber" alignment="left" [allowSorting]="false" cellTemplate="SSNTemplate" editCellTemplate="editSSNTemplate">
+              <div *dxTemplate="let cell of 'SSNTemplate'">
+                <dx-text-box value="###-##-####">
+                </dx-text-box>
+              </div>
+              <div *dxTemplate="let cell of 'editSSNTemplate'">
+                <dx-text-box mask="XXX-XX-XXXX" [maskRules]="rules" [(ngModel)]="cell.data.SocialSecurityNumber">
+                </dx-text-box>
+              </div>
+            </dxi-column>
+
+            <dxi-column dataField="Description" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+            </dxi-column>
+
+            <dxi-column dataField="DeductionAmount" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+            </dxi-column>
+
+            <dxi-column dataField="DeductionPeriods" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+              <dxo-lookup [dataSource]="statesDropdown" valueExpr="abbr" displayExpr="name">
+              </dxo-lookup>
+            </dxi-column>
+
+            <dxi-column dataField="PlanType" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+            </dxi-column>
+
+            <dxi-column dataField="TrackArrears" alignment="left" [showEditorAlways]="true" [allowSorting]="false">
+            </dxi-column>
+
+            <dxi-column dataField="ClientId" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+            </dxi-column>
+
+            <dxi-column dataField="EffectiveDate" alignment="right" [showEditorAlways]="true" [allowSorting]="false">
+              <dx-date-box #dbPayPeriod width="100%" (onKeyDown)="onJobcostPayPeriodKeyDown($event, dbPayPeriod)" (onClosed)="onJobcostPayPeriodClosed()">
+              </dx-date-box>
+            </dxi-column>
+
+            <dxi-column cellTemplate="editTemplate" alignment="left" [width]="60" [minWidth]="60">
+              <div *dxTemplate="let data of 'editTemplate'">
+                <div class="dx-custom-command-edit">
+                  <a *ngIf="data.data.inserting" class="dx-link dx-link-edit" tabindex="0" (click)="onAddRow(data, companySponsored)" (keydown)="onAddKeyDown($event, data, companySponsored)">ADD</a>
+                  <a *ngIf="!data.data.inserting" class="dx-link dx-link-delete" tabindex="0" (click)="onDeleteRow(data, companySponsored)"
+                    (keydown)="onDeleteKeyDown($event, data, companySponsored)">REMOVE</a>
+                </div>
+              </div>
+            </dxi-column>
+
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <div *ngIf="miscDeductionsName === 'miscDeductionsYes'" class="row">
+          <div class="col-12">
+            <div class="taxes-paragraph">
+              Periods are the number of times the deduction is taken per month.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row checkbox-row3">
+          <div class="form-group col-8 d-inline-block p-0">
+            <label class="vertical-sub mb-0">Do you offer Paid Time Off to your employees?</label>
+          </div>
+          <div class="form-group col-4 checkbox-section p-0">
+            <!-- <dx-check-box [(ngModel)]="timeOffCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('timeOffCheckboxGroup', 'yes', $event)"></dx-check-box>
+              <dx-check-box [(ngModel)]="timeOffCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('timeOffCheckboxGroup', 'no', $event)"></dx-check-box> -->
+            <div formGroupName="ptoEmployeesGroup" class="form-checkbox-width">
+              <dx-check-box formControlName="ptoEmployeesYes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('ptoEmployeesYes', 'ptoEmployeesGroup', $event)"></dx-check-box>
+
+              <dx-check-box class="mr-0 cb-holiday-after" formControlName="ptoEmployeesNo" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('ptoEmployeesNo', 'ptoEmployeesGroup', $event)"></dx-check-box>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="taxes-paragraph">
+              Please upload a copy of your current PTO policy.
+              <div class="d-inline align-self-center">
+                <button class="btn btn-primary float-right" (click)="openUploadModal('lg', uploadModal)" [disabled]="ptoEmployeesName === '' || ptoEmployeesName === 'ptoEmployeesNo'">Upload</button>
+              </div>
+            </div>
+            <ng-template #uploadModal let-c="close" let-d="dismiss">
+              <app-upload [modalCloseFunc]="this.c" [modalDismissFunc]="this.d" [isTypeModal]="true"></app-upload>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

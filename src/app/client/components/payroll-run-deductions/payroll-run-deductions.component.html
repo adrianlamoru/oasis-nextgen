@@ -1,0 +1,158 @@
+<div class="payroll-run-wizard">
+  <app-payroll-run-breadcrumb [batchNumber]="roster.batchNumber" [rosterId]="roster.id"></app-payroll-run-breadcrumb>
+  <app-payroll-navbar></app-payroll-navbar>
+
+  <div class="payroll-run-deductions">
+    <div class="row header">
+      <div class="col-6">
+        <span class="title">{{tabTitle}}</span>
+        <span class="title-date" *ngIf="!roster?.isManual && !roster?.isOffCycle">{{tabTitleDate || formatDate}}</span>
+      </div>
+      <div class="col-6">
+        <div class="buttons pull-right">
+          <button type="button" class="btn btn-link" (click)="tryCancelBatch()">
+            <span class="btn-link-text">CANCEL BATCH</span>
+          </button>
+          <button type="button" class="btn btn-outline-primary" (click)="goToBack()">BACK</button>
+          <button type="button" class="btn btn-outline-primary" (click)="saveAndExit()" *ngIf="!roster?.isManual">SAVE
+            AND EXIT</button>
+          <button type="button" class="btn btn-primary" (click)="goToNext()">NEXT</button>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-8 d-flex deduction-type-container" *ngIf="roster?.isManual">
+        <dx-radio-group class="d-inline-block selected-deduction-type align-self-center" [(ngModel)]="selectedEmployee.selectedDeductionType"
+          (onValueChanged)="onSelectedDeductionValueChanged($event)" [items]="payrollService.deductionTypes" layout="horizontal">
+        </dx-radio-group>
+        <div ngbDropdown class="d-inline-block custom-dropdown-component deduction-codes-dropdown">
+          <button class="btn btn-form-control form-control-dropdown text-left" id="deductionCodesDropdowns" [disabled]="selectedEmployee?.selectedDeductionType !== payrollService.deductionTypes[1]"
+            ngbDropdownToggle (click)="isDropDownBoxSOpened = !isDropDownBoxSOpened">
+            <span class="{{selectedEmployee?.selectedDeductionPeriodValue?.name === '' ? 'text-placeholder' : '' }}">{{
+              selectedEmployee?.selectedDeductionPeriodValue?.name }}
+              <i class="icon icon-shape float-right"></i>
+            </span>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="deductionCodesDropdowns">
+            <button type="button" class="dropdown-item" *ngFor="let item of payrollService.deductionPeriodValues"
+              (click)="selectedEmployee.selectedDeductionPeriodValue = item;">{{item.name}}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 text-right" [ngClass]="{'offset-8': !roster?.isManual}">
+        <div ngbDropdown class="d-inline-block" placement="bottom-right">
+          <button class="btn btn-light" id="btnAddCode" ngbDropdownToggle>
+            <span>
+              ADD DEDUCTION CODE
+              <i class="icon icon-shape"></i>
+            </span>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="btnAddCode" class="custom-dropdown-menu">
+            <dx-list #dxCodelist height="100%" [dataSource]="deductionCodeTypeList" [grouped]="true"
+              [collapsibleGroups]="false" [selectionMode]="multiple" [showSelectionControls]="true" [selectedItemKeys]="deductionCodeList | searchfilter: 'isDefault' : true"
+              (onSelectionChanged)="deductionCode_itemSelectionChanged($event)" (onItemClick)="deductionCode_itemClick($event)"
+              class="payroll-batch-code-listview">
+              <div *dxTemplate="let item of 'group'">
+                <div>{{item.key}}</div>
+              </div>
+              <div *dxTemplate="let item of 'item'">
+                <div>
+                  {{item.name}}
+                </div>
+              </div>
+            </dx-list>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row data-grid-container">
+      <div class="col-12">
+
+        <dx-data-grid #gridContainer 
+          id="gridContainer" 
+          class="payroll-batch-grid" 
+          [dataSource]="employees" 
+          keyExpr="id"
+          [hoverStateEnabled]="true" 
+          [columnAutoWidth]="true"
+          [masterDetail]="{ enabled: false, template: 'detail' }"
+          (onEditingStart)="onEditingStart($event)"
+          (onEditorPreparing)="onEditorPreparing($event)" 
+          (onSelectionChanged)="selectionChangedHandler($event)"
+          (onContentReady)="onContentReady($event)" 
+          (onRowUpdated)="onRowUpdated($event)">
+          <dxo-paging [enabled]="false"></dxo-paging>
+          <dxo-editing mode="batch" [allowUpdating]="true" [allowAdding]="false"></dxo-editing>
+          <dxi-column dataField="employeeName" fixed="true" [height]="50" [width]="200" fixedPosition="left"
+            [allowEditing]="false" [allowSorting]="false" headerCellTemplate="columnHeaderTemplate"></dxi-column>
+          <dxi-column *ngFor="let deductionCode of deductionCodeList" dataField="{{deductionCode.columnMapping}}"
+            caption="{{deductionCode.name}}" [height]="50" [showEditorAlways]="true" editorType="dxNumberBox"
+            [editorOptions]="deductionCode.editorOptions" [visible]="deductionCode.isDefault" [visibleIndex]="deductionCode.priority"
+            [allowSorting]="false" [allowFiltering]="false" headerCellTemplate="{{deductionCode.type.toLowerCase() === 'hourly' && !roster?.isManual ? 'columnHeaderTemplateForHourly' : 'columnHeaderTemplate' }}"></dxi-column>
+
+          <dxi-column dataField="" [height]="50" [width]="100" [allowFiltering]="false" fixed="true" fixedPosition="right"
+            [allowSorting]="false" cellTemplate="actionTemplate" [allowEditing]="false" alignment="center"></dxi-column>
+
+          <div *dxTemplate="let data of 'actionTemplate'">
+            <dx-menu #menu [dataSource]="dropdownActions" displayExpr="name" orientation="horizontal" submenuDirection="auto"
+              [hideSubmenuOnMouseLeave]="false" (onItemClick)="onDropdownClick($event, data, menu)">
+            </dx-menu>
+          </div>
+
+          <dxi-column dataField="total" [height]="50" [width]="130" [allowEditing]="false" fixed="true" fixedPosition="right"
+            [allowSorting]="false" alignment="right" cssClass="currency-label" headerCellTemplate="columnHeaderTemplate"></dxi-column>
+
+          <dxo-summary>
+            <!--<dxi-total-item column="employeeName" displayFormat="Totals"></dxi-total-item>-->
+            <dxi-total-item *ngFor="let deductionCode of deductionCodeList" [column]="deductionCode.columnMapping"
+              [valueFormat]="deductionCode.summaryOptions.valueFormat" [precision]="deductionCode.summaryOptions.precision"
+              [summaryType]="deductionCode.summaryOptions.summaryType" [displayFormat]="deductionCode.summaryOptions.displayFormat"
+              [alignment]="deductionCode.summaryOptions.alignment" cssClass="invisible"></dxi-total-item>
+            <dxi-total-item column="" displayFormat="Total Deductions:" alignment="right"></dxi-total-item>
+            <dxi-total-item column="total" displayFormat="{{roster.totalDeductions}}" alignment="right" cssClass="currency-label"></dxi-total-item>
+          </dxo-summary>
+
+          <div *dxTemplate="let info of 'columnHeaderTemplate'">
+            <div class="column-aggregate-header">{{info.column.caption}}</div>
+            <div class="column-aggregate-total">&nbsp;</div>
+          </div>
+          <div *dxTemplate="let info of 'columnHeaderTemplateForHourly'">
+            <div class="column-aggregate-header">{{info.column.caption}}</div>
+            <div class="column-aggregate-total">{{rosterSummary[info.column.dataField + sumColumnMappingNameSuffix]}}h</div>
+          </div>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+
+  <!--{{diagnosticGridContainerColumns}}-->
+</div>
+
+<ng-template #payrollRunCheckMemoModalComponent let-c="close" let-d="dismiss">
+  <app-payroll-run-check-memo-modal [employee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"
+    (memoSavedEvent)="checkMemoListener($event);"></app-payroll-run-check-memo-modal>
+</ng-template>
+
+
+<!-- DELETE Popup Start -->
+<dx-popup class="custom-dx-popup" #popupDeleteGLCode [showTitle]="false" [width]="350" [height]="150" [position]="{ my: 'middle', at: 'middle', of: window }"
+  [showCloseButton]="false" [dragEnabled]="false" [closeOnOutsideClick]="true" [(visible)]="deletePopupVisible">
+  <div *dxTemplate="let data of 'content'">
+    <div class="message-modal-window">
+      <div class="modal-body">
+        <div class="form-group d-flex justify-content-center">
+          <h3 class="display-3">Are you sure you want to cancel this batch?</h3>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-outline-primary" (click)="onNoClick()">No</button>
+        <button type="button" class="btn btn-primary" (click)="cancelBatch()">Yes</button>
+      </div>
+    </div>
+  </div>
+</dx-popup>
+<!-- DELETE Popup End -->
+
+<!--{{diagnosticRosterSummary}}-->
+<!--{{diagnosticEmployees}}-->

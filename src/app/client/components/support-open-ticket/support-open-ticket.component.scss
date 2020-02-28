@@ -1,0 +1,38 @@
+@import '~sass/variables';
+
+.custom-support-modal {
+    .modal-body {
+        min-height: 434px;
+        max-height: 434px;
+        overflow: auto;
+    }
+}
+
+.label-subject {
+    font-size: 11px;
+    font-weight: 500 !important;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: $gray-700;
+    text-transform: uppercase;
+}
+
+hr {
+    margin-top: 25px !important;
+    margin-bottom: 10px !important;
+}
+
+textarea {
+    padding-top: 13px;
+    min-height: 106px;
+}
+
+.case-text {
+    font-size: 14px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.29;
+    letter-spacing: normal;
+}

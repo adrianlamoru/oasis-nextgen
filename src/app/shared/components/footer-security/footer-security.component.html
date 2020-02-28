@@ -1,0 +1,39 @@
+<div class="custom-modal-window">
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">Oasis Website Security/Infrastructure Statement</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalDismissFunc('Cross click')">
+      <span class="icon icon-close"></span>
+    </button>
+  </div>
+
+  <div class="modal-body modal-body-scroll">
+    <p class="font-weight-bold">Website Security/Infrastructure</p>
+
+    <p>The following list covers our security modules currently implemented on the websites: www.OasisAssistant.com, client.OasisAssistant.com, www.OasisPayroll.com &amp; employee.OasisPayroll.com.</p>
+
+    <p class="font-weight-bold">Web Server/Firewall Level</p>
+
+    <p>The Web Server is accessed through connection to a dedicated Web Server in a perimeter Network. An Additional Layer of security is that the Web Server uses non standard ports to access data within the trusted network. Therefore Data is retrieved from the internet by 2 different rule sets.</p>
+
+    <p class="font-weight-bold">Encryption</p>
+
+    <p>All communication between browser and the Web Server is done using 128-bit encryption for some legacy sites and 256-bit encryption that will become the standard August 2015. This communication takes place using SSL certificates issued by GoDaddy. Secure Sockets Layer (SSL) is a protocol designed to enable secure communications on an insecure network such as the Internet. SSL provides encryption and integrity of communications along with strong authentication using digital certificates.</p>
+
+    <p class="font-weight-bold">Web Server/Browser Level</p>
+
+    <ul class="footer-padding">
+      <li>Cookies/Session Variables: No client cookies are used on either site. 1 session variable is used to aid in authentication. Session variable gives the browser a "session cookie" which contains only a key. This key is used to retrieve Username, Password, and other sensitive information from server memory.</li>
+      <li>Sensitive Information: No sensitive information is ever stored within cookies or session variables; information is never stored at the browser level. All authentication and sensitive information retrieval is done at the Server level.</li>
+      <li>Object Creation: Object Creation that handles data transfer and backend access is done using an IBM product which adds an additional layer using a C library. This means DTOs (Data Transfer Objects) and DAOs (Data Access Objects) are not standard Java Objects; this adds another layer of security.</li>
+      <li>Minimum Required Software: Internet Browsers must have JavaScript and Session Cookies enabled. Browsers that do not meet those requirements will not have access to either website. 
+          Please visit our <a href="javascript: void(0)" (click)="openModal(openFooterRequirements, 'xl')">Requirements page</a> for the supported browser listing.</li>
+      <li>Timeouts - All sessions automatically timeout with 20 minutes of inactivity.</li>
+      <li>Pages secured - Once authenticated, every single page on both websites goes through an authentication script using Non-Standard Object Creation for Server Side authentication.</li> 
+    </ul>
+
+  </div>
+</div>
+
+<ng-template #openFooterRequirements let-c="close" let-d="dismiss">
+	<app-footer-requirements [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-footer-requirements>
+</ng-template>

@@ -1,0 +1,98 @@
+@import "~bootstrap/scss/functions"; 
+@import '~sass/variables';
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.reports-garnishments {
+    padding: 29px 35px 60px 30px;
+    min-height: 600px;
+
+    .section{
+
+        [class*="col-"] {
+
+            &:first-child {
+                padding-left: 15px !important;
+            }
+            padding-right: 10px !important;
+            padding-left: 10px !important;
+        }
+
+        .custom-left-margin-col {
+            padding-left: 15px !important;
+        }
+
+        .custom-right-margin-col {
+            padding-right: 15px !important;
+        }
+
+        /deep/ .custom-dropdown-component {
+            width: inherit !important;
+    
+            .form-control-dropdown {
+                width: inherit !important;
+            }
+            .btn-form-control span {
+                display: initial;
+            }
+            .dropdown-menu {
+                width: inherit;
+            }
+            
+        }
+
+        /deep/ .dropdown-scroll {
+            .dropdown-menu {
+                width: inherit;
+
+                max-height: 200px;
+                overflow: auto;
+            }
+        }
+
+        .custom-margin-top {
+            margin-top: 15px;
+        }
+
+        @include media-breakpoint-down(lg) {
+            .custom-top-margin-col1 {
+                margin-top: 20px;
+            }
+
+            .custom-padding-left-col1 {
+                padding-left: 15px !important;
+            }
+        }
+
+        .custom-view-report-btn {
+            align-self: flex-end;
+        }
+
+       .report-title{        
+            margin-bottom: 22px;
+        }
+
+        .custom-margin-bottom-dropdown {
+            margin-bottom: 12px;
+            margin-top: 10px;
+        }
+    
+        .custom-grid-padding {
+            margin-top: 4px;
+        }
+
+        .hr-padding{
+            padding-top: 14px !important;
+            padding-bottom: 11px !important;
+        }
+
+        .back-button{
+            margin-top: 17px;
+        }
+
+        .custom-dropdown {
+            width: 100px!important;
+        }
+    }
+
+}

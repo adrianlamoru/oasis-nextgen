@@ -1,0 +1,128 @@
+<div class="employee-reports-container employee-reports-unemployement-wages p-0">
+  <div class="section">
+    <div class="row">
+      <div class="col-6 report-title align-self-center">
+        <span>Unemployment Wages</span>
+        <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-6 report-title align-self-center">                   
+        <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-8">
+        <div class="d-flex form-group">
+          <div class="form-group">
+            <h4>Beginning Pay Date</h4>
+            <div class="d-inline-flex">
+              <div class="custom-date-picker">
+                <div class="input-icon icon icon-calendar"></div>
+                <input class="form-control custom-input-field"
+                placeholder="Month dd, yyyy"
+                name="startDateField"
+                [(ngModel)]="startDate"
+                (ngModelChange)="enableViewReportButton()"
+                ngbDatepicker
+                [displayMonths]="2"
+                [navigation]="'arrows'"
+                [firstDayOfWeek]="7"
+                #startDateField="ngbDatepicker">
+                <button class="btn input-btn icon-shape"
+                (click)="startDateField.toggle();"
+                type="button"></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <h4>Ending Pay Date</h4>
+            <div class="d-inline-flex">
+              <div class="custom-date-picker">
+                <div class="input-icon icon icon-calendar"></div>
+                <input class="form-control custom-input-field"
+                placeholder="Month dd, yyyy"
+                name="endDateField"
+                [(ngModel)]="endDate"
+                (ngModelChange)="enableViewReportButton()"
+                ngbDatepicker
+                [displayMonths]="2"
+                [navigation]="'arrows'"
+                [firstDayOfWeek]="7"
+                #endDateField="ngbDatepicker">
+                <button class="btn input-btn icon-shape"
+                (click)="endDateField.toggle();"
+                type="button"></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <h4 for="eventCodes">State Tax Code</h4>
+            <div class="d-inline-flex">
+              <div ngbDropdown class="d-inline-block custom-dropdown-component" #ddstatus="ngbDropdown">
+                <button type="button" class="btn  btn-form-control form-control-dropdown text-left" ngbDropdownToggle>
+                  <span class="truncate-dropdown-text">
+                  {{ selectedTaxCode.Text }}
+                  <i class="icon  icon-shape float-right"></i>
+                  </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="ddstatus" class="custom-dropdown-unemp-wages">
+                  <button type="button" class="dropdown-item" *ngFor="let s of stateTaxCodes" (click)="selectTaxCode(s)">{{s.Text}}</button>
+                </div>
+              </div>
+              <button class="btn btn-primary" (click)="getFilteredData()" [disabled]="disableViewReportButton">View Report</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-grid pt-3 mb-0">
+      <hr class="m-0 mb-1 p-0"/>
+      <div class="col-12" *ngIf="isLoading">
+        <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <div class="row pt-3 mb-0" *ngIf="!isLoading">
+        <div class="col-12 align-self-center">
+          <div class="float-right custom-margin-bottom-dropdown">
+            <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                    (click)="requestedFunction('print')">
+                <span class="icon icon-pint"></span>
+                <span>PRINT</span>
+            </button>
+            <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+              <button class="btn btn-light" id="downloadDD" ngbDropdownToggle>
+                <span>Download
+                    <i class="icon icon-shape"></i>
+                </span>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="Download">
+                <button type="button" class="dropdown-item" *ngFor="let item of dropdownOptions[0].items" (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}</button>
+              </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="row custom-grid-padding" *ngIf="!isLoading">
+        <div class="col-lg-12">
+          <dx-data-grid id="gridContainer"
+          class="historical-grid pair-row-color-gray-100"
+          [dataSource]="filteredEmployeeUnempWagesDataRows"
+          [columnAutoWidth]="true">
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="taxCode" [allowSorting]="false" alignment="left"></dxi-column>
+            <dxi-column dataField="taxCodeDesc" [allowSorting]="false" alignment="left"></dxi-column>
+            <dxi-column dataField="ssn" [allowSorting]="false" alignment="left"></dxi-column>
+            <dxi-column dataField="employeeID" [allowSorting]="false" caption="Emp ID" alignment="left"></dxi-column>
+            <dxi-column dataField="employeeName" [allowSorting]="false" alignment="left"></dxi-column>
+            <dxi-column dataField="grossWages" [allowSorting]="false" alignment="right"></dxi-column>
+            <dxi-column dataField="overLimit" [allowSorting]="false" alignment="right"></dxi-column>
+            <dxi-column dataField="sutaWages" [allowSorting]="false" alignment="right"></dxi-column>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

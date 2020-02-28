@@ -1,0 +1,73 @@
+<div class="client-support-content client-container-content">
+    <div class="row align-items-center container-header">
+        <div class="col-3 container-title"><span>Support</span></div>
+        <div class="col-9">
+            <div class="float-right">
+                <button type="button" class="btn btn-primary btn-cta" (click)="OpenCreateTicketModal('sm', supportCreateTicketModalTemplate)">Create Case</button>
+            </div>
+        </div>
+    </div>
+    <div class="row container-content">
+        <div class="col custom-col-card">
+            <div class="card benefits-card dashboard-card card-support">
+                <div class="card-body">
+                    <h3 class="benefits-card-title">Case Status</h3>  
+                    <div class="chart-container-center">
+                        <app-stacked-bar-chart-horizontal [dataSource]="horizontalBarChartData" [height]="180"></app-stacked-bar-chart-horizontal>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="col custom-col-card">
+            <div class="card benefits-card dashboard-card card-support">
+                <div class="card-body">
+                    <h3 class="benefits-card-title">Case Category</h3>  
+                    <div class="chart-container-center">
+                        <app-pie-chart [dataSource]="pieChartData" [customSupportPalette]="customSuppportPaletteCharts" [customRightAlignment]="55" [height]="188" ></app-pie-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row container-content">
+        <div class="col-12 custom-col-card">
+            <div class="card benefits-card dashboard-card card-support">
+                <div class="card-body">
+                    <h3 class="benefits-card-title">Support Cases</h3> 
+                    <div class="col-12">
+                        <ngb-tabset #tabSet="ngbTabset" class="ngbTabset support-case-senstivity-tabs" *ngIf="supportTicketsService.supportListOfCases">
+                        <ngb-tab id="Critical">
+                            <ng-template ngbTabTitle>Critical <span class="nav-ticket-count">{{getCaseCountByPriority('Critical')}}</span></ng-template>
+                            <ng-template ngbTabContent>
+                                <app-support-tickets-list #supporTabRef caseSensivity="critical" [listOfCases]="supportTicketsService.supportListOfCases"></app-support-tickets-list>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab id="High">
+                            <ng-template ngbTabTitle>High <span class="nav-ticket-count">{{getCaseCountByPriority('High')}}</span></ng-template>
+                            <ng-template ngbTabContent>
+                                <app-support-tickets-list #supporTabRef caseSensivity="high" [listOfCases]="supportTicketsService.supportListOfCases"></app-support-tickets-list>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab id="Medium">
+                            <ng-template ngbTabTitle>Medium <span class="nav-ticket-count">{{getCaseCountByPriority('Medium')}}</span></ng-template>
+                            <ng-template ngbTabContent>
+                                <app-support-tickets-list #supporTabRef caseSensivity="medium" [listOfCases]="supportTicketsService.supportListOfCases"></app-support-tickets-list>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab id="Low">
+                            <ng-template ngbTabTitle>Low <span class="nav-ticket-count">{{getCaseCountByPriority('Low')}}</span></ng-template>
+                            <ng-template ngbTabContent>
+                                <app-support-tickets-list #supporTabRef caseSensivity="low" [listOfCases]="supportTicketsService.supportListOfCases"></app-support-tickets-list>
+                            </ng-template>
+                        </ngb-tab>
+                        </ngb-tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #supportCreateTicketModalTemplate let-c="close" let-d="dismiss">
+    <app-support-create-ticket [modalCloseFunc]="this.c" [modalDismissFunc]="this.d" (createTicketEvent)="createTicket($event)"></app-support-create-ticket>
+</ng-template>

@@ -1,0 +1,271 @@
+@import "~bootstrap/scss/functions"; 
+@import '~sass/variables';
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.dashboard-news {    
+    .dashboard-news-header {
+        h5 {
+            color: $gray-700;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 0 !important;
+        }
+
+        margin-bottom: 20px;
+    }
+
+    .dashboard-news-body {
+        position:relative;        
+
+        .list-news {
+            list-style: none;
+            padding-left: 0;
+            max-height: 325px;
+            overflow: auto;
+
+            .list-news-item {
+                margin-bottom: 15px;
+
+                &:last-child {
+                    margin-bottom: 0px;
+                }
+
+                .news-title {
+                    display: block;
+                    font-size: 14px;
+                    line-height: 1.29;
+                    font-weight: bold;
+                    margin-bottom: 0;
+                    width: 100%;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+
+                .news-link {
+                    display: block;
+                    font-size: 12px;
+                    font-weight: 500;
+                    color: $gray-700;
+                    width: 100%;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+            }
+        }    
+    }
+
+    .news-body-gradient:after {
+        content: ' ';
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 2em;
+        bottom: 16px;
+        background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.95) 90%);
+        z-index: 1;
+    }
+
+    .dashboard-news-footer {
+        margin-top: 4px;
+
+        a {
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: bold;
+
+            .icon-arrow  {
+                font-size: 9px;
+            }
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: $blue; 
+        }
+    }
+}
+
+/* Oasis News Modal Styles */
+.modal-dialog {
+    @include media-breakpoint-down(xs) {
+        margin: 20px !important;
+    }
+}
+.modal-backdrop
+{
+    opacity:0.7 !important;
+}
+.modal-content {
+    margin-top: 0px;
+    border-radius: 10px;
+    border: 0;
+    background-color: #ffffff;
+    box-shadow: 0 6px 26px 0 rgba(32, 44, 86, 0.15) !important;
+
+    @include media-breakpoint-up(md) {
+        //margin-top: 150px !important;
+    }
+    
+
+    .modal-header.news-modal-header {
+        border-bottom: 1px solid #E6E8EC;
+        padding: 20px; 
+
+        @include media-breakpoint-up(md) {
+            padding: 26px 30px;
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+        }
+
+        .close {
+            color: #C0C3C7;
+            
+            .icon-close {
+                font-size: 16px;
+            }
+        }
+    }
+
+    .modal-body.news-modal-body {
+        max-height: 800px;
+        overflow-y: scroll;
+        margin-right: 8px;
+        margin-top: 5px;
+
+        .news-item {
+            margin-top: 15px;
+            margin-left: 2%;
+            margin-right: 2%;
+
+            @include media-breakpoint-up(md) {
+                margin-top: 32px;
+                margin-left: 10%;
+                margin-right: 10%;
+            }
+            
+            .item-header {
+                font-size: 16px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.38;
+                letter-spacing: normal;
+                text-align: left;
+
+                @include media-breakpoint-up(md) {
+                    font-size: 22px;
+                    line-height: 1.2;
+                }
+               
+            }
+
+            .item-body {
+                margin-top: 10px;
+                height: 40px;
+                overflow: hidden;
+                font-size: 14px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.6;
+                letter-spacing: normal;
+                text-align: left;
+                
+                @include media-breakpoint-up(md) {
+                    margin-top: 21px;
+                }
+            }
+
+            .readLess {
+                height: 40px;
+                overflow: hidden;
+            }
+            
+            .readMore {
+                height: auto;
+            }
+
+            .item-footer {
+                margin-top: 12px;
+
+                .icon {
+                    margin-left: 2px;
+                    font-size: 10px;
+                }
+
+                .readLessIcon {
+                    p {
+                        margin-left: 2px;
+                    }
+                }
+            }
+            
+            .item-footer a {
+                font-family: $font-family-sans-serif-secondary;
+                font-size: 11px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: normal;
+                text-align: left;
+                color: $blue;
+                text-decoration: none; 
+            }
+
+            .item-footer .readLessIcon {
+                .rotate-180 {
+                    transform: rotate(180deg) !important;
+                    display: inline-block;
+                }
+            }
+
+            hr {
+                margin-top: 27px;
+                margin-bottom: 24px;
+            }
+        }
+    }
+
+    /**  news-scrollbar */
+    #news-scrollbar::-webkit-scrollbar {
+        width: 8px;
+        margin-left: 8px;
+        background-color: #fff;
+    }
+
+    #news-scrollbar::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: rgba(0,0,0,0);
+        border: 1px solid #fff;
+    }
+    
+    #news-scrollbar::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background:  #cdd0d3;
+        border: 1px solid #cdd0d3;
+    }
+    
+    #news-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #cdd0d3;
+    }
+    
+    #news-scrollbar::-webkit-scrollbar-thumb:active {
+       background:#cdd0d3;
+    }    
+}
+
+.modal-xl {
+    max-width: 1000px;
+}

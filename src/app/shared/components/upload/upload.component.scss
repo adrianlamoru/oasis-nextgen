@@ -1,0 +1,179 @@
+
+@import '~sass/variables';
+
+:host ::ng-deep {
+.file-upload-area {
+
+        .dx-fileuploader-wrapper {
+            padding: 0;
+            margin-top: 4px;
+        }
+
+        .custom-file-uploader {
+            & .dx-fileuploader-input-wrapper {
+                border: dashed 2px $input-border-color;
+                height: 80px;
+                padding-left: 20px;
+                padding-right: 20px;
+                align-self: center;
+                display: flex;
+
+                & .dx-fileuploader-button {
+                    height: 36px;
+                    top: 22%;
+                }
+
+                & .dx-fileuploader-input-container  {
+                    .dx-fileuploader-input-label {
+                        top: 22%;
+                        color: #3e434d;
+						font-weight: 500;
+						text-align: left !important;
+                    }
+                }
+            }
+
+            &.dx-fileuploader-dragover {
+                .dx-fileuploader-input-wrapper {                    
+                    border: dashed 2px $blue;
+                    height: 80px;
+                    padding: 7px 20px;
+	                align-self: center;
+	                display: flex;
+
+                    .dx-fileuploader-button {
+                    	display: inline-block;
+                    	color: #B5B9C2;
+					    background-color: #F0F2F5;
+					    border-color: #F0F2F5;
+					    opacity: 0.65;
+                    }
+
+                    & .dx-fileuploader-input-container  {
+                    	display: table-cell;
+                    	vertical-align: middle;
+                    	.dx-fileuploader-input {
+                    		-webkit-box-sizing: border-box;
+    						box-sizing: border-box;
+    						display: -webkit-box;
+						    display: -ms-flexbox;
+						    display: flex;
+						    margin-bottom: 0;
+						    padding: 7px 0;
+                    	}
+                        .dx-fileuploader-input-label {
+                            color: $gray-600;
+                            padding: 8px 9px;
+						    overflow: hidden;
+						    -ms-text-overflow: ellipsis;
+						    text-overflow: ellipsis;
+						    white-space: nowrap
+                        }
+                    }
+                }
+                .dx-fileuploader-input-container {
+                	border: none;
+                    //height: 80px;
+                    //width: 100%;
+                }
+            }
+
+            .dx-fileuploader-files-container {
+            	padding: 10px 0 0 0 !important;
+            }
+
+            .dx-fileuploader-upload-button.dx-button-has-icon, .dx-fileuploader-file-size {
+            	display: none;
+            }
+
+            .dx-fileuploader-cancel-button {
+            	background-color: transparent;
+    			border-color: transparent;
+    			width: 13px;
+    			height: 14px;
+            }
+
+            .dx-fileuploader-file {
+                position: relative;
+                padding-left: 23px;
+                &:before {
+                    content: "";
+                    background: url(/assets/images/folder.svg);
+                    background-size: 14px 16px;
+                    width: 14px;
+                    height: 16px;
+                    position: absolute;
+                    left: 0;
+                    top: 10px;
+                }
+            }
+
+            .dx-fileuploader-file-name {
+            	padding-bottom: 0;
+            	font-size: 14px;
+                line-height: 1.1;
+            	color: #3e434d;
+            	font-weight: 500;
+            }
+
+            .dx-fileuploader-file-status-message {
+                line-height: 16px;
+                color: $gray-600;
+            }
+
+            .dx-button .dx-icon {
+			    width: 10px;
+			    height: 10px;
+			    background-size: 10px 10px;
+			    font-size: 10px;
+			    line-height: 10px;
+			}
+
+            .dx-icon-close {
+                position: relative;
+                &:before {
+                    content: "";
+                    background: url(/assets/images/close.svg);
+                    background-size: 10px 10px;
+                    width: 10px;
+                    height: 10px;
+                    position: absolute;
+                    left: 0;
+                }
+            }
+
+			.dx-fileuploader-content > .dx-fileuploader-upload-button {
+				margin-left: 0;
+			}
+
+			.dx-fileuploader-button.dx-button-has-text {
+				font-weight: 700;
+				border: 2px solid $blue;
+				color: $blue;
+    			background-color: transparent;
+    			background-image: none;
+
+    			&.dx-state-hover {
+					color: #fff;
+					background-color: $blue;
+				}
+
+				&.dx-fileuploader-upload-button {
+					color: #fff;
+				    background-color: $blue;
+				    border-color: $blue;
+				    &.dx-state-hover {
+					    background-color: #004070;
+					    border-color: #003963;
+				    }
+				}
+				.dx-button-content {
+					height: 100%;
+					.dx-button-text {
+					   line-height: 13px;
+					}
+				}
+			}
+        }
+    }
+}

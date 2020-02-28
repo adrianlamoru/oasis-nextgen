@@ -1,0 +1,84 @@
+<div class="row report-list-component container-section {{pageSource == 'employeeReports'? 'pl-0 pr-0': ''}}">
+    <div class="col-12 content-title"> {{tabSubTitle}} </div>
+    <div class="col-12 px-0" *ngIf="!(isTabFavorites && !hasFavorites)">
+        <div class="float-right">            
+            <div class="align-self-center d-inline-block mg-rt-10" *ngIf="!isTabFavorites">
+                <div ngbDropdown class="d-inline-block" placement="bottom-right">
+                    <button class="btn btn-light" id="reportsListFilterByDropdown" ngbDropdownToggle>
+                        <span>Filter By
+                            <i class="icon icon-shape"></i>
+                        </span>
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="reportsListFilterByDropdown">
+                        <button *ngFor="let itemFilterBy of dropdownFilterBy"  class="dropdown-item" (click)="filterReportListBy(itemFilterBy.id)">{{itemFilterBy.name}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="align-self-center d-inline-block">
+                <div ngbDropdown class="d-inline-block" placement="bottom-right">
+                    <button class="btn btn-light" id="reportsListSortDropdown" ngbDropdownToggle>
+                        <span>Sort By
+                            <i class="icon icon-shape"></i>
+                        </span>
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="reportsListSortDropdown">
+                        <button class="dropdown-item" (click)="sortReportListBy('Type')">Type</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 content-list">
+        <ul class="report-list" *ngIf="!(isTabFavorites && !hasFavorites)">
+        	<div *ngFor="let reportItem of reportsList; let reportItemIndex = index">
+        		<li class="row mx-0 list-item" *ngIf="(isTabFavorites && reportsFavoritesListHolder[reportItemIndex]) ||
+        												(!isTabFavorites && (filterByOption == '' || filterByOption.toLowerCase() == reportItem?.type.toLowerCase()))">
+		            <div class="col-1 px-0 align-self-center custom-img-cell" *ngIf="pageSource !== 'employeeReports'">
+		                <img src="/assets/images/{{reportItem?.isFavorite ? 'star-active.svg' : 'star-inactive.svg' }}" alt="payroll icon" (click)="toggleItemFavorite(reportItemIndex)">
+		            </div>
+		            <div class="col-2 align-self-center">
+		                <span class="cell-caption">Type</span>
+		                <div title="{{ reportItem?.type }}" class="cell-value">{{ reportItem?.type }}</div>
+		            </div>
+		            <div class="col-3 px-0 align-self-center">
+		                <span class="cell-caption">Report</span>
+		                <div title="{{ reportItem?.report }}" class="cell-value">{{ reportItem?.report }}</div>
+		            </div>
+		            <div class="col-5 align-self-center">
+		                <span class="cell-caption">Description</span>
+		                <div title="{{ reportItem?.description }}" class="cell-value">{{ reportItem?.description }}</div>
+		            </div>
+		            <div class="col-1 px-0 align-self-center float-right custom-dropdown-cell">
+		                <div ngbDropdown class="d-inline-block" placement="bottom-right">
+		                    <button class="btn btn-transparent" id="reportActionsDropdown" ngbDropdownToggle>
+		                        <span>Actions
+		                            <i class="icon icon-shape"></i>
+		                        </span>
+		                    </button>
+		                    <div ngbDropdownMenu aria-labelledby="reportActionsDropdown">
+                                <div *ngIf="pageSource !== 'employeeReports'">
+                                    <button 
+                                        *ngFor="let item of dropdownActions" 
+                                        class="dropdown-item" 
+                                        (click)="onReportsActionsDropdownClick(item, reportItem, reportItemIndex)" 
+                                        [disabled]="reportItem?.isFavorite && item.id==='AddFav' || !reportItem?.isFavorite && item.id==='RemFav'">
+                                        {{item.name}}
+                                    </button>
+                                </div>
+                                <div *ngIf="pageSource == 'employeeReports'">
+                                    <button 
+                                        *ngFor="let item of dropdownEmployeeActions" 
+                                        class="dropdown-item" 
+                                        (click)="onReportsActionsDropdownClick(item, reportItem, reportItemIndex)">
+                                        {{item.name}}
+                                    </button>
+                                </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </li>
+	        </div>	        
+        </ul>
+        <div  *ngIf="isTabFavorites && !hasFavorites" class="empty-table text-center"><h3 class="display-3">You do not have any saved favorites.</h3></div>
+    </div>
+</div>

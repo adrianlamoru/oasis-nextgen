@@ -1,0 +1,64 @@
+@import "~sass/variables";
+
+.hr-i9-verification-status{
+    
+    .content-title {
+        margin-bottom:  16px;
+        padding-left: 15px !important;
+    }
+
+    .report-title{
+        margin-bottom: 22px !important;
+    }
+
+    .custom-date-picker{
+        margin-right: 5px;
+    }
+
+    .date-range-row{
+        padding-top: 22px !important;
+    }
+    
+    .form-inline{
+        align-items: baseline;
+        .form-group{
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .custom-margin-right {
+        margin-right: 10px;
+    }
+
+    .custom-dropdown-component {
+        width: 280px !important;
+
+        .form-control-dropdown, .dropdown-menu {
+            width: inherit !important;
+        }
+        .btn-form-control span {
+            display: initial;
+        }
+    }
+
+    .truncate-dropdown-text {
+        overflow-y: hidden;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .custom-dropdown-locdep {
+        max-height: 200px;
+        overflow-y: scroll;
+    }
+
+    .btn-without-padding {
+        margin-top: 40px;
+        padding: 0;
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+    }
+}

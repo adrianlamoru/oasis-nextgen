@@ -1,0 +1,41 @@
+<app-header [headerType]="portal" (isLoadingValueToClient)='isLoadingValueChange($event)'></app-header>
+<div class="container-fluid container-bg">
+    <div class="row" *ngIf="isLoading">
+        <div class="col-12">
+            <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+        </div>
+    </div>
+    <div class="row" *ngIf="!isLoading">
+        <div class="col-sm-3 custom-left-rail-margin-bottom" id="leftRailMenu" *ngIf="showLeftRail">
+            <app-adds-carousel [slides]="slides"></app-adds-carousel>
+            <app-i-would-like *ngIf="!isGSW()"></app-i-would-like>
+            <hr *ngIf="!isGSW()">
+            <!-- Hiding My Task for DEMO Purpose  -->
+            <!-- <app-my-tasks [myTasksData]="myTasksData" *ngIf="!isGSW()"></app-my-tasks>
+            <hr *ngIf="!isGSW()"> -->
+            <app-documents-forms-search *ngIf="!isGSW()"></app-documents-forms-search>
+            <hr *ngIf="!isGSW()">
+            <app-dashboard-news [areaContainer]="1" [newsModalData]="newsModalData" [newsModalFilteredList]="newsModalDataFiltered" *ngIf="!isGSW()"></app-dashboard-news>
+            <hr *ngIf="!isGSW()">
+            <!-- Hiding My Alerts for DEMO Purpose  -->
+            <!-- <app-dashboard-alerts [alerts]="alerts" *ngIf="!isGSW()"></app-dashboard-alerts>
+            <hr *ngIf="!isGSW()"> -->
+            <app-dashboard-contacts *ngIf="!isGSW()"></app-dashboard-contacts>
+            <hr *ngIf="!isGSW()">
+
+            <!-- Getting Started Website Left Rail Components Start -->
+            <app-getting-started-featured-links *ngIf="isGSW()"></app-getting-started-featured-links>
+            <hr *ngIf="isGSW()">
+            <app-client-and-employee-orientation [orientationData]="clientEmployeeOrientationData" [orientationFilteredList]="clientEmployeeOrientationDataFiltered" *ngIf="isGSW()"></app-client-and-employee-orientation>
+            <hr *ngIf="isGSW()">
+            <app-dashboard-contacts *ngIf="isGSW()" [portal]="portal"></app-dashboard-contacts>
+            <hr *ngIf="isGSW()">
+
+        </div>
+        <div class="col-sm-9 client-content" [ngClass]="{'col-sm-9': showLeftRail, 'col-sm-12': !showLeftRail}">
+            <app-messages [messages]="page?.alerts" class="messages-component-element"></app-messages>
+            <router-outlet></router-outlet>
+            <app-footer [footerType]="portal"></app-footer>
+        </div>
+    </div>
+</div>

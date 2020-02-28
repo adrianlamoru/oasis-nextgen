@@ -1,0 +1,41 @@
+<div class="custom-modal-window">
+	<div class="modal-header">
+		<h4 class="modal-title align-self-center float-left">Change Username</h4>
+		<button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+			<span class="icon icon-close"></span>
+		</button>
+	</div>  
+  <div class="modal-body">
+    <div class="row">
+        <div class="col-12">
+          <dx-form #changeUserForm [labelLocation]="'top'" [showColonAfterLabel]="false" [formData]="changeUsername">
+            <dxi-item dataField="currentUsername" [label]="{text: 'Current username'}" caption="Current username" [editorOptions]="{ placeholder: 'Current username', mode: 'text' }">
+              <dxi-validation-rule type="required" message="Please enter username">
+              </dxi-validation-rule>
+              <!-- ToDo: uncomment this code for user compare validation -->
+              <!-- <dxi-validation-rule type="compare" [comparisonTarget]="currentCorrectUsernameComparison" comparisonType="!==" message="Username is wrong">
+              </dxi-validation-rule> -->
+            </dxi-item>
+            <dxi-item dataField="newUsername" [label]="{text: 'New username'}" caption="New username" [editorOptions]="{ placeholder: 'New username', mode: 'text', onValueChanged: onValueChanged, valueChangeEvent: 'keyup' }">
+              <dxi-validation-rule type="required" message="Please enter new username">
+              </dxi-validation-rule>
+              <dxi-validation-rule type="compare" [comparisonTarget]="currentUsernameComparison" comparisonType="!==" message="New username is wrong">
+              </dxi-validation-rule>
+            </dxi-item>
+            <dxi-item dataField="reNewUsername" [label]="{text: 'Confirm new username'}" caption="Confirm new username" [editorOptions]="{ disabled: !isValidNewUsername, placeholder: 'Confirm new username', mode: 'text', onValueChanged: onValueChanged, valueChangeEvent: 'keyup' }"
+            cssClass="dx-item-invalid">
+              <dxi-validation-rule type="required" message="Please confirm username">
+              </dxi-validation-rule>
+              <dxi-validation-rule type="compare" [comparisonTarget]="usernameComparison" message="Confirm new username is wrong">
+              </dxi-validation-rule>
+            </dxi-item>
+          </dx-form>
+        </div>
+    </div>
+  </div>
+  
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="modalCloseFunc('Cross click')">Cancel</button>
+      <button type="button" class="btn btn-primary" [disabled]="!validation()" (click)="validateChangeUsernameForm() &&save()">Submit</button>
+  </div>
+</div>

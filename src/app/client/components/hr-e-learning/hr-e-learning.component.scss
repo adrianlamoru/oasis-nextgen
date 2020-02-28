@@ -1,0 +1,41 @@
+@import "~sass/variables";
+
+.elearn-modal-link{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.43;
+    color: $blue !important;
+    
+    &:hover{
+        font-weight: bold;
+        cursor: pointer;  
+    }
+}
+
+.elearn-items{
+    margin-top: 30px !important;
+}
+
+.elearn-features-bullet-icon{
+    margin-top: 8px !important;
+}
+
+// Removing style 'hr-card-available' until a uniform 'available card' style
+// can be implemented 
+
+.hr-card-available-temp {
+    border: none;
+}
+
+.elearn-modal-link{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.43;
+    color: $blue;
+    
+    &:hover{
+        font-weight: bold;
+        cursor: pointer;  
+    }
+}
+

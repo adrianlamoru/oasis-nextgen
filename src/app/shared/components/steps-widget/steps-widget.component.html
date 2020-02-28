@@ -1,0 +1,38 @@
+<div class="steps-examples">
+  <div class="row step bl-{{stepData.color}} {{stepData.error === true? 'bl-error': ''}}">
+    <div class="col-4 align-self-center pl-1">
+      <img class="step-img pull-left" src="{{ stepData.img }}">
+      <span class="step-title caption">Step {{ stepData.step }} <span class="step-sections">({{ stepData.subSteps }} sections)</span><span *ngIf="stepData.error" class="red-dot"></span></span>
+      <span class="step-value">{{ stepData.stepName }}</span>
+    </div>
+    <div class="col-2 align-self-center">
+        <span class="step-title caption">Status</span>
+        <span class="step-value {{ stepData.status === 'Ready'? 'step-value-green': ''}} {{ stepData.status === 'Not Started'? 'step-value-not-started':''}}">{{ stepData.status }}</span>
+    </div>
+    <div class="col-2 align-self-center">
+        <span class="step-title caption">Date</span>
+        <span class="step-value">{{ stepData.date | date: 'MM/dd/yyyy' }}</span>
+    </div>
+    <div class="col-2 align-self-center">
+      <div class="step-actions">
+          <dx-menu #menu [dataSource]="dropdownActions" 
+            displayExpr="name" 
+            orientation="horizontal" submenuDirection="auto"
+            [hideSubmenuOnMouseLeave]="false" tabindex="0"
+            (onItemClick)="onActionsDropdownClick($event, stepData.step, menu)">
+          </dx-menu>
+      </div>
+    </div>
+    <div class="col-2 align-self-center">
+      <div class="row step-percents">
+        <div class="col-9 pl-1 pr-1">
+            <dx-progress-bar [value]="stepData.percent" class="custom-onboarding-progressbar" [class.complete]="stepData.percent == '100'" [showStatus]="false" [max]="100" [min]="0"></dx-progress-bar>
+        </div>
+        <div class="col-3 pl-1 pr-1">
+            <span class="step-percent">{{stepData.percent}}%</span>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

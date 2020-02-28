@@ -1,0 +1,592 @@
+.payroll-batch-grid {
+  margin-bottom: 30px;
+
+  &.reports-oasis-grid {
+    .dx-datagrid {
+      .dx-row > td:not(.dx-master-detail-cell):not(.dx-command-select):first-child {
+        padding-left: 10px !important;
+      }
+    }    
+  }  
+
+  &.paryoll-run-grid {
+
+    .dx-datagrid-table {
+      border-collapse: separate;
+      border-spacing: 0px 10px;  
+    }
+  }
+
+  td[role="gridcell"]:focus:not(:last-child) .dx-template-wrapper {
+    box-shadow: 0 0 0 0.2rem rgba(0, 93, 193, 0.25);
+  }
+
+  .dx-menu {
+    .dx-menu-item.dx-menu-item-expanded, .dx-menu-item.dx-state-hover, .dx-menu-item.dx-state-focused {
+      color: $gray-800;
+      background-color: transparent;
+    }
+
+    .dx-menu-item.dx-state-focused {
+      box-shadow: 0 0 0 0.2rem rgba(0, 93, 193, 0.25);
+    }
+  }
+
+  .dx-texteditor-input {
+    min-height: 30px;
+  }
+
+  .dx-datagrid-header-panel {
+    display: none;
+  }
+
+  .dx-texteditor {
+    height: 32px;
+
+    &.dx-state-focused {
+      box-shadow: none;
+      border: 1px solid #429dff !important;
+      box-shadow: 0 0 0 0.2rem rgba(0, 93, 193, 0.25);
+    }
+  }
+
+  .dx-datagrid {
+    .dx-row > td {
+      padding: 6px;
+    }
+  }
+
+  .dx-datagrid-headers {
+    border-bottom: none !important;
+
+    .dx-datagrid-table {      
+      .dx-row > td {
+        border-bottom: none;
+        border-color: transparent;
+      }
+    }
+
+    .dx-header-row > td {
+      vertical-align: top;
+
+      .column-aggregate-total {
+        color: $gray-800;
+      }
+    }
+
+    .dx-header-row > td > .dx-datagrid-text-content {
+      color: #959BA7;
+      font-weight: 300;
+      font-size: 0.6875rem;
+      line-height: 14px;
+      text-transform: uppercase;
+      height: 28px;
+    }
+
+    .dx-header-row > td:last-child > .dx-datagrid-text-content {
+      text-align: right;
+      margin-right: 30px;
+    }
+  }
+
+  .dx-datagrid {
+    .dx-column-indicators {
+      display: none;
+    }
+
+    .dx-column-lines > td {
+      border-left: none;
+      border-right: none;
+      padding: 12px 6px 10px !important;
+    }
+
+    .dx-row > td:not(.dx-master-detail-cell):not(.dx-command-select):first-child {
+      padding-left: 30px !important;
+    }
+
+    .dx-row > td.dx-master-detail-cell {
+      padding-left: 20px !important;
+      padding-right: 30px !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      background-color: transparent;
+    }
+  }
+
+  .dx-datagrid-content {    
+    .dx-datagrid-table {
+      .dx-row {
+        &:hover > td {
+          border-bottom: 1px solid $gray-200 !important;
+        }
+        > td {
+          vertical-align: middle;
+          font-family: $font-family-sans-serif;
+          border-bottom: 1px solid $gray-250 !important;
+        }
+
+        .dx-editor-cell {
+          padding-left: 10px;
+        }
+
+        .dx-datagrid-invalid .dx-invalid-message.dx-overlay  {
+          display: none;
+        }
+      }
+    }
+
+    .dx-datagrid-table tbody .dx-row:not(.dx-header-row) {
+      &.oddRow:not(.dx-state-hover) {
+        background-color: $gray-100 !important;
+      }
+
+      &.evenRow:not(.dx-state-hover) {
+        background-color: $white !important;
+      }
+    }
+  }
+
+  .dx-datagrid-rowsview {
+    border-top: none;
+
+    .dx-select-checkboxes-hidden {
+      & > tbody > tr > td > .dx-select-checkbox {
+        display: inline-block;
+      }
+    }
+    .dx-data-row .dx-validator.dx-datagrid-invalid {
+      &> .dx-highlight-outline::after  {
+        border: 1px solid $red !important;
+        border-radius: 0.25rem;
+        box-shadow: 0 0 0 0.2rem rgba(220, 55, 55, 0.25);      
+        transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;      
+        transition-property: border-color, box-shadow, -webkit-box-shadow;      
+        transition-duration: 0.15s, 0.15s, 0.15s;
+        transition-timing-function: ease-in-out, ease-in-out, ease-in-out;
+        transition-delay: 0s, 0s, 0s;
+  
+        .dx-texteditor {
+          border: 1px solid $red !important;
+          box-shadow: 0 0 0 0.2rem rgba(0, 93, 193, 0.25);
+
+          &.dx-state-focused {
+            border: 1px solid $red !important;
+            box-shadow: 0 0 0 0.2rem rgba(0, 93, 193, 0.25);
+          }
+        }      
+      }          
+    }
+
+    .dx-data-row .dx-validator.dx-datagrid-invalid .dx-highlight-outline::after {
+      border-radius: 0.25rem;
+    }
+
+    .dx-datagrid-rowsview .dx-selection.dx-row > td, .dx-datagrid-rowsview .dx-selection.dx-row:hover > td .dx-row, .dx-selection.dx-row {
+
+      & > td, td.dx-focused {
+        background-color: transparent;
+      }
+    }
+
+    .dx-row > td {
+      overflow: visible;
+    }
+
+    .dx-data-row {
+      &:first-child {
+        border-top: 1px solid $gray-250 !important;
+      }
+
+      .dx-cell-modified {
+        .dx-highlight-outline::after {
+          border-color: transparent;
+        }
+      }
+
+      td.dx-pointer-events-none {
+        border-color: transparent;
+      }
+
+      &.dx-state-hover:not(.dx-row-inserted):not(.dx-row-removed):not(.dx-edit-row) {
+        background-color: #F0F2F5;
+        cursor: pointer;
+      }
+
+      &.status-batch-progress {
+        & > td:first-child {
+          border-left: 4px solid $blue;
+        }
+      }
+
+      &.status-batch-new {
+        & > td:first-child {
+          border-left: 4px solid #3ec88b;
+        }        
+      }
+
+      &.status-batch-past-due {
+        & > td:first-child {
+          border-left: 4px solid $red;
+        }        
+      }
+      
+      &.status-batch-progress, &.status-batch-new, &.status-batch-past-due {
+        background-color: $gray-200 !important;
+        border-bottom: none;
+      }      
+
+      &:nth-child(odd) {
+        background-color: $gray-100;
+        .dx-menu-item, .dx-menu-item.dx-menu-item-expanded .dx-menu-item.dx-state-hover {
+          color: $gray-800;
+          // background-color: transparent;
+        }
+      }
+
+      &:nth-child(even) {
+        background-color: $white;
+        .dx-menu-item, .dx-menu-item.dx-menu-item-expanded .dx-menu-item.dx-state-hover {
+          color: $gray-800;
+          // background-color: transparent;
+        }
+      }
+    }
+  }
+  // Dropdown inside the grid
+  .dx-menu {
+    .dx-context-menu-container-border {
+      border: 0;
+      box-shadow: none;
+    }
+
+    .dx-menu-item-text {
+      font-family: $font-family-sans-serif;
+      font-size: 11px;
+      line-height: 19px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+
+    .dx-menu-horizontal {
+      .dx-menu-item-popout:before {
+        font-family: 'icomoon' !important;
+        content: "\E911";
+        font-size: 8px;
+        font-weight: 700;
+      }
+
+      .dx-menu-item-expanded {
+        .dx-menu-item-popout:before {
+          content: "\E980";
+        }
+      }
+    }
+  }
+
+  .dx-group-row {
+    .dx-command-expand {
+      .dx-datagrid-group-opened {
+        display: none;
+      }
+    }
+
+    .dx-menu {
+      display: none;
+    }
+
+    .dx-group-cell {
+      //display: none;
+      visibility: hidden;
+    }
+  }
+
+  .divJobCostingDetailsTable {
+    margin: 0px;
+    width: 100%;
+
+    thead, tfoot {
+      th, td {
+        height: 15px;
+        font-family: $font-family-sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: $gray-710 !important;
+        text-transform: uppercase;
+        padding: 0px 0px 7px 10px;
+      }
+    }
+
+    tbody {
+
+      tr {
+        margin-bottom: 10px;
+
+        td {
+          .dx-numberbox {
+            width: 100px;
+
+            input {
+              text-align: right !important;
+            }
+          }
+
+          &.jobCostColumn {
+            padding: 0px 0px 10px 10px;
+
+            &.colHours, &.colRate, &.colUnits {
+              width: 100px;
+            }
+
+            &.colPayCode, &.colJobCode, &.colDivision, &.colDepartment, &.colLocation, &.colProject, &.colPayPeriod {
+              max-width: 178px;
+              min-width: 100px;
+
+              .dx-selectbox, .dx-datebox {
+                width: 100%;
+
+                input {
+                  cursor: pointer;
+                }
+              }
+            }
+
+            &.colRemove {
+              width: 20px;
+              max-width: 20px;
+              min-width: 20px;
+
+              button {
+                //margin-top: 6px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    tfoot {
+    }
+
+
+
+    button {
+      background-color: transparent;
+      padding: 0px;
+    }
+
+    .addJobCostingRow {
+      margin-top: 6px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      height: 15px;
+      font-family: $font-family-sans-serif;
+      font-size: 11px;
+      font-weight: 900;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: 0.5px;
+      color: $gray-800;
+    }
+  }
+  &.row-edited-data-grid{
+    margin-bottom: 20px;
+    
+    .dx-row.dx-data-row.dx-column-lines.dx-edit-row.dx-row-inserted{
+      .dx-command-edit{
+        .dx-link.dx-link-cancel{
+          display: none;
+        }
+      }
+    }
+    
+    .dx-row.dx-column-lines.dx-header-row {
+      .dx-datagrid-text-content {
+        height: auto;
+      }
+    }
+
+    .dx-datagrid .dx-row > td:not(.dx-master-detail-cell):not(.dx-command-select):first-child {
+      padding-left: 10px !important;
+    }
+
+    .dx-datagrid .dx-row > td:not(.dx-master-detail-cell):not(.dx-command-select):last-child {
+      padding-right: 10px !important;
+    }
+
+    .dx-datagrid {
+      .dx-column-lines > td {
+        padding: 4px 5px 4px !important;
+      }
+      .dx-link {
+        color: $blue;
+        font-weight: bold;
+        font-size: 0.688rem;
+        text-transform: uppercase;
+      }
+    }
+
+    .dx-custom-command-edit {
+      padding: 0;
+    }
+  }
+}
+
+.dx-context-menu {
+    .dx-submenu {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border: 0;
+        box-shadow: 0 3px 16px 0 rgba(32, 44, 86, 0.15);
+
+        .dx-menu-items-container {
+          padding-left: 0;
+          padding-right: 0;
+        }
+    }
+}
+
+.dx-context-menu-content-delimiter {
+    background-color: transparent;
+}
+
+.dx-menu-base {
+    .dx-menu-item {
+        font-family: $font-family-sans-serif;
+        font-size: 14px;
+        line-height: 1.29;
+        font-weight: 400;
+        letter-spacing: normal;
+        color: $gray-800;
+
+        .dx-menu-item-content {
+            padding: 10px 20px;
+        }
+    }
+}
+
+.dx-datagrid-focus-overlay {
+    border: none;
+}
+
+.dx-datagrid-total-footer {
+    background-color: $gray-300;
+
+    tr {
+        td {
+            background-color: $gray-300;
+        }
+
+        .currency-label {
+            padding-right: 17px;
+            text-overflow: unset;
+        }
+    }
+}
+
+.dx-datagrid-content {
+    // Header
+    .dx-header-row {
+        .currency-label {
+            //background-color: green !important;
+       
+        }
+    }
+
+    // Data Row
+    .dx-data-row > td:not(.dx-header-row) {
+        &.currency-label {
+            //background-color: red !important;
+            padding: 0px 37px !important;
+            text-align: right;
+            text-overflow: unset;
+        }
+    }
+}
+
+.dx-context-menu .dx-submenu .dx-menu-items-container {
+  padding: 1px 0;
+
+  .dx-menu-item.dx-state-hover {
+      background-color: $gray-200;
+  }
+}
+
+.payroll-run-review-submit-quick-summary, .payroll-run-review-submit-pto-over-limit, .payroll-run-review-submit-ee-defaults {
+  .custom-grid {
+    .dx-datagrid-headers .dx-datagrid-table .dx-row > td {
+      font-weight: $headings-font-weight;
+    }
+
+    .dx-datagrid-total-footer .dx-datagrid-content .dx-row:hover {
+      background-color: transparent;
+      cursor: pointer;
+    }
+  }
+}
+
+.run-payroll-dashboard {
+  min-height: 226px;
+  max-height: 226px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: 15px;
+  margin-right: -15px;
+  margin-top: -12px;
+  .payroll-batch-grid {
+    .dx-datagrid {
+      .dx-row > td:not(.dx-master-detail-cell):not(.dx-command-select):first-child {
+        padding-left: 0 !important;
+      }
+      .dx-column-lines > td {
+        padding: 0 !important;
+        border-bottom: none !important;
+      }
+    }
+  } 
+
+  .payroll-batches .cell-batch {
+    padding-left: 17px !important;
+    .batch-title {
+      line-height: 1 !important;
+    }
+    .due-date-container {
+      min-width: auto !important;
+    }
+    .badge.badge-pill {
+      top: 26px !important;
+      left: 105px !important;
+    }
+  }
+
+  /** scrollbar */
+    &::-webkit-scrollbar {
+        width: 8px;
+        margin-left: 8px;
+        background-color: #fff;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: rgba(0,0,0,0);
+        border: 1px solid #fff;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background:  #cdd0d3;
+        border: 1px solid #cdd0d3;
+    }
+    
+    &::-webkit-scrollbar-thumb:hover {
+        background: #cdd0d3;
+    }
+    
+    &::-webkit-scrollbar-thumb:active {
+       background:#cdd0d3;
+    }
+}
+

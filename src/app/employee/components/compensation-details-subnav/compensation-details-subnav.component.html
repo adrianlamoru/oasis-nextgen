@@ -1,0 +1,11 @@
+<ul #navbar class="nav nav-pills" (onresize)="onResize()">
+    <ng-container *ngFor="let option of empSubNavMenuOptions; let i = index">
+        <li class="nav-item" routerLinkActive="active">
+
+            <a class="nav-link" [routerLink]="option.route" routerLinkActive="active">{{option.name}}
+            </a>
+        </li>
+
+    </ng-container>
+
+</ul>

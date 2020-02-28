@@ -1,0 +1,154 @@
+@import '~sass/variables';
+
+.emp-information-t-component{
+    margin-left: 48px;
+    margin-top: 50px;
+    max-width: 1240px;
+
+    .employee-tax-title-margin{
+      margin: 27px 0 18px 0;
+    }
+
+    .employee-tax-title-margin2{
+      margin: 7px 0 8px 0;
+    }
+
+    .checkbox-row{
+      margin: 1px 0 -13px 0;
+      align-self: center;
+
+      .checkbox-section{
+        align-self: center;
+      }
+    }
+
+    .checkbox-row2{
+      margin: 7px 0 -7px 0;
+      align-self: center;
+
+      .checkbox-section{
+        align-self: center;
+      }
+    }
+
+    .checkbox-row3{
+      margin: 0px 0 10px 0;
+      align-self: center;
+
+      .checkbox-section{
+        align-self: center;
+      }
+    }
+
+    .checkbox-row4{
+      margin: 7px 0 10px 0;
+      align-self: center;
+
+      .checkbox-section{
+        align-self: center;
+      }
+    }
+
+    .checkbox-row5{
+      margin: 7px 0 -7px 0;
+      align-self: center;
+
+      .checkbox-section{
+        align-self: center;
+      }
+    }
+
+    .checkbox-row6{
+      margin: 0px 0 -13px 0;
+      align-self: center;
+
+      .checkbox-section{
+        align-self: center;
+      }
+    }
+
+    .form-checkbox-width {
+      width: fit-content;
+      float: right;
+    }
+
+    .dx-checkbox {
+      margin-right: 9px;
+    }
+  
+    label.vertical-sub {
+      vertical-align: sub;
+    }
+  
+    .taxes-disclamer{
+      
+      border-radius: 5px;
+      background-color: #f0f2f5;
+      padding: 25px 30px;
+      margin-bottom: 0px;
+      line-height: normal !important;
+
+      .taxes-paragraph-bold {
+        font-weight: bold;
+      }
+    }
+
+    .upload-disclaimer {
+      line-height: 36px !important;
+    }
+  
+    .horizontal-separator{
+      height: 1px;
+      background-color: $gray-300;
+      margin: 20px 0;
+    }
+  
+    .input-field-margin{
+      margin-bottom: 9px;
+    }
+  
+    .mt--9 {
+      margin-top: -9px;
+    }
+  
+    .mb-19{
+      margin-bottom: 19px;
+    }
+  
+    .mb-6{
+      margin-bottom: 6px;
+    }
+  
+    .mt-0 {
+      margin-top: 0px;
+    }
+  
+    .payment-method {
+      font-weight: 500;
+      line-height: 1.29;
+      top: -10px;    
+    }
+  
+    .dx-radiogroup .dx-radiobutton .dx-item-content {
+      position: relative;
+      top: -10px;    
+      font-weight: 500;
+      line-height: 1.29;
+      margin-bottom: 20px;
+    }
+  
+    .worksite-location {
+      margin-bottom: 24px;
+    }
+
+    .form-filed-duns {
+        display: -webkit-inline-box;
+        width: 240px;
+        height: 36px;
+        border-radius: 5px;
+    }
+
+    .requiredField {
+      font-size: 11px !important;
+    }
+  }

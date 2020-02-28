@@ -1,0 +1,46 @@
+
+<div class="card benefits-card hr-card" [ngClass]="{'hr-card-available': available === 'true'}">
+  	<div class="card-body">
+	    <h3 class="benefits-card-title title-max-height">{{hrActivitiesCardData.title}}</h3>
+      	<div class="benefits-features-items features-with-borders">
+          	<ul class="benefits-features-items m-0">
+            	<li class="media link" *ngFor="let item of hrActivitiesCardData.previewItemsList | slice:0:5" (click)="openActivity(item.activityLink)">    
+	              	<div class="media-body">{{item.activityName}}</div>
+	              	<span class="custom-features-bullet-icon-2 icon-side-chevron" > </span>
+            	</li>
+          	</ul>
+        </div>
+	  	<div class="row footer-fixed-position">
+	    	<div class="col">
+	      		<button type="button" class="btn btn-primary btn-primary-benefits-card-footer" (click)="openCardModal('xs', HRAcardDetailsModalContent)">SEE ALL</button>
+	    	</div>
+	  	</div>
+	</div>
+</div>
+
+<ng-template #HRAcardDetailsModalContent let-c="close" let-d="dismiss">
+
+    <div class="custom-modal-window">
+        <div class="modal-header">
+          <h4 class="modal-title modal-title-capitalize align-self-center float-left">{{hrActivitiesCardData.title}}</h4>
+          <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click')">
+            <span class="icon icon-close"></span>
+          </button>
+        </div>
+        <div class="modal-body benefits-modal-body">
+          <div class="benefits-item benefits-item-parent-padding">
+            <div class="features-items features-with-borders">
+              <ul class="features-items">
+                <li class="media link" *ngFor="let item of hrActivitiesCardData.previewItemsList" (click)="openActivity(item.activityLink)">                 
+                    <div class="media-body">{{item.activityName}}</div>
+                    <span class="custom-features-bullet-icon-2 icon-side-chevron" > </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer modal-footer-benefits">
+          <button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Close</button>
+        </div>
+      </div>
+	</ng-template>

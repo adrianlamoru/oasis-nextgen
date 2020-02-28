@@ -1,0 +1,223 @@
+<div class="reports-container reports-status-download {{pageSource === 'employeeReports'? 'employee-custom-report-margin': ''}}">
+    <div class="section" >
+      <div class="row breadcrumb-container-reports" *ngIf="pageSource !== 'employeeReports'">
+        <div class="col-12">
+          <div class="breadcrumb-component">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item back-link">
+                  <a (click)="goToBack()">Reports</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  <span class="breadcrumb-item-active">Status Download</span>
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-7 report-title align-self-center">
+            <span>Status Download</span>
+            <span class="report-title-date-time align-self-center" *ngIf="reportGeneratedDate">Report generated on {{ reportGeneratedDate }}</span>
+        </div>
+        <div class="col-5 align-self-center">                   
+            <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-8">
+            <div class="row">
+              <div class="col-6 col-xl-3 custom-top-margin-col1">
+                <label>Original Hire Date Start</label>
+                <div class="custom-date-picker">
+                    <div class="input-icon icon icon-calendar"></div>
+                    <input
+                      class="form-control custom-input-field"
+                      placeholder="Month dd, yyyy"
+                      name="originalHireStart"
+                      [(ngModel)]="originalHireStart"
+                      (ngModelChange)="enableViewReportButton();dateValueChanged($event, 'originalHireStart')"
+                      ngbDatepicker
+                      [dayTemplate]="customDay"
+                      [displayMonths]="2"
+                      [navigation]="'arrows'"
+                      [firstDayOfWeek]="7"
+                      #originalHireStartD="ngbDatepicker">
+                    <button
+                      class="btn input-btn icon-shape custom-icon-margin"
+                      (click)="originalHireStartD.toggle(); opened = !opened"
+                      type="button">
+                    </button>
+                </div>
+              </div>
+              <div class="col-6 col-xl-3 custom-top-margin-col1">
+                <label>Original Hire Date End</label>
+                <div class="custom-date-picker">
+                    <div class="input-icon icon icon-calendar"></div>
+                    <input
+                      class="form-control custom-input-field"
+                      placeholder="Month dd, yyyy"
+                      name="originalHireEnd"
+                      [(ngModel)]="originalHireEnd"
+                      (ngModelChange)="enableViewReportButton(); dateValueChanged($event, 'originalHireEnd')"
+                      ngbDatepicker
+                      [dayTemplate]="customDay"
+                      [displayMonths]="2"
+                      [navigation]="'arrows'"
+                      [firstDayOfWeek]="7"
+                      #originalHireEndDate="ngbDatepicker">
+                    <button
+                      class="btn input-btn icon-shape custom-icon-margin"
+                      (click)="originalHireEndDate.toggle(); opened = !opened"
+                      type="button">
+                    </button>
+                </div>
+              </div>
+              <div class="col-6 col-xl-3 custom-top-margin-col1">
+                <label>Last Hire Date Start</label>
+                <div class="custom-date-picker">
+                    <div class="input-icon icon icon-calendar"></div>
+                    <input
+                      class="form-control custom-input-field"
+                      placeholder="Month dd, yyyy"
+                      name="lastHireStart"
+                      [(ngModel)]="lastHireStart"
+                      (ngModelChange)="enableViewReportButton(); dateValueChanged($event, 'lastHireStart')"
+                      ngbDatepicker
+                      [dayTemplate]="effectiveDate"
+                      [displayMonths]="2"
+                      [navigation]="'arrows'"
+                      [firstDayOfWeek]="7"
+                      #lastHireStartDate="ngbDatepicker">
+                    <button
+                      class="btn input-btn icon-shape custom-icon-margin"
+                      (click)="lastHireStartDate.toggle(); openedStart = !openedStart"
+                      type="button">
+                  </button>
+                </div>
+              </div>
+              <div class="col-6 col-xl-3 custom-top-margin-col1">
+                <label>Last Hire Date End</label>
+                <div class="custom-date-picker">
+                    <div class="input-icon icon icon-calendar"></div>
+                    <input
+                      class="form-control custom-input-field"
+                      placeholder="Month dd, yyyy"
+                      name="lastHireEnd"
+                      [(ngModel)]="lastHireEnd"
+                      (ngModelChange)="enableViewReportButton(); dateValueChanged($event, 'lastHireEnd')"
+                      ngbDatepicker
+                      [dayTemplate]="customDay"
+                      [displayMonths]="2"
+                      [navigation]="'arrows'"
+                      [firstDayOfWeek]="7"
+                      #lastHireEndDate="ngbDatepicker">
+                    <button
+                      class="btn input-btn icon-shape custom-icon-margin"
+                      (click)="lastHireEndDate.toggle(); opened = !opened"
+                      type="button">
+                    </button>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>  
+      
+      <div class="hr-padding">
+        <hr class="m-0 p-0"/>
+      </div>
+
+      <div class="row">
+        <div class="col-8">
+          <div class="row">
+            <div class="col-6 col-xl-3">
+              <label>Employee Status</label>
+              <div ngbDropdown class="d-inline-block custom-dropdown-component" #ddYears="ngbDropdown">
+                  <button 
+                        type="button"
+                        class="btn btn-form-control form-control-dropdown text-left"
+                        ngbDropdownToggle
+                        (click)="isOpened = !isOpened">
+                      <span>
+                      {{ selectedEmployeeStatus }}
+                      <i class="icon  icon-shape float-right"></i>
+                      </span>
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="ddYears" class="custom-dropdown-years">
+                      <button
+                              type="button"
+                              class="dropdown-item"
+                              *ngFor="let empStatusItem of employeeStatusDD"
+                              (click)="onSelectionEmpStatusDD(empStatusItem)">{{empStatusItem.Text}}</button>
+                  </div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-3 align-self-end">
+              <button class="btn btn-primary custom-view-report-btn" (click)="getFilteredData()" [disabled]="disableViewReportButton">View Report</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="custom-grid pt-3 mb-0">
+          <hr class="m-0 mb-1 p-0"/>
+          <div class="col-12" *ngIf="isLoading">
+            <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+          </div>
+          <div class="row pt-3 mb-0" *ngIf="!isLoading && displayReport">
+            <div class="col-12 align-self-center">
+              <div class="float-right custom-margin-bottom-dropdown">
+                <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+                    <button class="btn btn-light" id="downloadDD" ngbDropdownToggle>
+                        <span>Download
+                            <i class="icon icon-shape"></i>
+                        </span>
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="Download">
+                      <button type="button" class="dropdown-item" *ngFor="let item of dropdownOptions[0].items" (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row custom-grid-padding" *ngIf="!isLoading && displayReport">
+            <div class="col-lg-12">
+              <dx-data-grid id="gridContainer"
+                class="historical-grid pair-row-color-gray-100"
+                [dataSource]="filteredStatusDataRows"
+                [columnAutoWidth]="true"
+               >
+                <dxo-paging [enabled]="false"></dxo-paging>
+                <dxi-column dataField="ClientID" caption="Client Id" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="EmployeeID" caption="Employee Id"[allowSorting]="false"></dxi-column>
+                <dxi-column dataField="EmployeeNumber" caption="Employee Nbr" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="LastName" caption="Last Name" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="FirstName" caption="First Name" [allowSorting]="false" ></dxi-column>
+                <dxi-column dataField="Gender" caption="Gender" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="BirthDate" caption="BirthDate" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="SSN" caption="SSN" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="Location" caption="Location" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="HomeDivision" caption="Home Division" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="HomeDepartment" caption="Home Department" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="ProjCostCenter" caption="Proj Cost Center"[allowSorting]="false"></dxi-column>
+                <dxi-column dataField="OrigHireDate" caption="Original Hire Date" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="LastHireDate" caption="Last Hire Date" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="EmploymentStatus" caption="Employment Status" [allowSorting]="false" ></dxi-column>
+                <dxi-column dataField="TermDate" caption="Term Date" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="CurrentJob" caption="Current Job" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="JobTitle" caption="Job Title" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="Location" caption="Location" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="Exempt" caption="Exempt" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="PayMethod" caption="Pay Method" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="PayGroup" caption="Pay Group"[allowSorting]="false"></dxi-column>
+                <dxi-column dataField="AnnualPay" caption="Annual Pay" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="HourlyRate" caption="Hourly Rate" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="EmploymentType" caption="Employment Type" [allowSorting]="false" ></dxi-column>
+                <dxi-column dataField="workersCompensationClass" caption="WC Class" [allowSorting]="false"></dxi-column>
+              </dx-data-grid>
+            </div>
+          </div>
+        </div>
+      
+  </div>

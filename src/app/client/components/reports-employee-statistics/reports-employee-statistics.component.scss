@@ -1,0 +1,78 @@
+@import "~sass/variables";
+
+.reports-employee-statistics {
+
+        .content-title {
+            margin-bottom:  16px;
+            padding-left: 15px !important;
+        }
+
+        .report-title{
+            margin-bottom: 22px !important;
+        }
+        
+        .custom-date-picker{
+            margin-right: 15px;
+        }
+
+        .custom-margin-bottom-dropdown {
+            margin-bottom: 12px;
+            margin-top: 10px;
+        }
+
+        .form-inline.form-group{
+            margin-bottom: 0px;
+        }
+
+        .form-inline{
+            align-items: baseline;
+            .form-group{
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        .date-range-row{
+            padding-bottom: 4px;
+            padding-top: 25px;
+        }
+
+        .mr-right-5 {
+            margin-right: 5px;
+        }
+    
+        .custom-dropdown-component {
+            max-width: 180px !important;
+            margin-right: 20px;
+        }
+    
+        .custom-dropdown-uses {
+            max-height: 200px;
+            overflow-y: scroll;
+        }
+    
+        .btn-without-padding {
+            margin-top: 40px;
+            padding: 0;
+            padding-top: 0px;
+            padding-right: 0px;
+            padding-bottom: 0px;
+            padding-left: 0px;
+        }  
+
+        .custom-dropdown {
+            width:100px !important;
+        }
+
+        .custom-grid {
+            min-height: 300px;
+        }
+
+        .custom-grid-padding {
+            margin-top: 4px;
+        }
+
+        /deep/ .custom-grid .dx-datagrid .dx-row.dx-header-row > td:last-child {
+            padding-left: 10px;
+        }
+}

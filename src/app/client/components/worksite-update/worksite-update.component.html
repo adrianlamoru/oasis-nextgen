@@ -1,0 +1,308 @@
+<div class="row worksite-update-component setup-container-content">
+    <div class="col-12 custom-grid">
+        <div class="row">
+            <div class="col-12">
+                <div class="custom-grid-header">
+                    <h3 class="display-3 table-title">Worksite Update</h3>
+                    <dx-button text="Add Code" [disabled]="true" class="btn btn-primary pull-right disabled" (onClick)="addCode()"></dx-button>
+                </div>
+
+                 <!-- DataGrid -->
+                <dx-data-grid id="worksiteDataGrid" [dataSource]="worksiteDataRows" (onCellClick)="onCellButtonClick($event)">
+
+                    <dxo-paging [enabled]="false"></dxo-paging>
+
+                    <dxi-column dataField="locationCode" caption="Location Code" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="locationDescription" caption="Description" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="contactName" caption="Contact Name" [allowSorting]="false"></dxi-column>
+                    <dxi-column [allowSorting]="false" cellTemplate="cellEditTemplate" [width]="36"></dxi-column>
+                    <dxi-column [allowSorting]="false" cellTemplate="cellViewContactTemplate" [width]="116"></dxi-column>
+
+                    <div *dxTemplate="let d of 'cellEditTemplate'" class="custom-cell">
+                        <button id="edit-button-departmentCode" tabindex="0" type="button" class="btn btn-link cell-button" >
+                            <span class="btn-link-text">Edit</span>
+                        </button>
+                    </div>
+
+                    <div *dxTemplate="let d of 'cellViewContactTemplate'" class="custom-cell">
+                        <button id="delete-button" tabindex="0" type="button" [class]="d.data.default ? 'btn btn-link cell-button disabled' : 'btn btn-link cell-button'" >
+                            <span class="btn-link-text">View Contacts</span>
+                        </button>
+                    </div>
+
+                </dx-data-grid>
+                <!-- END DataGrid -->
+
+                <!-- ADD/EDIT Popup -->
+                <dx-popup
+                    class="custom-dx-popup"
+                    #popupWorksite
+                    [showTitle]="false"
+                    [width]="646"
+                    [height]="662"
+                    [position]="{ my: 'middle', at: 'middle', of: window }"
+                    [showCloseButton]="false"
+                    [dragEnabled]="false"
+                    [closeOnOutsideClick]="true"
+                    [(visible)]="editPopupVisible">
+                    <div *dxTemplate="let data of 'content'">
+                        <div class="custom-modal-window" ngForm #worksiteForm="ngForm">
+                            <div class="modal-header modal-header-without-border">
+                                <h4 class="modal-title modal-title-capitalize align-self-center float-left">Worksite Update</h4>
+                                <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="onCancelClick()">
+                                    <span class="icon icon-close"></span>
+                                </button>
+                            </div>
+                            <div class="modal-header modal-header-with-tabbing">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                      <a href="javascript: void(0)" class="nav-link {{ tabSelected === tab_WC ? 'active' : ''}}" data-toggle="tab" (click)="updateTabSelection(tab_WC)">{{popupTitle}}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                      <a href="javascript: void(0)" class="nav-link {{ tabSelected === tab_CC ? 'active' : ''}}" data-toggle="tab" (click)="updateTabSelection(tab_CC)">Client Contacts</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="modal-body" *ngIf="tabSelected === tab_WC">
+                                <dx-scroll-view #scrollView
+                                                id="scrollview"
+                                                [scrollByContent]="true"
+                                                [scrollByThumb]="true"
+                                                [showScrollbar]="always"
+                                                [bounceEnabled]="false">
+                                    <div style="max-height: 451px; padding: 0 3px;">
+                                        <div class="row row-extra-padding">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <h4>Location Code</h4>
+                                                    <input [disabled]="actionTypeSelected === 'EDIT'" id="locationCodeInput" name="locationCodeInput" placeholder="Location Code"  type="text" class="form-control" required [(ngModel)]="currentSelectedRow.locationCode" #locationCodeInput="ngModel" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <h4>Obsolete Location</h4>
+                                                    <input [disabled]="true" id="obsoleteLocationInput" name="obsoleteLocationInput" type="text" class="form-control"
+                                                        [(ngModel)]="currentSelectedRow.obsoleteLocation" #obsoleteLocationInput="ngModel" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row row-extra-padding">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                  <h4>Street Address Line 1</h4>
+                                                  <input [disabled]="actionTypeSelected === 'EDIT'" id="StreetAddressLine1" name="StreetAddressLine1" placeholder="Street Address Line 1"  type="text" class="form-control" required [(ngModel)]="currentSelectedRow.addressLine1" #StreetAddressLine1="ngModel" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <h4>Street Address Line 2</h4>
+                                                    <input [disabled]="actionTypeSelected === 'EDIT'" id="StreetAddressLine2" name="StreetAddressLine2" placeholder="Street Address Line 2"  type="text" class="form-control" required [(ngModel)]="currentSelectedRow.addressLine2" #StreetAddressLine2="ngModel" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row row-extra-padding">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                  <h4>City</h4>
+                                                  <input [disabled]="actionTypeSelected === 'EDIT'" id="city" name="city" placeholder="City"  type="text" class="form-control" required [(ngModel)]="currentSelectedRow.city" #city="ngModel" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <h4>State</h4>
+                                                    <div ngbDropdown class="d-inline-block custom-dropdown-component">
+                                                        <button [disabled]="actionTypeSelected === 'EDIT'" class="btn btn-form-control form-control-dropdown text-left" id="state" ngbDropdownToggle (click)="isStateOpened = !isStateOpened">
+                                                            <span class="{{currentSelectedRow.state === '' ? 'text-placeholder' : '' }}">{{currentSelectedRow.state === '' ? 'Please select an Option' : currentSelectedRow.state}}
+                                                            <i class="icon icon-shape float-right"></i>
+                                                            </span>
+                                                        </button>
+                                                        <div ngbDropdownMenu aria-labelledby="state">
+                                                            <button type="button" class="dropdown-item" *ngFor="let item of states" (click)="changeStateSelection(item.Name)">{{item.Name}}</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="form-group">
+                                                  <h4>Zip Code</h4>
+                                                  <input [disabled]="actionTypeSelected === 'EDIT'" id="zipCode" name="zipCode" placeholder="Zip Code"  type="text" class="form-control" required [(ngModel)]="currentSelectedRow.zipCode" #zipCode="ngModel" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row row-extra-padding">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <h4>County</h4>
+                                                    <input [disabled]="actionTypeSelected === 'EDIT'" id="county" name="county" placeholder="County"  type="text" class="form-control" required [(ngModel)]="currentSelectedRow.county" #county="ngModel" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <h4>Work Comp State</h4>
+                                                    <div ngbDropdown class="d-inline-block custom-dropdown-component">
+                                                        <button [disabled]="actionTypeSelected === 'EDIT'" class="btn btn-form-control form-control-dropdown text-left" id="workCompState" ngbDropdownToggle (click)="isWorkCompStateOpened = !isWorkCompStateOpened">
+                                                            <span class="{{currentSelectedRow.workCompState === '' ? 'text-placeholder' : '' }}">{{currentSelectedRow.workCompState === '' ? 'Please select an Option' : currentSelectedRow.workCompState}}
+                                                            <i class="icon icon-shape float-right"></i>
+                                                            </span>
+                                                        </button>
+                                                        <div ngbDropdownMenu aria-labelledby="workCompState">
+                                                            <button type="button" class="dropdown-item" *ngFor="let item of states" (click)="changeWorkCompStateSelection(item.Name)">{{item.Name}}</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row row-extra-padding">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                  <h4>Fax Number</h4>
+                                                  <!-- pulled from input parameters: pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" -->
+                                                  <!-- pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"  -->
+                                                  <!-- pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" -->
+                                                  
+                                                  <input 
+                                                    id="faxNumber" 
+                                                    name="faxNumber" 
+                                                    pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$"
+                                                    placeholder="Fax Number"  
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    [(ngModel)]="currentSelectedRow.faxNumber"
+                                                    phoneFaxMask
+                                                    maxlength="14">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                  <h4>G/L Segment Code</h4>
+                                                  <input id="glSegmentCode" name="glSegmentCode" placeholder="G/L Segment Code"  type="text" class="form-control" [(ngModel)]="currentSelectedRow.glSegmentCode1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                  <h4>G/L Segment Code 2</h4>
+                                                  <input id="glSegmentCode2" name="glSegmentCode2" placeholder="G/L Segment Code 2"  type="text" class="form-control" [(ngModel)]="currentSelectedRow.glSegmentCode2" #glSegmentCode2="ngModel">
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                  <h4>G/L Segment Code 3</h4>
+                                                  <input id="glSegmentCode3" name="glSegmentCode3" placeholder="G/L Segment Code 3"  type="text" class="form-control" [(ngModel)]="currentSelectedRow.glSegmentCode3">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </dx-scroll-view>
+                            </div>
+
+                            <div class="modal-footer" *ngIf="tabSelected === tab_WC">
+                                <button type="button" class="btn btn-outline-primary" (click)="onCancelClick()">Cancel</button>
+                                <button type="button" [disabled]="worksiteForm.invalid" class="btn btn-primary" (click)="onSubmitClick()">Confirm</button>
+                            </div>
+                        </div>
+
+                        <div class="custom-modal-window" *ngIf="tabSelected === tab_CC">
+                            <div class="modal-body">
+                                <div class="custom-grid">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="custom-grid-header">
+                                                <button type="button" class="btn btn-primary pull-right" (click)="addContactRow()">Add Contact</button>
+                                            </div>
+                                            <br />
+                                            <br />
+                                            <dx-scroll-view #scrollView
+                                                id="scrollview"
+                                                [scrollByContent]="true"
+                                                [scrollByThumb]="true"
+                                                [showScrollbar]="always"
+                                                [bounceEnabled]="false">
+                                            <div  style="max-height: 400px; padding: 0 3px;">
+                                                <dx-data-grid id="worksiteDataGrid" [dataSource]="currentSelectedRow.availableContacts" (onCellClick)="onContactCellButtonClick($event)">
+                                                    <dxo-paging [enabled]="false"></dxo-paging>
+                                                    <dxi-column dataField="contactName"  [allowSorting]="false"></dxi-column>
+                                                    <dxi-column dataField="contactTitle"  [allowSorting]="false"></dxi-column>
+                                                    <dxi-column dataField="contactPhone"  [allowSorting]="false"></dxi-column>
+                                                    <dxi-column [allowSorting]="false" cellTemplate="cellEditContactTemplate" [width]="51"></dxi-column>
+
+                                                    <div *dxTemplate="let d of 'cellEditContactTemplate'" class="custom-cell">
+                                                        <button id="edit-button-departmentCode" tabindex="0" type="button" class="btn btn-link cell-button cell-button-popup" >
+                                                            <span>Edit</span>
+                                                        </button>
+                                                    </div>
+                                                </dx-data-grid>
+                                            </div>
+                                            </dx-scroll-view>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </dx-popup>
+                <!-- END ADD/EDIT Popup -->
+
+                <!-- ADD/EDIT Client Contact Popup -->
+                <dx-popup
+                    class="custom-dx-popup"
+                    #popupEditClientContentnCode
+                    [showTitle]="false"
+                    [width]="383"
+                    [height]="'auto'"
+                    [position]="{ my: 'middle', at: 'middle', of: window }"
+                    [showCloseButton]="false"
+                    [dragEnabled]="false"
+                    [closeOnOutsideClick]="true"
+                    [(visible)]="editContactPopupVisible">
+                    <div *dxTemplate="let data of 'content'">
+
+                        <div class="custom-modal-window" ngForm #ccForm="ngForm">
+                          <div class="modal-header">
+                            <h4 class="modal-title modal-title-capitalize align-self-center float-left">{{popupContactTitle}}</h4>
+                            <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="onContactCancelClick(); ">
+                              <span class="icon icon-close"></span>
+                            </button>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="form-group">
+                                <h4>Contact Name</h4>
+                                <input id="contactNameInput" name="contactNameInput" placeholder="Contact Name" type="text" class="form-control" required [(ngModel)]="currentContactSelectedRow.contactName" #contactNameInput="ngModel">
+                            </div>
+                            <div class="form-group">
+                              <h4>Contact Title</h4>
+                              <input id="contactTitleInput" name="contactTitleInput" placeholder="Contact Title" type="text" class="form-control" required [(ngModel)]="currentContactSelectedRow.contactTitle" #contactTitleInput="ngModel">
+                            </div>
+                            <div class="form-group">
+                              <h4>Contact Phone</h4>
+                              <input 
+                                id="contactPhoneInput" 
+                                name="contactPhoneInput" 
+                                placeholder="Contact Phone" 
+                                pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" 
+                                type="phone" 
+                                class="form-control phoneFaxMask" 
+                                required 
+                                [(ngModel)]="currentContactSelectedRow.contactPhone" 
+                                #contactPhoneInput="ngModel"
+                                phoneFaxMask
+                                maxlength="14">
+                            </div>
+                          </div>
+
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-primary" (click)="onContactCancelClick()">Cancel</button>
+                            <button type="button" [disabled]="ccForm.invalid" class="btn btn-primary" (click)="onContactSubmitClick()">Save</button>
+                          </div>
+                        </div>
+
+                    </div>
+                </dx-popup>
+                <!-- END ADD/EDIT Client Contact Popup -->
+            </div>
+        </div>
+    </div>
+</div>

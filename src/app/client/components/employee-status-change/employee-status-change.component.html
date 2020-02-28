@@ -1,0 +1,82 @@
+<div class="custom-modal-window employee-supervisor-change-modal" ngForm #escForm="ngForm">
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">Status Change - {{ selectedEmployeeName | middleTruncate: 25 }}</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+      <span class="icon icon-close"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <div *ngIf="showErrorMessage" class="messages-component">
+          <div class="alert alert-danger alert-dismissible">
+            <button aria-label="Close" class="close" type="button" (click)="closeErrorMessage()">
+              <span aria-hidden="true">×</span>
+            </button>
+            <span class="icon icon-danger"></span>
+            <span class="message">
+              An error has occurred
+            </span>
+          </div>
+        </div>
+        <div class="form-group">
+          <h4>Current Employment Status</h4>
+          <input [disabled]="true" id="currentEmployeeStatus" name="currentEmployeeStatus" placeholder="Current Employee Status" type="text"
+            class="form-control" [(ngModel)]="statusChangeData.employmentStatus">
+        </div>
+        <div class="form-group">
+          <h4>Current Employment Type</h4>
+          <input [disabled]="true" id="currentEmploymentType" name="currentEmploymentType" placeholder="Current Employment Type" type="text"
+            class="form-control" [(ngModel)]="statusChangeData.employmentType">
+        </div>
+        <div class="form-group">
+          <h4>Employment Type</h4>
+          <div ngbDropdown class="d-inline-block custom-dropdown-component">
+            <button class="btn btn-form-control form-control-dropdown text-left" id="employmentTypeDD" ngbDropdownToggle (click)="isEmploymentTypeDDOpened = !isEmploymentTypeDDOpened">
+              <span class="{{employmentTypeTemp === '' ? 'text-placeholder' : '' }}">{{employmentTypeTemp === '' ? 'Please select an Option' : employmentTypeTemp}}
+                <i class="icon icon-shape float-right"></i>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="employmentTypeDD">
+              <button type="button" class="dropdown-item" *ngFor="let item of employmentType" (click)="changeEmploymentTypeSelection(item.Text)">{{item.Text}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <h4>Reason Code</h4>
+          <div ngbDropdown class="d-inline-block custom-dropdown-component">
+            <button class="btn btn-form-control form-control-dropdown text-left" id="reasonCodeDD" ngbDropdownToggle (click)="isReasonCodeDDOpened = !isReasonCodeDDOpened">
+              <span class="{{reasonCodeTemp === '' ? 'text-placeholder' : '' }}">{{reasonCodeTemp === '' ? 'Please select an Option' : reasonCodeTemp}}
+                <i class="icon icon-shape float-right"></i>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="reasonCodeDD">
+              <button type="button" class="dropdown-item" *ngFor="let item of reasonCode" (click)="changeReasonCodeSelection(item.Text)">{{item.Text}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <h4>Status Type Date</h4>
+          <div class="custom-date-picker">
+            <div class="input-icon icon icon-calendar"></div>
+            <input id="dp" class="form-control custom-input-field" placeholder="Month dd, yyyy" name="dp" required [(ngModel)]="statusChangeData.statusTypeDate"
+              ngbDatepicker [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #d="ngbDatepicker"
+              #dp="ngModel">
+            <button class="btn input-btn icon-shape" (click)="d.toggle(); opened = !opened" type="button"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="openErrorMessage()">Cancel</button>
+    <button [disabled]="escForm.invalid || reasonCodeTemp === '' || employmentTypeTemp === '' " type="button" class="btn btn-primary"
+      (click)="submitModal()">Confirm</button>
+  </div>
+</div>
+
+<ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-focused="focused">
+  <div class="btn-light" [class.focused]="focused" [class.bg-primary]="selected" (click)="opened = !opened;" (keydown)="opened = !opened;">
+    {{ date.day }}
+  </div>
+</ng-template>

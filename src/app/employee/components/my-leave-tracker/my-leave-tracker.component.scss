@@ -1,0 +1,180 @@
+@import '~sass/variables';
+
+.my-leave-tracker {
+    background-color: $white;
+
+    .my-leave-tracker-header {
+        font-size: 12px;
+        font-weight: 900;
+        
+        h3 {
+            font-size: 16px;
+            line-height: 18px;
+            letter-spacing: 0;
+            font-weight: 500;
+        }
+
+        .btn-outline-primary {
+            width: 126px !important;
+            font-family: $font-family-sans-serif-secondary;
+            font-size: 11px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            color: $blue;
+            border-radius: 5px;
+            border: solid 2px $blue;
+        }
+
+        .btn-outline-primary:hover {
+            color: $white;
+            background-color: $blue;
+        }
+
+        .col-md {
+            padding-right: 0;
+        }
+    }
+
+    .my-leave-tracker-body {
+        margin-bottom: 32px;
+        padding-top: 36px;
+
+        .pto-data {
+            margin-top: 13px;
+            
+
+            .pto-request-pending  {
+                padding: 0;
+            }
+        }
+
+        .row {
+            h3 {
+                font-size: 13px;
+                font-weight: 500;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: normal;
+                text-align: right;
+                color: $gray-700;
+            }
+        }
+
+        .pto-type {
+            font-size: 14px;
+            font-weight: 500;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.29;
+            letter-spacing: normal;
+            text-align: left;
+        }
+
+        .pto-data-display {
+            .col-md-6 {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            h3 {
+                font-size: 12px;
+            }   
+            
+        }
+
+        .badge-warning {
+            width: 62px;
+            height: 19px;
+            border-radius: 10px;
+        }
+
+        .pending-badge {
+            font-size: 9px;
+            font-weight: 900;
+            font-style: normal;
+            font-stretch: normal;
+            letter-spacing: 0.8px;
+            text-align: center;
+            color: $white;
+        }
+    }
+
+    .my-leave-tracker-footer {        
+        a {
+            font-family: $font-family-sans-serif-secondary;
+            color: $blue;
+            text-transform: uppercase;
+            font-size: 11px;
+            line-height: 14px;
+            font-weight: bolder;
+           
+
+            .icon-arrow  {
+                font-size: 9px;
+            }
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: #004b9b;
+            .icon-arrow::before {
+                margin-left: 5px;
+                transition: margin-left 500ms;
+            }
+            
+        }
+    }
+
+    .fix-height-component {
+        .my-leave-tracker-footer {
+            position: absolute;
+            bottom: 25px;
+        }
+    }
+}
+
+#ptoVacationChart {
+    height: 22px;
+    margin: 0 auto
+}
+
+#ptoPersonalChart {
+    height: 22px;
+    margin: 0 auto
+}
+
+#ptoSickChart {
+    height: 22px;
+    margin: 0 auto
+}
+
+::ng-deep .dxc-labels-group .dxc-labels rect:first-child {
+    height:0 !important;
+    fill: transparent;
+}
+
+::ng-deep .dxc-labels-group .dxc-labels:first-child text {
+    font-size: 11px !important;
+    font-weight: bold !important;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    fill: white !important;
+}
+
+::ng-deep .dxc-labels-group .dxc-labels:last-child text {
+    font-size: 11px !important;
+    font-weight: bold !important;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    fill: #969ba8 !important;
+}

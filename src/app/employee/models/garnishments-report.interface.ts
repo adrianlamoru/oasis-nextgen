@@ -1,0 +1,21 @@
+export interface GarnishmentsReport{
+    docketNumber: string,
+    receipetDate: string,
+    issuingAuthoriry: string,
+    category: string,
+    garnishmentLimit: string,
+    flatAmount: string,
+    startDate: string,
+    stopDate: string,
+    payPeriodLimit: string,
+    payeeID: string,
+    deductionCode: string,
+    garnishmentsFee: string,
+    maximumGarnishmentPer: string,
+    maximumBasis: string,
+    supressPayTypes: string,
+    annotation: string,
+    overrideAmount: string,
+    overrideStartDate: string,
+    overrideStopDate: string
+  }

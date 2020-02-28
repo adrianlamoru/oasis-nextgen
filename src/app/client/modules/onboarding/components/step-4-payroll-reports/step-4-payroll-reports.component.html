@@ -1,0 +1,335 @@
+<div class="payroll-information-reports">
+  <form [formGroup]="formGroup" autocomplete="off">
+    <div class="row">
+      <div class="col-8">
+        <div class="row">
+          <div class="col-12">
+            <div class="taxes-paragraph">
+              All standard reports are delivered electronically. If there are special reports that you would like to receive, please discuss the specific details with your Implementation Specialist.
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class='col-12'>
+            <h3 class="display-3 payroll-reports-title">Standard Report Options</h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator-title"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-7">
+            <p>How do you prefer your invoices to be sorted?</p>
+          </div>
+          <div class="col-5">
+            <app-custom-select
+                          [placeholder]="'Select one'"
+                          [items]="invoiceOptions"
+                          formControlName="invoicesSorted"
+                          (selected)="invoicesSortedDDSelected($event)">
+            </app-custom-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+              <div class="payroll-information-section-title">Please provide details</div>
+              <textarea name="invoiceDetails" id="invoiceDetails" rows="4" class="form-control" [disabled]="selectedInvoiceOptions !== 'Other'"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-7">
+            <p>How do you prefer your reports to be sorted?</p>
+          </div>
+          <div class="col-5">
+            <!-- <div ngbDropdown class="d-inline-block custom-dropdown-component">
+              <button class="btn btn-form-control form-control-dropdown text-left" id="singleSelectSDropDown" ngbDropdownToggle (click)="isDropDownBoxSOpened = !isDropDownBoxSOpened">
+                <span class="{{selectedReportOption === '' ? 'text-placeholder' : '' }}">
+                  {{selectedReportOption === '' ? 'Please select an Option' : selectedReportOption}}
+                  <i class="icon icon-shape float-right"></i>
+                </span>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="singleSelectSDropDown">
+                <button type="button" class="dropdown-item" *ngFor="let option of reportOptions" (click)="changeCodeReportSelection(option)">{{option}}</button>
+              </div>
+            </div> -->
+
+            <app-custom-select
+                          [placeholder]="'Select one'"
+                          [items]="reportsOptions"
+                          formControlName="reportsSorted"
+                          (selected)="reportsSortedDDSelected($event)">
+            </app-custom-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+              <div class="payroll-information-section-title">Please provide details</div>
+              <textarea name="reportDetails" id="reportDetails" rows="4" class="form-control" [disabled]="selectedReportsOptions !== 'Other'"></textarea>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+              <div class="horizontal-separator"></div>
+            </div>
+          </div>
+        <br>
+        <div class="row">
+          <div class="col-12">
+            <h3 class="display-3 payroll-reports-title2">Pay Stubs</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator-title2"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+              <div class="taxes-paragraph space-down">
+                  Direct deposit pay stubs will be auto defaulted to electronic delivery available for review via the Employee Services Website.
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-7">
+            <p>Where will checks be delivered?</p>
+          </div>
+          <div class="col-5">
+              <app-custom-select
+                          [placeholder]="'Select one'"
+                          [items]="deliveredOptions"
+                          formControlName="checksDelivered"
+                          (selected)="checksDeliveredDDSelected($event)">
+            </app-custom-select>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+              <div class="horizontal-separator"></div>
+            </div>
+          </div>
+        <div class="row">
+          <div class="col-7">
+            <p>How will we be delivering live checks and/or direct deposit (DD) pay stubs for employees who have opted out of this paperless feature?</p>
+          </div>
+          <div class="col-5">
+              <app-custom-select
+                          [placeholder]="'Select one'"
+                          [items]="deliveringOptions"
+                          formControlName="deliveringChecks"
+                          (selected)="deliveringChecksDDSelected($event)">
+            </app-custom-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="taxes-paragraph">
+                Applicable fees per contract will apply
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-7">
+            <p>How do you prefer your pay stubs to be sorted?</p>
+          </div>
+          <div class="col-5">
+            <app-custom-select
+                          [placeholder]="'Select one'"
+                          [items]="payStubsOptions"
+                          formControlName="payStubsSorted"
+                          (selected)="payStubsSortedDDSelected($event)">
+            </app-custom-select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="payroll-information-section-title">Please provide details</div>
+            <textarea name="payStubsdetails" id="payStubsdetails" rows="4" class="form-control" [disabled]="selectedPayStubsOptions !== 'Other'"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row checkbox-row">
+          <div class="form-group col-9 mb-0 p-0">
+            <p>Do you want the Benefit Employer Contributions to be reflected on the employee pay stub?</p>
+          </div>
+          <div class="form-group col-3 checkbox-section p-0">
+              <!-- <dx-check-box [(ngModel)]="employerContributionsCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('employerContributionsCheckboxGroup', 'yes', $event)"></dx-check-box>
+              <dx-check-box [(ngModel)]="employerContributionsCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('employerContributionsCheckboxGroup', 'no', $event)"></dx-check-box> -->
+              <div formGroupName="employerBenefitContributionGroup" class="form-checkbox-width">
+                  <dx-check-box 
+                    formControlName="employerBenefitContributionYes" 
+                    text="Yes" 
+                    (onOptionChanged)="onGroupedCheckBoxChanged('employerBenefitContributionYes', 'employerBenefitContributionGroup', $event)"></dx-check-box>
+                  
+                  <dx-check-box 
+                    class="mr-0"
+                    formControlName="employerBenefitContributionNo" 
+                    text="No" 
+                    (onOptionChanged)="onGroupedCheckBoxChanged('employerBenefitContributionNo', 'employerBenefitContributionGroup', $event)"></dx-check-box>
+                </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row checkbox-row">
+          <div class="form-group col-9 mb-0 p-0">
+            <p>Do you want the 401(k) Employer Contribution to be reflected on the employee pay stub?</p>
+          </div>
+          <div class="form-group col-3 checkbox-section p-0">
+              <!-- <dx-check-box [(ngModel)]="employerContributionsReflectedCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('employerContributionsReflectedCheckboxGroup', 'yes', $event)"></dx-check-box>
+              <dx-check-box [(ngModel)]="employerContributionsReflectedCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('employerContributionsReflectedCheckboxGroup', 'no', $event)"></dx-check-box> -->
+              <div formGroupName="employer401kContributionGroup" class="form-checkbox-width">
+                <dx-check-box 
+                  formControlName="employer401kContributionYes" 
+                  text="Yes" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('employer401kContributionYes', 'employer401kContributionGroup', $event)"></dx-check-box>
+                
+                <dx-check-box 
+                  class="mr-0"
+                  formControlName="employer401kContributionNo" 
+                  text="No" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('employer401kContributionNo', 'employer401kContributionGroup', $event)"></dx-check-box>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        
+        <!-- <div class="row">
+          <div class="col-12">
+            <h3 class="display-3 employees-notactive space-down">Accounting</h3>
+          </div>
+        </div> -->
+
+        <!-- <label class="general-ledger-label" for="generalledgerlabel">Accounting</label> -->
+
+        <div class="row">
+          <div class="col-12">
+              <h3 class="display-3 payroll-reports-title3">Worksite Locations</h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator-title3"></div>
+          </div>
+        </div>
+
+
+        <div class="row checkbox-row2">
+          <div class="form-group col-8 mb-0 p-0">
+            <p>Do you have General Ledger report needs?</p>
+          </div>
+          <div class="form-group col-4 checkbox-section p-0">
+              <!-- <dx-check-box [(ngModel)]="generalLedgerCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('generalLedgerCheckboxGroup', 'yes', $event)"></dx-check-box>
+              <dx-check-box [(ngModel)]="generalLedgerCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('generalLedgerCheckboxGroup', 'no', $event)"></dx-check-box> -->
+              <div formGroupName="generalLedgerGroup" class="form-checkbox-width">
+                <dx-check-box 
+                  formControlName="generalLedgerYes" 
+                  text="Yes" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('generalLedgerYes', 'generalLedgerGroup', $event)"></dx-check-box>
+                
+                <dx-check-box 
+                  class="mr-0"
+                  formControlName="generalLedgerNo" 
+                  text="No" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('generalLedgerNo', 'generalLedgerGroup', $event)"></dx-check-box>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="taxes-paragraph">
+                Please upload a copy of your Chart of Accounts
+                <div class="d-inline align-self-center">
+                  <button class="btn btn-primary float-right" (click)="openUploadModal('lg', uploadModalChartsAccount)" [disabled]="generalLedgerName === '' || generalLedgerName === 'generalLedgerNo'">Upload</button>
+                </div>
+            </div>
+          </div>
+          <ng-template #uploadModalChartsAccount let-c="close" let-d="dismiss">
+              <app-upload [modalCloseFunc]="this.c" [modalDismissFunc]="this.d" [isTypeModal]="true"></app-upload>
+            </ng-template>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row checkbox-row2">
+          <div class="form-group col-8 mb-0 p-0">
+            <p>Do you have certified payroll requirements?</p>
+          </div>
+          <div class="form-group col-4 checkbox-section p-0">
+              <!-- <dx-check-box [(ngModel)]="certifiedPayrollCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('certifiedPayrollCheckboxGroup', 'yes', $event)"></dx-check-box>
+              <dx-check-box [(ngModel)]="certifiedPayrollCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('certifiedPayrollCheckboxGroup', 'no', $event)"></dx-check-box> -->
+            <div formGroupName="certifiedPayrollGroup" class="form-checkbox-width">
+                <dx-check-box 
+                  formControlName="certifiedPayrollYes" 
+                  text="Yes" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('certifiedPayrollYes', 'certifiedPayrollGroup', $event)"></dx-check-box>
+                
+                <dx-check-box 
+                  class="mr-0"
+                  formControlName="certifiedPayrollNo" 
+                  text="No" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('certifiedPayrollNo', 'certifiedPayrollGroup', $event)"></dx-check-box>
+              </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="taxes-paragraph">
+                Please upload a sample certified report for review
+                <div class="d-inline align-self-center">
+                  <button class="btn btn-primary float-right" (click)="openUploadModal('lg', uploadModalRequirements)" [disabled]="certifiedPayrollName === '' || certifiedPayrollName === 'certifiedPayrollNo'">Upload</button>
+                </div>
+            </div>
+          </div>
+          <ng-template #uploadModalRequirements let-c="close" let-d="dismiss">
+              <app-upload [modalCloseFunc]="this.c" [modalDismissFunc]="this.d" [isTypeModal]="true"></app-upload>
+            </ng-template>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

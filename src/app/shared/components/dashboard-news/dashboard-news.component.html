@@ -1,0 +1,51 @@
+<div class="dashboard-news" [ngClass]="{'main-area-container': isMainArea(), 'left-panel-container':  isLeftPanelArea()}">
+    <div class="dashboard-news-header">
+        <h5>Oasis news</h5>
+    </div>
+    <div class="dashboard-list-container"  [ngClass]="{'news-body-gradient': isMainArea()}">
+        <ul class="list fix-height">
+            <li class="list-item" *ngFor="let data of newsModalFilteredList | slice:0:6">
+                <a class="title" href="javascript: void(0)" (click)="openNewsModal(content, data.anchorID)">
+                    <span>{{ data.title }}</span>
+                </a>
+                <a class="description">
+                    <span>{{ data.body }}</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="dashboard-news-footer">
+        <a href="javascript: void(0)" (click)="openNewsModal(content)">See all news
+            <span class="icon icon-arrow"></span>
+        </a>
+    </div>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="news-modal">
+        <div class="modal-header news-modal-header">
+            <h4 class="modal-title align-self-center">Oasis News</h4>
+            <button type="button" class="close align-self-center" aria-label="Close" (click)="d('Cross click')">
+                <span class="icon icon-close"></span>
+            </button>
+        </div>
+        <div class="modal-body news-modal-body" id="news-scrollbar">
+            <div class="news-item" *ngFor="let data of newsModalData;let i = index">
+                <div class="item-header" id="{{data.anchorID}}">{{ data.title }}</div>
+                <div class="item-body readLess" [ngClass]="{ 'readMore' : (i === activeIndex && toggle === 1), 'readLess': (i === activeIndex && toggle === 0) }">{{ data.body }}</div>
+                <div class="item-footer">
+                    <a href="javascript: void(0)"  *ngIf="i != activeIndex || toggle === 0" (click)="clicked(i,1)">READ MORE
+                        <i class="icon icon-shape"></i>
+                    </a>
+                    <a class="readLessIcon" href="javascript: void(0)"  *ngIf="i === activeIndex && toggle === 1" (click)="clicked(i,0)">READ LESS
+                        <i class="icon icon-shape-reverse"></i>
+                    </a>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <!-- <div class="modal-footer news-modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+        </div> -->
+    </div>
+</ng-template>

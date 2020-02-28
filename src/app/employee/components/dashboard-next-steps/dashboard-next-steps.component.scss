@@ -1,0 +1,61 @@
+@import '~sass/variables';
+
+.dashboard-next-steps {
+    .dashboard-next-steps-header {
+        h3 {
+            font-size: 12px;
+            line-height: 17px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    }
+
+    .dashboard-next-steps-body {
+        margin-top: 15px;
+
+        .list-steps {
+            list-style: none;
+            padding-left: 0;
+
+            .list-step-item {
+                margin-bottom: 5px;
+                padding: 13px 20px;
+                background-color: $forth-level-color;
+
+                .step-link {
+                    font-size: 14px;
+                    line-height: 17px;
+                }
+            }
+        }
+    }
+
+    .dashboard-next-steps-footer {
+        margin-top: 15px;
+
+        a {
+            font-family: $font-family-sans-serif-secondary;
+            color: $blue;
+            text-transform: uppercase;
+            font-size: 11px;
+            line-height: 14px;
+            font-weight: bolder;
+           
+
+            .icon-arrow  {
+                font-size: 9px;
+            }
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: #004b9b;
+
+            .icon-arrow::before {
+                margin-left: 5px;
+                transition: margin-left 500ms;
+            }
+            
+        }
+    }
+}

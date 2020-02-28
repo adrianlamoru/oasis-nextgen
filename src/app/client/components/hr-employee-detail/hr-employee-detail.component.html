@@ -1,0 +1,181 @@
+<div class="custom-modal-window hr-employee-detail-modal">
+    <div class="modal-header">
+      <h4 class="modal-title align-self-center float-left">Employee: {{ employeeListing.employeeID }} - {{ employeeListing.name }}</h4>
+      <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+          <span class="icon icon-close"></span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="custom-grid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="custom-grid-header">
+                        <h3 class="display-3 table-title">Primary Information</h3>
+                    </div>
+                    <dx-data-grid #primaryInformationDataGrid [dataSource]="primaryInformationDataRows"
+                        [showRowLines]="true"
+                        [columnAutoWidth]="true"     
+                        [showColumnHeaders]="false"                    
+                        keyExpr="id">
+                        <dxo-paging [enabled]="false"></dxo-paging>
+                        <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                            <div *dxTemplate="let cell of 'dataTemplate'">
+                                <div class="field-display-section custom-border-bottom">
+                                    <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                    <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                </div>
+                            </div>
+                        </dxi-column>
+                    </dx-data-grid>
+                </div>    
+            </div>      
+        </div>
+        <div class="custom-grid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="custom-grid-header">
+                        <h3 class="display-3 table-title">Contact Information - Home</h3>
+                    </div>
+                    <dx-data-grid #contactInformationDataGrid [dataSource]="contactInformationDataRow"
+                        [showRowLines]="true"
+                        [columnAutoWidth]="true"     
+                        [showColumnHeaders]="false"                    
+                        keyExpr="id">
+                        <dxo-paging [enabled]="false"></dxo-paging>
+                        <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                            <div *dxTemplate="let cell of 'dataTemplate'">
+                                <div class="field-display-section custom-border-bottom">
+                                    <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                    <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                </div>
+                            </div>
+                        </dxi-column>
+                    </dx-data-grid>
+                </div>    
+            </div>      
+        </div> 
+        <div class="custom-grid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="custom-grid-header">
+                        <h3 class="display-3 table-title">Work History</h3>
+                    </div>
+                    <dx-data-grid #workHistoryDataGrid [dataSource]="workHistoryDataRow"
+                        [showRowLines]="true"
+                        [columnAutoWidth]="true"     
+                        [showColumnHeaders]="false"                    
+                        keyExpr="id">
+                        <dxo-paging [enabled]="false"></dxo-paging>
+                        <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                            <div *dxTemplate="let cell of 'dataTemplate'">
+                                <div class="field-display-section custom-border-bottom">
+                                    <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                    <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                </div>
+                            </div>
+                        </dxi-column>
+                    </dx-data-grid>
+                </div>    
+            </div>      
+        </div> 
+        <div class="custom-grid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="custom-grid-header">
+                        <h3 class="display-3 table-title">Personal Information</h3>
+                    </div>
+                    <dx-data-grid #personalInformationDataGrid [dataSource]="personalInformationDataRow"
+                        [showRowLines]="true"
+                        [columnAutoWidth]="true"     
+                        [showColumnHeaders]="false"                    
+                        keyExpr="id">
+                        <dxo-paging [enabled]="false"></dxo-paging>
+                        <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                            <div *dxTemplate="let cell of 'dataTemplate'">
+                                <div class="field-display-section custom-border-bottom">
+                                    <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                    <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                </div>
+                            </div>
+                        </dxi-column>
+                    </dx-data-grid>
+                </div>    
+            </div>      
+        </div> 
+        <div class="custom-grid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="custom-grid-header">
+                        <h3 class="display-3 table-title">Status</h3>
+                    </div>
+                    <dx-data-grid #statusDataGrid [dataSource]="statusDataRow"
+                        [showRowLines]="true"
+                        [columnAutoWidth]="true"     
+                        [showColumnHeaders]="false"                    
+                        keyExpr="id">
+                        <dxo-paging [enabled]="false"></dxo-paging>
+                        <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                            <div *dxTemplate="let cell of 'dataTemplate'">
+                                <div class="field-display-section custom-border-bottom">
+                                    <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                    <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                </div>
+                            </div>
+                        </dxi-column>
+                    </dx-data-grid>
+                </div>    
+            </div>      
+        </div> 
+        <div class="custom-grid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="custom-grid-header">
+                        <h3 class="display-3 table-title">Benefits Information</h3>
+                    </div>
+                    <dx-data-grid #benefitsInformationDataGrid [dataSource]="benefitsInformationDataRow"
+                        [showRowLines]="true"
+                        [columnAutoWidth]="true"     
+                        [showColumnHeaders]="false"                    
+                        keyExpr="id">
+                        <dxo-paging [enabled]="false"></dxo-paging>
+                        <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                            <div *dxTemplate="let cell of 'dataTemplate'">
+                                <div class="field-display-section custom-border-bottom">
+                                    <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                    <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                </div>
+                            </div>
+                        </dxi-column>
+                    </dx-data-grid>
+                </div>    
+            </div>      
+        </div> 
+        <div class="custom-grid mb-0">
+            <div class="row">
+                <div class="col-12">
+                    <div class="custom-grid-header">
+                        <h3 class="display-3 table-title">Emergency Contact</h3>
+                    </div>
+                    <dx-data-grid #emergencyContactDataGrid [dataSource]="emergencyContactDataRow"
+                        [showRowLines]="true"
+                        [columnAutoWidth]="true"     
+                        [showColumnHeaders]="false"                    
+                        keyExpr="id">
+                        <dxo-paging [enabled]="false"></dxo-paging>
+                        <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                            <div *dxTemplate="let cell of 'dataTemplate'">
+                                <div class="field-display-section custom-border-bottom">
+                                    <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                    <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                </div>
+                            </div>
+                        </dxi-column>
+                    </dx-data-grid>
+                </div>    
+            </div>      
+        </div>     
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="modalCloseFunc('Cross click')">Cancel</button>
+    </div>
+  </div>

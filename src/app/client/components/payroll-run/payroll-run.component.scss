@@ -1,0 +1,128 @@
+@import '~sass/variables';
+
+.run-payroll {
+  .header {
+    margin-bottom: 27px;
+
+    .title {
+      padding: 6px 0px;
+
+      .scheduled-payroll {
+        font-family: $font-family-sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.13;
+        letter-spacing: normal;
+        color: $primary-text-color;
+        padding: 4px 0;
+      }
+    }
+  }
+
+  .payroll-batches {
+    .batch-title {
+      font-family: $font-family-sans-serif;
+      font-size: 12px;
+      font-weight: 900;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.42;
+      letter-spacing: normal;
+      color: #a5aab7;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .add-note-batch {
+      font-family: $font-family-sans-serif;
+      font-size: 11px;
+      font-weight: 900;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: 0.5px;
+      color: $primary-text-color;
+    }
+
+    .cell-batch {
+      padding: 12px 0px 10px 27px;
+      position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;      
+
+      .badge.badge-pill {
+        position: absolute;
+        top: 28px;
+        left: 112px;
+        text-transform: uppercase;
+      }
+
+      .due-date-container {
+        display: inline-block;
+        min-width: 170px;
+      }
+
+      .cell-caption {
+        font-family: $font-family-sans-serif;
+        font-size: 11px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: $secondary-text-color;
+        display: block;
+        text-transform: uppercase;
+        margin-bottom: 3px;
+      }
+
+      .cell-value {
+        font-family: $font-family-sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.29;
+        letter-spacing: normal;
+        color: $primary-text-color;
+      }
+    }
+  }
+
+  .dropdown {
+    .bash-actions {
+      font-size: 11px;
+      font-weight: 900;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: normal;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+  }
+
+  .custom-dropdown-menu {
+    .dropdown-item {
+      font-family: $font-family-sans-serif;
+      font-size: 14px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.29;
+      letter-spacing: normal;
+      color: $primary-text-color;
+    }
+  }
+
+  .btn-transparent {
+    background-color: transparent;
+    border-color: transparent;
+  }
+}
+
+@import "./../../../../sass/variables";
+
+

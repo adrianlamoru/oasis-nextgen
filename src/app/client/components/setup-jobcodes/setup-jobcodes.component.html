@@ -1,0 +1,258 @@
+<div class="row job-codes-component setup-container-content">
+  <div class="col-12 custom-grid">
+    <div class="row">
+      <div class="col-12">
+        <div class="custom-grid-header">
+          <h3 class="display-3 table-title">Job Codes</h3>
+          <dx-button text="Add Code" class="btn btn-primary pull-right" (onClick)="addCode()"></dx-button>
+        </div>
+        <!-- DataGrid -->
+        <dx-data-grid #gridContainer id="gridContainer" [dataSource]="jobDataRows" [columnAutoWidth]="true" [wordWrapEnabled]="true" (onCellClick)="onCellButtonClick($event)">
+          <dxo-paging [enabled]="false"></dxo-paging>
+          <dxi-column dataField="Title" caption="Job Title" [allowSorting]="false"></dxi-column>
+          <dxi-column dataField="Description" caption="Job Description" [allowSorting]="false"></dxi-column>
+          <dxi-column 
+            dataField="Exempt" 
+            caption="Exempt from OT under FLSA guidelines" 
+            editorType="dxCheckbox" 
+            alignment="left" 
+            [allowSorting]="false"></dxi-column>
+          <dxi-column dataField="States" caption="States" cellTemplate="statesCellTemplate" [allowSorting]="false" [width]="200">
+            <div *dxTemplate="let cell of 'statesCellTemplate'">
+              <div style="overflow: hidden; text-overflow: ellipsis">{{selectedStatesToString(cell.value)}}</div>
+            </div>
+          </dxi-column>
+          <dxi-column [allowSorting]="false" cellTemplate="cellEditTemplate" [width]="36"></dxi-column>
+          <div *dxTemplate="let d of 'cellEditTemplate'" class="custom-cell">
+            <button id="edit-button-departmentCode" tabindex="0" type="button" class="btn btn-link cell-button">
+              <span class="btn-link-text">Edit</span>
+            </button>
+          </div>
+          <dxi-column [allowSorting]="false" cellTemplate="cellViewStatesTemplate" [width]="100">
+          </dxi-column>
+          <div *dxTemplate="let d of 'cellViewStatesTemplate'" class="custom-cell">
+            <button id="view-states" tabindex="0" type="button" [class]="d.data.default ? 'btn btn-link cell-button disabled' : 'btn btn-link cell-button'"
+              (click)="openModal('xs', ViewStatesModalContent, $event)">
+              <span class="btn-link-text">View States</span>
+            </button>
+          </div>
+        </dx-data-grid>
+        <!-- END DataGrid -->
+
+        <!-- ADD/EDIT Popup -->
+        <dx-popup class="custom-dx-popup" #popupEditProjectCode [showTitle]="false" [width]="646" [height]="'auto'" [position]="{ my: 'middle', at: 'middle', of: window }"
+          [showCloseButton]="false" [dragEnabled]="false" [closeOnOutsideClick]="true" [(visible)]="editPopupVisible">
+          <div *dxTemplate="let data of 'content'">
+
+            <div class="custom-modal-window" ngForm #jCodeForm="ngForm">
+              <div class="modal-header">
+                <h4 class="modal-title modal-title-capitalize align-self-center float-left">{{popupTitle}}</h4>
+                <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="onCancelClick()">
+                  <span class="icon icon-close"></span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                <div class="row row-extra-padding">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <h4>Job Code Name</h4>
+                      <input id="jobCodeName" name="jobCodeName" placeholder="Job Code Name" type="text" class="form-control" required [(ngModel)]="currentSelectedRow.Code"
+                        #jobCodeName="ngModel">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <h4>Job Title</h4>
+                      <input id="jobTitle" name="jobTitle" placeholder="Job Title" type="text" class="form-control" required [(ngModel)]="currentSelectedRow.Title"
+                        #jobTitle="ngModel">
+                    </div>
+                  </div>
+                </div>
+                <div class="row row-extra-padding">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <h4>Job Class</h4>
+                      <div ngbDropdown required class="d-inline-block custom-dropdown-component">
+                        <button class="btn btn-form-control form-control-dropdown text-left" id="jobClassDropDown" ngbDropdownToggle (click)="isJobDropDownBoxOpened = !isJobDropDownBoxOpened">
+                          <span class="{{currentSelectedRow.JobClass === '' ? 'text-placeholder' : '' }}">
+                            {{currentSelectedRow.JobClass === '' ? 'Please select an Option' : currentSelectedRow.JobClass}}
+                            <i class="icon icon-shape float-right"></i>
+                          </span>
+                        </button>
+                        <div class="dropdown-menu-sd-width" ngbDropdownMenu aria-labelledby="jobClassDropDown">
+                          <button type="button" class="dropdown-item" *ngFor="let item of jobClassDropDown" (click)="changeJobCodeSelection(item)">{{item.Name}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <h4>Job Code Description</h4>
+                      <input [disabled]="true" id="description" name="description" type="text" class="form-control" [(ngModel)]="currentSelectedRow.Description"
+                        #description="ngModel">
+                    </div>
+                  </div>
+                </div>
+                <div class="row row-extra-padding">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <h4>EEO Job Group</h4>
+                      <input [disabled]="true" id="eEOJobGroup" name="eEOJobGroup" type="text" class="form-control" [(ngModel)]="currentSelectedRow.EEOJobGroup"
+                        #eEOJobGroup="ngModel">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <h4>EEO Job Class</h4>
+                      <input [disabled]="true" id="eEOJobClass" name="eEOJobClass" type="text" class="form-control" [(ngModel)]="currentSelectedRow.EEOJobClass"
+                        #eEOJobClass="ngModel">
+                    </div>
+                  </div>
+                </div>
+                <div class="row row-extra-padding">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <dx-check-box text="Is FLSA Exempt" [disabled]="true" [(value)]="currentSelectedRow.Exempt"></dx-check-box>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <dx-check-box text="Is Supervisory" [(value)]="currentSelectedRow.Supervisory"></dx-check-box>
+                    </div>
+                  </div>
+                </div>
+                <div class="row row-extra-padding">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <dx-check-box text="Special Requirements" [(value)]="currentSelectedRow.SpecialRequirements"></dx-check-box>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <dx-check-box text="Is Sales Position" [(value)]="currentSelectedRow.IsSalesPosition"></dx-check-box>
+                    </div>
+                  </div>
+                </div>
+                <div class="row row-extra-padding">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <dx-check-box text="Is Tipped Position" [(value)]="currentSelectedRow.IsTippedPosition"></dx-check-box>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <dx-check-box text="Is D.O.T" [(value)]="currentSelectedRow.IsDOT"></dx-check-box>
+                    </div>
+                  </div>
+                </div>
+                <div class="row row-extra-padding">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <h4>Probation Days</h4>
+                      <input id="probationDays" name="probationDays" placeholder="Probation Days" type="text" class="form-control" [(ngModel)]="currentSelectedRow.ProbationDays">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <h4>Pay Grade</h4>
+                      <div ngbDropdown class="d-inline-block custom-dropdown-component">
+                        <button class="btn btn-form-control form-control-dropdown text-left" id="payGradeDropDown" ngbDropdownToggle (click)="isPayGradeDropDownBoxOpened = !isPayGradeDropDownBoxOpened">
+                          <span class="{{currentSelectedRow.PayGrade === '' ? 'text-placeholder' : '' }}">{{currentSelectedRow.PayGrade === '' ? 'Please select an Option' : currentSelectedRow.PayGrade}}
+                            <i class="icon icon-shape float-right"></i>
+                          </span>
+                        </button>
+                        <div class="dropdown-menu-sd-width" ngbDropdownMenu aria-labelledby="payGradeDropDown">
+                          <button type="button" class="dropdown-item" *ngFor="let item of payGradeDropDown" (click)="changePayGradeSelection(item)">{{item.Name}}</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <h4>Per Diem Percent</h4>
+                      <input id="perDiemPercent" name="perDiemPercent" placeholder="Per Diem Percent" type="text" class="form-control" [(ngModel)]="currentSelectedRow.PerDiemPercent">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <h4>States</h4>
+                      <dx-drop-down-box class="custom-multi-select" [(value)]="currentSelectedRow.States" [dataSource]="selectedCompany.states" valueExpr="ID"
+                        displayExpr="Name" placeholder="Select states" contentTemplate="dropboxtemplate-b" [showClearButton]="false" [(opened)]="currentSelectedRow.statesOpened" (onKeyDown)="onEnterKeyDown($event, currentSelectedRow)">
+                        <div *dxTemplate="let contentData of 'dropboxtemplate-b'">
+                          <dx-tree-view [dataSource]="selectedCompany.states" dataStructure="plain" keyExpr="ID" selectionMode="multiple" showCheckBoxesMode="selectAll"
+                            selectAllText="All States" [selectNodesRecursive]="false" displayExpr="Name" [selectByClick]="true"
+                            (onContentReady)="syncTreeViewSelection($event)" (onItemSelectionChanged)="contentReady? stateSelectionChanged($event): null">
+                          </dx-tree-view>
+                        </div>
+                        <div *dxTemplate="let data of 'dropDownButton'">
+                          <i class="icon icon-shape icon-rotate"></i>
+                        </div>
+                      </dx-drop-down-box>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" (click)="onCancelClick()">Cancel</button>
+                <button *ngIf="userType === 'ASO'" type="button" [disabled]="jCodeForm.invalid || currentSelectedRow.JobClass === ''" class="btn btn-primary"
+                  (click)="onSubmitClick()">Confirm</button>
+                <button *ngIf="userType === 'PEO'" type="button" [disabled]="jCodeForm.invalid || currentSelectedRow.JobClass === ''" class="btn btn-primary btn-stretch"
+                  (click)="onRequestCode()">Request Code</button>
+              </div>
+            </div>
+
+            <dx-popup class="custom-dx-popup" #popupRequestCode [showTitle]="false" [width]="350" [height]="190" [position]="{ my: 'middle', at: 'middle', of: window }"
+              [showCloseButton]="false" [dragEnabled]="false" [closeOnOutsideClick]="true" [(visible)]="popupRequestCodeVisible">
+              <div *dxTemplate="let data of 'content'">
+                <div class="message-modal-window">
+                  <div class="modal-body">
+                    <div class="form-group d-flex justify-content-center">
+                      <p class="my-0">
+                        Thank you for your request to add a new Job Code. This request has been added as a support ticket.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="onCancelClick()">OK</button>
+                  </div>
+                </div>
+              </div>
+            </dx-popup>
+
+          </div>
+        </dx-popup>
+        <!-- END ADD/EDIT Popup -->
+        <ng-template #ViewStatesModalContent let-c="close" let-d="dismiss">
+
+          <div class="custom-modal-window">
+            <div class="modal-header">
+              <h4 class="modal-title modal-title-capitalize align-self-center float-left">States</h4>
+              <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click')">
+                <span class="icon icon-close"></span>
+              </button>
+            </div>
+            <div class="modal-body benefits-modal-body">
+              <div class="benefits-item benefits-item-parent-padding">
+                <div class="features-items features-with-borders">
+                  <ul class="features-items">
+                    <li class="media" *ngFor="let state of this.currentSelectedRow.selectedStates">
+                      <div class="media-body">{{state}}</div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer modal-footer-benefits">
+              <button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Close</button>
+            </div>
+          </div>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</div>

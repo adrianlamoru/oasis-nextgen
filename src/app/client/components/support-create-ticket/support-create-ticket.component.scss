@@ -1,0 +1,66 @@
+
+@import '~sass/variables';
+
+.custom-support-modal {
+    .modal-body {
+        min-height: 460px;
+    }
+
+    .nav-tabs .nav-link.disabled  {
+        color: $gray-700 !important;
+        cursor: not-allowed;
+    }
+
+    .file-upload-area {
+        margin-left: 15px;
+        margin-right: 15px; 
+
+        .dx-fileuploader-wrapper {
+            padding: 0;
+            margin-top: 4px;
+        }
+
+        // .custom-file-uploader {
+        //     & .dx-fileuploader-input-wrapper {
+        //         border: dotted 2px #c0c3c7;
+        //         height: 80px;
+
+        //         padding-left: 20px;
+        //         padding-right: 20px;
+        //         align-self: center;
+        //         display: flex;
+
+        //         & .dx-fileuploader-button {
+        //             height: 36px;
+        //             top: 22%;
+        //         }
+
+        //         & .dx-fileuploader-input-container  {
+        //             .dx-fileuploader-input-label {
+        //                 top: 22%;
+        //             }
+        //         }
+        //     }
+
+        //     &.dx-fileuploader-dragover 
+        //     {
+        //         .dx-fileuploader-input-wrapper {
+        //             border: none;
+        //             padding-left: 0;
+        //             padding-right: 0;
+
+        //             & .dx-fileuploader-input-container  {
+        //                 .dx-fileuploader-input-label {
+        //                     top: 22%;
+        //                 }
+        //             }
+        //         }
+        //         .dx-fileuploader-input-container {
+        //             border: dotted 2px $blue;
+        //             height: 80px;
+        //             width: 100%;
+        //         }
+        //     }
+        // }
+    }
+}

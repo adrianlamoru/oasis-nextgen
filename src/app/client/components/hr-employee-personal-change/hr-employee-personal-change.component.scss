@@ -1,0 +1,66 @@
+@import "~sass/variables";
+
+.hr-employee-personal-change{
+
+    padding: 29px 30px 60px 30px; 
+
+    &.employee-custom-report-margin {
+        padding: 1px 1px 60px 0;
+    }
+
+    .content-title {
+        margin-bottom:  16px;
+        padding-left: 15px !important;
+    }
+
+    .report-title{
+        margin-bottom: 22px;
+    }
+
+    .custom-date-picker{
+        margin-right: 5px;
+    }
+
+    .date-range-row{
+        padding-top: 26px !important;
+    }
+
+    .date-range-row1 {
+        padding-top: 16px !important;
+    }
+
+    .custom-margin-bottom-dropdown {
+        margin-bottom: 12px;
+        margin-top: 10px;
+    }
+
+    .custom-grid-padding {
+        margin-top: 4px;
+    }
+    
+    .form-inline.form-group{
+        margin-bottom: 0px;
+    }
+
+    .form-inline{
+        align-items: baseline;
+        .form-group{
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .custom-margin-right {
+        margin-right: 5px;
+    }
+
+    .btn-without-padding {
+        margin-top: 40px;
+        padding: 0;
+    }
+
+    .custom-dropdown {
+        width: 100px!important;
+    }
+}
+

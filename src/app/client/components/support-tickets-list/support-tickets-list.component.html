@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-12 px-0">
+        <div class="float-right">
+            <div class="support-list-sort-dropdown align-self-center float-right">
+                <div ngbDropdown class="d-inline-block" placement="bottom-right">
+                    <button class="btn btn-light" id="supportListSortDropdown" ngbDropdownToggle>
+                        <span>Sort By
+                                <i class="icon icon-shape"></i>
+                        </span>
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="supportListSortDropdown">
+                        <button class="dropdown-item" (click)="sortSupportListBy('status')">Status</button>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+<div class="row">
+    <ul class="col-12 support-tickets-list">
+      <li *ngFor="let caseItem of filteredListOfCases; let i = index" class="list-item">
+          <div class="row">
+              <div class="col-3  support-item-group align-self-center">
+                  <p class="support-item-title">
+                      Case Number
+                  </p>
+                  <span class="support-item-value">
+                      {{ caseItem?.caseNumber }}
+                  </span>
+              </div>
+              <div class="col-2 support-item-group align-self-center">
+                  <p class="support-item-title">
+                      Status
+                  </p>
+                  <span class="support-item-value">
+                      {{ caseItem?.status }}  
+                  </span>
+              </div>
+              <div class="col-6 support-item-group align-self-center">
+                  <p class="support-item-title">
+                      Subject
+                  </p>
+                  <span class="support-item-value">
+                      {{ caseItem?.subject }}
+                  </span>
+              </div>
+              <div class="col-1 support-item-group support-item-button align-self-center">
+                  <button class="btn btn-link float-right p-0" (click)="openSupportTicketDetails(caseItem?.caseNumber, 'sm', supportOpenTicketModalTemplate)">OPEN</button>
+              </div>
+          </div>  
+      </li>
+    </ul>
+</div>
+
+<ng-template #supportOpenTicketModalTemplate let-c="close" let-d="dismiss">
+    <app-support-open-ticket [selectedCaseData]="selectedCaseData" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-support-open-ticket>
+</ng-template>

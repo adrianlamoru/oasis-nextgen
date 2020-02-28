@@ -1,0 +1,67 @@
+<div class="employee-details-401k">
+  <div class="section">
+    <div class="row">
+      <div class="col-6">
+        <h3 class="section-title">Employee 401(k) Summary</h3>
+      </div>
+      <div class="col-6">
+        <div class="float-right section-title section-title-buttons">
+          <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                  (click)="requestedFunction('print')">
+              <span class="icon icon-pint"></span>
+              <span>PRINT</span>
+          </button>
+          <button type="button" class="btn btn-link btn-link-icon p-0 ml-1 "
+                  (click)="requestedFunction('download')">
+              <span class="icon icon-square-upload"></span>
+              <span>DOWNLOAD</span>
+          </button>
+        </div>
+      </div>        
+    </div>   
+    <div class="row">
+      <div class="col-4">  
+          <!-- <dx-select-box id="selected-year-box"
+            [items]="simpleYears"
+            [(value)]="selectedYear"
+            (onSelectionChanged)="onSelectionChanged($event)">
+          </dx-select-box> -->
+        <div class="form-group">
+          <!-- <label for="year">Year</label> -->
+          <div ngbDropdown class="d-inline-block custom-dropdown-component employee-pay-rate-dropdown" #ddYear="ngbDropdown">
+            <button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddYearBtn ngbDropdownToggle>
+              <span>
+                {{selectedYear || 'Select Year'}}
+                <i class="icon icon-shape float-right"></i>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="Year">
+              <button type="button" class="dropdown-item" *ngFor="let year of simpleYears" (click)="onSelectionChanged(year); ddYear.close()">{{year}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-grid">
+      <div class="row">
+        <div class="col-lg-12">
+          <dx-data-grid [dataSource]="employee401kSummary" [columnAutoWidth]="true" [wordWrapEnabled]="true" keyExpr="employeeId">
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="employeeId" caption="Emp ID" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="employeeName" caption="Emp Name" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="baseEarnings" caption="BASE 401(k) Earnings" alignment="left" caption="Base 401(k) Earnings" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="eePreTaxContribution" caption="EE Contribution(Pre-Tax)" alignment="left" caption="EE Contribution (Pre-Tax)" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="eePostTaxContribution" alignment="left" caption="EE Contribution (Post-Tax)" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="erNonElectiveMatch" caption="EmployerNonElectedContributions" alignment="left" caption="Employer Non-Elected Contributions" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="eeRothContribution" caption="ROTH Deduction" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="eeRothCatchUpContribution" caption="ROTH Catchup" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="eeCatchUpContribution" caption="Catchup Contribution" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="ee401kLoanPayments" alignment="left" caption="401(k) Loan Payments" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="er401kMatch" caption="Employer Match Contribution" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="peo401kMatch" alignment="left" caption="PEO Match Contribution" [allowSorting]="false"></dxi-column>            
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,126 @@
+<div class="reports-container reports-invoice-reprint-detail">
+  <div class="section">
+    
+        <div class="row breadcrumb-container-invoice-reprint-detail">
+          <div class="col-12">
+            <div class="breadcrumb-component">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item back-link">
+                    <a (click)="goToReports()">Reports</a>
+                  </li>
+                 <li class="breadcrumb-item back-link">
+                    <a (click)="goToInvoiceReprint()">Invoice Reprint</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                <span class="breadcrumb-item-active">Invoice: {{ invoiceNumber }}</span>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="row col-12 report-title-margin p-0">
+      <div class="col-6 report-title align-self-center p-0">
+          <span>Invoice: {{ invoiceNumber }}</span>
+          <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-6 report-title align-self-center p-0">
+          <button type="button" class="btn btn-outline-primary back-button" (click)="goToInvoiceReprint()">Back</button>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-6">
+        <div class="d-inline-flex">
+          <button class="btn btn-primary" (click)="goToInvoiceReprint()">Back</button>
+        </div>  
+      </div>
+    </div> -->
+    <div class="custom-grid pt-3 mb-0">
+      <hr class="m-0 p-0"/>
+      <div class="col-12" *ngIf="isLoading">
+        <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <!-- <div class="row date-range-row" *ngIf="!isLoading">
+        <div class="col-12">
+          <span class="report-date-range-label">Invoice Selected</span>
+        </div> 
+      </div> -->
+      <div class="row year-print-download-row"  *ngIf="!isLoading">
+        <!-- <div class="col-6 align-self-center">
+            <span class="report-data-range-selected">
+              Invoice: {{ invoiceNumber }}
+            </span>
+        </div> -->
+          <div class="col-12 align-self-center p-0">
+            <div class="float-right section-title">
+              <button type="button" class="btn btn-link btn-link-icon p-0"
+                      (click)="requestedFunction('print')">
+                  <span class="icon icon-pint"></span>
+                  <span>PRINT</span>
+              </button>
+              <button type="button" class="btn btn-link btn-link-icon p-0">
+                <div class="float-right">
+                    <dx-menu 
+                      #menu [dataSource]="dropdownOptions" 
+                      displayExpr="name"
+                      orientation="horizontal" 
+                      submenuDirection="auto" 
+                      class="custom-download-btn"
+                      [hideSubmenuOnMouseLeave]="false">
+                    </dx-menu>
+                  </div> 
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="!isLoading">
+          <div class="col-lg-12">
+            <dx-data-grid 
+              [dataSource]="invoiceReprintDataList" 
+              class="payroll-batch-grid"
+              [columnAutoWidth]="true" 
+              [wordWrapEnabled]="true" 
+             >
+              <dxo-paging [enabled]="false"></dxo-paging>
+              
+              <dxi-column 
+                dataField="serviceDescription" 
+                caption="Description" 
+                alignment="left" 
+                [allowSorting]="false">
+              </dxi-column>
+              
+              <dxi-column 
+                dataField="amount" 
+                caption="Amount" 
+                alignment="right" 
+                [allowSorting]="false">
+                  <dxo-format type="currency" [precision]="2"></dxo-format>
+              </dxi-column>
+              
+              <!-- <dxi-column caption="SUB-TOTAL: " [groupIndex]="0"></dxi-column>
+              <dxi-column dataField="deptCode" [groupIndex]="0"></dxi-column>
+              <dix-column dataField="deptName" [groupIndex]="0"></dix-column> -->
+              
+                <dxo-summary>
+                  <dxi-total-item
+                    column="serviceDescription"
+                    alignment="left"
+                    displayFormat="Sub-Total: {{deptCode}} - {{deptName}}">
+                  </dxi-total-item>
+                  <dxi-total-item
+                      column="amount"
+                      summaryType="sum"
+                      displayFormat="{0}"
+                      valueFormat="currency"
+                      [precision]="2">
+                  </dxi-total-item>
+                </dxo-summary>
+                <!-- <dxi-sort-by-group-summary-info summaryItem="deptCode"></dxi-sort-by-group-summary-info> -->
+            </dx-data-grid>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

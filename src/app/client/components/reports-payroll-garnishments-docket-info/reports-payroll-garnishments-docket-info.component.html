@@ -1,0 +1,23 @@
+<div class="row reports-garnishments-docket-info">
+  <div class="col-12" *ngIf="displayReport">
+    <div class="row custom-print-margin-bottom">
+        <div class="col-12 align-self-center">
+          <div class="float-right custom-margin-bottom-dropdown">
+            <button type="button" class="btn btn-link btn-link-icon p-0"
+                    (click)="requestedFunction('print')">
+              <span class="icon icon-pint"></span>
+              <span>PRINT</span>
+            </button>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4 col-xl-3 custom-margins" *ngFor="let docketItem of docketInformationData">
+        <div class="form-group">
+          <label>{{docketItem.fieldName}}</label>
+          <input type="text" class="form-control" [value]="docketItem.value" disabled>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

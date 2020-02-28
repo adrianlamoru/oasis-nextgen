@@ -1,0 +1,4 @@
+<span *ngIf="currentValue.type === currentValueType.string" [ngClass]="customClass">{{currentValue.value}}</span>
+<span *ngIf="currentValue.type === currentValueType.currency" [ngClass]="customClass">{{currentValue.value | currency}}</span>
+<span *ngIf="currentValue.type === currentValueType.number" [ngClass]="customClass">{{currentValue.value | number : '.2'}}</span>
+<span *ngIf="currentValue.type === currentValueType.date" [ngClass]="customClass">{{currentValue.value | date : 'MM/dd/yyyy'}}</span>

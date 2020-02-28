@@ -1,0 +1,129 @@
+<div class="custom-modal-window #employeeSkillCodeAssignmentComponent"> <!--[ngStyle]="{'opacity':formIsOpen ? 0.1 : 1, 'z-index': formIsOpen ? -1 : initial }"-->
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">Skill Code Assignment - {{ selectedEmployeeName | middleTruncate: 50 }}</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+      <span class="icon icon-close"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!--{{diagnosticEmployee}}-->
+    <!--Skill Code Assignment List-->
+    <div class="custom-grid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="custom-grid-header">
+            <h3 class="display-3 table-title"><!--Existing Skill Code Assignments List--></h3>
+            <button type="button" class="btn btn-primary pull-right" (click)="addSkillCode()">Add Skill Code</button>
+          </div>
+          <br />
+          <dx-data-grid #skillCodeAssignmentDataGrid [dataSource]="clientEmployeeSkillCodeAssignmentList" [columnAutoWidth]="true" keyExpr="id"
+                        (onEditingStart)="onEditingStart($event)">
+
+            <div *dxTemplate="let data of 'gridHeader'">
+              <div class="custom-grid-header">
+                <h3 class="display-3 table-title"><!--Existing Skill Code Assignments --></h3>
+                <dx-button text="Add" class="btn btn-primary pull-right" (onClick)="addSkillCode()"></dx-button>
+              </div>
+            </div>
+
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="skillCodeType.code" caption="Event Code" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="skillCodeType.description" caption="Event Description" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="comment" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="competencyLevel" [allowSorting]="false" alignment="left"></dxi-column>
+            <dxi-column dataField="dateCertified" [allowSorting]="false" dataType="date"></dxi-column>
+            <dxi-column dataField="dateRenew" [allowSorting]="false" dataType="date"></dxi-column>
+            <dxi-column cellTemplate="editTemplate" alignment="right" [width]="105" [minWidth]="105">
+                <div *dxTemplate="let data of 'editTemplate'">
+                    <div class="dx-custom-command-edit">
+                        <a class="dx-link dx-link-edit" tabindex="0" (click)="onEditRow(data)" (keydown)="onEditKeyDown($event, data)">Edit</a>
+                        <a class="dx-link dx-link-delete" tabindex="0"  (click)="onDeleteRow(data)" (keydown)="onDeleteKeyDown($event, data)">Delete</a>
+                    </div>
+                </div>
+            </dxi-column>
+            <dxo-editing mode="popup" [allowAdding]="false" [width]="200"></dxo-editing>
+
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+    <br/>
+
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>
+
+
+<!--Form-->
+<ng-template #editEmployeeSkillCodeAssignmentModal let-c="close" let-d="dismiss">
+  <!--{{diagnostic}}-->
+  <form #editEmployeeSkillCodeAssignmentForm="ngForm" [formGroup]="editEmployeeSkillCodeAssignmentFormGroup" ngNativeValidate novalidate (ngSubmit)="saveForm(editEmployeeSkillCodeAssignmentForm)">
+    <div class="custom-modal-window editEmployeeSkillCodeAssignmentModal">
+      <div class="modal-header">
+        <h4 class="modal-title align-self-center float-left">{{formTitle}}</h4>
+        <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click'); cancelForm();">
+          <span class="icon icon-close"></span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="!hasAllSkillCodesAdded || formMode === 'Edit'">
+        <div class="form-group">
+          <label for="skillCodeType">Skill</label>
+          <div ngbDropdown class="d-inline-block custom-dropdown-component employee-pay-rate-dropdown" #ddskillType="ngbDropdown">
+            <button [disabled]="formMode === 'Edit'" type="button" class="btn btn-form-control form-control-dropdown text-left" ngbDropdownToggle>
+              <span>
+              	<span class="text-placeholder" *ngIf="selectedEmployeeSkillCodeAssignmentModel.skillCodeType == null">Please Select An Option<i class="icon icon-shape float-right"></i></span>
+                <span *ngIf="selectedEmployeeSkillCodeAssignmentModel.skillCodeType != null">{{selectedEmployeeSkillCodeAssignmentModel.skillCodeType?.code}}   ({{selectedEmployeeSkillCodeAssignmentModel.skillCodeType?.description}})<i class="icon icon-shape float-right"></i></span>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="skillCodeType">
+              <button type="button" class="dropdown-item" *ngFor="let skillCodeType of employeeSkillCodeTypeListSubset" (click)="changeSkillCodeType(skillCodeType); ddskillType.close()">{{skillCodeType.code}}  ({{skillCodeType.description}})</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="amount">Comment</label>
+          <input type="text" class="form-control" id="comment" [(ngModel)]="selectedEmployeeSkillCodeAssignmentModel.comment" formControlName="comment" aria-describedby="comment" placeholder="Enter Comment">
+        </div>
+        <div class="form-group">
+          <label for="amount">Competency Level</label>
+          <input type="number" class="form-control" id="competencyLevel" [(ngModel)]="selectedEmployeeSkillCodeAssignmentModel.competencyLevel" formControlName="competencyLevel" aria-describedby="Competency Level" placeholder="Enter Competency Level" min="0" max="100">
+
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="startDate">Date Certified</label>
+              <div class="custom-date-picker">
+                <div class="input-icon icon icon-calendar"></div>
+                <input class="form-control custom-input-field" placeholder="Month dd, yyyy" formControlName="dateCertified" [(ngModel)]="selectedEmployeeSkillCodeAssignmentModel.dateCertifiedPicker" ngbDatepicker
+                        [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #dpDateCertified="ngbDatepicker">
+                <button class="btn input-btn icon-shape" (click)="dpDateCertified.toggle(); dpDateCertifiedOpened = !dpDateCertifiedOpened" type="button"></button>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="stopDate">Date Renew</label>
+              <div class="custom-date-picker">
+                <div class="input-icon icon icon-calendar"></div>
+                <input class="form-control custom-input-field" placeholder="Month dd, yyyy" formControlName="dateRenew" [(ngModel)]="selectedEmployeeSkillCodeAssignmentModel.dateRenewPicker" ngbDatepicker
+                        [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #dpDateRenew="ngbDatepicker">
+                <button class="btn input-btn icon-shape" (click)="dpDateRenew.toggle(); dpDateRenewOpened = !dpDateRenewOpened" type="button"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body" *ngIf="hasAllSkillCodesAdded && formMode === 'Add'">
+		<div class="form-group">
+			<h4>All the existing Skill Codes have been added to this Employee list. Please visit <a routerLink="../../setup/skill-maintenance" target="_blank">Skill Maintenance</a> if any new Skill Codes needs to be added.</h4>
+		</div>
+	  </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="c('Close click'); cancelForm();">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!editEmployeeSkillCodeAssignmentForm.valid || (hasAllSkillCodesAdded && formMode === 'Add')">Save</button>
+      </div>
+    </div>
+  </form>
+</ng-template>

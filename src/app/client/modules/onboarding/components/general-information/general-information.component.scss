@@ -1,0 +1,38 @@
+@import '~sass/variables';
+
+.general-information-component {
+
+    margin-top: 54px;
+    margin-left: 48px;
+    max-width: 1240px;
+
+    .main-address-title{
+        font-size: 16px;
+        font-weight: 700;
+        color: $dark;
+        margin: 20px 0 23px 0;
+    }
+
+    .horizontal-separator{
+        height: 1px;
+        background-color: $gray-300;
+        margin: 14px 0 3px 0;
+      }
+
+    .no-label-padding {
+        margin-bottom: 0.375rem;
+    }
+
+    .form-display-flex{
+        display: flex;
+
+        .form-display-padding{
+            margin-right: 10px;
+        }
+    }
+
+    .dropdown-menu{
+        max-height: 130px;
+        overflow-y: scroll;
+    }
+}

@@ -1,0 +1,28 @@
+<div class="custom-modal-window #payrollRunCheckMemoModalComponent">
+  <form #form="ngForm" [formGroup]="formGroup" ngNativeValidate novalidate (ngSubmit)="saveForm(form)">
+    <div class="modal-header">
+      <h4 class="modal-title align-self-center float-left">{{formTitle}}</h4>
+      <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+        <span class="icon icon-close"></span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="custom-grid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <h4 for="checkMemo">Check Memo</h4>
+              <input type="text" class="form-control" id="checkMemo" [(ngModel)]="employee.checkMemo" formControlName="checkMemo" aria-describedby="checkMemo" placeholder="Check Memo" maxlength="50">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="modalCloseFunc('Close click')">Cancel</button>
+      <button type="submit" class="btn btn-primary">{{saveBtnLabel}}</button>
+    </div>
+  </form>
+</div>
+

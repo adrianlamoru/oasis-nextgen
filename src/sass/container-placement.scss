@@ -1,0 +1,49 @@
+.client-container-content, .employee-container-content, .employee-compensation-container {
+    margin-top: 3px; 
+	.container-header {
+		margin-bottom: 5px;
+        .container-title {
+            font-size: 26px;
+            line-height: 44px;
+            font-weight: 400;
+        }	
+
+        .container-buttons {
+            line-height: 44px;
+        }
+
+        .btn.btn-cta {
+			margin-right: 14px;
+            &:last-child {
+                margin-right: 0px;
+            }
+
+            &.cta-last-btn {
+                margin-left: -3px !important;
+            } 
+		}
+    }
+    
+    .container-nav-pills-margin-bottom {
+        .nav-pills {
+            margin-bottom: 15px;
+        }
+    }
+}
+
+.employee-container-content{
+    margin-top: 0;
+}
+
+.container-section {
+    padding: 19px 30px 30px 29px;
+    
+    .content-title {
+        padding: 0 !important;
+        height: 36px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 36px;
+    }
+
+}

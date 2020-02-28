@@ -1,0 +1,22 @@
+<ul
+	#navbar
+	class="nav nav-pills"
+	(onresize)="onResize()">
+	<ng-container *ngFor="let option of empSubNavMenuOptions; let i = index">
+		<li class="nav-item" routerLinkActive="active">
+			<a class="nav-link" [routerLink]="option.route"  routerLinkActive="active">{{option.name}}
+			</a>
+		</li>
+	</ng-container>
+	<div ngbDropdown *ngIf="moreMenuOptions.length > 0" class="nav-item more-link d-inline-block custom-dropdown-component" (openChange)="moreMenuOptionOpenChange($event)">
+		<button class="nav-link btn-form-control dropdown-toggle" id="navbarMainMenuDropdown1" ngbDropdownToggle>
+          <span>More
+            <i class="icon icon-shape"></i>
+          </span>
+		</button>
+		<div ngbDropdownMenu aria-labelledby="navbarMainMenuDropdown1">
+			<button type="button" class="dropdown-item"
+							[routerLink]="[option?.route]" *ngFor="let option of moreMenuOptions">{{option.name}}</button>
+		</div>
+	</div>
+</ul>

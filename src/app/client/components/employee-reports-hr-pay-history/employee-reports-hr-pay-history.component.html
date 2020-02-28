@@ -1,0 +1,63 @@
+<div class="employee-reports-container employee-reports-pay-history p-0">
+  <div class="section">
+    <div class="row">
+      <div class="col-6 report-title align-self-center">
+          <span>Pay History</span>
+          <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-6 report-title align-self-center">                   
+        <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+      </div>
+    </div>
+
+    <div class="custom-grid pt-1 mb-0 pl-0">
+      <hr class="m-0 mb-1 p-0"/>
+      <div class="col-12" *ngIf="isLoading">
+          <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <div *ngIf="!isLoading">
+        <div class="row date-range-row">
+          <div class="col-12 align-self-center p-0">
+            <div class="float-right section-title">
+              <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                      (click)="requestedFunction('print')">
+                  <span class="icon icon-pint"></span>
+                  <span>PRINT</span>
+              </button>
+              <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+                <button class="btn btn-light" id="downloadDD" ngbDropdownToggle>
+                  <span>Download
+                      <i class="icon icon-shape"></i>
+                  </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="Download">
+                  <button type="button" class="dropdown-item" *ngFor="let item of dropdownOptions[0].items" (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row grid-range-row" *ngIf="!isLoading">
+          <div class="col-lg-12">
+            <dx-data-grid 
+              [dataSource]="employeeReportsPayHistory" 
+              class="pair-row-color-gray-100"
+              [columnAutoWidth]="true" 
+              [wordWrapEnabled]="true">
+              <dxo-paging [enabled]="false"></dxo-paging>
+              <dxi-column dataField="effectiveDate" caption="Effective Date" alignment="left" [allowSorting]="false" dataType="date"></dxi-column>
+              <dxi-column dataField="ratePayPer" caption="Rate of Pay Per" alignment="left" [allowSorting]="false"></dxi-column>
+              <dxi-column dataField="hours" caption="Standard Hours" alignment="right" [allowSorting]="false"></dxi-column>
+              <dxi-column dataField="changePercent" caption="Change Percent" alignment="right" [allowSorting]="false"></dxi-column>
+              <dxi-column dataField="amount" caption="Change Amount" alignment="right" [allowSorting]="false">
+                  <dxo-format type="currency" [precision]="2"></dxo-format>
+              </dxi-column>
+            </dx-data-grid>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+  </div>
+</div>

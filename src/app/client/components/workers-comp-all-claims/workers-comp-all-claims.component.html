@@ -1,0 +1,58 @@
+
+<div class="row workers-all-claims-container">
+	<div class="col-12">
+		<div class="custom-grid">
+        	<div class="row">
+        		<div class="col-12">
+		          <div class="custom-grid-header">
+		            <h3 class="display-3 table-title">All Claims</h3>
+		            <div class="float-right">
+		                <div class="employee-list-sort-dropdown align-self-center float-right">
+		                    <div ngbDropdown class="d-inline-block" placement="bottom-right">
+		                        <button class="btn btn-light" id="wrkCompClaimsListSortDropdown" ngbDropdownToggle>
+		                            <span>Sort By
+		                                    <i class="icon icon-shape"></i>
+		                            </span>
+		                        </button>
+		                        <div ngbDropdownMenu aria-labelledby="wrkCompClaimsListSortDropdown">
+		                            <button class="dropdown-item" (click)="sortWorkersCompListBy('Name')">Name</button>
+		                            <button class="dropdown-item" (click)="sortWorkersCompListBy('Status')">Status</button>
+		                            <button class="dropdown-item" (click)="sortWorkersCompListBy('Type')">Type</button>
+		                            <button class="dropdown-item" (click)="sortWorkersCompListBy('InjuryDate')">Injury Date</button>
+		                            <button class="dropdown-item" (click)="sortWorkersCompListBy('UpdatedDate')">Updated Date</button>
+		                        </div>
+		                    </div>
+		                </div> 
+		            </div>
+		          </div>		         
+		          <dx-data-grid [dataSource]="workersCompAllClaimsData" [columnAutoWidth]="true">
+		            <dxo-paging [enabled]="false"></dxo-paging>
+		            <dxi-column dataField="employeeName" caption="Employee" [allowSorting]="false"></dxi-column>
+		            <dxi-column cellTemplate="statusTemplate" dataField="status" [allowSorting]="false"  [width]="80" [minWidth]="80">
+		            	<div *dxTemplate="let data of 'statusTemplate'">
+		                    <div class="{{ isStatusOpen(data.data.status) ? 'text-details-green' : '' }}">                                
+		                        <span tabindex="0"> {{data.data.status}} </span>
+		                    </div>
+		                </div>
+		            </dxi-column>
+		            <dxi-column dataField="claim" [allowSorting]="false"></dxi-column>
+		            <dxi-column dataField="claimType" caption="Type" [allowSorting]="false"></dxi-column>
+		            <dxi-column dataField="injury" [allowSorting]="false"></dxi-column>
+		            <dxi-column dataField="updated" [allowSorting]="false"></dxi-column>
+                    <dxi-column cellTemplate="viewTemplate" [width]="47" [minWidth]="47" alignment="right" [allowSorting]="false">
+		                <div *dxTemplate="let data of 'viewTemplate'">
+		                    <div class="dx-custom-command-edit">                                
+		                        <a class="dx-link dx-link-edit link-gray" tabindex="0" (click)="onViewClick(data)" (keydown)="onViewClick(data)"><i class="icon  icon-side-chevron"></i></a>
+		                    </div>
+		                </div>
+		            </dxi-column>
+		          </dx-data-grid>
+        		</div>
+        	</div>
+		</div>
+    </div>
+</div>
+
+<ng-template #workersCompDetailsViewModal let-c="close" let-d="dismiss">
+    <app-workers-comp-claim-details-modal [workersCompClaim]="workersClaimsRowSelected" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-workers-comp-claim-details-modal>
+</ng-template>

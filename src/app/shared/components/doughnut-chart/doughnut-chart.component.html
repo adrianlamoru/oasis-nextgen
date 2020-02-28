@@ -1,0 +1,39 @@
+<div class="chart-container">   
+    <dx-pie-chart
+        type="doughnut"
+        [palette]="palette"
+        [dataSource]="dataSource">
+        <dxo-common-series-settings
+            [innerRadius]="0.55">
+            <dxo-label [visible]="false"></dxo-label>            
+        </dxo-common-series-settings>
+        <dxi-series 
+            argumentField="arg"
+            valueField="val">
+            <dxo-hover-style
+                [hatching]="false">
+            </dxo-hover-style>
+        </dxi-series>
+        <dxo-export [enabled]="false"></dxo-export>
+        <dxo-legend
+            [visible]="false"></dxo-legend>
+        <dxo-tooltip
+            [enabled]="true"
+            [paddingLeftRight]="9"
+            [paddingTopBottom]="6"
+            [customizeTooltip]="customizeTooltip"
+            [arrowLength]="0"
+            [format]="{
+                type: 'currency',
+                precision: '2'
+            }">
+            <dxo-shadow color="rgba(32, 44, 86)" [blur]="4" [opacity]="0.18"></dxo-shadow>
+        </dxo-tooltip>
+        <dxo-size *ngIf="height" [height]="height"></dxo-size>  
+    </dx-pie-chart>
+    <div class="doughnut-inside-content">
+        <span *ngIf="arg" class="doughnut-argument">{{ arg }}</span>
+        <br/>
+        <span *ngIf="val" class="doughnut-value">{{ val | currency:'USD':'symbol':'1.2-2' }}</span>
+    </div>
+</div>

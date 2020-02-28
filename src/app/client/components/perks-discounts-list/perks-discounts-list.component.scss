@@ -1,0 +1,29 @@
+.client-container-content .container-header {
+    margin-bottom: 10px;
+}
+
+:host ::ng-deep {
+	.custom-offer-card {
+		margin-bottom: 30px;
+        min-width: 380px;
+	}
+}
+
+.one {
+    color: green;
+}
+.two {
+    color: red;
+}
+.three {
+    color: yellow;
+}
+.four {
+    color: black;
+}
+
+.offer-card-modal-body {
+    .offer-card-item {
+        margin-bottom: 0px !important;
+    }   
+}

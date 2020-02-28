@@ -1,0 +1,33 @@
+<div class="custom-modal-window payroll-debit-card">
+    <div class="modal-header">
+        <h4 class="modal-title align-self-center float-left">Payroll Debit Card Program</h4>
+        <button type="button" class="close align-self-center float-right" 
+            (click)="closeModalFunction && closeModalFunction($event)" aria-label="Close">
+            <span class="icon icon-close"></span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="payroll-debit-card-check-box">
+                    <h4 class="payroll-debit-card-check-box-label">Please check this box if you wish to enroll in the Payroll Debit Card Program</h4>
+                    <dx-check-box [(ngModel)]="payrollDebitCardConfirmation" text="I agree"></dx-check-box>
+                </div>
+            </div>
+            <div class="col-12">
+                <p class="disclaimer-paragraph disclaimer-paragraph-modal last-child">
+                    Choosing this option will generate a request to enroll you in the Payroll Debit Card program. 
+                    This is a separate process and can take 10-14 business days to be completely setup and live for use. 
+                    If you do not have a bank account, this will allow you to receive your funds electronically. 
+                    If you already have a bank account this would be an additional option for you. You may only enroll in the Payroll Debit Card Program once.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary"
+            (click)="closeModalFunction && closeModalFunction($event)">Cancel</button>
+        <button [disabled]="!payrollDebitCardConfirmation" type="button" class="btn btn-primary"
+            (click)="onSubmitModal($event)">Confirm</button>
+    </div>
+</div>

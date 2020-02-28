@@ -1,0 +1,68 @@
+@import '~sass/variables';
+
+.reports-pto-absence-summary{
+    /deep/ .custom-download-btn {
+      & .dx-menu-item-text{
+          font-size: 11px;
+          font-weight: 700;
+          padding: 0 5px 5px 5px;
+      }
+
+      & .dx-item-content.dx-menu-item-content {
+        padding-left: 0;
+      }
+
+      & .dx-menu-item-popout::before {
+        font-family: 'icomoon' !important;
+        content: "\E911";
+        font-size: 8px;
+        font-weight: 700;
+      }
+  }
+
+    .section{
+
+        .report-title{
+          margin-bottom: 25px !important;
+        }
+
+        .section-title{
+          margin-top: 15px;
+          margin-bottom: 15px;
+        }
+
+        .custom-dropdown-component {
+          width: 200px !important;
+  
+          .form-control-dropdown, .dropdown-menu {
+              width: inherit !important;
+          }
+          .btn-form-control span {
+              display: initial;
+          }
+        }
+
+
+        .date-range-row{
+          padding-top: 12px !important; 
+      }
+
+
+      .truncate-dropdown-text {
+        overflow-y: hidden;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .custom-dropdown-status {
+      max-height: 200px;
+      overflow-y: scroll;
+    }
+
+    .d-inline-block {
+      width: 100px;
+    }
+
+  }
+
+}

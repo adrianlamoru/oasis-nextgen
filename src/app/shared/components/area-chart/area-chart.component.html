@@ -1,0 +1,77 @@
+<div class="chart-container">
+  <p class="title-area mb-4">
+    <span *ngIf="gross">Gross: <span class="title-area-value">{{gross | currency:'USD':true}}</span></span>
+    <span *ngIf="net" [ngClass]="gross? 'ml-2':''">Net: <span class="title-area-value">{{net | currency:'USD':true}}</span></span>
+  </p>
+  <dx-chart
+    [palette]="palette"
+    [dataSource]="dataSource" 
+    (onPointHoverChanged)="onPointHoverChanged($event)">
+    
+    <dxi-series 
+      valueField="val"
+      opacity="1">
+   
+      <dxo-hover-style [hatching]="false"></dxo-hover-style>
+    </dxi-series>
+
+    <dxo-common-series-settings
+        argumentField="arg"
+        type="splinearea">
+          <dxo-point [visible]="true" [size]="0" hoverMode="onlyPoint">
+            <dxo-hover-style [size]="7" [border]="0" color="#1a52ce"></dxo-hover-style>
+          </dxo-point>
+    </dxo-common-series-settings>
+
+    <dxo-margin [bottom]="20"></dxo-margin>
+
+    <dxo-argument-axis [visible]="true"
+      argumentType="datetime" 
+      tickInterval="month">
+      <dxo-label alignment="center" 
+        [customizeText]="customizeArgumentLabel" 
+        [indentFromAxis]="7"
+        [format]="{
+          type: 'month'
+        }">
+      </dxo-label>
+      <dxo-tick [visible]="false"></dxo-tick>
+    </dxo-argument-axis>
+
+    <dxo-crosshair
+      [enabled]="true"
+      color="#1a52ce"
+      [opacity]="0.21"
+      [width]="1"
+      dashStyle="solid">
+      <dxo-label [visible]="false"></dxo-label>
+      <dxo-vertical-line [visible]="true"></dxo-vertical-line>
+      <dxo-horizontal-line [visible]="false"></dxo-horizontal-line>
+    </dxo-crosshair>
+
+    <dxi-value-axis [min]="0" [max]="40000">
+      <dxo-label [customizeText]="customizeTextValueAxis" [indentFromAxis]="18">
+      </dxo-label>
+      <dxo-grid [visible]="true" color="#f3f5f9" [width]="1"></dxo-grid>
+    </dxi-value-axis>
+
+    <dxo-legend [visible]="false"></dxo-legend>
+
+    <dxo-tooltip
+      [enabled]="true"
+      [arrowLength]="0"
+      [paddingLeftRight]="9"
+      [paddingTopBottom]="7"
+      [customizeTooltip]="customizeTooltip"
+      [format]="{
+          type: 'currency',
+          precision: '2'
+      }">
+      <dxo-shadow color="rgba(32, 44, 86)" [blur]="4" [opacity]="0.18"></dxo-shadow>
+    </dxo-tooltip>
+
+    <dxo-size *ngIf="height && !width" [height]="height"></dxo-size>
+    <dxo-size *ngIf="width && !height" [width]="width"></dxo-size>
+    <dxo-size *ngIf="width && height" [height]="height" [width]="width"></dxo-size>
+  </dx-chart>
+</div>

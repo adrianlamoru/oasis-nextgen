@@ -1,0 +1,106 @@
+<div class="card benefits-card hr-card" [ngClass]="{'hr-card-available-temp': available === true}">
+  <div class="card-body">
+    <h3 class="benefits-card-title title-max-height">{{eLearningCardData.title}}</h3>
+    <p class="benefits-card-description desc-max-height">{{eLearningCardData.subText}}</p>
+      <div class="benefits-features-items features-max-height">
+          <ul class="benefits-features-items m-0">
+            <li class="media" *ngFor="let item of eLearningCardData.previewItemsList | slice:0:4">
+                <span class="custom-features-bullet-icon icon-triangle" > </span>
+                <div class="media-body">{{item}}</div>
+            </li>
+          </ul>
+      </div>
+	  	<div class="row footer-fixed-position">
+	    	<div class="col">
+	      		<button *ngIf="available"  type="button" class="btn btn-primary btn-primary-benefits-card-footer" (click)="openELearningDetailsModal('xs', eLearningModalContent)">DETAILS</button>
+	      		<span class="mr-2"></span>
+            <button *ngIf="!available" type="button" class="btn btn-primary btn-primary-benefits-card-footer" (click)="openELearningDetailsModal('xs', ELcardDetailsModalContent)">DETAILS</button>
+	      		<span class="mr-2"></span>
+	      		<button *ngIf="eLearningCardData.websiteLink && !available" type="button" class="btn btn-outline-primary btn-primary-benefits-card-footer" (click)="openButtonAction(eLearningCardData.websiteLink)">WEBSITE</button>
+          </div>
+	  	</div>
+	</div>
+</div>
+
+<ng-template #ELcardDetailsModalContent let-c="close" let-d="dismiss">
+
+    <div class="custom-modal-window">
+        <div class="modal-header">
+          <h4 class="modal-title modal-title-capitalize align-self-center float-left">{{eLearningCardData.title}}</h4>
+          <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click')">
+            <span class="icon icon-close"></span>
+          </button>
+        </div>
+        <div class="modal-body benefits-modal-body">
+          <div class="benefits-item  benefits-item-parent-padding">
+            <div class="product-card-description readMore">{{ eLearningCardData.subText }} </div>
+            <br/>
+            <div class="features-items">
+              <ul class="features-items">
+                <li class="media" *ngFor="let item of eLearningCardData.previewItemsList">
+                  <span class="custom-features-bullet-icon icon-triangle" > </span>
+                  <div class="media-body"> {{item}} </div>
+                </li>                
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer modal-footer-benefits">
+          <button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Close</button>
+        </div>
+      </div>
+  </ng-template>
+  
+
+  <ng-template #eLearningModalContent let-c="close" let-d="dismiss">
+    <div class="custom-modal-window">
+      <div class="modal-header">
+        <div class="d-flex"></div>
+          <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click')">
+            <span class="icon icon-close"></span>
+          </button>
+      </div>
+      <div class="modal-body benefits-modal-body">
+        <div class="benefits-item elearn-items">
+          <div class="product-card-title">{{ eLearningModalData.title }}</div>
+          <div class="product-card-description readLess" [ngClass]="{ 'readMore' : toggleBenfitsText, 'readLess': !toggleBenfitsText }">{{ eLearningModalData.description }}</div>
+          <div class="item-footer">
+            <a href="javascript: void(0)" *ngIf="!toggleBenfitsText" (click)="toggleBenfitsText = !toggleBenfitsText">READ MORE
+              <i class="icon icon-shape"></i>
+            </a>
+            <a class="readLessIcon" href="javascript: void(0)" *ngIf="toggleBenfitsText" (click)="toggleBenfitsText = !toggleBenfitsText">READ LESS
+                <i class="icon icon-shape-reverse"></i>
+            </a>
+          </div>
+          <div class="product-card-features">
+            <span>FEATURES</span>
+          </div>
+          <div class="features-items">
+            <ul class="features-items">
+              <li *ngFor="let featureItem of eLearningModalData.features" class="media">
+                <span class="custom-features-bullet-icon elearn-features-bullet-icon icon-triangle" > </span>
+                <div class="media-body">
+                  {{ featureItem }}
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="product-card-features additional-info">
+            <span>ADDITIONAL INFO</span>
+          </div>
+          <div class="modal-body benefits-modal-body additional-info-list">
+            <ul>
+              <li *ngFor="let additionalInfoItem of eLearningModalData.additionalInfo">
+                <span
+                  class="elearn-modal-link"
+                  (click)="openAdditionalInfoAction(additionalInfoItem)"> {{ additionalInfoItem.text }} </span><hr>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer modal-footer-benefits">
+        <button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Close</button>
+      </div>
+    </div>
+    </ng-template>

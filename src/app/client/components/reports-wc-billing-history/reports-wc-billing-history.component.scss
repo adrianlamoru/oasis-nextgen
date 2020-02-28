@@ -1,0 +1,105 @@
+@import "~sass/variables";
+
+.payroll-deduction-summary {
+    /deep/ .custom-download-btn {
+        & .dx-menu-item-text{
+            font-size: 11px;
+            font-weight: 700;
+            padding: 0 5px 5px 5px;
+        }
+
+        & .dx-menu-item-popout::before {
+            font-family: 'icomoon' !important;
+            content: "\E911";
+            font-size: 8px;
+            font-weight: 700;
+          }
+    }
+
+    .section-title {
+        margin-top: 2px;
+    }
+
+    .content-title {
+        margin-bottom:  16px;
+        padding-left: 15px !important;
+    }
+
+    .report-title{
+        margin-bottom: 22px !important;
+    }
+
+    .custom-date-picker{
+        margin-right: 15px;
+    }
+    
+    .date-range-row{
+        padding-top: 26px !important;
+    }
+
+    .form-inline.form-group{
+        margin-bottom: 0px;
+    }
+
+    .form-inline{
+        align-items: baseline;
+        .form-group{
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .mr-right-5{
+        margin-right: 5px;
+    }
+
+    .custom-dropdown-component {
+        width: 220px !important;
+
+        .form-control-dropdown, .dropdown-menu {
+            width: inherit !important;
+        }
+        .btn-form-control span {
+            display: initial;
+        }
+    }
+
+    .truncate-dropdown-text {
+        overflow-y: hidden;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .custom-dropdown-dedcodes {
+        max-height: 140px;
+        overflow-y: scroll;
+    }
+
+    .btn-without-padding {
+        margin-top: 40px;
+        padding: 0;
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+    }
+
+    .d-inline-block{
+        width: 100px;
+    }
+
+    .taxes-paragraph{
+    
+        border-radius: 5px;
+        background-color: #f0f2f5;
+        padding: 27px 29px;
+        margin-bottom: 0px;
+    }
+
+    .horizontal-separator{
+        height: 1px;
+        background-color: $gray-300;
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+}

@@ -1,0 +1,171 @@
+ <div class="row general-ledger-component setup-container-content">
+    <div class="col-12 custom-grid">
+        <div class="row">
+          <div class="col-12">
+            <div class="custom-grid-header">
+                <h3 class="display-3 table-title">General Ledger</h3>
+            </div>
+            <div class="bs-component">
+                <ul class="nav nav-tabs" role="tabsNavigation">
+                    <ng-container *ngFor="let tabItem of glCodeTabs;let i = index">
+                        <li class="nav-item" (click)="updateTabSelection(i)">
+                          <a href="javascript:void(0)" class="nav-link {{tabItem.active ? 'active' : ''}}" data-toggle="tab">{{tabItem.label}}</a>
+                        </li>
+                    </ng-container>
+                </ul>
+            </div>
+            <div class="clearfix header-button-padding">
+                <dx-button text="Add Code" class="btn btn-primary pull-right" [ngClass]="glCodeTabs[tabSelected].disableAddButton ? 'disabled' : ''" (onClick)="addCode()"></dx-button>
+            </div>
+
+            <!-- Data-grid Start -->
+            <div>
+                <dx-data-grid id="gridContainerASRCode" [dataSource]="glCodeTabs[tabSelected].tableData"
+                        (onCellClick)="onCellButtonClick($event)">
+                        <!-- columns="getColumns(tabSelected)"         -->
+                    <dxo-paging [enabled]="false"></dxo-paging>
+
+                    <dxi-column dataField="code" caption="{{tabSelected === 0 ? 'Accounting System' : 'Code'}}" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="format" caption="{{tabSelected === 0 ? 'Offset Account' : 'Format'}}" [allowSorting]="false"></dxi-column>
+                    <dxi-column [allowSorting]="false" cellTemplate="cellEditTemplate" [width]="tabSelected === 0 ? 51 : 36"></dxi-column>
+                    <dxi-column [allowSorting]="false" cellTemplate="cellDeleteTemplate" [visible]="tabSelected === 0 ? false : true" [width]="68"></dxi-column>
+
+                    <div *dxTemplate="let d of 'cellEditTemplate'" class="custom-cell">
+                        <button id="edit-button" tabindex="0" type="button" class="btn btn-link cell-button">
+                            <span class="btn-link-text">Edit</span>
+                        </button>
+                    </div>
+                    <div *dxTemplate="let d of 'cellDeleteTemplate'" class="custom-cell">
+                        <button id="delete-button" tabindex="0" type="button" [class]="d.data.default ? 'btn btn-link cell-button disabled' : 'btn btn-link cell-button'" >
+                            <span class="btn-link-text">Delete</span>
+                        </button>
+                    </div>
+
+                </dx-data-grid>
+            </div>
+            <!-- Data-grid End -->
+
+            <!-- ADD/EDIT Popup Start -->
+            <dx-popup
+                class="custom-dx-popup"
+                #popupEditGLCode
+                [showTitle]="false"
+                [width]="515"
+                [height]="popupHeight"
+                [position]="{ my: 'middle', at: 'middle', of: window }"
+                [showCloseButton]="false"
+                [dragEnabled]="false"
+                [closeOnOutsideClick]="true"
+                [(visible)]="editPopupVisible">
+                <div *dxTemplate="let data of 'content'">
+
+                    <div class="custom-modal-window" ngForm #glForm="ngForm">
+                      <div class="modal-header">
+                        <h4 class="modal-title modal-title-capitalize align-self-center float-left">{{popupSubTitle}}</h4>
+                        <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="onCancelClick()">
+                          <span class="icon icon-close"></span>
+                        </button>
+                      </div>
+
+                      <div class="modal-body">
+                        <div class="form-group" *ngIf="tabSelected  === 0 || actionTypeSelected === 'ADD'">
+                            <h4>{{popupLabelCode}}</h4>
+                            <div ngbDropdown class="d-inline-block custom-dropdown-component">
+                                <button class="btn btn-form-control form-control-dropdown text-left" id="glCodeTabsDropDown" ngbDropdownToggle (click)="isDropDownBoxOpened = !isDropDownBoxOpened">
+                                    <span class="{{currentSelectedRow.code === '' ? 'text-placeholder' : '' }}">{{currentSelectedRow.code === '' ? 'Please select an Option' : currentSelectedRow.code}}
+                                    <i class="icon icon-shape float-right"></i>
+                                    </span>
+                                </button>
+                                <div class="dropdown-menu-sd-width" ngbDropdownMenu aria-labelledby="glCodeTabsDropDown">
+                                    <button type="button" class="dropdown-item" *ngFor="let item of glCodeTabs[tabSelected].accDropdown" (click)="changeCodeSelection(item)">{{item.Name}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                          <h4>{{popupLabelFormat}}</h4>
+                          <input id="offsetAcc" name="offsetAcc" placeholder="{{popupLabelFormat}}"  type="text" class="form-control" required [(ngModel)]="currentSelectedRow.format" #offsetAcc="ngModel">
+                        </div>
+                      </div>
+
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary" (click)="onCancelClick()">Cancel</button>
+                        <button type="button" [disabled]="glForm.invalid || currentSelectedRow.code === ''" class="btn btn-primary" (click)="onSubmitClick()">Confirm</button>
+                      </div>
+
+                      <div class="modal-footnote">
+                        <div class="title-extra-padding">
+                            <h4>Account Format Entry Guide</h4>
+                        </div>
+                        <div class="d-inline-block">
+                            <div>
+                                <h4 class="labelling">Employee Location:</h4>
+                                <h4>EELC</h4>
+                            </div>
+                            <div>
+                                <h4 class="labelling">Employee Department:</h4>
+                                <h4>EEDP</h4>
+                            </div>
+                            <div>
+                                <h4 class="labelling">Employee 2nd Department:</h4>
+                                <h4>EEDP2</h4>
+                            </div>
+                        </div>
+
+                        <div class="d-inline-block pull-right">
+                            <div>
+                                <h4 class="labelling">Employee Division:</h4>
+                                <h4>EEDV</h4>
+                            </div>
+                            <div>
+                                <h4 class="labelling">Employee Project:</h4>
+                                <h4>EEPR</h4>
+                            </div>
+                            <div>
+                                <h4 class="labelling">Employee Job:</h4>
+                                <h4>EEJB</h4>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+            </dx-popup>
+            <!-- ADD/EDIT Popup End -->
+
+            <!-- DELETE Popup Start -->
+            <dx-popup
+                class="custom-dx-popup"
+                #popupDeleteGLCode
+                [showTitle]="false"
+                [width]="350"
+                [height]="202"
+                [position]="{ my: 'middle', at: 'middle', of: window }"
+                [showCloseButton]="false"
+                [dragEnabled]="false"
+                [closeOnOutsideClick]="true"
+                [(visible)]="deletePopupVisible">
+                <div *dxTemplate="let data of 'content'">
+                    <div class="custom-modal-window">
+                      <div class="modal-header">
+                        <h4 class="modal-title modal-title-capitalize align-self-center float-left">{{popupSubTitle}}</h4>
+                        <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="onCancelClick()">
+                          <span class="icon icon-close"></span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <h4>Are you sure you want to delete this code?</h4>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-primary" (click)="onCancelClick()">Cancel</button>
+                        <button type="button" class="btn btn-primary" (click)="onSubmitClick()">Confirm</button>
+                      </div>
+                    </div>
+                </div>
+            </dx-popup>
+            <!-- DELETE Popup End -->
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,270 @@
+@import "~sass/variables";
+
+.client-marketplace-content {
+
+    .client-card-background {
+        background-image: url('/assets/images/bizvault/clientDiscounts.png') !important;
+    }
+
+    .employee-card-background {
+        background-image: url('/assets/images/bizvault/employeeDiscounts.png') !important;
+    }
+
+    .btn-primary {
+        &:hover {
+            background-color: #004070;
+            border-color: #004070;
+        }
+    }
+
+    .cta-buttons {
+        margin-top: -14px;
+    }
+    
+    & .container-header {
+        & .container-title{
+            .container-header-title {
+                font-size: 26px;
+                font-weight: 400;
+            }
+            
+            .container-header-description {
+                font-size: 14px;
+                font-weight: 400;
+                letter-spacing: -0.3px;
+                color: $gray-700;
+                margin-top: -4px;
+            }
+        }
+        
+        .cta-button-right-margin {
+            margin-right: 14px;
+		}
+    }
+
+    .cards-sections {
+        margin-top: 22px;
+
+        & .card-marketplace{
+            width: 323px;
+            margin: 2px 17px 0px 12px;
+            padding: 34px 0px 20px 0px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px 0 rgba(32, 44, 86, 0.1);
+
+            & .container-title {
+                font-size: 18px;
+                font-weight: bold;
+            }
+        
+            & .container-subtitle {
+                width: 256px;
+                height: 40px;
+                font-size: 14px;
+                line-height: 1.43;
+                color: $gray-700;
+            }
+
+            & .chart-container { 
+                padding-top: 1px !important;
+                padding-bottom: 1px !important;
+            }
+        }
+
+        .card-marketplace-items {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.43 !important;
+            color: $gray-800;
+            margin-bottom: 15px;
+        
+            .media {
+            padding-bottom: 10px;
+            }
+
+            ul{
+            padding: 0px ;
+            vertical-align: middle;
+            margin: 6px;
+            }
+
+            .custom-features-bullet-icon {
+                margin-top: 5px;
+                margin-right: 7px;
+                font-size: 9px;
+                vertical-align: middle !important;
+            }
+        }
+
+    }
+
+    .messages-section {
+        margin-top: 56px;
+
+        .nav.nav-tabs {
+            border-bottom: 0;
+            margin: auto;
+            width: max-content;
+            margin-bottom: 37px;
+        }
+
+        .nav-tabs .nav-link.active {
+            padding-bottom: 8px;
+            background-color: inherit !important;
+        }
+
+        .message-content {
+            width: 50%;
+            margin: auto;
+
+            .message-content-title {
+                font-size: 18px;
+                font-weight: bold;
+                line-height: 1;
+                text-align: center;
+                color: $gray-800;
+            }
+
+            .message-content-detail {
+                margin-top: 10px;
+                font-size: 14px;
+                line-height: 1.43;
+                text-align: center;
+                color: $gray-700;
+            }
+
+        }
+    }
+    
+    .carousel {
+        outline: none;
+    }
+
+    .carousel-section {
+        margin-top: 31px;
+
+        .marketplace-icon {
+            display: flex !important;
+            width: fit-content;
+            margin: auto;
+            margin-bottom: 19px !important;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        .carousel.slide {
+            background-color: inherit;
+
+            .carousel-inner {
+                display: inline;
+            }
+        }
+        .carousel-control-next, .carousel-control-prev {
+            visibility: visible !important;
+            height: 60px !important;
+            width: 60px !important;
+            border-radius: 30px;
+            background: #e3e3e3;
+            top: 40%;
+        }
+
+        .carousel-control-next-icon {
+            height: 34px;
+
+            background-image: none;
+            &:before {
+                font-family: 'icomoon' !important;
+                content: "\E997";
+                font-size: 20px;
+            }
+        }
+
+        .carousel-control-prev-icon {
+            height: 34px;
+            
+            background-image: none;
+            &:before {
+                font-family: 'icomoon' !important;
+                content: "\e996";
+                font-size: 20px;
+            }
+        }
+
+        .carousel-indicators {
+            visibility: hidden;
+        }
+
+        .marketplace-carousel-cards {
+            .marketplace-carousel-card {
+                margin-right: 30px;
+            }
+        }
+    }
+
+    .discounts-sections {
+        margin-top: 30px;
+
+        .white-paper-card {
+            padding: 30px;
+            margin-right: 30px;
+
+            width: 499px;
+            height: 189px;
+            border-radius: 10px;
+            background-image: linear-gradient(254deg, #53a1dc, #002777);
+            background-color: $blue;
+
+            &-title {
+                font-size: 20px;
+                font-weight: bold;
+                line-height: 1.4;
+                color: #ffffff;
+            }
+
+            &-body {
+                margin-top: 10px;
+                width: 70%;
+                font-size: 14px;
+                line-height: 1.43;
+                color: #ffffff
+            }
+
+            &-buttons {
+                margin-top: 15px;
+            }
+        }
+
+        .client-discounts-card {
+            padding: 30px;
+
+            width: 499px;
+            height: 189px;
+            border-radius: 10px;
+            background-image: linear-gradient(254deg, #53a1dc, #002777);
+            background-color: $blue;
+
+            &-title {
+                font-size: 34px;
+                font-weight: normal;
+                line-height: 0.82;
+                color: $white;
+            }
+
+            &-body {
+                margin-top: 10px;
+                width: 70%;
+                font-size: 14px;
+                line-height: 1.43;
+                color: $white
+            }
+
+            &-buttons {
+                margin-top: 15px;
+            }
+        }
+    }
+
+}

@@ -1,0 +1,208 @@
+<div class="reports-container reports-pto-absence-summary">
+  <div class="section">
+    <div class="row breadcrumb-container-reports">
+        <div class="col-12">
+          <div class="breadcrumb-component">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item back-link">
+                  <a (click)="goToBack()">Reports</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  <span class="breadcrumb-item-active">Gross To Net by Last Name</span>
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-7 report-title align-self-center">
+          <span>Gross To Net by Last Name</span>
+          <span class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+        </div>
+        <div class="col-5 align-self-center">                   
+            <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col-6">
+            <div class="d-inline-flex">
+                <div ngbDropdown class="d-inline-block custom-dropdown-component" #ddYear="ngbDropdown">
+                  <button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddYearBtn ngbDropdownToggle>
+                    <span>
+                      {{selectedYearDisplay || 'Select Year'}}
+                      <i class="icon icon-shape float-right"></i>
+                    </span>
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="Year">
+                    <button type="button" class="dropdown-item" *ngFor="let year of simpleYears" (click)="onSelectionChanged(year); ddYear.close()">{{year}}</button>
+                  </div>
+                </div>
+                
+
+                <div ngbDropdown class="d-inline-block custom-dropdown-component" #ddstatus="ngbDropdown">
+                  <button type="button" class="btn  btn-form-control form-control-dropdown text-left" ngbDropdownToggle (click)="isOpened = !isOpened">
+                    <span class="truncate-dropdown-text">
+                    {{ selectedBatch.Text }}
+                    <i class="icon  icon-shape float-right"></i>
+                    </span>
+                    
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="ddstatus" class="custom-dropdown-events">
+                    <button type="button" class="dropdown-item" *ngFor="let s of batch" (click)="selectBatch(s)">{{s.Text}}</button>
+                  </div>
+                </div>
+
+                <button class="btn btn-primary" (click)="getFilteredData()" [disabled]="disableViewReportButton">View Report</button>
+            </div>  
+          </div>
+        </div>
+      
+        <div class="custom-grid pt-3 mb-0">
+          <hr class="m-0 mb-1 p-0"/>
+          <div class="col-12" *ngIf="isLoading">
+              <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+          </div>
+          <div class="row date-range-row" *ngIf="!isLoading">
+              <div class="col-1">
+                <span class="report-date-range-label">Year Selected</span>
+              </div>
+              <div class="col-2">
+                  <span class="report-date-range-label">Batch Selected</span>
+              </div>
+          </div>
+  
+          <div class="row year-print-download-row" *ngIf="!isLoading">
+            <div class="col-1 align-self-center">
+              <span class="report-data-range-selected">
+                Year: {{ selectedYear }}
+              </span>
+            </div>
+            <div class="col-3 align-self-center">
+              <span class="report-data-range-selected">
+                Batch: {{ selectedBatch.Text }}
+              </span>
+            </div>
+            <div class="col-8 align-self-center">
+              <div class="float-right section-title">
+                <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                (click)="print()">
+                    <span class="icon icon-pint"></span>
+                    <span>PRINT</span>
+                </button>
+                <div ngbDropdown class="d-inline-block" placement="bottom-right">
+                  <button class="btn btn-light" id="downloadDD" ngbDropdownToggle>
+                      <span>Download
+                          <i class="icon icon-shape"></i>
+                      </span>
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="Download">
+                    <button type="button" class="dropdown-item" *ngFor="let item of dropdownOptions[0].items" (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}</button>
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>
+          <div id="contentToRender">
+
+            <div class="row" *ngIf="!isLoading">
+              <div class="col-lg-12">
+                <dx-data-grid 
+                  [dataSource]="filteredGrossNetLastnameReport" 
+                  class="pair-row-color-gray-100 grid-head-font-weight-500 dx-data-grid-tab-title"
+                  [columnAutoWidth]="true" 
+                  [wordWrapEnabled]="true" 
+                  keyExpr="iD">
+                  <dxo-paging [enabled]="false"></dxo-paging>
+                  <dxi-column dataField="iD" caption="ID" alignment="left" [allowSorting]="false"></dxi-column>
+                  <dxi-column dataField="name" caption="Name" alignment="left" [allowSorting]="false"></dxi-column>
+                  <dxi-column dataField="voucher" caption="Voucher" alignment="left" [allowSorting]="false">
+                      <dxo-format type="currency" [precision]="2"></dxo-format>
+                  </dxi-column>
+                  <dxi-column dataField="description" caption="Description" alignment="left" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                  </dxi-column>
+                  <dxi-column dataField="units" caption="Units" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                  </dxi-column>
+                  <dxi-column dataField="unitRate" caption="Unit Rate" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                  </dxi-column>
+                  <dxi-column dataField="amount" caption="Amount" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                  </dxi-column>
+                  <dxi-column dataField="totalGrossPay" caption="Total Gross Pay" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                  </dxi-column>
+                  <dxi-column dataField="totalExpenses" caption="Total expenses" alignment="right" [allowSorting]="false">
+                      <dxo-format type="currency" [precision]="2"></dxo-format>
+                  </dxi-column>
+                  <dxi-column dataField="grossEarning" caption="Gross Earnings" alignment="right" [allowSorting]="false">
+                      <dxo-format type="currency" [precision]="2"></dxo-format>
+                  </dxi-column>
+                  <dxi-column dataField="totalDeductions" caption="Total Deductions" alignment="right" [allowSorting]="false">
+                      <dxo-format type="currency" [precision]="2"></dxo-format>
+                  </dxi-column> 
+                  <dxi-column dataField="totalTaxes" caption="Total Taxes" alignment="right" [allowSorting]="false">
+                      <dxo-format type="currency" [precision]="2"></dxo-format>
+                  </dxi-column>
+                  <dxi-column dataField="totalNetPay" caption="Total Net Pay" alignment="right" [allowSorting]="false">
+                      <dxo-format type="currency" [precision]="2"></dxo-format>
+                  </dxi-column>
+
+                  <dxo-summary *ngIf="filteredGrossNetLastnameReport.length > 0">
+                      <dxi-total-item column="iD" displayFormat="Grand Totals"></dxi-total-item>
+                      <dxi-total-item
+                      column="totalGrossPay"
+                      summaryType="sum"
+                      displayFormat="{0}"
+                      valueFormat="currency"
+                      [precision]="2">
+                      </dxi-total-item>
+                      <dxi-total-item
+                      column="totalExpenses"
+                      summaryType="sum"
+                      displayFormat="{0}"
+                      valueFormat="currency"
+                      [precision]="2">
+                      </dxi-total-item>
+                      <dxi-total-item
+                      column="grossEarning"
+                      summaryType="sum"
+                      displayFormat="{0}"
+                      valueFormat="currency"
+                      [precision]="2">
+                      </dxi-total-item>
+                      <dxi-total-item
+                      column="totalDeductions"
+                      summaryType="sum"
+                      displayFormat="{0}"
+                      valueFormat="currency"
+                      [precision]="2">
+                      </dxi-total-item>
+                      <dxi-total-item
+                      column="totalTaxes"
+                      summaryType="sum"
+                      displayFormat="{0}"
+                      valueFormat="currency"
+                      [precision]="2">
+                      </dxi-total-item>
+                      <dxi-total-item
+                      column="totalNetPay"
+                      summaryType="sum"
+                      displayFormat="{0}"
+                      valueFormat="currency"
+                      [precision]="2">
+                      </dxi-total-item>
+                    </dxo-summary>
+
+                </dx-data-grid>
+              </div>
+            </div>
+          </div>
+      </div>
+      
+  </div>
+</div>

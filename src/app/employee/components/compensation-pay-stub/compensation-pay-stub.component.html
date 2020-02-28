@@ -1,0 +1,515 @@
+<div class="custom-modal-window pay-stub-modal">
+    <div class="modal-header">
+        <button type="button" class="close align-self-center float-right mt-1" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+            <span class="icon icon-close"></span>
+        </button>
+        <div class="product-card-title">Pay stub details for {{employee.lastName}}, {{employee.firstName}} - {{employee.code}}</div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a href="javascript: void(0)" class="nav-link" [ngClass]="showDetails ? 'active' : ''" (click)="activeTabDetails(true)" data-toggle="tab">Pay Stub</a>
+            </li>
+            <li class="nav-item">
+                <a href="javascript: void(0)" class="nav-link" [ngClass]="!showDetails ? 'active' : ''" (click)="activeTabDetails(false)" data-toggle="tab">YTD</a>
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="showDetails" class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="buttons pull-right">                    
+                    <div class="d-inline-block" placement="bottom-right">
+                        <button type="button" (click)="printPayStub()" class="btn btn-link btn-link-icon modal-btn-without-padding not-btn-dropdown">
+                            <span class="icon icon-pint"></span>
+                            <span>PRINT</span>
+                        </button>             
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <div id="payStubPrintContent">
+            <div class="custom-grid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-grid-header">
+                            <h3 class="display-3 table-title">Summary</h3>
+                        </div>
+                        <dx-data-grid #summaryDataGrid [dataSource]="summaryDataRows"
+                            [showRowLines]="true"
+                            [columnAutoWidth]="true"     
+                            [showColumnHeaders]="false"                    
+                            keyExpr="id">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                                <div *dxTemplate="let cell of 'dataTemplate'">
+                                    <div class="field-display-section custom-border-bottom">
+                                        <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                        <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                    </div>
+                                </div>
+                            </dxi-column>
+                        </dx-data-grid>
+                    </div>    
+                </div>      
+            </div>  
+            <div class="custom-grid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-grid-header">
+                            <h3 class="display-3 table-title">Tax Withholding Status</h3>
+                        </div>
+                        <dx-data-grid #summaryDataGrid [dataSource]="taxWithholdingDataRows"
+                            [showRowLines]="true"
+                            [columnAutoWidth]="true"     
+                            [showColumnHeaders]="false"                    
+                            keyExpr="id">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                                <div *dxTemplate="let cell of 'dataTemplate'">
+                                    <div class="field-display-section custom-border-bottom">
+                                        <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                        <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                    </div>
+                                </div>
+                            </dxi-column>
+                        </dx-data-grid>
+                    </div>    
+                </div>      
+            </div>    
+            <div class="custom-grid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-grid-header">
+                            <h3 class="display-3 table-title">Earnings (Tipped Hours)</h3>
+                        </div>
+                        <dx-data-grid #summaryDataGrid [dataSource]="earningsTippedHoursDataRow"
+                            [showRowLines]="true"
+                            [columnAutoWidth]="true"     
+                            [showColumnHeaders]="false"                    
+                            keyExpr="id">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                                <div *dxTemplate="let cell of 'dataTemplate'">
+                                    <div class="field-display-section custom-border-bottom">
+                                        <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                        <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                    </div>
+                                </div>
+                            </dxi-column>
+                        </dx-data-grid>
+                    </div>    
+                </div>      
+            </div>  
+            <div class="custom-grid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-grid-header">
+                            <h3 class="display-3 table-title">Earnings (Cash Tips)</h3>
+                        </div>
+                        <dx-data-grid #summaryDataGrid [dataSource]="earningsCashTipsDataRow"
+                            [showRowLines]="true"
+                            [columnAutoWidth]="true"     
+                            [showColumnHeaders]="false"                    
+                            keyExpr="id">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                                <div *dxTemplate="let cell of 'dataTemplate'">
+                                    <div class="field-display-section custom-border-bottom">
+                                        <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                        <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                    </div>
+                                </div>
+                            </dxi-column>
+
+                            <dxo-summary>
+                                <dxi-total-item 
+                                    column="data" 
+                                    cssClass="pull-left summary-label"
+                                    displayFormat="TOTAL EARNINGS">
+                                </dxi-total-item>
+                                <dxi-total-item 
+                                    cssClass="pull-right"
+                                    column="data"
+                                    [displayFormat]="earningsDataTotal | currency">
+                                </dxi-total-item>
+                            </dxo-summary>
+                        </dx-data-grid> 
+                    </div>      
+                </div>  
+            </div>
+            <div class="custom-grid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-grid-header">
+                            <h3 class="display-3 table-title">Current Deductions</h3>
+                        </div>
+                        <dx-data-grid #summaryDataGrid [dataSource]="deductionDataRow"
+                            [showRowLines]="true"
+                            [columnAutoWidth]="true"     
+                            [showColumnHeaders]="false"                    
+                            keyExpr="id">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                                <div *dxTemplate="let cell of 'dataTemplate'">
+                                    <div class="field-display-section custom-border-bottom">
+                                        <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                        <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                    </div>
+                                </div>
+                            </dxi-column>
+
+                            <dxo-summary>
+                                <dxi-total-item 
+                                    column="data" 
+                                    cssClass="pull-left summary-label"
+                                    displayFormat="TOTAL">
+                                </dxi-total-item>
+                                <dxi-total-item 
+                                    cssClass="pull-right"
+                                    column="data"
+                                    [displayFormat]="deductionDataTotal | currency">
+                                </dxi-total-item>
+                            </dxo-summary>
+                        </dx-data-grid>
+                    </div>    
+                </div>      
+            </div>  
+            <div class="custom-grid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-grid-header">
+                            <h3 class="display-3 table-title">Current Taxes</h3>
+                        </div>
+                        <dx-data-grid #summaryDataGrid [dataSource]="taxesDataRow"
+                            [showRowLines]="true"
+                            [columnAutoWidth]="true"     
+                            [showColumnHeaders]="false"                    
+                            keyExpr="id">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                                <div *dxTemplate="let cell of 'dataTemplate'">
+                                    <div class="field-display-section custom-border-bottom">
+                                        <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                        <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                    </div>
+                                </div>
+                            </dxi-column>
+
+                            <dxo-summary>
+                                <dxi-total-item 
+                                    column="data" 
+                                    cssClass="pull-left summary-label"
+                                    displayFormat="TOTAL">
+                                </dxi-total-item>
+                                <dxi-total-item 
+                                    cssClass="pull-right"
+                                    column="data"
+                                    [displayFormat]="taxesDataTotal | currency">
+                                </dxi-total-item>
+                            </dxo-summary>
+                        </dx-data-grid>
+                    </div>    
+                </div>      
+            </div>
+            <div class="custom-grid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-grid-header">
+                            <h3 class="display-3 table-title">Current ER Contributions</h3>
+                        </div>
+                        <dx-data-grid #summaryDataGrid [dataSource]="erContributionsDataRow"
+                            [showRowLines]="true"
+                            [columnAutoWidth]="true"     
+                            [showColumnHeaders]="false"                    
+                            keyExpr="id">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                                <div *dxTemplate="let cell of 'dataTemplate'">
+                                    <div class="field-display-section custom-border-bottom">
+                                        <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                        <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                    </div>
+                                </div>
+                            </dxi-column>
+
+                            <dxo-summary>
+                                <dxi-total-item 
+                                    column="data" 
+                                    cssClass="pull-left summary-label"
+                                    displayFormat="TOTAL">
+                                </dxi-total-item>
+                                <dxi-total-item 
+                                    cssClass="pull-right"
+                                    column="data"
+                                    [displayFormat]="erContributionsDataTotal | currency">
+                                </dxi-total-item>
+                            </dxo-summary>
+                        </dx-data-grid>
+                    </div>    
+                </div>      
+            </div>
+            <div class="custom-grid mb-0">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-grid-header">
+                            <h3 class="display-3 table-title">Paid Time Off</h3>
+                        </div>
+                        <dx-data-grid #summaryDataGrid [dataSource]="paidTimeOffDataRows"
+                            [showRowLines]="true"
+                            [columnAutoWidth]="true"     
+                            [showColumnHeaders]="false"                    
+                            keyExpr="id">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                                <div *dxTemplate="let cell of 'dataTemplate'">
+                                    <div class="field-display-section custom-border-bottom">
+                                        <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                        <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                    </div>
+                                </div>
+                            </dxi-column>
+                        </dx-data-grid>
+                    </div>    
+                </div>      
+            </div>
+        </div>   
+    </div>
+    <div *ngIf="!showDetails" class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="buttons pull-right">                    
+                    <div class="d-inline-block" placement="bottom-right">
+                        <button type="button" (click)="printYTD()" class="btn btn-link btn-link-icon modal-btn-without-padding not-btn-dropdown">
+                            <span class="icon icon-pint"></span>
+                            <span>PRINT</span>
+                        </button>             
+                    </div>
+                </div>                
+            </div>
+        </div>
+        <div id="ytdPrintContent">
+            <div class="custom-grid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-grid-header">
+                            <h3 class="display-3 table-title">YTD Earnings (TIP CREDIT MAKE UP)</h3>
+                        </div>
+                        <dx-data-grid #summaryDataGrid [dataSource]="ytdEarningsTipCreditDataRow"
+                            [showRowLines]="true"
+                            [columnAutoWidth]="true"     
+                            [showColumnHeaders]="false"                    
+                            keyExpr="id">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                                <div *dxTemplate="let cell of 'dataTemplate'">
+                                    <div class="field-display-section custom-border-bottom">
+                                        <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                        <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                    </div>
+                                </div>
+                            </dxi-column>
+                        </dx-data-grid>
+                        
+                    </div>    
+                </div>      
+            </div>
+            <div class="custom-grid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-grid-header">
+                            <h3 class="display-3 table-title">YTD Earnings (TIPPED HOURS)</h3>
+                        </div>
+                        <dx-data-grid #summaryDataGrid [dataSource]="ytdEarningsTippedHoursDataRow"
+                            [showRowLines]="true"
+                            [columnAutoWidth]="true"     
+                            [showColumnHeaders]="false"                    
+                            keyExpr="id">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                                <div *dxTemplate="let cell of 'dataTemplate'">
+                                    <div class="field-display-section custom-border-bottom">
+                                        <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                        <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                    </div>
+                                </div>
+                            </dxi-column>
+                        </dx-data-grid>
+                    </div>    
+                </div>      
+            </div>
+            <div class="custom-grid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-grid-header">
+                            <h3 class="display-3 table-title">YTD Earnings (CASH TIPS)</h3>
+                        </div>
+                        <dx-data-grid #summaryDataGrid [dataSource]="ytdEarningsCashTipsDataRow"
+                            [showRowLines]="true"
+                            [columnAutoWidth]="true"     
+                            [showColumnHeaders]="false"                    
+                            keyExpr="id">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                                <div *dxTemplate="let cell of 'dataTemplate'">
+                                    <div class="field-display-section custom-border-bottom">
+                                        <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                        <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                    </div>
+                                </div>
+                            </dxi-column>
+                        </dx-data-grid>
+                    </div>    
+                </div>      
+            </div>
+            <div class="custom-grid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-grid-header">
+                            <h3 class="display-3 table-title">YTD Earnings (HALF TIME)</h3>
+                        </div>
+                        <dx-data-grid #summaryDataGrid [dataSource]="ytdEarningsHalfTimeDataRow"
+                            [showRowLines]="true"
+                            [columnAutoWidth]="true"     
+                            [showColumnHeaders]="false"                    
+                            keyExpr="id">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                                <div *dxTemplate="let cell of 'dataTemplate'">
+                                    <div class="field-display-section custom-border-bottom">
+                                        <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                        <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                    </div>
+                                </div>
+                            </dxi-column>
+                            <dxo-summary>
+                                <dxi-total-item 
+                                    column="data" 
+                                    cssClass="pull-left summary-label"
+                                    displayFormat="TOTAL YTD EARNINGS">
+                                </dxi-total-item>
+                                <dxi-total-item 
+                                    cssClass="pull-right"
+                                    column="data"
+                                    [displayFormat]="ytdEarningsDataTotal | currency">
+                                </dxi-total-item>
+                            </dxo-summary>
+                        </dx-data-grid>
+                    </div>    
+                </div>      
+            </div>
+            <div class="custom-grid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-grid-header">
+                            <h3 class="display-3 table-title">YTD Deductions</h3>
+                        </div>
+                        <dx-data-grid #summaryDataGrid [dataSource]="ytdDeductionsDataRow"
+                            [showRowLines]="true"
+                            [columnAutoWidth]="true"     
+                            [showColumnHeaders]="false"                    
+                            keyExpr="id">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                                <div *dxTemplate="let cell of 'dataTemplate'">
+                                    <div class="field-display-section custom-border-bottom">
+                                        <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                        <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                    </div>
+                                </div>
+                            </dxi-column>
+                            <dxo-summary>
+                                <dxi-total-item 
+                                    column="data" 
+                                    cssClass="pull-left summary-label"
+                                    displayFormat="TOTAL">
+                                </dxi-total-item>
+                                <dxi-total-item 
+                                    cssClass="pull-right"
+                                    column="data"
+                                    [displayFormat]="ytdDeductionsDataTotal | currency">
+                                </dxi-total-item>
+                            </dxo-summary>
+                        </dx-data-grid>
+                    </div>    
+                </div>      
+            </div> 
+            <div class="custom-grid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-grid-header">
+                            <h3 class="display-3 table-title">YTD Taxes</h3>
+                        </div>
+                        <dx-data-grid #summaryDataGrid [dataSource]="ytdTaxesDataRow"
+                            [showRowLines]="true"
+                            [columnAutoWidth]="true"     
+                            [showColumnHeaders]="false"                    
+                            keyExpr="id">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                                <div *dxTemplate="let cell of 'dataTemplate'">
+                                    <div class="field-display-section custom-border-bottom">
+                                        <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                        <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                    </div>
+                                </div>
+                            </dxi-column>
+
+                            <dxo-summary>
+                                <dxi-total-item 
+                                    column="data" 
+                                    cssClass="pull-left summary-label"
+                                    displayFormat="TOTAL">
+                                </dxi-total-item>
+                                <dxi-total-item 
+                                    cssClass="pull-right"
+                                    column="data"
+                                    [displayFormat]="ytdTaxesDataTotal | currency">
+                                </dxi-total-item>
+                            </dxo-summary>
+                        </dx-data-grid>
+                    </div>    
+                </div>      
+            </div>
+            <div class="custom-grid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="custom-grid-header">
+                            <h3 class="display-3 table-title">YTD ER Contributions</h3>
+                        </div>
+                        <dx-data-grid #summaryDataGrid [dataSource]="ytdERContributionsDataRow"
+                            [showRowLines]="true"
+                            [columnAutoWidth]="true"     
+                            [showColumnHeaders]="false"                    
+                            keyExpr="id">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="data" [allowSorting]="false" alignment="left" cellTemplate="dataTemplate">
+                                <div *dxTemplate="let cell of 'dataTemplate'">
+                                    <div class="field-display-section custom-border-bottom">
+                                        <span class="label float-left align-self-center">{{cell.data.label}}</span>
+                                        <app-current-value-format [currentValue]="cell.data" customClass="value float-right"></app-current-value-format>
+                                    </div>
+                                </div>
+                            </dxi-column>
+
+                            <dxo-summary>
+                                <dxi-total-item 
+                                    column="data" 
+                                    cssClass="pull-left summary-label"
+                                    displayFormat="TOTAL">
+                                </dxi-total-item>
+                                <dxi-total-item 
+                                    cssClass="pull-right"
+                                    column="data"
+                                    [displayFormat]="ytdERContributionsDataTotal | currency">
+                                </dxi-total-item>
+                            </dxo-summary>
+                        </dx-data-grid>
+                    </div>    
+                </div>      
+            </div> 
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-electronic-pay" (click)="onClickElectronicPayStatement()">Electronic Pay Statement</button>
+        <button type="button" class="btn btn-outline-primary" (click)="modalCloseFunc('Cross click')">Cancel</button>
+    </div>
+  </div>

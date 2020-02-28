@@ -1,0 +1,487 @@
+<div class="payroll-cycle-component">
+  <form [formGroup]="formGroup" autocomplete="off">
+    <div class="row">
+      <div class="col-8">
+        <div class="row">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <app-custom-select [title]="'Pay Frequency'"
+                          [placeholder]="'Select one'"
+                          [items]="payFrequencyDropDown"
+                          formControlName="payFrequencyDD"
+                          (selected)="payFrequencyDDSelected($event)"></app-custom-select>  
+          </div>
+          <div class="form-group col-6 d-inline-block float-right">
+            <app-custom-select [title]="'Check day'"
+                          [placeholder]="'Select one'"
+                          [items]="dayOfWeekDropDown"
+                          formControlName="checkDay"
+                          [disableDropdown]="!showSevenDayWorkFields"
+                          (selected)="checkDaySelected($event)"></app-custom-select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <div id="checkdayrow">
+              <label for="paidtwicemonthrow">Paid twice a month on</label>
+              <div class="row" id="paidtwicemonthrow">
+                <div class="col-6 d-inline-block pr-3">
+                  <app-custom-select [title]="''"
+                    [placeholder]="'First Pay Date'"
+                    [items]="paidTwiceMonth1DropDown"
+                    formControlName="paidTwiceMonth1"
+                    [disableDropdown]="!showTwiceMonthFields"
+                    (selected)="paidTwiceMonth1Selected($event)"></app-custom-select>
+                </div>
+                <div class=" col-6 d-inline-block pr-3">
+                  <app-custom-select [title]="''"
+                    [placeholder]="'Second Pay Date'"
+                    [items]="paidTwiceMonth2DropDown"
+                    formControlName="paidTwiceMonth2"
+                    [disableDropdown]="!showTwiceMonthFields"
+                    (selected)="paidTwiceMonth2Selected($event)"></app-custom-select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-6 d-inline-block float-right">
+            <div class="row" id="monthlydayrow">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <app-custom-select [title]="'Paid once a month on'"
+                                [placeholder]="'Select one'"
+                                [items]="paidOnceMonthDD"
+                                formControlName="paidOnceMonth"
+                                [disableDropdown]="!showOnceMonthFields"
+                                (selected)="paidOnceMonthSelected($event)"></app-custom-select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <label for="workweekrow">Established seven-day work week</label>
+        <div class="row">
+            <div class="form-group col-6 d-inline-block pr-3">
+              <app-custom-select [title]="''"
+                id="workweekStart"
+                [placeholder]="'Starting Day'"
+                [items]="sevenDayWorkStartDD"
+                formControlName="sevenDayWorkStart"
+                (selected)="sevenDayWorkStartSelected($event)"></app-custom-select>
+            </div>
+            <div class="form-group col-6 d-inline-block float-right">
+              <app-custom-select [title]="''"
+                id="workweekEnd"
+                [placeholder]="'Ending Day'"
+                [items]="sevenDayWorkEndDD"
+                formControlName="sevenDayWorkEnd"
+                (selected)="sevenDayWorkEndSelected($event)"></app-custom-select>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <label for="firstdaterow">Tentative first pay period begin date</label>
+            <div class="custom-date-picker custom-input-field">
+                <div class="input-icon icon icon-calendar"></div>
+                <input
+                  class="form-control custom-input-field date-picker-width"
+                  placeholder="Month dd, yyyy"
+                  name="selectedFirstDate"
+                  formControlName="tentativeFirstPay"
+                  ngbDatepicker [dayTemplate]="customDay"
+                  [displayMonths]="1"
+                  [navigation]="'arrows'"
+                  [firstDayOfWeek]="7"
+                  #firstDate="ngbDatepicker">
+                <button 
+                  class="btn input-btn {{openedBeginningFD ? 'icon-shape-reverse' : 'icon-shape'}}"
+                  (click)="firstDate.toggle(); 
+                            endDate.close(); 
+                            firstCheckDate.close(); 
+                            addlFirstDate.close(); 
+                            addlEndDate.close(); 
+                            addlFirstCheckDate.close();
+                            $event.stopPropagation(); 
+                            addlOpenedBeginningED = false;
+                            addlOpenedBeginningFC = false;
+                            addlOpenedBeginningFD = false; 
+                            openedBeginningED = false;
+                            openedBeginningFC = false;
+                            openedBeginningFD = !openedBeginningFD" 
+                  (document:click)="firstDate.close(); openedBeginningFD = false"
+                  type="button">
+              </button>
+            </div>
+          </div>
+          <div class="form-group col-6 d-inline-block float-right">
+            <label for="enddaterow">Tentative first pay period end date</label>
+            <div class="custom-date-picker custom-input-field">
+                <div class="input-icon icon icon-calendar"></div>
+                <input
+                  class="form-control custom-input-field date-picker-width"
+                  placeholder="Month dd, yyyy"
+                  name="selectedEndDate"
+                  formControlName="tentativeEndPay"
+                  ngbDatepicker [dayTemplate]="customDay"
+                  [displayMonths]="1"
+                  [navigation]="'arrows'"
+                  [firstDayOfWeek]="7"
+                  #endDate="ngbDatepicker">
+                <button 
+                  class="btn input-btn {{openedBeginningED ? 'icon-shape-reverse' : 'icon-shape'}}"
+                  (click)="endDate.toggle(); 
+                            firstDate.close(); 
+                            firstCheckDate.close(); 
+                            addlFirstDate.close(); 
+                            addlEndDate.close(); 
+                            addlFirstCheckDate.close();
+                            $event.stopPropagation(); 
+                            addlOpenedBeginningED = false;
+                            addlOpenedBeginningFC = false;
+                            addlOpenedBeginningFD = false; 
+                            openedBeginningFD = false;
+                            openedBeginningFC = false;
+                            openedBeginningED = !openedBeginningED" 
+                  (document:click)="endDate.close(); openedBeginningED = false"
+                  type="button">
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-6 d-inline-block pr-3">
+              <label for="firstcheckdaterow">Tentative first check date</label>
+              <div class="custom-date-picker custom-input-field">
+                  <div class="input-icon icon icon-calendar"></div>
+                  <input
+                    class="form-control custom-input-field date-picker-width"
+                    placeholder="Month dd, yyyy"
+                    name="selectedFirstCheckDate"
+                    formControlName="tentativeFirstCheck"
+                    ngbDatepicker [dayTemplate]="customDay"
+                    [displayMonths]="1"
+                    [navigation]="'arrows'"
+                    [firstDayOfWeek]="7"
+                    #firstCheckDate="ngbDatepicker">
+                  <button 
+                    class="btn input-btn {{openedBeginningFC ? 'icon-shape-reverse' : 'icon-shape'}}"
+                    (click)="firstCheckDate.toggle();
+                              endDate.close(); 
+                              firstDate.close(); 
+                              addlFirstDate.close(); 
+                              addlEndDate.close(); 
+                              addlFirstCheckDate.close();
+                              $event.stopPropagation(); 
+                              addlOpenedBeginningED = false;
+                              addlOpenedBeginningFC = false;
+                              addlOpenedBeginningFD = false; 
+                              openedBeginningFD = false;
+                              openedBeginningED = false;
+                              openedBeginningFC = !openedBeginningFC" 
+                    (document:click)="firstCheckDate.close(); openedBeginningFC = false"
+                    type="button">
+                </button>
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+              <div class="horizontal-separator"></div>
+          </div>
+        </div>
+
+        <div class="row checkbox-row">
+          <div class="form-group col-6 d-inline-block p-0">
+            <label class="checkbox-section">If check date falls on Saturday we should pay</label>
+          </div>
+          <div class="form-group col-6 checkbox-section p-0">
+            <!-- <dx-check-box [value]="checkDateSaturdayMon" text="Monday" (onValueChanged)="clickCheckDateSaturday($event)"></dx-check-box>
+            <dx-check-box [value]="checkDateSaturdayFri" text="Friday" (onValueChanged)="clickCheckDateSaturday($event)"></dx-check-box> -->
+            <div formGroupName="checkDateSaturdayGroup" class="form-checkbox-width">
+              <dx-check-box 
+                formControlName="checkDateSaturdayMonday" 
+                text="Monday" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('checkDateSaturdayMonday', 'checkDateSaturdayGroup', $event)"></dx-check-box>
+              
+              <dx-check-box 
+                class="mr-0"
+                formControlName="checkDateSaturdayFriday" 
+                text="Friday" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('checkDateSaturdayFriday', 'checkDateSaturdayGroup', $event)"></dx-check-box>
+            </div>
+          </div>
+        </div>
+
+        <div class="row checkbox-row2">
+          <div class="form-group col-6 d-inline-block p-0">
+            <label>If check date falls on Sunday we should pay</label>
+          </div>
+          <div class="form-group col-6 checkbox-section p-0">
+            <!-- <dx-check-box [value]="checkDateSundayMon" text="Monday" (onValueChanged)="clickCheckDateSunday($event)"></dx-check-box>
+            <dx-check-box [value]="checkDateSundayFri" text="Friday" (onValueChanged)="clickCheckDateSunday($event)"></dx-check-box> -->
+            <div formGroupName="checkDateSundayGroup" class="form-checkbox-width">
+              <dx-check-box 
+                formControlName="checkDateSundayMonday" 
+                text="Monday" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('checkDateSundayMonday', 'checkDateSundayGroup', $event)"></dx-check-box>
+              
+              <dx-check-box 
+                class="mr-0"
+                formControlName="checkDateSundayFriday" 
+                text="Friday" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('checkDateSundayFriday', 'checkDateSundayGroup', $event)"></dx-check-box>
+            </div>
+          </div>
+        </div>
+
+        <div class="row checkbox-row2">
+          <div class="form-group col-6 d-inline-block p-0">
+            <label>If check date falls on a holiday we should pay</label>
+          </div>
+          <div class="form-group col-6 checkbox-section p-0">
+            <!-- <dx-check-box [value]="checkDateHolidayBefore" text="Before" (onValueChanged)="clickCheckDateHoliday($event)"></dx-check-box>
+            <dx-check-box [value]="checkDateHolidayAfter" text="After" (onValueChanged)="clickCheckDateHoliday($event)" class="cb-holiday-after"></dx-check-box> -->
+            <div formGroupName="checkDateHolidayGroup" class="form-checkbox-width">
+              <dx-check-box 
+                formControlName="checkDateHolidayBefore" 
+                text="Before" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('checkDateHolidayBefore', 'checkDateHolidayGroup', $event)"></dx-check-box>
+              
+              <dx-check-box 
+                class="mr-0 cb-holiday-after"
+                formControlName="checkDateHolidayAfter" 
+                text="After  " 
+                (onOptionChanged)="onGroupedCheckBoxChanged('checkDateHolidayAfter', 'checkDateHolidayGroup', $event)"></dx-check-box>
+            </div>
+          </div>
+        </div>
+
+        <div class="row checkbox-row3">
+          <div class="form-group col-6 d-inline-block p-0">
+            <label>Do you have additional pay cycles?</label>
+          </div>
+          <div class="form-group col-6 checkbox-section p-0">
+            <!-- <dx-check-box [value]="additionalPayCyclesYes" text="Yes" (onValueChanged)="clickAdditionalPayCycles($event)"></dx-check-box>
+            <dx-check-box [value]="additionalPayCyclesNo" text="No" (onValueChanged)="clickAdditionalPayCycles($event)" class="cb-addl-paycycles-no"></dx-check-box> -->
+            <div formGroupName="additionalPayCyclesGroup" class="form-checkbox-width">
+              <dx-check-box 
+                formControlName="additionalPayCyclesYes" 
+                text="Yes" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('additionalPayCyclesYes', 'additionalPayCyclesGroup', $event)"></dx-check-box>
+              
+              <dx-check-box 
+                class="mr-0 cb-addl-paycycles-no"
+                formControlName="additionalPayCyclesNo" 
+                text="No      " 
+                (onOptionChanged)="onGroupedCheckBoxChanged('additionalPayCyclesNo', 'additionalPayCyclesGroup', $event)"></dx-check-box>
+                <input type="hidden" formControlName="selectedAdditionalPayCycles" name="selectedAdditionalPayCycles">
+              </div>
+          </div>
+        </div>
+
+        <!-- Additional Pay Cycles Section -->
+
+        <!-- <div *ngIf="additionalPayCyclesName === 'additionalPayCyclesYes'"> -->
+          <div formGroupName="additionalFieldsGroup">
+          <div class="row">
+            <div class="col-12">
+                <div class="horizontal-separator"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-6 d-inline-block pr-3">
+              <app-custom-select [title]="'Pay Frequency'"
+                            [placeholder]="'Select one'"
+                            [items]="payFrequencyDropDown"
+                            formControlName="addlPayFrequencyDD"
+                            [disableDropdown]="additionalPayCyclesName !== 'additionalPayCyclesYes'"
+                            (selected)="addlPayFrequencyDDSelected($event)"></app-custom-select>  
+            </div>
+            <div class="form-group col-6 d-inline-block float-right">
+              <app-custom-select [title]="'Check day'"
+                            [placeholder]="'Select one'"
+                            [disableDropdown]="!AddlShowSevenDayWorkFields"
+                            [items]="dayOfWeekDropDown"
+                            formControlName="addlCheckDay"
+                            (selected)="addlCheckDaySelected($event)"></app-custom-select>
+            </div>
+          </div>
+      
+          <div class="row">
+            <div class="form-group col-6 d-inline-block pr-3">
+              <div id="addlcheckdayrow">
+                <label for="paidtwicemonthrow">Paid twice a month on</label>
+                <div class="row" id="paidtwicemonthrow">
+                  <div class="col-6 d-inline-block pr-3">
+                    <app-custom-select [title]="''"
+                      [placeholder]="'First Pay Date'"
+                      [items]="paidTwiceMonth1DropDown"
+                      formControlName="addlPaidTwiceMonth1"
+                      [disableDropdown]="!AddlShowTwiceMonthFields"
+                      (selected)="addlPaidTwiceMonth1Selected($event)"></app-custom-select>
+                  </div>
+                  <div class=" col-6 d-inline-block pr-3">
+                    <app-custom-select [title]="''"
+                      [placeholder]="'Second Pay Date'"
+                      [items]="paidTwiceMonth2DropDown"
+                      formControlName="addlPaidTwiceMonth2"
+                      [disableDropdown]="!AddlShowTwiceMonthFields"
+                      (selected)="addlPaidTwiceMonth2Selected($event)"></app-custom-select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-6 d-inline-block float-right">
+              <div class="row" id="addlmonthlydayrow">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <app-custom-select [title]="'Paid once a month on'"
+                                  [placeholder]="'Select one'"
+                                  [items]="paidOnceMonthDD"
+                                  formControlName="addlPaidOnceMonth"
+                                  [disableDropdown]="!AddlShowOnceMonthFields"
+                                  (selected)="addlPaidOnceMonthSelected($event)"></app-custom-select>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <label for="workweekrow">Established seven-day work week</label>
+          <div class="row">
+              <div class="form-group col-6 d-inline-block pr-3">
+                <app-custom-select [title]="''"
+                  id="workweekStart"
+                  [placeholder]="'Starting Day'"
+                  [items]="sevenDayWorkStartDD"
+                  [disableDropdown]="additionalPayCyclesName !== 'additionalPayCyclesYes'"
+                  formControlName="addlSevenDayWorkStart"
+                  (selected)="addlSevenDayWorkStartSelected($event)"></app-custom-select>
+              </div>
+              <div class="form-group col-6 d-inline-block float-right">
+                <app-custom-select [title]="''"
+                  id="workweekEnd"
+                  [placeholder]="'Ending Day'"
+                  [items]="sevenDayWorkEndDD"
+                  [disableDropdown]="additionalPayCyclesName !== 'additionalPayCyclesYes'"
+                  formControlName="addlSevenDayWorkEnd"
+                  (selected)="addlSevenDayWorkEndSelected($event)"></app-custom-select>
+              </div>
+          </div>
+        
+
+          <div class="row">
+            <div class="form-group col-6 d-inline-block pr-3">
+              <label for="firstdaterow">Tentative first pay period begin date</label>
+              <div class="custom-date-picker custom-input-field">
+                  <div class="input-icon icon icon-calendar"></div>
+                  <input
+                    class="form-control custom-input-field date-picker-width"
+                    placeholder="Month dd, yyyy"
+                    name="selectedFirstDate"
+                    [disabled]="additionalPayCyclesName !== 'additionalPayCyclesYes'"
+                    formControlName="addlTentativeFirstPay"
+                    ngbDatepicker [dayTemplate]="customDay"
+                    [displayMonths]="1"
+                    [navigation]="'arrows'"
+                    [firstDayOfWeek]="7"
+                    #addlFirstDate="ngbDatepicker">
+                  <button 
+                    class="btn input-btn {{addlOpenedBeginningFD ? 'icon-shape-reverse' : 'icon-shape'}}"
+                    (click)="addlFirstDate.toggle(); 
+                              addlEndDate.close(); 
+                              addlFirstCheckDate.close(); 
+                              firstDate.close(); 
+                              endDate.close(); 
+                              firstCheckDate.close();
+                              $event.stopPropagation(); 
+                              openedBeginningED = false;
+                              openedBeginningFC = false;
+                              openedBeginningFD = false;
+                              addlOpenedBeginningED = false;
+                              addlOpenedBeginningFC = false;
+                              addlOpenedBeginningFD = !addlOpenedBeginningFD"
+                    (document:click)="addlFirstDate.close(); addlOpenedBeginningFD = false" 
+                    type="button">
+                </button>
+              </div>
+            </div>
+            <div class="form-group col-6 d-inline-block float-right">
+              <label for="enddaterow">Tentative first pay period end date</label>
+              <div class="custom-date-picker custom-input-field">
+                  <div class="input-icon icon icon-calendar"></div>
+                  <input
+                    class="form-control custom-input-field date-picker-width"
+                    placeholder="Month dd, yyyy"
+                    name="selectedEndDate"
+                    [disabled]="additionalPayCyclesName !== 'additionalPayCyclesYes'"
+                    formControlName="addlTentativeEndPay"
+                    ngbDatepicker [dayTemplate]="customDay"
+                    [displayMonths]="1"
+                    [navigation]="'arrows'"
+                    [firstDayOfWeek]="7"
+                    #addlEndDate="ngbDatepicker">
+                  <button 
+                    class="btn input-btn {{addlOpenedBeginningED ? 'icon-shape-reverse' : 'icon-shape'}}"
+                    (click)="addlEndDate.toggle(); 
+                              addlFirstDate.close(); 
+                              addlFirstCheckDate.close(); 
+                              firstDate.close(); 
+                              endDate.close(); 
+                              firstCheckDate.close();
+                              $event.stopPropagation(); 
+                              openedBeginningED = false;
+                              openedBeginningFC = false;
+                              openedBeginningFD = false;
+                              addlOpenedBeginningFD = false;
+                              addlOpenedBeginningFC = false;
+                              addlOpenedBeginningED = !addlOpenedBeginningED" 
+                    (document:click)="addlEndDate.close(); addlOpenedBeginningED = false"
+                    type="button">
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-6 d-inline-block pr-3">
+              <label for="firstcheckdaterow">Tentative first check date</label>
+              <div class="custom-date-picker custom-input-field">
+                  <div class="input-icon icon icon-calendar"></div>
+                  <input
+                    class="form-control custom-input-field date-picker-width"
+                    placeholder="Month dd, yyyy"
+                    name="selectedFirstCheckDate"
+                    [disabled]="additionalPayCyclesName !== 'additionalPayCyclesYes'"
+                    formControlName="AddlTentativeFirstCheck"
+                    ngbDatepicker [dayTemplate]="customDay"
+                    [displayMonths]="1"
+                    [navigation]="'arrows'"
+                    [firstDayOfWeek]="7"
+                    #addlFirstCheckDate="ngbDatepicker">
+                  <button 
+                    class="btn input-btn {{addlOpenedBeginningFC ? 'icon-shape-reverse' : 'icon-shape'}}"
+                    (click)="addlFirstCheckDate.toggle();
+                              addlEndDate.close(); 
+                              addlFirstDate.close(); 
+                              firstDate.close(); 
+                              endDate.close(); 
+                              firstCheckDate.close();
+                              $event.stopPropagation(); 
+                              openedBeginningED = false;
+                              openedBeginningFC = false;
+                              openedBeginningFD = false;
+                              addlOpenedBeginningFD = false;
+                              addlOpenedBeginningED = false;
+                              addlOpenedBeginningFC = !addlOpenedBeginningFC" 
+                    (document:click)="addlFirstCheckDate.close(); addlOpenedBeginningFC = false" 
+                    type="button">
+                </button>
+              </div>
+            </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,57 @@
+<div class="employee-reports-container employee-reports-job-history p-0">
+  <div class="section">
+    <div class="row">
+      <div class="col-6 report-title align-self-center">
+          <span>Job History</span>
+          <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-6 report-title align-self-center">                   
+        <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+      </div>
+    </div>
+
+    <div class="custom-grid pt-1 mb-0 pl-0">
+      <hr class="m-0 mb-1 p-0"/>
+      <div class="col-12" *ngIf="isLoading">
+        <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <div *ngIf="!isLoading">
+        <div class="row date-range-row">
+          <div class="col-12 align-self-center p-0">
+            <div class="float-right custom-margins-print">
+              <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                      (click)="requestedFunction('print')">
+                  <span class="icon icon-pint"></span>
+                  <span>PRINT</span>
+              </button>
+              <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+                <button class="btn btn-light" id="downloadDD" ngbDropdownToggle>
+                  <span>Download
+                      <i class="icon icon-shape"></i>
+                  </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="Download">
+                  <button type="button" class="dropdown-item" *ngFor="let item of dropdownOptions[0].items" (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="!isLoading">
+          <div class="col-lg-12">
+            <dx-data-grid 
+              [dataSource]="employeeReportsJobHistory" 
+              class="pair-row-color-gray-100"
+              [columnAutoWidth]="true" 
+              [wordWrapEnabled]="true">
+              <dxo-paging [enabled]="false"></dxo-paging>
+              <dxi-column dataField="date" caption="Date"  [allowSorting]="false" dataType="date"></dxi-column>
+              <dxi-column dataField="jobCode" caption="Job Code"  [allowSorting]="false"></dxi-column>
+              <dxi-column dataField="jobTitle" caption="Job Title" [allowSorting]="false"></dxi-column>
+            </dx-data-grid>
+          </div>
+        </div>
+      </div>    
+    </div>
+  </div>
+</div>

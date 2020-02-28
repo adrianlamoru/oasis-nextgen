@@ -1,0 +1,30 @@
+<form [formGroup]="formGroup" autocomplete="off" novalidate>
+  <ngb-tabset #tabSet="ngbTabset"
+              class="ngbTabset support-case-senstivity-tabs"
+              [activeId]="selectedTab"
+              (tabChange)="onTabChange($event)">
+    <ngb-tab id="general-information">
+        <ng-template ngbTabTitle>
+          A. General Information<span *ngIf="!groupIsValid('generalInfo')" class="has-errors"></span>
+        </ng-template>
+        <ng-template ngbTabContent>
+            <app-general-information [groupTrace]="[groupId]"></app-general-information>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab id="primary-decision-maker-information">
+        <ng-template ngbTabTitle>
+          B. Primary Decision Maker Information<span *ngIf="!groupIsValid('primaryDecisionMaker')" class="has-errors"></span></ng-template>
+        <ng-template ngbTabContent>
+            <app-step-1-primary-decision-maker [groupTrace]="[groupId]" [primaryContactData]="primaryData" (primaryContactModifiedEvent)="updatedPrimaryContactListener($event);"></app-step-1-primary-decision-maker>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab id="authorized-client-contacts-web-access">
+        <ng-template ngbTabTitle>
+          C. Authorized Client Contacts and Web Access<span *ngIf="!groupIsValid('authorizedClientContacts')" class="has-errors"></span>
+        </ng-template>
+        <ng-template ngbTabContent>
+            <app-step-1-authorized-client-contacts [groupTrace]="[groupId]"></app-step-1-authorized-client-contacts>
+        </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</form>

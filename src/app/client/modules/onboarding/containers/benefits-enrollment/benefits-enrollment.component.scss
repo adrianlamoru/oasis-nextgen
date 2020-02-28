@@ -1,0 +1,16 @@
+@import '~sass/variables';
+
+:host::ng-deep {
+    .horizontal-separator {
+        height: 1px;
+        background-color: $gray-300;
+        margin: 20px 0;
+    }
+
+    .taxes-paragraph {
+        border-radius: 5px;
+        background-color: #f0f2f5;
+        padding: 27px 29px;
+        margin-bottom: 0px;
+    }
+}

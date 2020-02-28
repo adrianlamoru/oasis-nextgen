@@ -1,0 +1,276 @@
+<div class="employee-reports-container employee-reports-other">
+    <div class="section">
+        <div class="pt-3 mb-0">
+          
+          <div class="col-12" *ngIf="isLoading">
+            <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+          </div>
+        
+          <div class="row col-12 p-0 m-0" *ngIf="!isLoading">
+            <h3 class="col-9 align-self-center pl-0 m-0 font-weight-bold" [ngStyle]="{'height': (allTabSelected)? '30px': 'initial'}">Other Items</h3>
+            <div class="col-3 align-self-center pr-0" *ngIf=" !allTabSelected">
+              <div class="float-right">
+                <button 
+                  type="button" 
+                  class="btn btn-link btn-link-icon p-0 mr-2"
+                  (click)="requestedFunction('print')">
+                <span class="icon icon-pint"></span>
+                <span>PRINT</span>
+                </button>
+                <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+                  <button 
+                    class="btn btn-light" 
+                    id="downloadDD" 
+                    ngbDropdownToggle>
+                      <span>
+                        Download
+                        <i class="icon icon-shape"></i>
+                      </span>
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="Download">
+                    <button 
+                      type="button" 
+                      class="dropdown-item" 
+                      *ngFor="let item of dropdownOptions[0].items" 
+                      (click)="selectedDownloadOption(item); downloadDD.close()">
+                      {{item.name}}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="row" *ngIf="!isLoading">
+          <div class="col-8">
+            <div class="row employee-information-first-row" *ngFor="let ddItem of filteredEmployeeReportsOtherReport[0].employeeOther">
+
+                <div class="col-3 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Handicapped</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.handicapped">
+                  </div>
+                </div>
+                <div class="col-3 employee-information-field-padding custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Smoker</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.smoker">
+                  </div>
+                </div>
+                <div class="col-3 employee-information-field-padding2 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Court Ordered Medical</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.courtOrderedMed">
+                  </div>
+                </div>
+                <div class="col-3 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Hawaii Medical Waiver</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.hawaiiMedWaiver">
+                  </div>
+                </div>
+
+                <div class="col-3 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Mail Check Home</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.mailCheckHome">
+                  </div>
+                </div>
+                <div class="col-3 employee-information-field-padding custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Officer</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.officer">
+                  </div>
+                </div>
+                <div class="col-3 employee-information-field-padding2 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Citizenship</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.citizenship">
+                  </div>
+                </div>
+                <div class="col-3 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>License Plate #</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.licensePlate">
+                  </div>
+                </div>
+
+                <div class="col-3 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Drivers License #</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.driversLicense">
+                  </div>
+                </div>
+                <div class="col-3 employee-information-field-padding custom-margin-bottom">
+                  <div class="form-group">
+                    <label>License Expiration Date</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.licenseExpirationDate">
+                  </div>
+                </div>
+                <div class="col-3 employee-information-field-padding2 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>State Issuing License</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.stateIssuingLicense">
+                  </div>
+                </div>
+                <div class="col-3 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Service Medal Vet</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.serviceMedalVet">
+                  </div>
+                </div>
+
+                <div class="col-3 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Blind</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.blind">
+                  </div>
+                </div>
+                <div class="col-3 employee-information-field-padding custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Disabled Vet</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.disabledVet">
+                  </div>
+                </div>
+                <div class="col-3 employee-information-field-padding2 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Tax Credit Employee</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.taxCreditEmployee">
+                  </div>
+                </div>
+                <div class="col-3 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Ohio Form C112 Signed</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.ohioFormC112Signed">
+                  </div>
+                </div>
+
+                <div class="col-3 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>S-Corp Principal</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.sCorpPrincipal">
+                  </div>
+                </div>
+                <div class="col-3 employee-information-field-padding custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Vietnam Vet</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.vietnamVet">
+                  </div>
+                </div>
+                <div class="col-3 employee-information-field-padding2 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Handbook Mailed</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.handbookMailed">
+                  </div>
+                </div>
+                <div class="col-3 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Handbook Received</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.handbookReceived">
+                  </div>
+                </div>
+
+                <div class="col-3 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Max Garnishment %</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.maxGarnishmentPercent">
+                  </div>
+                </div>
+                <div class="col-3 employee-information-field-padding custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Clock Number</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.clockNumber">
+                  </div>
+                </div>
+                <div class="col-3 employee-information-field-padding2 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Newly Separated Vet</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.newlySeparatedVet">
+                  </div>
+                </div>
+                <div class="col-3 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Active Duty Badge Vet</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.activeDutyBadgeVet">
+                  </div>
+                </div>
+
+
+
+            </div>
+          </div>
+        </div>
+  </div>
+</div>

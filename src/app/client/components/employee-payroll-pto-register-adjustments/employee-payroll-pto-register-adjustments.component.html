@@ -1,0 +1,72 @@
+<div class="custom-modal-window pto-register-modal">
+    <div class="modal-header">
+      <h4 class="modal-title align-self-center float-left">Adjust PTO Register - {{ selectedEmployeeName | middleTruncate: 25 }}</h4>
+      <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+          <span class="icon icon-close"></span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <div *ngIf="showMessage" class="messages-component">
+                    <div class="alert alert-success alert-dismissible">
+                        <button aria-label="Close" class="close" type="button" (click)="closeSuccessMessage()">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                        <span class="icon icon-success"></span>
+                        <span class="message">
+                            Data was saved successfully
+                        </span>
+                    </div>
+                </div>
+                <dx-form [(formData)]="ptoAllocationsData" labelLocation="top" class="dx-selectbox-36">
+                    <dxi-item
+                        dataField="registerType"
+                        editorType="dxSelectBox"
+                        [editorOptions]="{ dataSource: registerTypeDataDriven, displayExpr: 'Text', valueExpr: 'ID' }">
+                    </dxi-item>
+                    <dxi-item
+                        template="dateBox"
+                        dataField="effectiveDate">
+                    </dxi-item>
+                    <dxi-item
+                        dataField="accruedHours"
+                        editorType="dxTextBox">
+                    </dxi-item>
+                    <dxi-item
+                        dataField="carryOverHours"
+                        editorType="dxTextBox">
+                    </dxi-item>
+                    <dxi-item
+                        template="dateBox"
+                        dataField="accruedThruDate">
+                    </dxi-item>
+                    <dxi-item
+                        dataField="comment"
+                        editorType="dxTextArea"
+                        [editorOptions]="{ minHeight: '120px' }">
+                    </dxi-item>
+
+                    <div *dxTemplate="let item of 'dateBox'">
+                        <div class="custom-date-picker">
+                          <div class="input-icon icon icon-calendar"></div>
+                          <input class="form-control custom-input-field" placeholder="Month dd, yyyy" [(ngModel)]="ptoAllocationsData[item.dataField]" name="dp" ngbDatepicker
+                              [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #d="ngbDatepicker">
+                          <button class="btn input-btn icon-shape" (click)="d.toggle(); opened = !opened" type="button"></button>
+                        </div>
+                    </div>
+                </dx-form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="modalCloseFunc('Cross click')">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="submitModal()">Confirm</button>
+    </div>
+  </div>
+
+  <ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-focused="focused">
+    <div class="btn-light" [class.focused]="focused" [class.bg-primary]="selected" (click)="opened = !opened;" (keydown)="opened = !opened;">
+      {{ date.day }}
+    </div>
+  </ng-template>

@@ -1,0 +1,220 @@
+<div class="reports-container reports-deduction-code-detail">
+  <div class="section">
+    <div class="row breadcrumb-container-reports">
+      <div class="col-12">
+        <div class="breadcrumb-component">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item back-link">
+                <a (click)="goToBack()">Reports</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <span class="breadcrumb-item-active">Deduction Code Details</span>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-7 report-title align-self-center">
+        <span>Deduction Code Details</span>
+        <span class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-5 align-self-center">                   
+        <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-6 col-xl-3">
+            <label>Year</label>
+            <div ngbDropdown class="d-inline-block custom-dropdown-component dropdown-scroll" [ngClass]="selectedBatch ? 'ca-report-custom-dd': ''" #ddBatches="ngbDropdown">
+              <button
+                type="button"
+                class="btn btn-form-control form-control-dropdown text-left"
+                ngbDropdownToggle
+                (click)="isOpened = !isOpened">
+                <span>
+                  {{ selectedYear || 'Select Year'}}
+                  <i class="icon  icon-shape float-right"></i>
+                </span>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="ddYear" class="custom-dropdown-years ca-report-custom-dd-menu">
+                <button
+                  type="button"
+                  class="dropdown-item"
+                  *ngFor="let yearItem of yearsDD"
+                  (click)="onSelectionYear(yearItem)">{{yearItem.Text}}</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-xl-3">
+            <label>Batch</label>
+            <div ngbDropdown class="d-inline-block custom-dropdown-component" [ngClass]="selectedBatch ? 'ca-report-custom-dd': ''" #ddBatches="ngbDropdown">
+              <button
+                type="button"
+                class="btn btn-form-control form-control-dropdown text-left"
+                ngbDropdownToggle
+                (click)="isOpened = !isOpened">
+                <span>
+                  {{ selectedBatchType || 'Select Batch' }}
+                  <i class="icon  icon-shape float-right"></i>
+                </span>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="ddEmployeeType" class="custom-dropdown-years ca-report-custom-dd-menu">
+                <button
+                  type="button"
+                  class="dropdown-item"
+                  *ngFor="let typeItem of batchTypesDD"
+                  (click)="onSelectionBatchType(typeItem)">{{typeItem.Text}}</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-xl-3 custom-top-margin-col1 custom-padding-left-col1">
+            <label>Division</label>
+            <div ngbDropdown class="d-inline-block custom-dropdown-component dropdown-scroll" #ddYears="ngbDropdown">
+              <button 
+                type="button"
+                class="btn btn-form-control form-control-dropdown text-left"
+                ngbDropdownToggle
+                (click)="isOpened = !isOpened">
+                <span>
+                {{ selectedDivision || 'Select Division' }}
+                <i class="icon  icon-shape float-right"></i>
+                </span>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="ddDivision" class="custom-dropdown-years">
+                <button
+                  type="button"
+                  class="dropdown-item"
+                  *ngFor="let divisionItem of divisionsDD"
+                  (click)="onSelectionDivision(divisionItem)">{{divisionItem.Text}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hr-padding">
+      <hr class="m-0 mb-1 p-0"/>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="row">  
+          <div class="col-6 col-xl-3 custom-padding-left-col1">
+            <label>Home Department</label>
+            <div ngbDropdown class="d-inline-block custom-dropdown-component dropdown-scroll" [ngClass]="selectedBatch ? 'ca-report-custom-dd': ''" #ddBatches="ngbDropdown">
+              <button
+                type="button"
+                class="btn btn-form-control form-control-dropdown text-left"
+                ngbDropdownToggle
+                (click)="isOpened = !isOpened">
+                <span>
+                  {{ selectedDepartment || 'Select Home Department' }}
+                  <i class="icon  icon-shape float-right"></i>
+                </span>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="ddDepartment" class="custom-dropdown-years ca-report-custom-dd-menu">
+                <button
+                  type="button"
+                  class="dropdown-item"
+                  *ngFor="let departmentItem of departmentsDD"
+                  (click)="onSelectionDepartment(departmentItem)">{{departmentItem.Text}}</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-xl-3 custom-padding-left-col1">
+            <label>Home Location</label>
+            <div ngbDropdown class="d-inline-block custom-dropdown-component" [ngClass]="selectedBatch ? 'ca-report-custom-dd': ''" #ddBatches="ngbDropdown">
+              <button
+                type="button"
+                class="btn btn-form-control form-control-dropdown text-left"
+                ngbDropdownToggle
+                (click)="isOpened = !isOpened">
+                <span>
+                  {{ selectedLocation || 'Select Home Location'}}
+                  <i class="icon  icon-shape float-right"></i>
+                </span>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="ddYear" class="custom-dropdown-years ca-report-custom-dd-menu">
+                <button
+                  type="button"
+                  class="dropdown-item"
+                  *ngFor="let locationItem of locationsDD"
+                  (click)="onSelectionLocation(locationItem)">{{locationItem.Text}}</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-xl-2 custom-top-margin-col1 d-flex">
+            <button class="btn btn-primary custom-view-report-btn" (click)="getFilteredData()" [disabled]="disableViewReportButton">View Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-grid pt-4 mt-1 mb-0">
+      <hr class="m-0 mb-1 p-0"/>
+      <div class="col-12" *ngIf="isLoading">
+        <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <div class="row pt-3 mb-0" *ngIf="!isLoading && displayReport">
+        <div class="col-12 align-self-center">
+          <div class="float-right custom-margin-bottom-dropdown">
+            <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                    (click)="requestedFunction('print')">
+              <span class="icon icon-pint"></span>
+              <span>PRINT</span>
+            </button>
+            <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+                <button class="btn btn-light" id="downloadDD" ngbDropdownToggle>
+                    <span>Download
+                        <i class="icon icon-shape"></i>
+                    </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="Download">
+                  <button type="button" class="dropdown-item" *ngFor="let item of dropdownOptions[0].items" (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row custom-grid-padding" *ngIf="!isLoading && displayReport">
+        <div class="col-lg-12">
+          <dx-data-grid id="gridContainer"
+            class="historical-grid pair-row-color-gray-100"
+            [dataSource]="filteredDeductionCodeDetailRows"
+            [columnAutoWidth]="true"
+            >
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="dedCode" caption="Deduction Code" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="dedDesc" caption="Deduction Description" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="location" caption="Location " [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="division"  caption="Division" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="department" caption="Department" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="ssn" caption="SSN" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="empName" caption="Employee Name" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="payDate" caption="Pay Date" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="vouNumber" caption="Voucher Number" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="dedAmount" caption="Deduction Amount" [allowSorting]="false">
+              <dxo-format type="currency" [precision]="2"></dxo-format>
+            </dxi-column>
+            <dxo-summary>
+            <dxi-total-item column="dedCode" displayFormat="Total"></dxi-total-item>
+            <dxi-total-item
+              column="dedAmount"
+              summaryType="sum"
+              displayFormat="{0}"
+              valueFormat="currency"
+              [precision]="2">
+            </dxi-total-item>
+            </dxo-summary>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

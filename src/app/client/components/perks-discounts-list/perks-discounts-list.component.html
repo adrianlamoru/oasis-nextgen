@@ -1,0 +1,128 @@
+<div class="row container-content">
+  <div class="col custom-offer-card float-left"
+       *ngFor="let item of discountsData; let i = index">
+    <div class="card product-card">
+      <span [ngClass]="getDiscountType(item.heading)"
+            tabindex="0">{{item.heading}}</span>
+      <img class="card-img-top"
+           src="https://picsum.photos/341/120?image=700"
+           alt="Card image cap">
+      <div class="card-body">
+        <span class="card-title">{{item.title}}</span>
+        <p class="card-text">{{item.body}}</p>
+        <button type="button"
+                class="btn btn-primary" (click)="getDetailedDiscounts(item)">
+          See Discount
+        </button>
+      </div> 
+    </div>
+  </div>
+</div>
+
+<!-- Modal for discount details -->
+
+<ng-template #discountsDetailModal
+               let-c="close"
+               let-d="dismiss">
+    <div class="custom-modal-window">
+      <div class="modal-header">
+        <div class="d-flex">
+        </div>
+        <button type="button"
+                class="close align-self-center float-right"
+                aria-label="Close"
+                (click)="d('Cross click')">
+          <span class="icon icon-close"></span>
+        </button>
+      </div>
+      <div class="modal-body benefits-modal-body offer-card-modal-body">
+        <div class="benefits-item offer-card-item">
+          <div class="offer-card-coupon-code">Coupon Code: <span class="offer-card-coupon-text">OASISSALE25</span></div>
+          <div class="product-card-title">{{ selectedDiscountItem.title }}</div>
+          <div class="product-card-description readLess"
+               [ngClass]="{ 'readMore' : toggleBenfitsText, 'readLess': !toggleBenfitsText }">{{ selectedDiscountItem.text }} </div>
+          <div class="item-footer">
+            <a href="javascript: void(0)"
+               *ngIf="!toggleBenfitsText"
+               (click)="toggleBenfitsText = !toggleBenfitsText">
+              READ MORE
+              <i class="icon icon-shape"></i>
+            </a>
+            <a class="readLessIcon"
+               href="javascript: void(0)"
+               *ngIf="toggleBenfitsText"
+               (click)="toggleBenfitsText = !toggleBenfitsText">
+              READ LESS
+              <i class="icon icon-shape-reverse"></i>
+            </a>
+          </div>
+          <div class="product-card-features">
+            <span>FEATURES</span>
+          </div>
+          <div class="features-items">
+            <ul class="features-items">
+              <li class="media">
+                <span class="custom-features-bullet-icon icon-triangle"> </span>
+                <div class="media-body">
+                  Feature 1
+                </div>
+              </li>
+              <li class="media">
+                <span class="custom-features-bullet-icon icon-triangle"> </span>
+                <div class="media-body">
+                  Feature 2
+                </div>
+              </li>
+              <li class="media">
+                <span class="custom-features-bullet-icon icon-triangle"> </span>
+                <div class="media-body">
+                  Feature 3
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="product-card-features additional-info">
+            <span>ADDITIONAL INFO</span>
+          </div>
+          <div class="modal-body benefits-modal-body additional-info-list">
+            <ul>
+              <li>
+                <a href="javascript: void(0)" (click)="openLink()">Offer Detail</a>
+              </li>
+              <hr>
+              <li>
+                <a href="javascript: void(0)" (click)="openPdf()">Club Locations</a>
+              </li>
+              <hr>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer modal-footer-benefits">
+        <button type="button"
+                class="btn btn-outline-primary"
+                (click)="c('Close click')">Close</button>
+      </div>
+
+      <!-- <div class="modal-header border-0 d-block"
+           style="align-items: right;">
+        <button type="button"
+                class="close align-self-center float-right"
+                aria-label="Close"
+                (click)="d('Cross click')">
+          <span class="icon icon-close"></span>
+        </button>
+      </div>
+      <div class="modal-body pt-0">
+        <p class="text-center my-0">
+          {{ selectedDiscountItem.text }}
+        </p>
+      </div>
+      <div class="modal-footer align-items-center"
+           style="justify-content: center;">
+        <button type="button"
+                class="btn btn-outline-primary"
+                (click)="c('Close click')">Cancel</button>
+      </div> -->
+    </div>
+  </ng-template>

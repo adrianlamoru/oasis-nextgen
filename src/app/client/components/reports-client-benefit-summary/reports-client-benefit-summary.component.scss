@@ -1,0 +1,42 @@
+@import '~sass/variables';
+
+.reports-client-benefit-summary{
+    .section{
+        width: 100%;
+        .report-title{
+          margin-bottom: 22px;
+      }
+
+      .section-title-buttons {
+          margin-top: 14px !important;
+      }
+
+      .button-container{
+        padding-top: 33px;
+      }
+
+      .form-group{
+        margin-bottom: 2px;
+      }
+
+      .custom-grid-container{
+        padding-top: 20px; 
+      }
+
+
+      .date-picker-container{
+        padding-bottom: 30px;
+      }
+
+      .custom-date-picker-size{
+        width: 208px;
+        margin-right: 10px;
+
+        .custom-input-field{
+            width: 208px;
+            font-weight: 500;
+            line-height: 1.29;
+        }
+      }
+    }
+}

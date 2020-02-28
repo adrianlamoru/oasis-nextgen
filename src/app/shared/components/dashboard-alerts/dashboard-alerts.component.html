@@ -1,0 +1,18 @@
+<div class="dashboard-alerts {{ showAll ? 'alerts-scroll': 'left-panel-container'}}">
+  <div class="alert-header" *ngIf="!showAll">
+    <h5 class="side-rail-header">NOTIFICATIONS</h5>
+  </div>
+  <div class="dashboard-list-container">
+    <div class="list">
+      <div class="list-item {{i < 4 || showAll ? '': 'd-none'}}" *ngFor="let alert of alerts; let i = index;">
+        <div class="dashboard-alert">
+            <span class="icon icon-{{alert.type}}"></span>  
+            <div class="alert-description">
+              <span class="alert-message">{{ alert.message }}</span>
+              <span class="alert-time">{{ alert.time }}</span>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

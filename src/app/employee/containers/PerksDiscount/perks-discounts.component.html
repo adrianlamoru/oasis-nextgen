@@ -1,0 +1,31 @@
+<div class="perks-discounts-component employee-container-content">
+  <div class="row align-items-center container-header">
+    <div class="col-5 container-title">
+      <span>Perks & Discounts</span>
+    </div>
+    <div class="col-7">
+      <div class="float-right">
+        <div class="align-self-center d-inline-block">
+          <div ngbDropdown class="d-inline-block" placement="bottom-right">
+            <button class="btn btn-light" id="filterByDropdown" ngbDropdownToggle>
+              <span>Filter By
+                <i class="icon icon-shape"></i>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="filterByDropdown">
+              <button *ngFor="let itemFilterBy of dropdownFilterBy" [hidden]="!itemFilterBy.Show" class="dropdown-item"
+              (click)="filterListBy(itemFilterBy.ID)">{{itemFilterBy.Text}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="perks-discount-card-list-component">   
+    <div class="row">
+      <div class="col custom-pd-card" *ngFor="let card of filteredPerksDiscountsCards">
+        <app-perks-discounts-card [card]="card" [tags]="tags"></app-perks-discounts-card>
+      </div>
+    </div>
+  </div>
+</div>

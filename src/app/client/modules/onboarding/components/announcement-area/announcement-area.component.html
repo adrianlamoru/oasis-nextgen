@@ -1,0 +1,18 @@
+<div class="announcement-container" [ngClass]="{'hide-announcement':!showAnnouncement}">
+  <div class="row bg-white">
+    <div class="col-6">
+      <div class="announcement-title">{{title}}</div>
+      <div class="announcement-text">{{message}}</div>
+      <div class="announcement-button">
+        <a href="{{ctaLink}}" class="btn">{{ctaText}}</a>
+      </div>
+    </div>
+    <div class="col-5 image-col-container">
+      <div class="img-container"></div>
+    </div>
+    <div class="col-1 close-col-icon">
+        <div class="icon icon-close custom-close pull-rigth" (click)="closeAnnouncement()"></div>
+    </div>
+    
+  </div>
+</div>

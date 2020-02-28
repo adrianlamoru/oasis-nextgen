@@ -1,0 +1,19 @@
+<form [formGroup]="formGroup" autocomplete="off" novalidate>
+<ngb-tabset #tabSet="ngbTabset" 
+            class="ngbTabset support-case-senstivity-tabs"
+            [activeId]="selectedTab"
+            (tabChange)="onTabChange($event)">
+    <ngb-tab id="benefits-structure">
+        <ng-template ngbTabTitle>A. Benefits Structure<span *ngIf="!groupIsValid('benefitsStructure')" class="has-errors"></span></ng-template>
+        <ng-template ngbTabContent>
+            <app-benefits-structure [groupTrace]="[groupId]"></app-benefits-structure>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab id="benefits-orientation">
+        <ng-template ngbTabTitle>B. Orientation<span *ngIf="!groupIsValid('benefitsOrientation')" class="has-errors"></span></ng-template>
+        <ng-template ngbTabContent>
+            <app-benefits-orientation [groupTrace]="[groupId]"></app-benefits-orientation>
+        </ng-template>
+    </ngb-tab>
+</ngb-tabset>
+</form>

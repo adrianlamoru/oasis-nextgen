@@ -1,0 +1,237 @@
+@import '~bootstrap/scss/functions';
+@import '~sass/variables';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+// @import "~bootstrap/scss/bootstrap";
+
+.docu-forms-search {
+  &-header {
+    margin-bottom: 12px;
+
+    @include media-breakpoint-up(sm) {
+      margin-bottom: 26px;
+    }
+
+    h5 {
+      color: $gray-700;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 0 !important;
+    }
+  }
+
+  &-body {
+    // <div class="card-display-value row"  onmouseover="this.style.backgroundColor='#e6e8ea'" onmouseout="this.style.backgroundColor='#f3f5f7'">
+
+    .list-actions {
+      list-style: none;
+      padding-left: 0;
+
+      .list-action-item {
+        margin-bottom: 15px;
+
+        .icon {
+          color: $blue;
+          font-size: 14px;
+          line-height: 18px;
+        }
+
+        .value-item-group {
+          display: inline-block;
+          margin-left: 16px;
+
+          .item-value {
+            font-size: 14px;
+            line-height: 1.29;
+            font-weight: bold;
+            color: $gray-800;
+            margin-bottom: 0;
+
+            &:hover {
+              font-weight: bold;
+              cursor: pointer;
+            }
+          }
+
+          .item-detail {
+            font-size: 12px;
+            line-height: normal;
+            font-weight: 500;
+            color: $gray-300;
+
+            &:hover {
+              font-weight: bold;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
+    .input-group-search {
+      margin-bottom: 15px;
+
+      .form-control-search {
+        border: 0;
+        padding-left: 35px;
+        height: 36px;
+        border-radius: 5px;
+        background-color: $gray-100;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+      }
+
+      .icon-search {
+        position: absolute;
+        z-index: 4;
+        top: 11px;
+        font-size: 14px;
+        left: 14px;
+        display: flex;
+        align-items: center;
+        color: $gray-200;
+      }
+    }
+  }
+
+  &-footer {
+    margin-top: 7px;
+
+    a {
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: bold;
+
+      .icon-arrow {
+        font-size: 9px;
+      }
+    }
+
+    a:hover {
+      text-decoration: none;
+      color: $blue;
+    }
+  }
+}
+
+.list-risk-actions {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+
+  .list-risk-action-item {
+    font-weight: bold;
+    min-width: 258px;
+
+    hr {
+      margin: 10px 0px 10px 0px;
+    }
+
+    &:last-child hr {
+      margin-bottom: 0;
+      display: none;
+    }
+
+    .icon {
+      font-size: 14px;
+      line-height: 18px;
+
+      &.color-blue {
+        color: $blue;
+      }
+    }
+
+    .item-value {
+      font-size: 14px;
+      line-height: 1.29;
+      font-weight: bold;
+      color: $gray-800;
+      margin-bottom: 0;
+      margin-left: 16px;
+    }
+
+    &:hover {
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .value-item-group {
+      display: inline-block;
+
+      .item-detail {
+        font-size: 12px;
+        line-height: normal;
+        font-weight: 500;
+        color: $gray-300;
+
+        &:hover {
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .mr-right-10 {
+      margin-right: 10px;
+    }
+  }
+
+  .list-action-item {
+    font-weight: bold;
+
+    hr {
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+
+    &:last-child hr {
+      margin-bottom: 0;
+      display: none;
+    }
+
+    .icon {
+      font-size: 14px;
+      line-height: 18px;
+
+      &.color-blue {
+        color: $blue;
+      }
+    }
+
+    .item-value {
+      font-size: 14px;
+      line-height: 1.29;
+      font-weight: bold;
+      color: $gray-800;
+      margin-bottom: 0;
+      margin-left: 16px;
+    }
+
+    &:hover {
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .value-item-group {
+      display: inline-block;
+
+      .item-detail {
+        font-size: 12px;
+        line-height: normal;
+        font-weight: 500;
+        color: $gray-300;
+
+        &:hover {
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .mr-right-10 {
+      margin-right: 10px;
+    }
+  }
+}

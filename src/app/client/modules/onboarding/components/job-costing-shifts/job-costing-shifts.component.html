@@ -1,0 +1,39 @@
+<div class="page-header">
+    <div class="no-bottom-margin">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="custom-grid-header">
+            <dx-data-grid #dxDataGrid [dataSource]="shiftsTableColumns"
+              [columnAutoWidth]="true"
+              class="payroll-batch-grid row-edited-data-grid"
+              keyExpr="ID">
+              
+                <dxo-paging [enabled]="false"></dxo-paging>
+    
+                <dxo-editing mode="batch" [allowUpdating]="true">
+                </dxo-editing>
+    
+                <dxi-column dataField="Shift Code" alignment="left"
+                    [allowSorting]="false" [showEditorAlways]="true">
+                </dxi-column>
+
+                <dxi-column dataField="Shift Name" alignment="left"
+                    [allowSorting]="false" [showEditorAlways]="true">
+                </dxi-column>    
+    
+    
+                <dxi-column cellTemplate="editTemplate" alignment="left" [width]="60" [minWidth]="60">
+                  <div *dxTemplate="let data of 'editTemplate'">
+                      <div class="dx-custom-command-edit">
+                          <a *ngIf="data.data.inserting" class="dx-link dx-link-edit" tabindex="0" (click)="onAddRow(data)" (keydown)="onAddKeyDown($event, data)">ADD</a>
+                          <a *ngIf="!data.data.inserting" class="dx-link dx-link-delete" tabindex="0"  (click)="onDeleteRow(data)" (keydown)="onDeleteKeyDown($event, data)">REMOVE</a>
+                      </div>
+                  </div>
+              </dxi-column>
+    
+            </dx-data-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

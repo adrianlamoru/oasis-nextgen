@@ -1,0 +1,161 @@
+<div class="employee-reports-container employee-reports-payroll-inquiry">
+  <div class="section">
+    
+    <div class="row">
+      <div class="col-6 report-title align-self-center">
+        <span>Payroll Inquiry</span>
+        <span 
+          *ngIf="reportGeneratedDate" 
+          class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}
+        </span>
+      </div>
+      <div class="col-6 report-title align-self-center">                   
+        <button 
+          type="button" 
+          class="btn btn-outline-primary float-right" 
+          (click)="goToBack()">BACK</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-8">
+        <div class="form-inline form-group">
+
+          <div 
+            ngbDropdown class="d-inline-block custom-dropdown-component" 
+            #ddYear="ngbDropdown">
+            <button 
+              type="button" 
+              class="btn btn-form-control form-control-dropdown text-left" 
+              #ddYearBtn ngbDropdownToggle>
+              <span>
+                {{selectedYearDisplay || 'Select Year'}}
+                <i class="icon icon-shape float-right"></i>
+              </span>
+            </button>
+            <div 
+              ngbDropdownMenu aria-labelledby="ddyear">
+              <button 
+                type="button" 
+                class="dropdown-item" 
+                *ngFor="let year of simpleYears"
+                (click)="onSelectionChanged(year); ddYear.close()">{{year}}
+              </button>
+            </div>
+          </div>
+
+          <div 
+            ngbDropdown class="d-inline-block custom-dropdown-component" 
+            #ddperiod="ngbDropdown">
+              <button 
+                type="button" 
+                class="btn btn-form-control form-control-dropdown text-left" 
+                #ddPeriodBtn ngbDropdownToggle> 
+                <span>
+                  {{selectedPeriod?.Text || 'Select Period'}}
+                <i class="icon icon-shape float-right"></i>
+                </span>
+              </button>
+              <div 
+                ngbDropdownMenu aria-labelledby="ddperiod">
+                  <button 
+                    type="button" 
+                    class="dropdown-item" 
+                    *ngFor="let period of periods" 
+                    (click)="selectPeriod(period); ddPeriod.close()">{{period.Text}}
+                  </button>
+              </div>
+          </div>
+          <button class="btn btn-primary" (click)="getFilteredData()" [disabled]="disableViewReportButton">View Report</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-grid pt-1 mb-0">
+      <hr class="m-0 mb-1 p-0"/>
+      <div class="col-12" *ngIf="isLoading">
+          <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+
+      <div class="row pt-3 mb-0" *ngIf="!isLoading">
+        <div class="col-12 align-self-center">
+          <div class="float-right custom-margin-bottom-dropdown">
+          <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                  (click)="requestedFunction('print')">
+              <span class="icon icon-pint"></span>
+              <span>PRINT</span>
+          </button>
+          <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+            <button class="btn btn-light" id="downloadDD" ngbDropdownToggle>
+                <span>Download
+                    <i class="icon icon-shape"></i>
+                </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="Download">
+              <button 
+                type="button" 
+                class="dropdown-item" 
+                *ngFor="let item of dropdownOptions[0].items" 
+                (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}
+              </button>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row custom-grid-padding" *ngIf="!isLoading">
+        <div class="col-lg-6">
+          <dx-data-grid id="gridContainer"
+          class="historical-grid pair-row-color-gray-100"
+          [dataSource]="employeePayrollInquirySummaryData"
+          width="100%">
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="summaryDesc" [allowSorting]="false" caption="Summary"></dxi-column>
+            <dxi-column dataField="summaryAmt" [allowSorting]="false" caption="Amount"  format="currency" [precision]="2"></dxi-column>
+          </dx-data-grid>
+        </div>
+      </div>
+
+      <div class="row custom-grid-padding" *ngIf="!isLoading">
+        <div class="col-lg-6">
+          <dx-data-grid id="gridContainer"
+          class="historical-grid pair-row-color-gray-100"
+          [dataSource]="employeePayrollInquiryEarningsDetailData"
+          width="100%">
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="earningsDetailDesc" [allowSorting]="false" caption="Summary"></dxi-column>
+            <dxi-column dataField="earningsDetailAmt" [allowSorting]="false" caption="Amount"  format="currency" [precision]="2"></dxi-column>
+          </dx-data-grid>
+        </div>
+      </div>
+      
+      <div class="row custom-grid-padding" *ngIf="!isLoading">
+        <div class="col-lg-6">
+          <dx-data-grid id="gridContainer"
+          class="historical-grid pair-row-color-gray-100"
+          [dataSource]="employeePayrollInquiryDeductionsDetailData"
+          width="100%">
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="deductionsDetailDesc" [allowSorting]="false" caption="Summary"></dxi-column>
+            <dxi-column dataField="deductionsDetailAmt" [allowSorting]="false" caption="Amount"  format="currency" [precision]="2"></dxi-column>
+          </dx-data-grid>
+        </div>
+      </div>
+
+      <div class="row custom-grid-padding" *ngIf="!isLoading">
+        <div class="col-lg-6">
+          <dx-data-grid id="gridContainer"
+          class="historical-grid pair-row-color-gray-100"
+          [dataSource]="employeePayrollInquiryTaxDetailData"
+          width="100%">
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="taxDetailDesc" [allowSorting]="false" caption="Summary"></dxi-column>
+            <dxi-column dataField="taxDetailAmt" [allowSorting]="false" caption="Amount"  format="currency" [precision]="2"></dxi-column>
+          </dx-data-grid>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

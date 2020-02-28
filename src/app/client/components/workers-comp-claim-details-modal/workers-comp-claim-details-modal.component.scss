@@ -1,0 +1,90 @@
+@import '~sass/variables';
+
+.modal-body-details {
+
+	.details-title {
+		font-size: 18px;
+		font-weight: 700;
+		margin-bottom: 8px;
+	}
+
+	.text-details-gray {
+		color: $gray-700;
+	}
+
+	.text-details-green {
+		color: #33bf96;
+	}
+
+	.extra-margin-bottom {
+		margin-bottom: 20px;
+	}
+
+	.form-group {
+		margin-bottom: 25px;
+	}
+
+	.text-label {
+		font-size: 11px;
+		font-weight: 500 !important;
+		text-transform: uppercase;
+		margin-bottom: 3px;
+		&.text-label-ex-padding {
+			margin-bottom: 10px;
+		}
+	}
+
+	.details-value {
+		font-weight: 500;
+	}
+
+	.details-value-header {
+		font-weight: 700;
+	}
+
+	.details-desc {
+		margin-top: 10px;
+		margin-bottom: 0;
+	}
+
+	.text-details-list {
+		padding-bottom: 30px;
+		padding-top: 20px;
+		border-bottom: 1px solid $gray-250;
+
+		&.no-padding-top {
+			padding-top: 0;
+		}
+
+		&:last-child {
+			border-bottom: none;
+			padding-bottom: 0;
+		}
+	}
+
+	/** scrollbar */
+    &::-webkit-scrollbar {
+        width: 8px;
+        margin-left: 8px;
+        background-color: #fff;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: rgba(0,0,0,0);
+        border: 1px solid #fff;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background:  #cdd0d3;
+        border: 1px solid #cdd0d3;
+    }
+    
+    &::-webkit-scrollbar-thumb:hover {
+        background: #cdd0d3;
+    }
+    
+    &::-webkit-scrollbar-thumb:active {
+       background:#cdd0d3;
+    }
+}

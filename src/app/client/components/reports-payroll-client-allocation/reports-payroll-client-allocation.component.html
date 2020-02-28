@@ -1,0 +1,442 @@
+<div class="reports-container reports-client-allocation">
+    <div class="section">
+      <div class="row breadcrumb-container-reports">
+        <div class="col-12">
+          <div class="breadcrumb-component">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item back-link">
+                  <a (click)="goToBack()">Reports</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  <span class="breadcrumb-item-active">Client Allocation</span>
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-7 report-title align-self-center">
+            <span>Client Allocation</span>
+            <span class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+        </div>
+        <div class="col-5 align-self-center">                   
+            <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+        </div>
+      </div>
+      <div class="row custom-margins">
+        <div class="col-9">
+          <div class="form-inline">
+            <dx-radio-group
+                class="custom-radio-group-ca"
+                [items]="clientAllocationRadioType"
+                [value]="clientAllocationRadioType[0]"
+                layout="horizontal"
+                (onValueChanged)="onAllocationTypeRadioValueChanged($event)">
+            </dx-radio-group>
+          </div>
+        </div>
+      </div>
+      <div class="hr-padding">
+        <hr class="m-0 mb-1 p-0"/>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-6 col-xl-2">
+              <label>Start Date</label>
+              <div class="custom-date-picker">
+                  <div class="input-icon icon icon-calendar"></div>
+                  <input
+                    class="form-control custom-input-field"
+                    placeholder="Month dd, yyyy"
+                    name="selectedStartDate"
+                    [(ngModel)]="selectedStartDate"
+                    ngbDatepicker
+                    [dayTemplate]="effectiveDate"
+                    [displayMonths]="2"
+                    [navigation]="'arrows'"
+                    [firstDayOfWeek]="7"
+                    [disabled]="byDateRangeValue"
+                    #startDate="ngbDatepicker">
+                  <button
+                    class="btn input-btn icon-shape custom-icon-margin"
+                    [disabled]="byDateRangeValue"
+                    (click)="startDate.toggle(); openedStart = !openedStart"
+                    type="button">
+                </button>
+              </div>
+            </div>
+            <div class="col-6 col-xl-2">
+                <label>End Date</label>
+                <div class="custom-date-picker">
+                    <div class="input-icon icon icon-calendar"></div>
+                    <input
+                      class="form-control custom-input-field"
+                      placeholder="Month dd, yyyy"
+                      name="endDate"
+                      [(ngModel)]="selectedEndDate"
+                      ngbDatepicker [dayTemplate]="customDay"
+                      [displayMonths]="2"
+                      [navigation]="'arrows'"
+                      [firstDayOfWeek]="7"
+                      [disabled]="byDateRangeValue"
+                      #endDate="ngbDatepicker">
+                    <button
+                      class="btn input-btn icon-shape custom-icon-margin"
+                      [disabled]="byDateRangeValue"
+                      (click)="endDate.toggle(); opened = !opened"
+                      type="button">
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-6 col-xl-2 custom-top-margin-col1">
+              <label>Year</label>
+              <div ngbDropdown class="d-inline-block custom-dropdown-component" #ddYears="ngbDropdown">
+                  <button 
+                        type="button"
+                        class="btn btn-form-control form-control-dropdown text-left"
+                        ngbDropdownToggle
+                        [disabled]="byYearValue"
+                        (click)="isOpened = !isOpened">
+                      <span>
+                      {{ selectedYear }}
+                      <i class="icon  icon-shape float-right"></i>
+                      </span>
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="ddYears" class="custom-dropdown-years">
+                      <button
+                              type="button"
+                              class="dropdown-item"
+                              *ngFor="let s of yearsData"
+                              [disabled]="byYearValue"
+                              (click)="onSelectionYears(s)">{{s.Text}}</button>
+                  </div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-2 custom-top-margin-col1">
+              <label>Batch</label>
+              <div ngbDropdown class="d-inline-block custom-dropdown-component" [ngClass]="selectedBatch ? 'ca-report-custom-dd': ''" #ddBatches="ngbDropdown">
+                  <button
+                        type="button"
+                        class="btn btn-form-control form-control-dropdown text-left"
+                        ngbDropdownToggle
+                        [disabled]="byYearValue"
+                        (click)="isOpened = !isOpened">
+                      <span *ngIf="!selectedBatch">
+                        {{ selectedBatch }}
+                        <i class="icon  icon-shape float-right"></i>
+                      </span>
+                      <div *ngIf="selectedBatch">
+                      {{ selectedBatch }}
+                      </div>
+                      <i *ngIf="selectedBatch" class="custom-chevron-i icon  icon-shape float-right"></i>
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="ddBatches" class="custom-dropdown-years ca-report-custom-dd-menu">
+                      <button
+                            type="button"
+                            class="dropdown-item"
+                            *ngFor="let s of batchesData"
+                            [disabled]="byYearValue"
+                            (click)="onSelectionBatches(s)">{{s.Text}}</button>
+                  </div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-2 custom-top-margin-col1 d-flex">
+                <button class="btn btn-primary custom-view-report-btn" (click)="getFilteredData()" [disabled]="disableViewReportButton">View Report</button>
+            </div>
+          </div>
+        </div>
+              
+      </div>
+      <div class="hr-padding">
+        <hr class="m-0 mb-1 p-0"/>
+      </div>
+      <div class="row">
+        <div class="col-12">
+            <label>Column Order and Subtotal</label>
+        </div>
+        <div class="custom-left-margin-col col-4 col-xl-2">
+          <!-- <label for="year">Year</label> -->
+          <div ngbDropdown class="d-inline-block custom-dropdown-component-sort" #ddYear="ngbDropdown">
+            <button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddYearBtn ngbDropdownToggle>
+              <span>
+                {{columnOrderSorting[0].sort || 'Select sort'}}
+                <i class="icon icon-shape float-right"></i>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="Year">
+              <button type="button"
+                      class="dropdown-item"
+                      *ngFor="let s of sortOptions; let index=index"
+                      [disabled]="makeSortingItemsDisabled(s.text)"
+                      (click)="onSelectionSortDD(s, '0', index, 'position1'); ddYear.close()">{{s.text}}</button>
+            </div>
+          </div>
+          <div class="custom-left-margin d-flex">
+              <div class="mr-1">
+                <dx-check-box
+                  class="subtotal-checkbox"
+                  [value]="false"
+                  (onValueChanged)="checkBoxSubTotalChanged($event, 0)"
+                  border="false"
+                  text="Subtotal">
+                </dx-check-box>
+              </div>
+              <div class="ml-2">
+                <dx-check-box
+                  class="subtotal-checkbox"
+                  [value]="false"
+                  (onValueChanged)="checkBoxPageBreakChanged($event, 0)"
+                  [disabled]="makeSortingPageBreakDisabled(0)"
+                  border="false"
+                  text="Page Break ">
+                </dx-check-box>
+              </div>
+          </div>
+        </div>
+        <div class="col-4 col-xl-2">
+          <div ngbDropdown class="d-inline-block custom-dropdown-component-sort employee-pay-rate-dropdown" #ddYear="ngbDropdown">
+            <button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddYearBtn ngbDropdownToggle>
+              <span>
+                {{columnOrderSorting[1].sort || 'Select sort'}}
+                <i class="icon icon-shape float-right"></i>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="Year">
+              <button type="button"
+                      class="dropdown-item"
+                      *ngFor="let s of sortOptions; let index=index"
+                      [disabled]="makeSortingItemsDisabled(s.text)"
+                      (click)="onSelectionSortDD(s, '1', index, 'position2'); ddYear.close()">{{s.text}}</button>
+            </div>
+          </div>
+          <div class="custom-left-margin d-flex">
+            <div class="mr-1">
+              <dx-check-box
+                class="subtotal-checkbox"
+                [value]="false"
+                (onValueChanged)="checkBoxSubTotalChanged($event, 1)"
+                border="false"
+                text="Subtotal">
+              </dx-check-box>
+            </div>
+            <div class="ml-2">
+              <dx-check-box
+                class="subtotal-checkbox"
+                [value]="false"
+                (onValueChanged)="checkBoxPageBreakChanged($event, 1)"
+                [disabled]="makeSortingPageBreakDisabled(1)"
+                border="false"
+                text="Page Break ">
+              </dx-check-box>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 col-xl-2">
+          <div ngbDropdown class="d-inline-block custom-dropdown-component-sort employee-pay-rate-dropdown" #ddYear="ngbDropdown">
+            <button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddYearBtn ngbDropdownToggle>
+              <span>
+                {{columnOrderSorting[2].sort || 'Select sort'}}
+                <i class="icon icon-shape float-right"></i>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="Year">
+              <button type="button"
+                      class="dropdown-item"
+                      *ngFor="let s of sortOptions; let index=index"
+                      [disabled]="makeSortingItemsDisabled(s.text)"
+                      (click)="onSelectionSortDD(s, '2', index, 'position3'); ddYear.close()">{{s.text}}</button>
+            </div>
+          </div>
+          <div class="custom-left-margin d-flex">
+            <div class="mr-1">
+              <dx-check-box
+                class="subtotal-checkbox"
+                [value]="false"
+                (onValueChanged)="checkBoxSubTotalChanged($event, 2)"
+                border="false"
+                text="Subtotal">
+              </dx-check-box>
+            </div>
+            <div class="ml-2">
+              <dx-check-box
+                class="subtotal-checkbox"
+                [value]="false"
+                (onValueChanged)="checkBoxPageBreakChanged($event, 2)"
+                [disabled]="makeSortingPageBreakDisabled(2)"
+                border="false"
+                text="Page Break ">
+              </dx-check-box>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 col-xl-2 custom-top-margin-col">
+          <div ngbDropdown class="d-inline-block custom-dropdown-component-sort employee-pay-rate-dropdown" #ddYear="ngbDropdown">
+            <button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddYearBtn ngbDropdownToggle>
+              <span>
+                {{columnOrderSorting[3].sort || 'Select sort'}}
+                <i class="icon icon-shape float-right"></i>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="Year">
+              <button type="button"
+                      class="dropdown-item"
+                      *ngFor="let s of sortOptions; let index=index"
+                      [disabled]="makeSortingItemsDisabled(s.text)"
+                      (click)="onSelectionSortDD(s, '3', index, 'position4'); ddYear.close()">{{s.text}}</button>
+            </div>
+          </div>
+          <div class="custom-left-margin d-flex">
+            <div class="mr-1">
+              <dx-check-box
+                class="subtotal-checkbox"
+                [value]="false"
+                (onValueChanged)="checkBoxSubTotalChanged($event, 3)"
+                border="false"
+                text="Subtotal">
+              </dx-check-box>
+            </div>
+            <div class="ml-2">
+              <dx-check-box
+                class="subtotal-checkbox"
+                [value]="false"
+                (onValueChanged)="checkBoxPageBreakChanged($event, 3)"
+                [disabled]="makeSortingPageBreakDisabled(3)"
+                border="false"
+                text="Page Break ">
+              </dx-check-box>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 col-xl-2 custom-top-margin-col">
+          <div ngbDropdown class="d-inline-block custom-dropdown-component-sort employee-pay-rate-dropdown" #ddYear="ngbDropdown">
+            <button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddYearBtn ngbDropdownToggle>
+              <span>
+                {{columnOrderSorting[4].sort || 'Select sort'}}
+                <i class="icon icon-shape float-right"></i>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="Year">
+              <button type="button"
+                      class="dropdown-item"
+                      *ngFor="let s of sortOptions; let index=index"
+                      [disabled]="makeSortingItemsDisabled(s.text)"
+                      (click)="onSelectionSortDD(s, '4', index, 'position5'); ddYear.close()">{{s.text}}</button>
+            </div>
+          </div>
+          <div class="custom-left-margin d-flex">
+            <div class="mr-1">
+              <dx-check-box
+                class="subtotal-checkbox"
+                [value]="false"
+                (onValueChanged)="checkBoxSubTotalChanged($event, 4)"
+                border="false"
+                text="Subtotal">
+              </dx-check-box>
+            </div>
+            <div class="ml-2">
+              <dx-check-box
+                class="subtotal-checkbox"
+                [value]="false"
+                (onValueChanged)="checkBoxPageBreakChanged($event, 4)"
+                [disabled]="makeSortingPageBreakDisabled(4)"
+                border="false"
+                text="Page Break ">
+              </dx-check-box>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 col-xl-2 custom-top-margin-col">
+          <div ngbDropdown class="d-inline-block custom-dropdown-component-sort employee-pay-rate-dropdown" #ddYear="ngbDropdown">
+            <button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddYearBtn ngbDropdownToggle>
+              <span>
+                {{columnOrderSorting[5].sort || 'Select sort'}}
+                <i class="icon icon-shape float-right"></i>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="Year">
+              <button type="button"
+                      class="dropdown-item"
+                      *ngFor="let s of sortOptions; let index=index"
+                      [disabled]="makeSortingItemsDisabled(s.text)"
+                      (click)="onSelectionSortDD(s, '5', index, 'position6'); ddYear.close()">{{s.text}}</button>
+            </div>
+          </div>
+          <div class="custom-left-margin d-flex">
+            <div class="mr-1">
+              <dx-check-box
+                class="subtotal-checkbox"
+                [value]="false"
+                (onValueChanged)="checkBoxSubTotalChanged($event, 5)"
+                border="false"
+                text="Subtotal">
+              </dx-check-box>
+            </div>
+            <div class="ml-2">
+              <dx-check-box
+                class="subtotal-checkbox"
+                [value]="false"
+                (onValueChanged)="checkBoxPageBreakChanged($event, 5)"
+                [disabled]="makeSortingPageBreakDisabled(5)"
+                border="false"
+                text="Page Break ">
+              </dx-check-box>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col sub-totals-custom-margin-top">
+          <label class="custom-text-color {{(pageBreakCount >= 3) ? 'custom-bold-black-text': ''}}">Only 3 "Yes" selections allowed on Sub Total on Breaks</label>
+        </div>
+      </div>
+      <div class="hr-padding">
+        <hr class="m-0 p-0"/>
+      </div>
+      <div class="col-12" *ngIf="isLoading">
+          <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <div class="row pt-3 mb-0" *ngIf="!isLoading">
+          <!-- <hr class="m-0 mb-1 p-0"/> -->
+          <!-- <div class="col-12" *ngIf="isLoading">
+              <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+          </div> -->
+          <!-- <div class="row date-range-row" *ngIf="!isLoading">
+              <div class="col-12">
+                <span class="report-date-range-label">Year Selected</span>
+              </div>
+          </div>
+          <div class="row year-print-download-row"  *ngIf="!isLoading">
+            <div class="col-6 align-self-center">
+                <span class="report-data-range-selected">
+                  Year: {{ selectedYear }}
+                </span>
+            </div> -->
+            <div class="col-12 align-self-center">
+              <div class="float-right section-title">
+                <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                        (click)="requestedFunction('print')">
+                    <span class="icon icon-pint"></span>
+                    <span>PRINT</span>
+                </button>
+                <button type="button" class="btn btn-link btn-link-icon p-0 ml-1 "
+                        (click)="requestedFunction('download')">
+                    <span class="icon icon-square-upload"></span>
+                    <span>DOWNLOAD</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="row" *ngIf="!isLoading"> -->
+          <div class="row" *ngIf="!isLoading">
+            <div class="col-lg-12">
+              <app-reports-payroll-client-allocation-grid [clientAllocationData]="clientAllocationData" [filteredColumnOrderSorting]="filteredColumnOrderSorting"></app-reports-payroll-client-allocation-grid>
+            </div>
+          </div>
+        </div>
+      
+  </div>
+  

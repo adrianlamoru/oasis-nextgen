@@ -1,0 +1,26 @@
+
+<app-announcement-area></app-announcement-area>
+<div class="onboarding">
+    <div class="row align-items-center container-header">
+      <div class="col-3 container-title">
+        <div class="container-header-title">My Onboarding</div>
+        <div class="container-header-description">2 out of 6 steps completed</div>
+      </div>
+      <div class="col-9 cta-buttons">
+        <div class="float-right">
+          <button type="button" class="btn btn-primary" (click)="goToSupport()">Support</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="my-onboarding-custom-grid">
+      <!-- <div class="row data-grid-container" *ngFor="let step of gettingStartedStep"> -->
+      <div class="row">
+        <div class="getting-started-steps col-12">
+          <div *ngFor="let step of gettingStartedSteps">
+              <app-steps-widget [stepData]="step"></app-steps-widget>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

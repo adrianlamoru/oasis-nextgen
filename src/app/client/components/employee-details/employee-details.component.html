@@ -1,0 +1,122 @@
+<div class="employee-details-component">
+    <div class="row">
+      <div class="col-12">
+        <div class="breadcrumb-component">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a [routerLink]="['../../../employeeSearch']">Employee Search</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <a href="#">{{clientEmployeeModel?.employeePersonalDetails[0]?.firstName}} {{clientEmployeeModel?.employeePersonalDetails[0]?.lastName}}</a>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8 content-title">
+        <div class="employee-name-title-group">
+          <div class="employee-name">{{clientEmployeeModel?.employeePersonalDetails[0]?.firstName}} {{clientEmployeeModel?.employeePersonalDetails[0]?.lastName}}</div>
+          <!-- <span class="employee-title">{{clientEmployeeModel.title}}</span> -->
+          <span class="employee-title">{{clientEmployeeModel?.employeePersonalDetails[0]?.titleDescription}}</span>
+        </div>
+      </div>
+      <div class="col-4 align-self-center">
+        <div class="dx-field-value">
+          <dx-select-box class="employeeActionsCustomDropdown employee-actions-button" #menu [dataSource]="dropdownActions" [grouped]="true"
+            displayExpr="name" fieldTemplate="field" (onItemClick)="onEmployeeActionsDropdownClick($event, menu)" (onOpened)="onOpened($event)">
+            <div *dxTemplate="let data of 'field'">
+              <dx-text-box class="employee-actions-custom-text-box" value="ACTIONS" [readOnly]="true"></dx-text-box>
+            </div>
+          </dx-select-box>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+          <app-employee-details-subnav></app-employee-details-subnav>
+          <div class="{{isEmployeeReportsTabSelected? '': 'tab-content'}}">
+              <router-outlet></router-outlet>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <ng-template #employeeHrEventAssignmentModal let-c="close" let-d="dismiss">
+      <app-employee-hr-event-assignment [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-hr-event-assignment>
+  </ng-template>
+  
+  <ng-template #employeeSkillCodeAssignmentModal let-c="close" let-d="dismiss">
+      <app-employee-skill-code-assignment [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-skill-code-assignment>
+  </ng-template>
+  
+  <ng-template #employeeStatusChangeModal let-c="close" let-d="dismiss">
+      <app-employee-status-change [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-status-change>
+  </ng-template>
+  
+  <ng-template #employeeTerminationModal let-c="close" let-d="dismiss">
+      <app-employee-termination [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-termination>
+  </ng-template>
+  
+  <ng-template #employeeSupervisorChangeModal let-c="close" let-d="dismiss">
+      <app-employee-supervisor-change [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-supervisor-change>
+  </ng-template>
+  
+  <ng-template #payRateChangeModal let-c="close" let-d="dismiss">
+      <app-employee-pay-rate-change [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-pay-rate-change>
+  </ng-template>
+  
+  <ng-template #employeeCostAllocationModal let-c="close" let-d="dismiss">
+      <app-employee-payroll-cost-allocation [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-payroll-cost-allocation>
+  </ng-template>
+  
+  <ng-template #employeeAllocationsModal let-c="close" let-d="dismiss">
+      <app-employee-payroll-allocations [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-payroll-allocations>
+  </ng-template>
+  
+  <ng-template #employeePayrollPayCodeModal let-c="close" let-d="dismiss">
+      <app-employee-payroll-pay-code [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-payroll-pay-code>
+  </ng-template>
+  
+  <ng-template #employeePayrollLoanModal let-c="close" let-d="dismiss">
+    <app-employee-payroll-loans [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-payroll-loans>
+  </ng-template>
+  
+  <ng-template #employeeScheduledPaymentsModal let-c="close" let-d="dismiss">
+      <app-employee-scheduled-payments [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-scheduled-payments>
+  </ng-template>
+  
+  <ng-template #employeeRecurringDeductionModal let-c="close" let-d="dismiss">
+    <app-employee-recurring-deductions [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-recurring-deductions>
+  </ng-template>
+  
+  <ng-template #employeePayrollPtoRegisterModal let-c="close" let-d="dismiss">
+      <app-employee-payroll-pto-register-adjustments [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-payroll-pto-register-adjustments>
+  </ng-template>
+  
+  <ng-template #employeePayrollJobRatesModal let-c="close" let-d="dismiss">
+      <app-employee-payroll-job-rates [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-payroll-job-rates>
+  </ng-template>
+  
+  <ng-template #employeeWorkersCompDetailsViewModal let-c="close" let-d="dismiss">
+      <app-workers-comp-claim-details-modal [workersCompClaim]="employeeWorkersClaimsData" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-workers-comp-claim-details-modal>
+  </ng-template>
+  
+  <ng-template #employeeWorkersCompNoDataModal let-c="close" let-d="dismiss">
+      <div class="custom-modal-window">
+          <div class="modal-body">
+              <p class="text-center my-0">
+                  Employee doesn't have any open workers comp claims.
+              </p>
+          </div>
+          <div class="modal-footer align-items-center float-right"
+                  style="justify-content: center;">
+              <button type="button"
+                      class="btn btn-primary"
+                      (click)="c('Close click')">OK</button>
+          </div>
+      </div>
+  </ng-template>

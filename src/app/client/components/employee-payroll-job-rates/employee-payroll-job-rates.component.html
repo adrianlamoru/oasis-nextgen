@@ -1,0 +1,146 @@
+<div class="custom-modal-window #employeePayrollJobRatesComponent"> <!--[ngStyle]="{'opacity':formIsOpen ? 0.1 : 1, 'z-index': formIsOpen ? -1 : initial }"-->
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">Job Rates - {{ selectedEmployeeName | middleTruncate: 50 }}</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+      <span class="icon icon-close"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!--{{diagnosticEmployee}}-->
+    <!--Job Rates List-->
+    <div class="custom-grid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="custom-grid-header">
+            <h3 class="display-3 table-title"><!--Existing Job Rates List--></h3>
+            <dx-button text="Add Job Rate" class="btn btn-primary pull-right" (onClick)="addJobRate()"></dx-button>
+          </div>
+          <br />
+          <dx-data-grid #JobRatesDataGrid [dataSource]="clientEmployeePayrollJobRatesList" [columnAutoWidth]="true" keyExpr="id"
+                        (onEditingStart)="onEditingStart($event)">
+
+            <div *dxTemplate="let data of 'gridHeader'">
+              <div class="custom-grid-header">
+                <h3 class="display-3 table-title"><!--Existing Job Rates --></h3>
+                <dx-button text="Add" class="btn btn-primary pull-right" (onClick)="addJobRate()"></dx-button>
+              </div>
+            </div>
+
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="jobType.code" caption="Job Code" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="standardRate" caption="Standard Rate" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="payType.code" caption="Pay Code" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="payRate" caption="Rate" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="multFactor" caption="Mult Factor" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="actualRate" caption="Actual Rate" [allowSorting]="false"></dxi-column>
+            <dxi-column cellTemplate="editTemplate" alignment="right" [width]="105" [minWidth]="105">
+                <div *dxTemplate="let data of 'editTemplate'">
+                    <div class="dx-custom-command-edit">
+                        <a class="dx-link dx-link-edit" tabindex="0" (click)="onEditRow(data)" (keydown)="onEditKeyDown($event, data)">Edit</a>
+                        <a class="dx-link dx-link-delete" tabindex="0"  (click)="onDeleteRow(data)" (keydown)="onDeleteKeyDown($event, data)">Delete</a>
+                    </div>
+                </div>
+            </dxi-column>
+            <dxo-editing mode="popup" [allowAdding]="false" [width]="200"></dxo-editing>
+
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+    <br/>
+
+  </div>
+  <div class="modal-footer">
+    <!--<button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="c('Close click')">Submit</button>-->
+  </div>
+</div>
+
+
+<!--Form-->
+<ng-template #editEmployeePayrollJobRatesModal let-c="close" let-d="dismiss">
+  <!--{{diagnostic}}-->
+  <form #editEmployeePayrollJobRatesForm="ngForm" [formGroup]="editEmployeePayrollJobRatesFormGroup" ngNativeValidate novalidate (ngSubmit)="saveForm(editEmployeePayrollJobRatesForm)">
+    <div class="custom-modal-window editEmployeePayrollJobRatesModal">
+      <div class="modal-header">
+        <h4 class="modal-title align-self-center float-left">{{formTitle}}</h4>
+        <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click')">
+          <span class="icon icon-close"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input *ngIf="editJobRateItem == true" type="hidden" class="form-control" id="jobType" formControlName="jobType" [(ngModel)]="selectedClientEmployeePayrollJobRatesModel.jobType.id" />
+
+        <div class="form-group" *ngIf="editJobRateItem == false">
+          <label for="jobType">Job Code</label>
+          <div ngbDropdown class="d-inline-block custom-dropdown-component employee-pay-rate-dropdown" #ddjobType="ngbDropdown">
+            <button type="button" class="btn btn-form-control form-control-dropdown text-left" ngbDropdownToggle>
+              <span>
+                <span>{{selectedClientEmployeePayrollJobRatesModel.jobType?.code}}<i class="icon icon-shape float-right"></i></span>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="jobType">
+              <button type="button" class="dropdown-item" *ngFor="let jobType of clientEmployeePayrollJobRatesTypeList" (click)="changeJobType(jobType); ddjobType.close()">{{jobType.code}}</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="editJobRateItem == true">
+          <label for="jobType">Job Code</label>
+          <input type="text" class="form-control" id="jobType" [value]="selectedClientEmployeePayrollJobRatesModel.jobType.code" aria-describedby="jobType" disabled>
+        </div>
+
+        <div class="form-group">
+          <label for="standardRate">Standard Rate</label>
+          <!-- <input type="number" class="form-control" id="standardRate" [(ngModel)]="selectedClientEmployeePayrollJobRatesModel.standardRate" formControlName="standardRate" aria-describedby="standardRate" placeholder="Enter Standard Rate"> -->
+          <div class="dx-field">
+              <dx-number-box
+                id="standardRate"
+                [(ngModel)]="selectedClientEmployeePayrollJobRatesModel.standardRate"
+                formControlName="standardRate"
+                aria-describedby="standardRate"
+                placeholder="Enter Standard Rate"
+                format="#0,###.#### per hour"
+              ></dx-number-box>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="payType">Pay Code</label>
+          <div ngbDropdown class="d-inline-block custom-dropdown-component employee-pay-rate-dropdown" #ddpayType="ngbDropdown">
+            <button type="button" class="btn btn-form-control form-control-dropdown text-left" ngbDropdownToggle>
+              <span>
+                <span>{{selectedClientEmployeePayrollJobRatesModel.payType?.code}} <i class="icon icon-shape float-right"></i></span>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="payType">
+              <button type="button" class="dropdown-item" *ngFor="let payType of clientEmployeePayrollJobRatesPayCodeTypeList" (click)="changePayCodeType(payType); ddpayType.close()">{{payType.code}}</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="form-group">
+          <label for="payRate">Pay Rate</label>
+          <input type="number" class="form-control" id="payRate" [(ngModel)]="selectedClientEmployeePayrollJobRatesModel.payRate" formControlName="payRate" aria-describedby="payRate" placeholder="Enter Pay Rate">
+        </div> -->
+        <div class="form-group">
+            <label for="payRate">Pay Rate</label>
+            <div class="dx-field">
+                <dx-number-box
+                  id="payRate"
+                  [(ngModel)]="selectedClientEmployeePayrollJobRatesModel.payRate"
+                  formControlName="payRate"
+                  aria-describedby="payRate"
+                  placeholder="Enter Pay Rate"
+                  format="#0,###.#### per hour"
+                ></dx-number-box>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!editEmployeePayrollJobRatesForm.valid">Confirm</button>
+      </div>
+    </div>
+  </form>
+</ng-template>

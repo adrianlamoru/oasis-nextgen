@@ -1,0 +1,308 @@
+<div class="payroll-run-wizard">
+  <app-payroll-run-breadcrumb [batchNumber]="roster.batchNumber" [rosterId]="roster.id"></app-payroll-run-breadcrumb>
+  <app-payroll-navbar></app-payroll-navbar>
+  <div class="payroll-run-deductions">
+    <div class="row header">
+      <div class="col-6">
+        <div class="form-group" *ngIf="roster?.isManual">
+          <div class="input-group input-group-search">
+            <input type="text" class="form-control form-control-search" #searchString [(ngModel)]="searchText"
+              placeholder="Search Employee" style="display:table-cell;" [ngbTypeahead]="searchAutocompleteField"
+              [inputFormatter]="searchAutocompleteFormatter" [resultTemplate]="searchAutocomplete" />
+            <i class="icon icon-search" aria-hidden="true"></i>
+            <ng-template #searchAutocomplete let-r="result" let-t="term">
+              {{ r.employeeName }}
+            </ng-template>
+            <button class="btn btn-primary btn-employee-search" (click)="searchEmployees(searchString.value)">SELECT</button>
+            <button class="btn btn-link btn-show-all" (click)="searchEmployees('')" [disabled]="employees.length === 0">Clear</button>
+          </div>
+        </div>
+        <span class="title" *ngIf="!roster?.isManual">{{tabTitle}}</span>
+        <span class="title-date" *ngIf="!roster?.isManual && !roster?.isOffCycle">{{tabTitleDate || formatDate}}</span>
+      </div>
+      <div class="col-6">
+        <div class="buttons pull-right">
+          <button type="button" class="btn btn-link" (click)="tryCancelBatch()">
+            <span class="btn-link-text">CANCEL BATCH</span>
+          </button>
+          <!-- <button type="button" class="btn btn-outline-primary" (click)="goToBack()" *ngIf="!roster?.isManual">BACK</button> -->
+          <button type="button" class="btn btn-outline-primary" (click)="saveAndExit()" *ngIf="!roster?.isManual">SAVE
+            AND EXIT</button>
+          <button type="button" class="btn btn-primary" (click)="goToNext()" [disabled]="roster?.isManual && employees.length === 0">NEXT</button>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row header" *ngIf="employees.length > 0">
+      <div class="col-6 offset-6 text-right buttons">
+        <div class="checkboxes">
+          <dx-check-box class="custom-checkbox" [(value)]="isPayCodeDefault" text="Set pay codes as a default"
+            (onValueChanged)="onCheckboxValueChanged($event)">
+          </dx-check-box>
+        </div>
+        <div ngbDropdown class="d-inline-block" placement="bottom-right">
+          <button class="btn btn-light" id="btnAddCode" ngbDropdownToggle>
+            <span>
+              ADD PAY CODE
+              <i class="icon icon-shape"></i>
+            </span>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="btnAddCode" class="custom-dropdown-menu">
+            <dx-list #dxCodelist height="100%" [dataSource]="payCodeTypeList" [grouped]="true" [collapsibleGroups]="false"
+              [selectionMode]="multiple" [showSelectionControls]="true" [selectedItemKeys]="payCodeList | searchfilter: 'isDefault' : true"
+              (onSelectionChanged)="paycode_itemSelectionChanged($event)" (onItemClick)="paycode_itemClick($event)"
+              class="payroll-batch-code-listview">
+              <div *dxTemplate="let item of 'group'">
+                <div>{{item.key}}</div>
+              </div>
+              <div *dxTemplate="let item of 'item'">
+                <div>
+                  {{item.name}}
+                </div>
+              </div>
+            </dx-list>
+          </div>
+        </div>
+        <button type="button" class="btn btn-light" (click)="initAutoPay();" *ngIf="!roster?.isManual">AUTO FILL</button>
+      </div>
+    </div>
+    <div class="row data-grid-container" [hidden]="employees.length === 0">
+      <div class="col-12">
+        <dx-data-grid #gridContainer 
+          id="gridContainer" 
+          class="payroll-batch-grid" 
+          [dataSource]="employees" 
+          keyExpr="id"
+          [hoverStateEnabled]="true" 
+          [columnAutoWidth]="true" 
+          [masterDetail]="{ enabled: false, template: 'detail' }"
+          (onEditingStart)="onEditingStart($event)" 
+          (onEditorPreparing)="onEditorPreparing($event)"
+          (onSelectionChanged)="selectionChangedHandler($event)" 
+          (onContentReady)="onContentReady($event)"
+          (onRowUpdated)="onRowUpdated($event)"
+          (onInitialized)="onGridnitialized($event)"
+          (onCellPrepared)="onCellPrepared($event)"
+          (onRowExpanding)="onRowExpanding($event)">
+          <dxo-paging [enabled]="false"></dxo-paging>
+          <dxo-editing mode="batch" [allowUpdating]="true" [allowAdding]="false"></dxo-editing>
+          <dxi-column dataField="employeeName" fixed="true" [height]="50" [width]="200" fixedPosition="left"
+            [allowEditing]="false" [allowSorting]="false" headerCellTemplate="columnHeaderTemplate"></dxi-column>
+
+          <dxi-column *ngFor="let paycode of payCodeList" dataField="{{paycode.columnMapping}}" caption="{{paycode.name}}"
+            [height]="50" [showEditorAlways]="true" editorType="dxNumberBox" [editorOptions]="paycode.editorOptions"
+            [visible]="paycode.isDefault" [visibleIndex]="paycode.priority" [allowSorting]="false" [allowFiltering]="false"
+            [allowEditing]="true" headerCellTemplate="{{paycode.type.toLowerCase() === 'hourly' && !roster?.isManual ? 'columnHeaderTemplateForHourly' : 'columnHeaderTemplate' }}"></dxi-column>
+
+          <dxi-column dataField="" [height]="50" [width]="100" [allowFiltering]="false" fixed="true" fixedPosition="right"
+            [allowSorting]="false" cellTemplate="actionTemplate" [allowEditing]="false" alignment="center"></dxi-column>
+
+          <div *dxTemplate="let data of 'actionTemplate'">
+            <dx-menu #menu [dataSource]="dropdownActions" displayExpr="name" orientation="horizontal" submenuDirection="auto"
+              [hideSubmenuOnMouseLeave]="false" (onItemClick)="onDropdownClick($event, data, menu)">
+            </dx-menu>
+          </div>
+          <dxi-column dataField="rate" [height]="50" [width]="100" [allowEditing]="false" fixed="true" fixedPosition="right"
+            [allowSorting]="false" alignment="left" headerCellTemplate="columnHeaderTemplate"></dxi-column>
+          <dxi-column dataField="hours" [height]="50" [width]="75" [allowEditing]="false" fixed="true" fixedPosition="right"
+            [allowSorting]="false" alignment="left" headerCellTemplate="columnHeaderTemplate"></dxi-column>
+          <dxi-column dataField="total" [height]="50" [width]="130" [allowEditing]="false" fixed="true" fixedPosition="right"
+            [allowSorting]="false" alignment="right" cssClass="currency-label" headerCellTemplate="columnHeaderTemplate"></dxi-column>
+
+          <dxo-summary>
+            <!--<dxi-total-item column="employeeName" displayFormat="Totals"></dxi-total-item>-->
+            <dxi-total-item *ngFor="let paycode of payCodeList" [column]="paycode.columnMapping" [valueFormat]="paycode.summaryOptions.valueFormat"
+              [precision]="paycode.summaryOptions.precision" [summaryType]="paycode.summaryOptions.summaryType"
+              [displayFormat]="paycode.summaryOptions.displayFormat" [alignment]="paycode.summaryOptions.alignment"
+              cssClass="invisible"></dxi-total-item>
+            <dxi-total-item column="employeeName" displayFormat="Total Payroll:" alignment="left"></dxi-total-item>
+            <dxi-total-item column="total" displayFormat="{{roster.totalPayroll}}" alignment="right" cssClass="currency-label"></dxi-total-item>
+          </dxo-summary>
+
+          <div *dxTemplate="let info of 'columnHeaderTemplate'">
+            <div class="column-aggregate-header">{{info.column.caption}}</div>
+          </div>
+          <div *dxTemplate="let info of 'columnHeaderTemplateForHourly'">
+            <div class="column-aggregate-header">{{info.column.caption}}</div>
+            <div class="column-aggregate-total">{{rosterSummary[info.column.dataField + sumColumnMappingNameSuffix]}}h</div>
+          </div>
+          <div *dxTemplate="let employee of 'detail'">
+            <table class="divJobCostingDetailsTable">
+              <thead>
+                <tr>
+                  <th class="jobCostColumn colRemove"></th>
+                  <th class="jobCostColumn colPayCode">Pay Code</th>
+                  <th class="jobCostColumn colJobCode">Job Code</th>
+                  <th class="jobCostColumn colHours">Hours</th>
+                  <th class="jobCostColumn colUnits">Units</th>
+                  <th class="jobCostColumn colRate">Rate/Amount</th>
+                  <th class="jobCostColumn colDivision">Division</th>
+                  <th class="jobCostColumn colDepartment">Department</th>
+                  <th class="jobCostColumn colLocation">Location</th>
+                  <th class="jobCostColumn colProject">Project</th>
+                  <th class="jobCostColumn colPayPeriod">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let jobCost of employee.data.jobCostDetails; let i = index">
+                  <td class="jobCostColumn colRemove align-middle">
+                    <button type="button" class="btn" (click)="removeJobCostingRow(employee.data, i)"><span class="icon-close"></span></button>
+                  </td>
+                  <td class="jobCostColumn colPayCode">
+                    <dx-select-box [items]="payCodeTypeList" [value]="jobCost.payCode?.id" [grouped]="true" displayExpr="name"
+                      valueExpr="id" (onSelectionChanged)="onSelectBoxSelectionChanged(jobCost, 'payCode', $event.selectedItem); onPayCodeSelectBoxSelectionChanged(jobCost, jobCostHours, jobCostUnits);"
+                      (onOpened)="jobCost.isPayCodeOpened = true" (onClosed)="jobCost.isPayCodeOpened = false">
+                      <div *dxTemplate="let data of 'dropDownButton'">
+                        <i class="icon  {{jobCost.isPayCodeOpened ? 'icon-shape-reverse' : 'icon-shape'}}" tabindex="-1"></i>
+                      </div>
+                      <div *dxTemplate="let item of 'item'">
+                        <span class="font-weight-normal">{{item.name}}</span>
+                      </div>
+                    </dx-select-box>
+                  </td>
+                  <td class="jobCostColumn colJobCode">
+                    <dx-select-box [items]="jobCodes" [value]="jobCost.jobCode?.Code" displayExpr="Title" valueExpr="Code"
+                      (onSelectionChanged)="onSelectBoxSelectionChanged(jobCost, 'jobCode', $event.selectedItem)"
+                      (onOpened)="jobCost.isJobCodeOpened = true" (onClosed)="jobCost.isJobCodeOpened = false">
+                      <div *dxTemplate="let data of 'dropDownButton'">
+                        <i class="icon  {{jobCost.isJobCodeOpened ? 'icon-shape-reverse' : 'icon-shape'}}" tabindex="-1"></i>
+                      </div>
+                      <div *dxTemplate="let item of 'item'">
+                        <span class="font-weight-normal">{{item.Title}}</span>
+                      </div>
+                    </dx-select-box>
+                  </td>
+                  <td class="jobCostColumn colHours">
+                    <dx-number-box #jobCostHours format="#0,###.####" [min]="jobCost.payCode?.editorOptions?.min" [max]="jobCost.payCode?.editorOptions?.max"
+                      [(value)]="jobCost.hours" [disabled]="jobCost.payCode?.type.toLowerCase() !== 'hourly'"
+                      (onValueChanged)="updateColumnHeadings()" [class.disabled-field-cell]="jobCostHours.disabled"></dx-number-box>
+                    <!---->
+                  </td>
+                  <td class="jobCostColumn colUnits">
+
+                    <dx-number-box #jobCostUnits format="#0,###.####" [min]="jobCost.payCode?.editorOptions?.min" [max]="jobCost.payCode?.editorOptions?.max"
+                      [(value)]="jobCost.units" [class.disabled-field-cell]="jobCostUnits.disabled"></dx-number-box>
+                  </td>
+                  <td class="jobCostColumn colRate">
+                    <dx-number-box format="$ #0,###.####" min="0" max="10000" [(value)]="jobCost.rate"></dx-number-box>
+                  </td>
+
+
+                  <td class="jobCostColumn colDivision">
+                    <dx-select-box [items]="divisions" [value]="jobCost.division?.ID" displayExpr="Text" valueExpr="ID"
+                      (onSelectionChanged)="onSelectBoxSelectionChanged(jobCost, 'division', $event.selectedItem)"
+                      (onOpened)="jobCost.isDivisionOpened = true" (onClosed)="jobCost.isDivisionOpened = false">
+                      <div *dxTemplate="let data of 'dropDownButton'">
+                        <i class="icon  {{jobCost.isDivisionOpened ? 'icon-shape-reverse' : 'icon-shape'}}" tabindex="-1"></i>
+                      </div>
+                      <div *dxTemplate="let item of 'item'">
+                        <span class="font-weight-normal">{{item.Text}}</span>
+                      </div>
+                    </dx-select-box>
+                  </td>
+                  <td class="jobCostColumn colDepartment">
+                    <dx-select-box [items]="departments" [value]="jobCost.department?.ID" displayExpr="Text" valueExpr="ID"
+                      (onSelectionChanged)="onSelectBoxSelectionChanged(jobCost, 'department', $event.selectedItem)"
+                      (onOpened)="jobCost.isDepartmentOpened = true" (onClosed)="jobCost.isDepartmentOpened = false">
+                      <div *dxTemplate="let data of 'dropDownButton'">
+                        <i class="icon  {{jobCost.isDepartmentOpened ? 'icon-shape-reverse' : 'icon-shape'}}" tabindex="-1"></i>
+                      </div>
+                      <div *dxTemplate="let item of 'item'">
+                        <span class="font-weight-normal">{{item.Text}}</span>
+                      </div>
+                    </dx-select-box>
+                  </td>
+                  <td class="jobCostColumn colLocation">
+                    <dx-select-box [items]="locations" [value]="jobCost.location?.ID" displayExpr="Text" valueExpr="ID"
+                      (onSelectionChanged)="onSelectBoxSelectionChanged(jobCost, 'location', $event.selectedItem)"
+                      (onOpened)="jobCost.isLocationOpened = true" (onClosed)="jobCost.isLocationOpened = false">
+                      <div *dxTemplate="let data of 'dropDownButton'">
+                        <i class="icon  {{jobCost.isLocationOpened ? 'icon-shape-reverse' : 'icon-shape'}}" tabindex="-1"></i>
+                      </div>
+                      <div *dxTemplate="let item of 'item'">
+                        <span class="font-weight-normal">{{item.Text}}</span>
+                      </div>
+                    </dx-select-box>
+                  </td>
+                  <td class="jobCostColumn colProject">
+                    <dx-select-box [items]="projects" [value]="jobCost.project?.projectCode" displayExpr="projectDescription"
+                      valueExpr="projectCode" (onSelectionChanged)="onSelectBoxSelectionChanged(jobCost, 'project', $event.selectedItem)"
+                      (onOpened)="jobCost.isProjectOpened = true" (onClosed)="jobCost.isProjectOpened = false">
+                      <div *dxTemplate="let data of 'dropDownButton'">
+                        <i class="icon  {{jobCost.isProjectOpened ? 'icon-shape-reverse' : 'icon-shape'}}" tabindex="-1"></i>
+                      </div>
+                      <div *dxTemplate="let item of 'item'">
+                        <span class="font-weight-normal">{{item.projectDescription}}</span>
+                      </div>
+                    </dx-select-box>
+                  </td>
+                  <td class="jobCostColumn colPayPeriod">
+                    <dx-date-box #dbPayPeriod width="100%" (onKeyDown)="onJobcostPayPeriodKeyDown($event, dbPayPeriod)"
+                      (onClosed)="onJobcostPayPeriodClosed()" [(value)]="jobCost.date">
+                    </dx-date-box>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td></td>
+                  <td class="jobCostColumn"><button type="button" class="btn btn-link addJobCostingRow" (click)="addJobCostingRow(employee.data)">Add
+                      line</button></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </dx-data-grid>
+      </div>
+    </div>
+
+    <!-- DELETE Popup Start -->
+    <dx-popup class="custom-dx-popup" #popupDeleteGLCode [showTitle]="false" [width]="350" [height]="150" [position]="{ my: 'middle', at: 'middle', of: window }"
+      [showCloseButton]="false" [dragEnabled]="false" [closeOnOutsideClick]="true" [(visible)]="deletePopupVisible">
+      <div *dxTemplate="let data of 'content'">
+        <div class="message-modal-window">
+          <div class="modal-body">
+            <div class="form-group d-flex justify-content-center">
+              <h3 class="display-3">Are you sure you want to cancel this batch?</h3>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button type="button" class="btn btn-outline-primary" (click)="onNoClick()">No</button>
+            <button type="button" class="btn btn-primary" (click)="cancelBatch()">Yes</button>
+          </div>
+        </div>
+      </div>
+    </dx-popup>
+    <!-- DELETE Popup End -->
+  </div>
+
+</div>
+
+<ng-template #payrollRunCheckMemoModalComponent let-c="close" let-d="dismiss">
+  <app-payroll-run-check-memo-modal [employee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"
+    (memoSavedEvent)="checkMemoListener($event);"></app-payroll-run-check-memo-modal>
+</ng-template>
+
+<ng-template #payrollAddDeductionModalComponent let-c="close" let-d="dismiss">
+  <app-payroll-hours-earnings-add-deduction [employee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"
+    (deductionsModifiedEvent)="updatedEmployeeDeductionListener($event);"></app-payroll-hours-earnings-add-deduction>
+</ng-template>
+
+<!--{{diagnosticRosterSummary}}-->
+<ng-template #payrollAutoPayModalComponent let-c="close" let-d="dismiss">
+  <app-payroll-run-autopay-modal [roster]="tempRoster" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"
+    (autoPayConfirmedEvent)="autoPayConfirmedListener($event);"></app-payroll-run-autopay-modal>
+</ng-template>
+<ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-focused="focused">
+  <div class="btn-light" [class.focused]="focused" [class.bg-primary]="selected" (click)="opened = !opened;" (keydown)="opened = !opened;">
+    {{ date.day }}
+  </div>
+</ng-template>
+
+<!--{{diagnosticRosterSummary}}-->
+<!--{{diagnosticEmployees}}-->
+<!--{{diagnosticJobCostList}}-->
+<!--{{diagnosticAlerts}}-->
+<!--{{diagnosticColumns}}-->
+<!--{{diagnosticTempRoster}}-->
+<!--{{diagnosticRoster}}-->

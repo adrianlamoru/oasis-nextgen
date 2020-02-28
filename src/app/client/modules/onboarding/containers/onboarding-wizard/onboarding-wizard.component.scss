@@ -1,0 +1,120 @@
+@import '~sass/variables';
+
+.wizard-content {
+    padding: 0;
+    background-color: #FAFAFC;
+
+    .container-title{
+        padding-left: 0;
+        margin-bottom: 25px;
+        .container-header-title {
+            font-size: 26px;
+            font-weight: 400;
+        }
+
+        .container-header-description {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: -0.3px;
+            color: $gray-700;
+            margin-top: -4px;
+        }
+    }
+
+
+}
+
+.onboarding-wizard-container {
+    margin: 0px 0 0;
+    padding: 29px 30px 60px;
+    border-radius: 10px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 6px 16px 0 rgba(32, 44, 86, 0.04);
+    box-shadow: 0 6px 16px 0 rgba(32, 44, 86, 0.04);
+    min-height: 100px;
+
+    .breadcrumb {
+        background-color: transparent;
+    }
+
+    ::ng-deep  .custom-date-picker {
+        width: 250px !important;
+    }
+}
+
+::ng-deep .nav-item {
+  a {
+    position: relative;
+
+    &.has-errors::after, .has-errors::after {
+      position: absolute;
+
+      content: '';
+      height: 8px;
+      width: 8px;
+      background-color: $red;
+      border-radius: 50%;
+      display: inline-block;
+    }
+  }
+}
+
+.nav {
+    &.custom-nav {
+        &.custom-nav-onboarding {
+            margin-top: 44px;
+        }
+    }
+}
+
+.buttons {
+    margin-top: 20px;
+
+    .btn {
+        margin-left: 8px;
+    }
+}
+
+.gsw-final-modal {
+    .modal-header {
+        border-bottom: 0;
+    }
+
+    .custom-title {
+        font-size: 24px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 0.75;
+        letter-spacing: normal;
+        color: $gray-800;
+    }
+
+    .custom-description {
+        font-size: 14px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.43;
+        letter-spacing: normal;
+        color: $gray-800;
+        margin-top: 25px;
+        
+        &.custom-description-margin {
+            margin-top: 20px !important;
+        }
+    }
+
+    .custom-image {
+        margin: auto;
+        display: block;
+        margin-top: 43px;
+        margin-left: 60px;
+    }
+
+    .custom-hr-margin {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+
+}

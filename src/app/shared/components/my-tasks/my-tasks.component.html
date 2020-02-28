@@ -1,0 +1,60 @@
+<div class="left-panel-container dashboard-next-steps">
+  <div class="dashboard-my-tasks-header row">
+    <div class="col-12 align-self-center"><h5 class="text-left">My Tasks</h5></div>
+  </div>
+  <div class="dashboard-my-tasks-body">
+    <ul class="list-steps">
+      <span *ngFor="let task of filteredList(4)">
+      <li class="list-step-item" (click)="navToTask(task)">
+        <div class="task-icon align-self-center">
+          <i class="icon icon-small-check" [ngClass]="iconClass(task)"></i>
+        </div>
+        <div class="task-value align-self-center"
+             [ngClass]="addStrikethrough(task)">
+          <a class="step-link" href="{{ task.url }}">{{ task.taskDescription }}</a>
+        </div>
+        <div class="task-close-icon align-self-center float-right"
+             [hidden]="!isCompleted(task)"
+             (click)="removeClick(task)">
+          <i class="icon icon-close"></i>
+        </div>
+      </li>
+    </span>
+    </ul>
+  </div>
+  <div class="dashboard-my-tasks-footer">
+      <a (click)="openModal(allTasksModal, 'lg')">See all tasks <span class="icon icon-arrow"></span></a>
+  </div>
+</div>
+
+<ng-template #allTasksModal let-c="close" let-d="dismiss">
+    <div class="all-tasks-modal">
+      <div class="modal-header">
+        <h4 class="modal-title align-self-center">My Next Steps</h4>
+        <button type="button" class="close align-self-center" aria-label="Close" (click)="d('Cross click')">
+          <span class="icon icon-close"></span>
+        </button>
+      </div>
+      <div class="modal-body all-tasks-modal-body" id="all-tasks-modal">
+        <ul class="list-steps">
+          <li class="list-step-item" *ngFor="let task of filteredList()" (click)="navToTask(task)">
+            <div class="task-icon align-self-center">
+              <i class="icon" [ngClass]="iconClass(task)"></i>
+            </div>
+            <div class="task-value align-self-center"
+                 [ngClass]="addStrikethrough(task)">
+              <a class="step-link">{{ task.taskDescription }}</a>
+            </div>
+            <div class="task-close-icon align-self-center float-right"
+                 (click)="removeClick(task)"
+                 [hidden]="!isCompleted(task)">
+              <i class="icon icon-close"></i>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer news-modal-footer">
+        <button type="button" class="btn btn-outline-primary" aria-label="Close" (click)="d('Cross click')">Close</button>
+      </div>
+    </div>
+  </ng-template>

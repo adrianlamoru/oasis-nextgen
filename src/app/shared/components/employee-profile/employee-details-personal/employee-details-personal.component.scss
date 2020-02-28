@@ -1,0 +1,257 @@
+@import '~sass/variables';
+
+.container-section {
+  padding-top: 15px;
+  padding-left: 0%;
+  padding-right: 0px;
+  
+  .section {
+
+    .tab-title-employee-details {
+        margin-top: 15px;
+        margin-bottom: 16px;
+    }
+
+    .age-field-margin{
+      margin-left: 46px;
+    }
+
+    .buttons {
+      text-align: right !important;
+      padding-top: 15px!important;
+
+      .edit {
+        padding: 0px;
+      }
+    }
+
+		.icon.icon-info {
+			&:before {
+				position: absolute;
+				color: #333;
+				top: 6px;
+			}
+		}
+
+//     // Date Picker custom styles =================================================================
+// .custom-date-picker {
+//   position: relative;
+//   min-width: 200px;
+//   height: 36px;
+
+//   .custom-input-field {
+//       color: $gray-800;
+//       font-family: $font-family-sans-serif;
+//       font-weight: 400;
+//       font-size: 14px;
+//       position: absolute;
+//       min-width: 200px;
+//       padding: 8.2px 34px;
+//       border-color: $gray-500;
+
+//       &:focus {
+//           border-color: #429dff !important;
+//           outline: 0;
+//           -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 93, 193, 0.25);
+//           box-shadow: 0 0 0 0.2rem rgba(0, 93, 193, 0.25);
+//       }
+
+//       &:disabled {
+//           border: 1px solid transparent;
+//       }
+//   }
+
+//   .input-icon {
+//       position: absolute;
+//       left: 0;
+//       margin-left: 15px;
+//       z-index: 1;
+//       line-height: 36px;
+//   }
+
+//   .input-btn {
+//       font-weight: 400;
+//       font-size: 9px;
+//       padding: 13px 0.9rem;
+//       color: $gray-800;
+//       background-color: transparent;
+//       border: none;
+//       position: absolute;
+//       right: 0;
+//       height: 36px;
+
+//       &:focus {
+//           box-shadow: none;
+//       }
+//   }
+
+//   .dropdown-menu {
+//       box-shadow: 0 3px 16px 0 rgba(32, 44, 86, 0.15);
+//       border: none;
+//       border-radius: 0;
+//       margin-top: 5px;
+
+//       &:focus {
+//           outline: none;
+//       }
+
+//       .ngb-dp-header {
+//           background-color: $white !important;
+//           padding-top: 22px;
+//       }
+
+//       .ngb-dp-arrow-btn {
+//           padding: 0 38px;
+//       }
+
+//       .ngb-dp-weekdays {
+//           background-color: $white !important;
+//           border: none;
+//       }
+
+//       .ngb-dp-month:last-child {
+//           border-left: 1px solid #e6e8ec;
+//       }
+
+//       .ngb-dp-month-name {
+//           font-size: $font-size-sm;
+//           color: $gray-800;
+//           font-weight: bold;
+//           font-size: 14px;
+//       }
+
+//       .ngb-dp-navigation-chevron {
+//           &:before {
+//               border-style: solid;
+//               border-width: 1.2px 1.2px 0 0;
+//               width: 10.5px;
+//               height: 10.5px;
+//               color: $gray-600;
+//           }
+//       }
+
+//       .ngb-dp-months {
+//           padding-bottom: 22px;
+//       }
+
+//       .ngb-dp-month {
+//           &:first-child, &:last-child {
+//               .ngb-dp-week {
+//                   padding: 5px 26px 4px !important;
+//                   border-radius: 0;
+//               }
+//           }
+//       }
+
+//       .ngb-dp-day, .ngb-dp-weekday, .ngb-dp-week-number {
+//           width: 33px;
+//           height: 26px;
+//           line-height: 26px;
+//           font-size: 14px;
+//           font-style: normal !important;
+//           font-weight: 700;
+//       }
+
+//       .ngb-dp-weekday {
+//           color: transparent;
+//           padding-left: 8px;
+
+//           &:first-letter {
+//               color: $blue;
+//           }
+//       }
+
+//       .btn-light {
+//           color: #3d3d3d;
+//           font-weight: 500;
+//           border: none;
+//           border-radius: 0;
+//           text-align: center;
+//           width: 2rem;
+//           height: 2rem;
+//           line-height: 2rem;
+//           background: transparent;
+
+//           &:hover, &.focused {
+//               background-color: $gray-200;
+//           }
+
+//           &.bg-primary {
+//               background-color: $blue;
+//               color: $white;
+//           }
+//       }
+//   }
+// }
+    .employee-details-dob-field{
+      margin-right: 10px;
+      min-width: 130px;
+    }
+
+    .dropdown {
+      // .btn .icon-shape {
+      //   margin-top: 2px;
+      // }
+
+      .dropdown-toggle {
+        width: 100%;
+        text-align: left;
+      }
+    }
+
+    .dropdown-menu {
+      width: 100%;
+    }
+
+    .dropdown-overflow{
+      max-height: 170px;
+      overflow-y: overlay;
+    }
+
+    .other-detail {
+      font-family: $font-family-sans-serif;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.29;
+      letter-spacing: normal;
+      text-align: left;
+      color: $gray-800;
+      margin-bottom: 32px;
+
+      .title {
+        font-size: 14px;
+        font-weight: 500;
+        display: block;
+      }
+
+      .value {
+        font-size: 14px;
+        display: block;
+      }
+    }
+  }
+
+  /deep/ .dx-checkbox-container {
+    margin: 1px;
+  }
+
+  hr {
+    margin: 9px 0px 9px 0px;
+  }
+
+  .custom-footer-hr-padding {
+    margin: 9px 0px 26px 0px;
+  }
+
+	.reports-container{
+		.section {
+			.custom-date-picker, .custom-date-picker .custom-input-field, .custom-dropdown-component {
+				width: 100% !important;
+			}
+
+			.form-group.age-field-margin{
+				margin-left: 0 !important;
+			}
+		}
+	}
+}

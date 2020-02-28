@@ -1,0 +1,54 @@
+<div class="main-area-container pay-summary" *ngIf="paySummary">
+    <div class="dashboard-pay-summary-header row">
+      <h3 class="col-6 text-left">My Pay Summary</h3>
+      <h3 class="col-6 text-right dashboard-pay-summary-header-right">
+        <a href="javascript:void(0)" (click)="togglePay()" *ngIf="togglePayValue">
+          <span class="icon icon-eye-hide icon-mr"></span>
+          <span>HIDE PAY</span>
+        </a>
+        <a href="javascript:void(0)" (click)="togglePay()" *ngIf="!togglePayValue"> 
+          <span class="icon icon-eye-show icon-mr"></span>
+          <span>SHOW PAY</span>
+        </a>
+      </h3>
+    </div>
+    <div class="dashboard-pay-summary-body">
+      <div class="row">
+          <div class="col-md-12 align-self-center" style="position: absolute; top: 40%;">
+            <div class="display">Gross Pay</div>
+            <div class="value">
+              <input type="password" *ngIf="!togglePayValue" value="12345" size="7" disabled/>
+              <span *ngIf="togglePayValue" class="show-text">${{ getGrossPay() }}</span> 
+            </div>
+          </div>
+          <div class="col-md-12 align-self-center">
+            <dx-pie-chart
+                id="pie"
+                type="doughnut"
+                [palette]="['#1a52ce', '#00b2d5', '#a55eef']"
+                [dataSource]="paySummaryChart"
+                [innerRadius]=0.55>
+                <dxi-series
+                    argumentField="type">
+                </dxi-series>
+                <dxo-legend
+                    [visible]=false></dxo-legend>
+                <dxo-tooltip
+                    [enabled]="isEnabledTooltip()"
+                    [customizeTooltip]="customizeTooltip"
+                    [arrowLength] = 0>
+                </dxo-tooltip>
+            </dx-pie-chart>
+          </div>
+        </div>
+      <div class="card-display-value">
+        <div class="value">
+          <input type="password" *ngIf="!togglePayValue" value="12345" size="7" disabled/>
+          <span class="show-text" *ngIf="togglePayValue">${{ paySummary.amount }}</span> 
+        </div>
+        <div class="display">Take home pay: {{ paySummary.date | date: 'MMM d' }}</div>
+      </div>    
+      
+    </div> 
+  </div>
+  

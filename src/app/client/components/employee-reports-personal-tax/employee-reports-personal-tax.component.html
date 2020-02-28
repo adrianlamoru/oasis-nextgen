@@ -1,0 +1,276 @@
+<div class="employee-reports-container employee-reports-personal-tax">
+  <div class="section">
+      
+    <div class="pt-3 mb-0">
+      <div class="col-12" *ngIf="isLoading">
+        <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      
+      <div class="row col-12 p-0 m-0" *ngIf="!isLoading">
+        <h3 class="col-9 align-self-center pl-0 m-0 font-weight-bold" [ngStyle]="{'height': (allTabSelected)? '30px': 'initial'}">Federal Government</h3>
+        <div class="col-3 align-self-center pr-0" *ngIf="!allTabSelected">
+          <div class="float-right">
+            <button 
+              type="button" 
+              class="btn btn-link btn-link-icon p-0 mr-2"
+              (click)="requestedFunction('print')">
+            <span class="icon icon-pint"></span>
+            <span>PRINT</span>
+            </button>
+            <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+                <button 
+                  class="btn btn-light" 
+                  id="downloadDD" 
+                  ngbDropdownToggle>
+                    <span>
+                      Download
+                      <i class="icon icon-shape"></i>
+                    </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="Download">
+                  <button 
+                    type="button" 
+                    class="dropdown-item" 
+                    *ngFor="let item of dropdownOptions[0].items" 
+                    (click)="selectedDownloadOption(item); downloadDD.close()">
+                    {{item.name}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="!isLoading">
+            <div class="col-8">
+              <div class="row employee-information-first-row" *ngFor="let ddItem of filteredEmployeeReportsFedTaxReport[0].employeeFedTax">
+                
+                <div class="col-4 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Filing Status</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.filingStatus">
+                  </div>
+                </div>
+                <div class="col-4 employee-information-field-padding custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Withholding</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.withHolding">
+                  </div>
+                </div>
+                <div class="col-4 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Override Type</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.overrideType">
+                  </div>
+                </div>
+                
+                <div class="col-4 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>EIC File Status</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.eicFileStatus">
+                  </div>
+                </div>
+                <div class="col-4 employee-information-field-padding custom-margin-bottom">
+                  <div class="form-group">
+                    <label>W-4 Filed Year</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.w4FiledYear">
+                  </div>
+                </div>
+    
+                <div class="col-4 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>W-5 Filed Year</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.w5FiledYear">
+                  </div>
+                </div>
+              </div>
+
+            <!-- Section -2 -- I-9 Information -->
+            <hr/>
+            <div class="row col-12 section-title2 p-0 m-0">
+              <h3 class="align-self-center pl-0 m-0 font-weight-bold">I-9 Form Information</h3>
+            </div>
+            <div class="row employee-information-row" *ngFor="let ddItem of filteredEmployeeReportsFedTaxReport[0].employeeFedTax">
+
+                <div class="col-4 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Completed INS Form</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.completedINSForm">
+                  </div>
+                </div>
+                <div class="col-4 employee-information-field-padding custom-margin-bottom">
+                  <div class="form-group">
+                    <label>IRCA Identification #</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.ircaIdentification">
+                  </div>
+                </div>
+                <div class="col-4 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>IRCA Eligibility Document</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.ircaEligibility">
+                  </div>
+                </div>
+
+                <div class="col-4 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Alien Registration #</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.alienRegistration">
+                  </div>
+                </div>
+                <div class="col-4 employee-information-field-padding custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Renew Date</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.renewDate">
+                  </div>
+                </div>
+                <div class="col-4 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>FICA Exempt</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.ficaExempt">
+                  </div>
+                </div>
+             </div>
+
+
+            <!-- Section -3 -- State Gov't -->
+            <hr/>
+            <div class="row col-12 section-title2 p-0 m-0">
+              <h3 class="align-self-center pl-0 m-0 font-weight-bold">State Government</h3>
+            </div>
+            <div class="row employee-information-row" *ngFor="let ddItem of filteredEmployeeReportsStateTaxReport[0].employeeStateTax; let i = index;">
+                
+              <div class="col-4 pl-0 custom-margin-bottom">
+                <div class="form-group">
+                  <label>State {{i + 1}}</label>
+                  <input 
+                    disabled="true"
+                    class="form-control truncate-text"
+                    [(ngModel)]="ddItem.state ">
+                </div>
+              </div>
+              <div class="col-4 employee-information-field-padding custom-margin-bottom">
+                <div class="form-group">
+                  <label>Filing Status {{i + 1}}</label>
+                  <input 
+                    disabled="true"
+                    class="form-control truncate-text"
+                    [(ngModel)]="ddItem.filingStatus">
+                </div>
+              </div>
+              <div class="col-4 custom-margin-bottom">
+                <div class="form-group">
+                  <label>Alt Calc {{i + 1}}</label>
+                  <input 
+                    disabled="true"
+                    class="form-control truncate-text"
+                    [(ngModel)]="ddItem.altCalc">
+                </div>
+              </div>
+
+              <div class="col-4 pl-0 custom-margin-bottom">
+                <div class="form-group">
+                  <label>Allowance {{i + 1}}</label>
+                  <input 
+                    disabled="true"
+                    class="form-control truncate-text"
+                    [(ngModel)]="ddItem.allowance ">
+                </div>
+              </div>
+              <div class="col-4 employee-information-field-padding custom-margin-bottom">
+                <div class="form-group">
+                  <label>Sec Allowance {{i + 1}}</label>
+                  <input 
+                    disabled="true"
+                    class="form-control truncate-text"
+                    [(ngModel)]="ddItem.secondaryAllowance">
+                </div>
+              </div>
+              <div class="col-4 custom-margin-bottom">
+                <div class="form-group">
+                  <label>Exemption {{i + 1}}</label>
+                  <input 
+                    disabled="true"
+                    class="form-control truncate-text"
+                    [(ngModel)]="ddItem.exemption">
+                </div>
+              </div>
+
+              <div class="col-3 pl-0 custom-margin-bottom">
+                <div class="form-group">
+                  <label>Supp Exemption {{i + 1}}</label>
+                  <input 
+                    disabled="true"
+                    class="form-control truncate-text"
+                    [(ngModel)]="ddItem.suppExemption ">
+                </div>
+              </div>
+              <div class="col-3 employee-information-field-padding custom-margin-bottom">
+                <div class="form-group">
+                  <label>Non-res Cert {{i + 1}}</label>
+                  <input 
+                    disabled="true"
+                    class="form-control truncate-text"
+                    [(ngModel)]="ddItem.nonResCert">
+                </div>
+              </div>
+              <div class="col-3  employee-information-field-padding2 custom-margin-bottom">
+                <div class="form-group">
+                  <label>Over Type {{i + 1}}</label>
+                  <input 
+                    disabled="true"
+                    class="form-control truncate-text"
+                    [(ngModel)]="ddItem.overrideType">
+                </div>
+              </div>
+              <div class="col-3 custom-margin-bottom">
+                <div class="form-group">
+                  <label>Over Amount {{i + 1}}</label>
+                  <input 
+                    disabled="true"
+                    class="form-control truncate-text"
+                    [(ngModel)]="ddItem.overrideAmount">
+                </div>
+              </div>
+            </div>
+            <hr class="hr-custom" *ngIf="allTabSelected"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,176 @@
+<div class="reports-container reports-average-hours">
+  <div class="section">
+    <div class="row breadcrumb-container-reports">
+        <div class="col-12">
+          <div class="breadcrumb-component">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item back-link">
+                  <a (click)="goToBack()">Reports</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  <span class="breadcrumb-item-active">Average Hours</span>
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="row col-12 report-title align-self-center p-0">
+        <div class="col-6 report-title align-self-center">
+          <span>Average Hours</span>
+          <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+        </div>
+        <div class="col-6 report-title align-self-center p-0">
+          <button class="btn btn-outline-primary back-button" (click)="goToBack()">Back</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-9" >
+            <div class="form-inline form-group">
+              <div class="form-group">
+                <h4>Start Pay Date</h4>
+                <div class="d-inline-flex">
+                    <div class="custom-date-picker custom-date-picker-size">
+                        <div class="input-icon icon icon-calendar"></div>
+                        <input
+                          class="form-control custom-input-field"
+                          placeholder="Month dd, yyyy"
+                          name="selectedBeginningDate"
+                          [(ngModel)]="selectedBeginningDate"
+                          (ngModelChange)="enableViewReportButton()"
+                          ngbDatepicker
+                          [dayTemplate]="effectiveDate"
+                          [displayMonths]="2"
+                          [navigation]="'arrows'"
+                          [firstDayOfWeek]="7"
+                          #beginningEffectiveDate="ngbDatepicker">
+                        <button
+                          class="btn input-btn icon-shape"
+                          (click)="beginningEffectiveDate.toggle(); openedBeginning = !openedBeginning"
+                          type="button">
+                      </button>
+                    </div>
+                </div>
+              </div>
+              <div class="form-group">
+                  <h4>End Pay Date</h4>
+                  <div class="d-inline-flex">
+                      <div class="custom-date-picker custom-date-picker-size">
+                          <div class="input-icon icon icon-calendar"></div>
+                          <input
+                            class="form-control custom-input-field"
+                            placeholder="Month dd, yyyy"
+                            name="endDate"
+                            [(ngModel)]="selectedEndDate"
+                            (ngModelChange)="enableViewReportButton()"
+                            ngbDatepicker [dayTemplate]="customDay"
+                            [displayMonths]="2"
+                            [navigation]="'arrows'"
+                            [firstDayOfWeek]="7"
+                            #endDate="ngbDatepicker">
+                          <button
+                            class="btn input-btn icon-shape"
+                            (click)="endDate.toggle(); opened = !opened"
+                            type="button">
+                          </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group statusddlabel">
+                    <h4>Status</h4>
+                    <div class="d-inline-flex">
+                      <div ngbDropdown class="d-inline-block custom-dropdown-component width-160 mr-10" #ddstatus="ngbDropdown">
+                          <button type="button" class="btn  btn-form-control form-control-dropdown text-left" ngbDropdownToggle  (click)="isOpened = !isOpened">
+                              <span>
+                              {{ selectedStatus.Text }}
+                              <i class="icon  icon-shape float-right firefox-chevron"></i>
+                              </span>
+                          </button>
+                          <div ngbDropdownMenu aria-labelledby="ddstatus" class="custom-dropdown-status">
+                              <button type="button" class="dropdown-item" *ngFor="let s of statusCode" (click)="selectStatus(s)">{{s.Text}}</button>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group viewreportbutton">
+                    <div class="d-inline-flex">
+                      <button class="btn btn-primary" (click)="getFilteredData()" [disabled]="disableViewReportButton">View Report</button>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12" *ngIf="isLoading">
+              <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+          </div>
+          <div class="row date-range-row" *ngIf="!isLoading">
+            <div class="col-lg-12">
+              <hr class="m-0 p-0 hr-margin"/>
+              <div class="row date-range-row" *ngIf="!isLoading">
+                <div class="col-2 p-0">
+                  <span class="report-date-range-label">Date Range Selected</span>
+                </div>
+                <div class="col-2 p-0">
+                  <span class="report-date-range-label">Status Selected</span>
+                </div>
+              </div>
+              <div class="row year-print-download-row"  *ngIf="!isLoading">
+                <div class="col-2 align-self-center p-0">
+                  <span class="report-data-range-selected">
+                    {{ selectedBeginningDate.month }}/{{ selectedBeginningDate.day }}/{{ selectedBeginningDate.year }} - 
+                    {{ selectedEndDate.month }}/{{ selectedEndDate.day }}/{{ selectedEndDate.year }}
+                  </span>
+                </div>
+                <div class="col-2 align-self-center p-0">
+                  <span class="report-data-range-selected report-data-range-selected-status">
+                    {{ selectedStatus.Text }}
+                  </span>
+                </div>
+                  <div class="col-8 align-self-center">
+                    <div class="float-right section-title">
+                      <button type="button" class="btn btn-link btn-link-icon p-0"
+                              (click)="requestedFunction('print')">
+                          <span class="icon icon-pint"></span>
+                          <span>PRINT</span>
+                      </button>
+                      <button type="button" class="btn btn-link btn-link-icon p-0">
+                        <div class="float-right">
+                            <dx-menu 
+                              #menu [dataSource]="dropdownOptions" 
+                              displayExpr="name"
+                              orientation="horizontal" 
+                              submenuDirection="auto" 
+                              class="custom-download-btn"
+                              [hideSubmenuOnMouseLeave]="false">
+                            </dx-menu>
+                          </div> 
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              <dx-data-grid
+                [dataSource]="filteredAverageHoursDataRows"
+                class="payroll-batch-grid"
+                [columnAutoWidth]="true"
+                [wordWrapEnabled]="true"
+                keyExpr="iD">
+              <dxo-paging [enabled]="false"></dxo-paging>
+                <dxi-column dataField="employeeId" caption="Employee ID" alignment="left" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="lastName" caption="Last Name" alignment="left" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="firstName" caption="First Name" alignment="left" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="statusName" caption="Status" alignment="left" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="type" caption="Type" alignment="left" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="originalHireDate" caption="Original Hire Date" alignment="right" [allowSorting]="false" cellTemplate="dateCell"></dxi-column>
+                <dxi-column dataField="weeksWorked" caption="Weeks Worked" alignment="right" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="hoursWorked" caption="Hours Worked" alignment="right" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="averageHours" caption="Average Hours" alignment="right" [allowSorting]="false"></dxi-column>
+              <div *dxTemplate="let cellData of 'dateCell'">
+                {{cellData.value | date: 'MM/dd/yyyy'}}
+              </div>
+              </dx-data-grid>
+          </div>
+        </div>
+  </div>
+</div>

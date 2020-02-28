@@ -1,0 +1,202 @@
+<div class="custom-modal-window #employeeScheduledPaymentsComponent"> <!--[ngStyle]="{'opacity':formIsOpen ? 0.1 : 1, 'z-index': formIsOpen ? -1 : initial }"-->
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">Scheduled Payments - {{ selectedEmployeeName | middleTruncate: 50 }}</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+      <span class="icon icon-close"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!--{{diagnosticEmployee}}-->
+    <!--Scheduled Payments List-->
+    <div class="custom-grid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="custom-grid-header">
+            <h3 class="display-3 table-title"><!--Existing Scheduled Payments List--></h3>
+            <dx-button text="Add Scheduled Payment" class="btn btn-primary pull-right" (onClick)="addScheduledPayment()"></dx-button>
+          </div>
+          <br />
+          <dx-data-grid #schedulePaymentsDataGrid [dataSource]="clientEmployeeScheduledPaymentsList" [columnAutoWidth]="true" keyExpr="id"
+                        (onEditingStart)="onEditingStart($event)">
+
+            <div *dxTemplate="let data of 'gridHeader'">
+              <div class="custom-grid-header">
+                <h3 class="display-3 table-title"><!--Existing Scheduled Payments --></h3>
+                <dx-button text="Add" class="btn btn-primary pull-right" (onClick)="addScheduledPayment()"></dx-button>
+              </div>
+            </div>
+
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="paymentType.code" caption="Pay Code" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="startDate" [allowSorting]="false" dataType="date"></dxi-column>
+            <dxi-column dataField="stopDate" [allowSorting]="false" dataType="date"></dxi-column>
+            <dxi-column dataField="deductionPeriod" [allowSorting]="false" cellTemplate="ctdeductionPeriodCell"></dxi-column>
+            <dxi-column dataField="status.id" caption="Status" [allowSorting]="false" alignment="right">
+              <dxo-lookup [dataSource]="clientEmployeeScheduledPaymentsStatusList" displayExpr="name" valueExpr="id"></dxo-lookup>
+            </dxi-column>
+            <dxi-column dataField="amount" [allowSorting]="false" format="currency" precision="2" alignment="right"></dxi-column>
+
+            <dxi-column dataField="paymentType.id" [allowSorting]="false" [visible]="false">
+              <dxo-lookup [dataSource]="clientEmployeeScheduledPaymentsTypeList" displayExpr="name" valueExpr="id"></dxo-lookup>
+            </dxi-column>
+            <dxi-column cellTemplate="editTemplate" alignment="right" [width]="105" [minWidth]="105">
+                <div *dxTemplate="let data of 'editTemplate'">
+                    <div class="dx-custom-command-edit">
+                        <a class="dx-link dx-link-edit" tabindex="0" (click)="onEditRow(data)" (keydown)="onEditKeyDown($event, data)">Edit</a>
+                        <a class="dx-link dx-link-delete" tabindex="0"  (click)="onDeleteRow(data)" (keydown)="onDeleteKeyDown($event, data)">Delete</a>
+                    </div>
+                </div>
+            </dxi-column>
+            <dxo-editing mode="popup" [allowAdding]="false" [width]="200">
+
+            </dxo-editing>
+
+            <div *dxTemplate="let data of 'ctdeductionPeriodCell'">
+              <span *ngFor="let period of data.value; let first = first; let last = last">
+                {{ period.name }}
+                <span *ngIf="!last">,&nbsp;</span>
+              </span>
+            </div>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+    <br/>
+
+  </div>
+  <div class="modal-footer">
+    <!--<button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="c('Close click')">Submit</button>-->
+  </div>
+</div>
+
+
+<!--Form-->
+<ng-template #editEmployeeScheduledPaymentsModal let-c="close" let-d="dismiss">
+  <!--{{diagnostic}}-->
+  <form #editEmployeeScheduledPaymentsForm="ngForm" [formGroup]="editEmployeeScheduledPaymentsFormGroup" ngNativeValidate novalidate (ngSubmit)="saveForm(editEmployeeScheduledPaymentsForm)">
+    <div class="custom-modal-window editEmployeeScheduledPaymentsModal">
+      <div class="modal-header">
+        <h4 class="modal-title align-self-center float-left">{{formTitle}}</h4>
+        <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click')">
+          <span class="icon icon-close"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="formStep === 1">
+            <div class="form-group">
+              <label for="deductionType">Pay Code Description</label>
+              <!-- <select class="custom-select custom-select" id="paymentType" formControlName="paymentType" [compareWith]="compareByIdFn" [ngModel]="selectedClientEmployeeScheduledPaymentsModel.paymentType" (ngModelChange)="selectedClientEmployeeScheduledPaymentsModel.paymentType = $event; formStep = selectedClientEmployeeScheduledPaymentsModel.paymentType.id > 0 ? 2 : 1 ">
+                <option *ngFor="let paymentType of clientEmployeeScheduledPaymentsTypeList" [ngValue]="paymentType">{{paymentType.description}}</option>
+              </select> -->
+              <div class="row">
+                <div class="col-9 col-sm-9 col-md-6">
+                  <dx-select-box [dataSource]="clientEmployeeScheduledPaymentsTypeList"
+                    [(value)]="selectedClientEmployeeScheduledPaymentsModel.paymentType"
+                    displayExpr="description" valueExpr="this"
+                    (onEnterKey)="onEnterKey($event)" (onClosed)="onClosed($event)"
+                    (onValueChanged)="changePaymentType(); ddPaymentType.close()"
+                    [opened]="openedPayCodeDescription" #payCodeDescriptionBox>
+                  </dx-select-box>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div *ngIf="formStep === 2">
+          <input type="hidden" class="form-control" id="paymentType" formControlName="paymentType" [(ngModel)]="selectedClientEmployeeScheduledPaymentsModel.paymentType.id" />
+          <input type="hidden" class="form-control" id="deductionPeriod" formControlName="deductionPeriod" [(ngModel)]="selectedClientEmployeeScheduledPaymentsModel.deductionPeriod"  />
+          <input type="hidden" class="form-control" id="status" formControlName="status" [(ngModel)]="selectedClientEmployeeScheduledPaymentsModel.status" />
+
+          <div class="form-group">
+            <label for="paymentType.description">Pay Code Description</label>
+            <input type="text" class="form-control" id="payCodeDescription" value="{{selectedClientEmployeeScheduledPaymentsModel.paymentType.description}}" aria-describedby="description" placeholder="Description" disabled>
+          </div>
+          <div class="form-group">
+            <label for="paymentType.code">Pay Code</label>
+            <input type="text" class="form-control" id="payCode" value="{{selectedClientEmployeeScheduledPaymentsModel.paymentType.code}}" aria-describedby="code" placeholder="Code" disabled>
+          </div>
+          <!-- <div class="form-group">
+            <label for="reason">Pay Code Description</label>
+            <select class="custom-select custom-select" id="frequency" formControlName="payCode" [compareWith]="compareByIdFn" [ngModel]="selectedClientEmployeeScheduledPaymentsModel.payCode" (ngModelChange)="selectedClientEmployeeScheduledPaymentsModel.payCode = $event">
+              <option *ngFor="let payCode of clientEmployeeScheduledPaymentsPayCodesList" [ngValue]="payCode.description">{{payCode.description}}</option>
+            </select>
+          </div> -->
+          <div class="form-group">
+            <label for="startDate">Start Date</label>
+            <div class="custom-date-picker">
+              <div class="input-icon icon icon-calendar"></div>
+              <input class="form-control custom-input-field" placeholder="Month dd, yyyy" formControlName="startDate" [(ngModel)]="selectedClientEmployeeScheduledPaymentsModel.startDatePicker" ngbDatepicker
+                      [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #dpStartDate="ngbDatepicker">
+              <button class="btn input-btn {{dpStartDate.opened ? 'icon-shape-reverse' : 'icon-shape'}}" tabindex="-1" (click)="dpStartDate.toggle(); dpStartDate.opened = !dpStartDate.opened" type="button"></button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="stopDate">Stop Date</label>
+            <div class="custom-date-picker">
+              <div class="input-icon icon icon-calendar"></div>
+              <input class="form-control custom-input-field" placeholder="Month dd, yyyy" formControlName="stopDate" [(ngModel)]="selectedClientEmployeeScheduledPaymentsModel.stopDatePicker" ngbDatepicker
+                      [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #dpstopDate="ngbDatepicker">
+              <button class="btn input-btn {{dpstopDate.opened ? 'icon-shape-reverse' : 'icon-shape'}}" tabindex="-1" (click)="dpstopDate.toggle(); dpstopDate.opened = !dpstopDate.opened" type="button"></button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="deduction period">Deduction Period</label>
+            <dx-drop-down-box class="custom-multi-select"
+                              [(value)]="selectedPeriodsTreeBoxValue"
+                              [dataSource]="clientEmployeeScheduledPaymentsDeductionPeriodList"
+                              valueExpr="id"
+                              displayExpr="name"
+                              placeholder="Select Deduction Periods"
+                              [showClearButton]="false"
+                              (onValueChanged)="syncTreeViewOfAvailableDeductionSelection()"
+                              [(opened)]="isDropDownBoxOpened" 
+                              (onKeyDown)="onEnterKeyDown($event)">
+              <div *dxTemplate="let contentData of 'content'">
+                <dx-tree-view class="custom-multi-select-dropdown"
+                              #treeViewAvailableDeductionPeriods
+                              [dataSource]="clientEmployeeScheduledPaymentsDeductionPeriodList"
+                              dataStructure="plain"
+                              keyExpr="id"
+                              selectionMode="multiple"
+                              showCheckBoxesMode="selectAll"
+                              selectAllText="All Periods"
+                              [selectNodesRecursive]="true"
+                              displayExpr="name"
+                              [selectByClick]="false"
+                              (onContentReady)="syncTreeViewOfAvailableDeductionSelection($event)"
+                              (onSelectionChanged)="treeViewAvailableDeductionPeriods_itemSelectionChanged($event)"
+                              (onItemSelectionChanged)="treeViewAvailableDeductionPeriods_itemSelectionChanged($event)">
+                </dx-tree-view>
+                <!--(onSelectionChanged)="treeViewAvailableDeductionPeriods_itemSelectionChanged($event)"-->
+              </div>
+              <div *dxTemplate="let data of 'dropDownButton'">
+                <i class="icon icon-shape icon-rotate"></i>
+              </div>
+            </dx-drop-down-box>
+          </div>
+
+          <div class="form-group">
+            <label for="status">Status</label>
+            <dx-select-box [dataSource]="clientEmployeeScheduledPaymentsStatusList"
+              [(value)]="selectedClientEmployeeScheduledPaymentsModel.status"
+              displayExpr="name" valueExpr="this"
+              (onEnterKey)="onStatusEnterKey($event)" (onClosed)="onStatusClosed($event)"
+              [opened]="openedStatus" #ddBasis>
+            </dx-select-box>
+          </div>
+
+          <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" class="form-control" id="maximum" [(ngModel)]="selectedClientEmployeeScheduledPaymentsModel.amount" formControlName="amount" aria-describedby="amount" placeholder="Enter Amount">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!editEmployeeScheduledPaymentsForm.valid">Confirm</button>
+      </div>
+    </div>
+  </form>
+</ng-template>

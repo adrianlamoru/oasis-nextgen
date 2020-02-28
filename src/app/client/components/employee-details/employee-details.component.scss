@@ -1,0 +1,53 @@
+@import "~sass/variables";
+
+.dx-field-value {
+    width: 105px !important;
+}
+
+// CUSTOM ACTIONS BUTTON - DEVEX DROPDOWN
+
+:host ::ng-deep {
+    .employee-actions-button {
+        border: 0 !important;
+    
+        .dx-texteditor .dx-texteditor-input {
+            font-size: 0.688rem;
+            font-weight: bold !important;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            line-height: 0.75rem;
+            padding: 10px 15px;
+        }
+    
+        &.dx-state-focused {
+            border: 0 !important;
+            box-shadow: none !important;
+            -webkit-box-shadow: none !important;
+        }
+    
+        // ACTIONS Button Chevron icon style
+        .dx-dropdowneditor-button .dx-dropdowneditor-icon {
+            padding: 0;
+            padding-top: 10px;
+    
+            &::before {
+                font-family: 'icomoon' !important;
+                content: "\E911";
+                font-size: 8px;
+                font-weight: 700;
+                margin-left: -4px;
+            }
+        }
+    
+        // ACTIONS Button chevron up & down action
+        &.dx-dropdowneditor-active {
+            .dx-dropdowneditor-button .dx-dropdowneditor-icon:before {
+                content: "\E980";
+            }
+        }
+    
+        .employee-actions-custom-text-box {
+            width: 95px;
+        }
+    }
+}

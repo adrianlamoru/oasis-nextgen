@@ -1,0 +1,130 @@
+@import '~sass/variables';
+
+.card.call-out-card {
+	min-height: 258px;
+	position: initial;
+
+	.card-header-calander {
+		padding: 25px 30px 0;
+
+		.card-cal-title {
+			line-height: 32px;
+		}
+
+		.card-cal-title-2 {
+			font-size: 18px;
+			line-height: 1;
+		}
+
+		.title {
+			font-size: 18px;
+		    line-height: 32px;
+		    vertical-align: middle;
+		    float: right;
+		    margin-bottom: 2px;
+		}
+		.button-sm-square {
+			padding: 0;
+			margin-left: 20px;
+    		font-size: 18px;  
+    		background-color: $white;
+    		border: none;
+		    float: right;
+		    line-height: 32px;
+			.icon {
+				line-height: 18px;
+			}
+			&:hover {
+				background-color: $white;
+    			border: none;
+			}
+		}
+	}
+
+	.card-body {
+		padding: 25px 0 30px;
+	}
+
+	&.card-for-dashbaord {
+		box-shadow: none;
+		min-height: 232px;
+		max-height: 232px;
+		overflow-x: hidden;
+		overflow-y: auto;
+		padding-right: 15px;
+		margin-right: -15px;
+
+		.card-header-calander {
+			padding: 0;
+		}
+		.card-body {
+			padding: 25px 10px 30px;
+		}
+	}
+}
+
+.padding-space {
+	padding: 0 15px;
+}
+
+.col-wk-title, .col-wk-number {
+	display: inline-block;
+	height: 30px;
+    line-height: 30px;
+    width: 30px;
+    margin: 2px auto;
+	font-weight: 500;
+}
+
+.col-wk-title {
+	color: $blue;
+	margin-bottom: 10px;
+}
+
+.col-wk-number {	
+
+	&.todays-date {
+		background-color: $gray-400;
+	}
+
+	&.due-date {
+		background-color: $blue;
+		border-radius: 45px;
+		color: $white;
+		position: relative;
+		.icon-custom-dot {
+			font-size: 9px;
+		    position: absolute;
+		    right: 1px;
+		    &:before {
+		    	color: $red !important;
+		    }
+		}
+	}
+
+	&.check-date {
+		background-color: $green;
+	    border-radius: 45px;
+	    color: $white;
+	}
+}
+
+.payrollCalendarListModal {
+	.custom-grid-header {
+		.btn-link-icon {
+			padding: 0;
+		}
+	}
+}
+
+
+@media (max-width: 1200px) {
+	.card.call-out-card {
+		min-height: 290px;
+		.card-header-calander {
+			.title {
+				float: left;
+			}
+		}
+	}
+}

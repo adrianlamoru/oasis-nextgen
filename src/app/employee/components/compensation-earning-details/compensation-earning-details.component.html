@@ -1,0 +1,25 @@
+<div class="row" *ngIf="!isLoading" id="contentToRender">
+	<div class="col-12">
+    <dx-data-grid [dataSource]="compensationEarningDetails" class="pair-row-color-gray-100 grid-head-font-weight-500 dx-data-grid-tab-title"
+      [columnAutoWidth]="true" [wordWrapEnabled]="true" keyExpr="id">
+      <dxo-paging [enabled]="false"></dxo-paging>
+      <dxi-column dataField="id" caption="ID" alignment="left" [allowSorting]="false"></dxi-column>
+      <dxi-column dataField="tipCreditMakeUp" caption="TIP CREDIT MAKE UP" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="tippedHours" caption="TIPPED HOURS" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="cashTips" caption="CASH TIPS" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="halfTime" caption="HALF TIME" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="total" caption="Total" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      
+    </dx-data-grid>
+  </div>
+</div>

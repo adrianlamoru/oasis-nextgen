@@ -1,0 +1,9 @@
+// Bootstrap and its default variables
+
+@import "./variables";
+@import "~bootstrap/scss/bootstrap";
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
+@import "./fonts/icomoon/style.css";
+@import "./mixins";
+@import "./custom";

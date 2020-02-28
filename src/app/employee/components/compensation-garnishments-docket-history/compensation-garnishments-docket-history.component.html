@@ -1,0 +1,45 @@
+<h3 class="content-title">
+    History
+</h3>
+
+<div class="custom-grid">
+    <div class="row">
+        <div class="col-12">
+            <dx-data-grid [dataSource]="reportsToShow" [columnAutoWidth]="true" class="pair-row-color-gray-100 grid-head-font-weight-500 dx-data-grid-tab-title">
+                <dxo-paging [enabled]="false"></dxo-paging>
+
+                <dxi-column dataField="voucher_number" caption="Voucher Number" [width]="180" alignment="left" [allowSorting]="false">
+
+                </dxi-column>
+                <dxi-column dataField="voucher_date" caption="Voucher Date" alignment="left" [width]="140" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="amount_due" caption="Amount Due Paid On" alignment="right" [width]="150" format="currency" [precision]="2" [allowSorting]="false">
+
+                </dxi-column>
+
+                <dxi-column dataField="" [allowFiltering]="false" [allowSorting]="false" cellTemplate="px-40-template" [allowEditing]="false" alignment="right"></dxi-column>
+
+
+                <dxi-column dataField="paid_check" caption="Paid Check" alignment="left" [width]="140" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="check_amount" caption="Check Amount" alignment="right" [width]="150" format="currency" [precision]="2" [allowSorting]="false"></dxi-column>
+
+                <dxi-column dataField="" [allowFiltering]="false" [allowSorting]="false" cellTemplate="px-250-template" [allowEditing]="false" alignment="right"></dxi-column>
+
+                <div *dxTemplate="let data of 'px-250-template'">
+                    <div class="col-250-px"></div>
+                </div>
+                <div *dxTemplate="let data of 'px-40-template'">
+                    <div class="col-40-px"></div>
+                </div>
+            </dx-data-grid>
+
+            <div class="gray-background">
+
+                <strong class="float-right text-right">Grand Total: ${{filterGranTotal(selectedDocket)}}</strong>
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,56 @@
+@import "~sass/variables";
+
+.payroll {
+  .payroll-container:not(.payroll-analytics) {
+    margin: 0px 0 0;
+    padding: 29px 30px 60px;
+    border-radius: 10px;
+    background-color: $white;
+    box-shadow: 0 6px 16px 0 rgba(32, 44, 86, 0.04);
+    min-height: 100px;
+  }
+
+  .container-header {
+    .container-title {
+      margin-bottom: 5px;
+    }
+  }
+  .card.call-out-card {
+    margin-bottom: 22px;
+
+    .card-body {
+      padding: 46px 32px 47px;
+
+      .time-countdown {
+        height: 69px;
+        width: 78px;
+        margin-bottom: 16px;
+      }
+
+      .icon {
+        font-size: 59px;
+        margin-bottom: 27px;
+      }
+
+      .card-text {
+        margin-bottom: 0px;
+        overflow: hidden;
+        max-height: 80px;
+        min-height: 80px;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 1200px) {
+    .payroll {
+        .card.call-out-card .card-body {
+          padding: 52px 32px 53px;
+          .card-text {
+            max-height: 100px;
+            min-height: 100px;
+          }
+        }
+    }
+}

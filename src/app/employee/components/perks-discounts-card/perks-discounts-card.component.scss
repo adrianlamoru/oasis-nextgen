@@ -1,0 +1,52 @@
+@import './../../../../sass/variables';
+.product-card {
+    .badge {
+        font-size: 12px;
+        font-weight: 900;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.42;
+        letter-spacing: normal;
+        text-align: left;
+        color: $white;
+        position: absolute;
+        left: 20px;
+        top: 20px;
+    }
+
+    .card-body {
+         font-style: normal;
+         font-stretch: normal;
+         letter-spacing: normal;
+         text-align: left;
+         padding: 23px;
+         background-color: white;
+         border-bottom-left-radius: 10px;
+         border-bottom-right-radius: 10px;
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 400;           
+            line-height: 1.21;
+            color: #a5aab7;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-text {
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 1.3em;  
+            color: #3e434d;
+            height: 80px;
+        }
+
+        .btn.btn-link {
+            font-size: 11px;
+            font-weight: bold;
+            line-height: normal;
+            color: #006dc1;
+        }
+    }
+}

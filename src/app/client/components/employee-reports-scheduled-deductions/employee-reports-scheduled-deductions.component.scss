@@ -1,0 +1,29 @@
+@import '~sass/variables';
+
+.employee-reports-scheduled-deductions {
+    .section {
+        .section-title{
+            margin-top: 23px;
+            margin-bottom: 25px;
+        }
+    
+        .report-title{
+                margin-bottom: 17px !important;
+                margin-top: 15px !important;
+            }
+        
+        .date-range-row {
+          padding-top: 3px !important;
+          margin-bottom: 0px !important;
+        }
+
+        .grid-range-row {
+            //padding-top: 22px !important;
+            margin-top: 10px !important;
+        }
+
+        .custom-dropdown {
+            width:100px !important;
+        }
+    }
+}

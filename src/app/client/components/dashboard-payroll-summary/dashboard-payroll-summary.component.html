@@ -1,0 +1,33 @@
+
+<div class="card benefits-card dashboard-card">
+  	<div class="card-body">
+  		<div class="row ex-margin-bottom">
+  			<div class="col-12 align-self-center">
+			    <ul class="nav nav-tabs no-border">
+	                <li class="nav-item">
+	                  <a href="javascript: void(0)" class="nav-link  {{ tabSelected === tab_SP ? 'active' : ''}}" data-toggle="tab" (click)="updateTabSelection(tab_SP)">
+	                     <h3 class="benefits-card-title">{{tab_SP}}</h3>
+	                 </a>
+	                </li>
+	                <li class="nav-item">
+	                  <a href="javascript: void(0)" class="nav-link {{ tabSelected === tab_PC ? 'active' : ''}}" data-toggle="tab"  (click)="updateTabSelection(tab_PC)">
+	                  	<h3 class="benefits-card-title">{{tab_PC}}</h3>
+	                  </a>
+	               	</li>
+	            </ul>	
+  			</div>
+  		</div> 
+		<div class="row ex-margin-bottom">
+			<div class="col-12" *ngIf="tabSelected === tab_SP">
+				<app-payroll-run [isDashboard]="true"></app-payroll-run>
+			</div>
+			<div class="col-12" *ngIf="tabSelected === tab_PC">
+				<app-payroll-calendar [isDashboard]="true"></app-payroll-calendar>
+			</div>
+		</div>
+		<button type="button" class="btn btn-link btn-abs-position" (click)="openPayrollSection()">
+            <span class="btn-link-text">Manage Payroll</span>
+            <span class="icon icon-arrow"></span>
+        </button>
+	</div>
+</div>

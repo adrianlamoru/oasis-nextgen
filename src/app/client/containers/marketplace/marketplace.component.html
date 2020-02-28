@@ -1,0 +1,313 @@
+<div class="client-marketplace-content">
+
+  <div class="row align-items-center container-header">
+    <div class="col-3 container-title">
+      <div class="container-header-title">BizVault</div>
+      <div class="container-header-description">Helping you move forward</div>
+    </div>
+    <!-- <div class="col-9 cta-buttons">
+      <div class="float-right">
+        <button type="button"
+                class="btn btn-primary  {{last ? '' :'cta-button-right-margin'}}"
+                *ngFor="let ctaItem of ctaButtonData; let last = last;"
+                (click)="openCTAButtonAction(ctaItem.btnLink, ctaItem.btnLinkConfig)">{{ctaItem.btnLabel}}</button>
+      </div>
+    </div> -->
+  </div>
+
+  <div class="row cards-sections justify-content-center">
+
+    <div class="card-marketplace">
+      <h3 class="container-title ml-4">{{marketplaceWidgetData.chartTitle}}</h3>
+      <p class="container-subtitle ml-4">When we first started this journey your profile was based on a few questions we asked.</p>
+
+      <div class="m-0">
+        <app-spider-chart [dataSource]="marketplaceWidgetData.spiderDataSource"
+                          [height]="250"></app-spider-chart>
+      </div>
+
+      <div class="card-marketplace-items">
+        <ul class="p-0">
+          <li class="media ml-4">
+            <span class="custom-features-bullet-icon icon-triangle"> </span>
+            <div class="media-body">
+              Product 1 - Payroll
+            </div>
+          </li>
+          <li class="media ml-4">
+            <span class="custom-features-bullet-icon icon-triangle"> </span>
+            <div class="media-body">
+              Product 2 - Timekeeping
+            </div>
+          </li>
+          <li class="media ml-4">
+            <span class="custom-features-bullet-icon icon-triangle"> </span>
+            <div class="media-body">
+              Product 3 - General Ledger
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card-marketplace">
+      <h3 class="container-title ml-4">{{marketplaceWidgetDataToday.chartTitle}}</h3>
+      <p class="container-subtitle ml-4">Since then we've grown beyond Payroll and Timekeeping into other areas of support.</p>
+
+      <div class="m-0">
+        <app-spider-chart [dataSource]="marketplaceWidgetDataToday.spiderDataSource"
+                          [height]="250"></app-spider-chart>
+      </div>
+
+      <div class="card-marketplace-items">
+        <ul class="p-0">
+          <li class="media ml-4">
+            <span class="custom-features-bullet-icon icon-triangle"> </span>
+            <div class="media-body">
+              Product 1 - Medical
+            </div>
+          </li>
+          <li class="media ml-4">
+            <span class="custom-features-bullet-icon icon-triangle"> </span>
+            <div class="media-body">
+              Product 2 - Dental
+            </div>
+          </li>
+          <li class="media ml-4">
+            <span class="custom-features-bullet-icon icon-triangle"> </span>
+            <div class="media-body">
+              Product 3 - 401 (k)
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="card-marketplace">
+      <h3 class="container-title ml-4">{{marketplaceWidgetDataFuture.chartTitle}}</h3>
+      <p class="container-subtitle ml-4">There's still room for growth and progress - especially around Human Resources.</p>
+
+      <div class="m-0">
+        <app-spider-chart [dataSource]="marketplaceWidgetDataFuture.spiderDataSource"
+                          [height]="250"></app-spider-chart>
+      </div>
+
+      <div class="card-marketplace-items">
+        <ul class="p-0">
+          <li class="media ml-4">
+            <span class="custom-features-bullet-icon icon-triangle"> </span>
+            <div class="media-body">
+              Product 1 - Job Descriptions
+            </div>
+          </li>
+          <li class="media ml-4">
+            <span class="custom-features-bullet-icon icon-triangle"> </span>
+            <div class="media-body">
+              Product 2 - Recruiting Support
+            </div>
+          </li>
+          <li class="media ml-4">
+            <span class="custom-features-bullet-icon icon-triangle"> </span>
+            <div class="media-body">
+              Product 3 - Recruiting Tool
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="messages-section">
+
+    <ngb-tabset #tabSet="ngbTabset"
+                class="ngbTabset">
+      <ngb-tab id="tab-critical">
+        <ng-template ngbTabTitle>Human Resources</ng-template>
+        <ng-template ngbTabContent>
+          <div class="message-content">
+            <div class="message-content-title">
+              Products and Services Available to You (Human Resources)
+            </div>
+            <div class="message-content-detail">
+              We're here to support you as you grow and give you the time to focus on what matters most - your company.
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="tab-high">
+        <ng-template ngbTabTitle>Benefits</ng-template> 
+        <ng-template ngbTabContent>
+          <div class="message-content">
+            <div class="message-content-title">
+              Products and Services Available to You (Benefits)
+            </div>
+            <div class="message-content-detail">
+              We're here to support you as you grow and give you the time to focus on what matters most - your company.
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="tab-medium">
+        <ng-template ngbTabTitle>Payroll</ng-template>
+        <ng-template ngbTabContent>
+          <div class="message-content">
+            <div class="message-content-title">
+              Products and Services Available to You (Payroll)
+            </div>
+            <div class="message-content-detail">
+              We're here to support you as you grow and give you the time to focus on what matters most - your company.
+            </div>
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+
+  <div class="carousel-section">
+    <ngb-carousel>
+      <ng-template ngbSlide>
+        <div class="ml-4 d-flex marketplace-carousel-cards justify-content-center">
+          <div class="card marketplace-carousel-card">
+            <div class="card-body text-center">
+              <div class="custom-marketplace-carousel-card-icon">
+                <span class="icon icon-hand-card marketplace-icon">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                  <span class="path3"></span>
+                  <span class="path4"></span>
+                  <span class="path5"></span>
+                  <span class="path6"></span>
+                  <span class="path7"></span>
+                  <span class="path8"></span>
+                </span>
+              </div>
+              <span class="card-title">Fair Labor Standards Act Review</span>
+              <p class="card-text">
+                {{ marketplaceCardDescription[0].name | slice:0:100}}{{ marketplaceCardDescription[0].name.length > 100? '...':''}}</p>
+              <button type="button"
+                      class="btn btn-primary ">Learn More</button>
+            </div>
+          </div>
+          <div class="card marketplace-carousel-card">
+            <div class="card-body text-center">
+              <div class="custom-marketplace-carousel-card-icon">
+                <span class="icon icon-support marketplace-icon">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                  <span class="path3"></span>
+                  <span class="path4"></span>
+                  <span class="path5"></span>
+                  <span class="path6"></span>
+                  <span class="path7"></span>
+                  <span class="path8"></span>
+                </span>
+              </div>
+              <span class="card-title">Job Descriptions</span>
+              <p class="card-text">{{ marketplaceCardDescription[1].name | slice:0:100}}{{ marketplaceCardDescription[1].name.length > 100? '...':''}}</p>
+              <button type="button"
+                      class="btn btn-primary ">Learn More</button>
+            </div>
+          </div>
+          <div class="card marketplace-carousel-card">
+            <div class="card-body text-center">
+              <div class="custom-marketplace-carousel-card-icon">
+                <span class="icon icon-umbrella2 marketplace-icon">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                  <span class="path3"></span>
+                  <span class="path4"></span>
+                  <span class="path5"></span>
+                </span>
+              </div>
+              <span class="card-title">Employment Handbooks</span>
+              <p class="card-text">{{ marketplaceCardDescription[2].name | slice:0:100}}{{ marketplaceCardDescription[2].name.length > 100? '...':''}}</p>
+              <button type="button"
+                      class="btn btn-primary ">Learn More</button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template ngbSlide>
+        <div class="ml-4 d-flex marketplace-carousel-cards justify-content-center">
+          <div class="card marketplace-carousel-card">
+            <div class="card-body text-center">
+              <div class="custom-marketplace-carousel-card-icon">
+                <span class="icon icon-patch-34 marketplace-icon">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                  <span class="path3"></span>
+                  <span class="path4"></span>
+                  <span class="path5"></span>
+                  <span class="path6"></span>
+                </span>
+              </div>
+              <span class="card-title">Family Medical Leave Act (FMLA) Administration</span>
+              <p class="card-text">{{ marketplaceCardDescription[3].name | slice:0:100}}{{ marketplaceCardDescription[3].name.length > 100? '...':''}}</p>
+              <button type="button"
+                      class="btn btn-primary ">Learn More</button>
+            </div>
+          </div>
+          <div class="card marketplace-carousel-card">
+            <div class="card-body text-center">
+              <div class="custom-marketplace-carousel-card-icon">
+                <span class="icon icon-bulb marketplace-icon">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                  <span class="path3"></span>
+                  <span class="path4"></span>
+                </span>
+              </div>
+              <span class="card-title">Assist with I-9 Compliance</span>
+              <p class="card-text">{{ marketplaceCardDescription[4].name | slice:0:100}}{{ marketplaceCardDescription[4].name.length > 100? '...':''}}</p>
+              <button type="button"
+                      class="btn btn-primary ">Learn More</button>
+            </div>
+          </div>
+          <div class="card marketplace-carousel-card">
+            <div class="card-body text-center">
+              <div class="custom-marketplace-carousel-card-icon">
+                <span class="icon icon-hospital-32 marketplace-icon">
+                  <span class="path1"></span>
+                  <span class="path2"></span>
+                </span>
+              </div>
+              <span class="card-title">Regulatory New Hire Reporting</span>
+              <p class="card-text">{{ marketplaceCardDescription[5].name | slice:0:100}}{{ marketplaceCardDescription[5].name.length > 100? '...':''}}</p>
+              <button type="button"
+                      class="btn btn-primary ">Learn More</button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-carousel>
+  </div>
+
+  <div class="discounts-sections justify-content-center d-flex">
+    <div class="white-paper-card client-card-background">
+      <div class="white-paper-card-title">
+        Client Discounts
+      </div>
+      <div class="white-paper-card-body">
+        Browse business discounts that can save your company money!
+      </div>
+      <div class="white-paper-card-buttons">
+        <button class="btn btn-primary"
+          (click)="goToDiscounts('client')">Learn More</button>
+      </div>
+    </div>
+
+    <div class="white-paper-card employee-card-background mr-0">
+      <div class="white-paper-card-title">
+        Employee Discounts
+      </div>
+      <div class="white-paper-card-body">
+        View consumer discounts on a variety of items!      
+      </div>
+      <div class="white-paper-card-buttons">
+        <button class="btn btn-primary"
+          (click)="goToDiscounts('employee')">Learn More</button>
+      </div>
+    </div>
+  </div>
+</div>

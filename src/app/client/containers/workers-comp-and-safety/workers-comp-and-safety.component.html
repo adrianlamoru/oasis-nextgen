@@ -1,0 +1,37 @@
+<div class="client-workers-comp-component client-container-content">
+  <div class="row">
+    <div class="col-9">
+      <div class="row align-items-center container-header">
+        <div class="col-12 container-title">
+          <span>Workers' Comp</span>
+        </div>
+      </div>
+      <div class="row align-items-center container-nav-pills-margin-bottom">
+        <div class="col-12">
+            <ngb-tabset #tabSet="ngbTabset" class="ngbTabset" type="pills">
+              <ngb-tab title="Open Claims" id="tab-open-claims">
+                <ng-template ngbTabContent>
+                  <app-workers-comp-open-claims [workersCompOpenClaimsData]="workersCompOpenClaimsData"></app-workers-comp-open-claims>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="All Claims" id="tab-all-claims">
+                <ng-template ngbTabContent>
+                  <app-workers-comp-all-claims></app-workers-comp-all-claims>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </div>
+    <div class="col-3 right-rail">
+      <app-workers-comp-posters></app-workers-comp-posters>
+      <hr class="horizontal-rule"/>
+      <app-workers-comp-risk></app-workers-comp-risk>
+    </div>
+  </div>
+</div>

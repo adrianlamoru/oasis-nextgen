@@ -1,0 +1,165 @@
+<div class="custom-modal-window employee-supervisor-change-modal" ngForm #terminationForm="ngForm">
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">Termination - {{ selectedEmployeeName | middleTruncate: 25 }}</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+      <span class="icon icon-close"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-12">
+        <div *ngIf="showErrorMessage" class="messages-component">
+          <div class="alert alert-danger alert-dismissible">
+            <button aria-label="Close" class="close" type="button" (click)="closeErrorMessage()">
+              <span aria-hidden="true">×</span>
+            </button>
+            <span class="icon icon-danger"></span>
+            <span class="message">
+              An error has occurred
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <div class="custom-radio-button">
+                <dx-radio-group [items]="['']" [(value)]="terminationTypeVoluntary" (click)="terminationTypeUpdate($event, true)" (keydown)="terminationTypeUpdate($event, true)">
+                </dx-radio-group>
+              </div>
+              <div class="custom-radio-button-label">
+                <h4>Voluntary</h4>
+                <p class="text-muted">Separation initiated by the employee</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <div class="custom-radio-button">
+                <dx-radio-group [items]="['']" [(value)]="terminationTypeInvoluntary" (click)="terminationTypeUpdate($event, false)" (keydown)="terminationTypeUpdate($event, false)">> </dx-radio-group>
+              </div>
+              <div class="custom-radio-button-label">
+                <h4>Involuntary</h4>
+                <p class="text-muted">Separation initiated by the employer/client</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr/>
+        <div class="row row-extra-padding">
+          <div class="col-6">
+            <div class="form-group">
+              <h4>Current Job</h4>
+              <input [disabled]="true" id="currentJob" name="currentJob" placeholder="Current Job" type="text" class="form-control" [(ngModel)]="terminationData.job">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <h4>Current Employment Status</h4>
+              <input [disabled]="true" id="currentEmployeeStatus" name="currentEmployeeStatus" placeholder="Current Employee Status" type="text"
+                class="form-control" [(ngModel)]="terminationData.employmentStatus">
+            </div>
+          </div>
+        </div>
+        <div class="row row-extra-padding">
+          <div class="col-6">
+            <div class="form-group">
+              <h4>Current Employment Type</h4>
+              <input [disabled]="true" id="currentEmploymentType" name="currentEmploymentType" placeholder="Current Employment Type" type="text"
+                class="form-control" [(ngModel)]="terminationData.employmentType">
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <h4>Termination Status Code</h4>
+              <div ngbDropdown class="d-inline-block custom-dropdown-component">
+                <button class="btn btn-form-control form-control-dropdown text-left" id="terminationStatusCodeDD" ngbDropdownToggle (click)="isTerminationStatusCodeDDOpened = !isTerminationStatusCodeDDOpened">
+                  <span class="{{terminationStatusCodeTemp === '' ? 'text-placeholder' : '' }}">{{terminationStatusCodeTemp === '' ? 'Please select an Option' : terminationStatusCodeTemp}}
+                    <i class="icon icon-shape float-right"></i>
+                  </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="terminationStatusCodeDD">
+                  <button title="{{item.Text}}" type="button" class="dropdown-item" *ngFor="let item of terminationStatusCode" (click)="changeTerminationStatusCodeSelection(item.Text)">{{item.Text}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row row-extra-padding">
+          <div class="col-6">
+            <div class="form-group">
+              <h4>Reason Code</h4>
+              <div ngbDropdown class="d-inline-block custom-dropdown-component">
+                <button title="{{reasonCodeTemp}}" class="btn btn-form-control form-control-dropdown text-left" id="reasonCodeDD" ngbDropdownToggle
+                  (click)="isReasonCodeDDOpened = !isReasonCodeDDOpened">
+                  <span class="{{reasonCodeTemp === '' ? 'text-placeholder dropdown-cliptext' : 'dropdown-cliptext' }}">{{reasonCodeTemp === '' ? 'Please select an Option' : reasonCodeTemp}}</span>
+                  <span class="dropdown-cliptext-icon-holder">
+                    <i class="icon icon-shape float-right"></i>
+                  </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="reasonCodeDD">
+                  <button title="{{item.Text}}" type="button" class="dropdown-item" *ngFor="let item of reasonCode" (click)="changeReasonCodeSelection(item.Text)">{{item.Text}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <h4>Termination Date</h4>
+              <div class="custom-date-picker custom-date-picker-lg">
+                <div class="input-icon icon icon-calendar"></div>
+                <input id="dp" class="form-control custom-input-field" placeholder="Month dd, yyyy" name="dp" required [(ngModel)]="terminationData.terminationDate"
+                  ngbDatepicker [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7"
+                  #d="ngbDatepicker" #dp="ngModel">
+                <button class="btn input-btn icon-shape" (click)="d.toggle(); opened = !opened" type="button"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row row-extra-padding">
+          <div class="col-6">
+            <div class="form-group">
+              <h4>Rehire OK?</h4>
+              <dx-radio-group [items]="['Yes', 'No']" [(value)]="terminationData.canBeRehired" layout="horizontal"></dx-radio-group>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <h4>If ACH, Turn Off ACH?</h4>
+              <dx-radio-group [items]="['Yes', 'No']" [(value)]="terminationData.turnOffACH" layout="horizontal"></dx-radio-group>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <h4>Transfer Supervision To</h4>
+              <div ngbDropdown class="d-inline-block custom-dropdown-component">
+                <button [disabled]="disableSupervisorFields" title="{{transferSupervisionToTemp}}" class="btn btn-form-control form-control-dropdown text-left"
+                  id="transferSupervisionDD" ngbDropdownToggle (click)="supervisorListDDOpened = !supervisorListDDOpened">
+                  <span class="{{transferSupervisionToTemp === '' ? 'text-placeholder dropdown-cliptext' : 'dropdown-cliptext' }}">{{transferSupervisionToTemp === '' ? 'Please select an Option' : transferSupervisionToTemp}}</span>
+                  <span class="dropdown-cliptext-icon-holder">
+                    <i class="icon icon-shape float-right"></i>
+                  </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="transferSupervisionDD">
+                  <button title="{{item.Text}}" type="button" class="dropdown-item" *ngFor="let item of supervisorList" (click)="changeSupervisorListSelection(item.Text)">{{item.Text}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="bottom-line" />
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="openErrorMessage()">Cancel</button>
+    <button [disabled]="terminationForm.invalid || isDataCheckInvalid " type="button" class="btn btn-primary" (click)="submitModal()">Confirm</button>
+  </div>
+</div>
+
+<ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-focused="focused">
+  <div class="btn-light" [class.focused]="focused" [class.bg-primary]="selected" (click)="opened = !opened;" (keydown)="opened = !opened;">
+    {{ date.day }}
+  </div>
+</ng-template>

@@ -1,0 +1,46 @@
+<div class="left-panel-container">
+  <ngb-carousel *ngIf="slides">
+    <ng-template ngbSlide *ngFor="let slide of slides">
+      <img [style.max-height.px]="maxHeight ? maxHeight : 'auto'" [src]="slide.imgUrl" alt="slide?.alt" class="d-block img-fluid">
+      <!-- <div class="carousel-background"></div> -->
+      <div class="carousel-caption">
+        <span class="title" fittext>{{slide?.title}}</span>
+        <span class="link">
+          <!-- <a class="btn btn-link" routerLink="{{slide?.actionUrl}}">{{ slide?.actionText }} <span class="icon icon-arrow"></span></a> -->
+          <button class="btn btn-link" (click)="openRouterLink(slide?.actionUrl)">{{ slide?.actionText }} <span class="icon icon-arrow"></span></button>
+        </span>
+        <!--<a [href]="slide?.actionUrl">{{ slide?.actionText }} <span class="icon icon-arrow"></span></a>-->
+      </div>
+    </ng-template>
+  </ngb-carousel>
+</div>
+
+
+<!-- <div #loadOasisNews>
+        <div class="modal-header news-modal-header">
+            <h4 class="modal-title align-self-center">Oasis News</h4>
+            <button type="button" class="close align-self-center" aria-label="Close" (click)="d('Cross click')">
+                <span class="icon icon-close"></span>
+            </button>
+        </div>
+        <div class="modal-body news-modal-body" id="news-scrollbar">
+            <div class="news-item" *ngFor="let data of newsModalData;let i = index">
+                <div class="item-header" id="{{data.anchorID}}">{{ data.title }}</div>
+                <div class="item-body readLess" [ngClass]="{ 'readMore' : (i === activeIndex && toggle === 1), 'readLess': (i === activeIndex && toggle === 0) }">{{ data.body }}</div>
+                <div class="item-footer">
+                    <a href="javascript: void(0)"  *ngIf="i != activeIndex || toggle === 0" (click)="clicked(i,1)">READ MORE
+                        <i class="icon icon-shape"></i>
+                    </a>
+                    <a class="readLessIcon" href="javascript: void(0)"  *ngIf="i === activeIndex && toggle === 1" (click)="clicked(i,0)">READ LESS
+                        <i class="icon icon-shape-reverse"></i>
+                    </a>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div> -->
+
+<!-- <ng-template #loadOasisNews let-c="close" let-d="dismiss">   -->
+
+<!-- </ng-template> -->
+

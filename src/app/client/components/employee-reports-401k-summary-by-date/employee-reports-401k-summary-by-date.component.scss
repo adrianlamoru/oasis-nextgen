@@ -1,0 +1,13 @@
+@import "~sass/variables";
+
+.employee-reports-401k-summary-by-date {
+
+    /deep/ .dx-datagrid-rowsview .dx-row.dx-group-row {
+        display: none;
+    }
+
+    /deep/ .dx-datagrid .dx-row > td:last-child {
+        padding-right: 0;
+    }
+
+}

@@ -1,0 +1,188 @@
+@import '~sass/variables';
+
+
+.employee-search-component {
+    margin: 0px 0 60px;
+    border-radius: 10px;
+    background-color: $white;
+    box-shadow: 0 6px 16px 0 rgba(32, 44, 86, 0.04);
+    min-height: 100px;
+
+    .content-title {
+        margin-bottom:  17px;
+    }
+
+    .content-search {
+        padding: 0 !important;
+
+        .input-group-search {
+            margin-bottom: 10px;
+            display: inline-flex;
+
+            .form-control-search {
+                padding-left: 35px;
+                width: 350px;
+                height: 42px;
+                font-size: 14px;
+
+                &::placeholder, &:-ms-input-placeholder, &::-ms-input-placeholder {
+                    font-size: 14px;
+                    font-weight: 500;
+                    color: $gray-600;
+                }
+            }
+            .btn.btn-show-all {
+                padding: 0;
+                margin-left: 20px !important;
+                height: fit-content;
+                width: fit-content;
+                align-self: center;    
+            }
+            
+            .icon-search {
+                position: absolute;
+                z-index: 4;
+                top: 15px;
+                font-size: 14px;
+                left: 14px;
+                display: flex;
+                align-items: center;
+            }
+
+            .icon-search::before {
+                color: $gray-600;
+            }
+
+        }
+
+        .btn-employee-search {
+            margin-left: 10px;     
+            width: 106px;
+            height: 42px;
+        }
+
+    }
+
+    hr {
+        padding: 0;
+        margin: 0;
+    }
+
+    .content-list {
+        padding: 0 !important;
+        margin-top: 20px;
+
+        .employee-actions-dropdown{
+            margin-left: 11px;
+            margin-right: -11px;
+        }
+
+
+        .employees-list {
+            list-style: none;
+            padding-left: 0;
+
+            .list-item {
+                margin-bottom: 10px;
+                height: 72px;
+                padding: 15px 30px;
+                background-color: $gray-200;
+
+                // &:hover {
+                //     background-color: #ebedef;
+
+                //     .btn {
+                //         border-color: #ebedef;
+                //         background-color: #ebedef;
+                //     }
+                //     cursor: pointer;
+                // }
+
+                .employee-select {
+                    margin-left: 0;
+                    padding-left: 0;
+                    margin-right: 16px; 
+                }
+
+                .employee-name-title-group {
+                    display: inline-block;
+
+                    .employee-name {
+                        font-size: 16px;
+                        font-weight: 500;
+                        text-align: left;
+                        line-height: 1.4;
+                        color: $gray-800;
+                        margin-bottom: 0;
+
+                        text-transform: capitalize;
+                    }
+
+                    .employee-title {
+                        font-size: 14px;
+                        font-weight: 400;
+                        letter-spacing: normal;
+                        text-align: left;
+                        color: $gray-700;
+
+                        text-transform: capitalize;
+                    }
+                }
+
+                .employee-item-group {
+                    display: inline-block;
+
+                    .employee-item-title {
+                        text-transform: uppercase;
+                        font-size: 11px;
+                        font-weight: 400;
+                        font-style: normal;
+                        font-stretch: normal;
+                        line-height: normal;
+                        letter-spacing: 0.3px;
+                        text-align: left;
+                        color: $gray-700;
+                        margin-bottom: 0;
+                    }
+
+                    .employee-item-value {
+                        font-size: 14px;
+                        font-weight: 400;
+                        font-style: normal;
+                        font-stretch: normal;
+                        line-height: 1.29;
+                        letter-spacing: normal;
+                        text-align: left;
+                        color: $gray-800;
+
+                        text-transform: capitalize;
+                    }
+                }
+
+                .btn-light {
+                    background-color: $gray-200;
+                    border-color: $gray-200; 
+                }
+            }
+        }
+    }
+}
+
+.dx-scrollview-content {
+    background-color: $white;
+}
+
+.input-group-search .dropdown-menu {
+    width: 350px !important;
+}
+
+.col-fixed-size {
+    max-width: 95px;
+}
+
+.dropdown.employee-actions-dropdown {
+    .dropdown-menu.show {
+        width: inherit !important;
+    }
+}
+

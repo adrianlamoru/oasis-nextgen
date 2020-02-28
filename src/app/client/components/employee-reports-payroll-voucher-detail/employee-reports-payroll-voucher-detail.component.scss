@@ -1,0 +1,31 @@
+@import "~sass/variables";
+
+.employee-reports-voucher-detail {
+
+    /deep/ .dx-datagrid-rowsview .dx-row.dx-group-row {
+        display: none;
+    }
+
+    /deep/ .dx-datagrid .dx-row > td:last-child {
+        padding-right: 0;
+    }
+
+    /deep/ .dx-datagrid-summary-item {
+        color: black;
+    }
+
+    .report-title {
+        margin-bottom: 5px !important;
+        margin-top: 15px !important;
+    }
+
+    .select-year-batch-row {
+        margin-top: 10px;
+    }
+
+    // .report-title-margin {
+    //     margin-top: 11px !important;
+    //     margin-bottom: 10px !important;
+    // }
+
+}

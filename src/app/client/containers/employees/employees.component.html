@@ -1,0 +1,68 @@
+<div class="client-container-content">
+    <div class="row align-items-center container-header">
+        <div class="col-3 container-title"><span>Employees</span></div>
+        <div class="col-9">
+            <div class="float-right">
+                <!-- <button type="button" class="btn btn-primary btn-cta" (click)="openReportServices()">Reports</button> -->
+                <button type="button" class="btn btn-primary btn-cta cta-last-btn" (click)="openOnboarding()">Onboarding</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row align-items-center container-nav-pills-margin-bottom">
+        <div class="col-12">
+            <ul class="nav nav-pills" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="employeeSearch" routerLinkActive="active">Employee Search</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="analytics" routerLinkActive="active">Analytics</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <router-outlet></router-outlet>
+
+</div>
+
+<ng-template #onboardingModal let-c="close" let-d="dismiss">
+    <div class="custom-modal-window">
+        <div class="modal-header">
+            <h4 class="modal-title modal-title-capitalize align-self-center float-left">Active Onboarding</h4>
+            <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click')">
+            <span class="icon icon-close"></span>
+            </button>
+        </div>
+        <div class="modal-body benefits-modal-body"> 
+            <div class="benefits-item benefits-item-parent-padding">
+                <div class="row my-0">
+                    <div class="col-12 align-self-center custom-button-margin-bottom">
+                        <div class="float-right">
+                            <button type="button" class="btn btn-outline-primary" (click)="openSpecifiedSection(activeOnboardingData.usVerifyURL)">Manager Onboarding</button>
+                        </div>
+                    </div>
+                </div> 
+                <div class="features-items features-with-borders">
+                    <ul class="features-items">
+                        <li class="media xxl-padding" *ngFor="let item of activeOnboardingData.activeOnboardingList"> 
+                            <span class="custom-features-bullet-icon-2 icon-profile" > </span>    
+                            <div class="media-body media-body-review">
+                                <span>{{item.employeeName}}</span><br/>
+                                <!-- <span class="media-body-date">{{item.title}}&nbsp;<span class="divider">.</span>&nbsp;&nbsp;&nbsp;{{item.dept}}</span> -->
+                            </div>
+                            <!-- <div class="custom-progress-bar align-self-center">
+                                <div *ngFor="let dummy of ' '.repeat(item.totalSteps).split(''), let x = index" class="step2 steps {{x < item.stepsCompleted ?'completed-step' : ''}}"></div>
+                            </div>
+                            <div class="steps-count">{{item.stepsCompleted}}/{{item.totalSteps}}</div> -->
+                            <div class="steps-count">{{item.statusDesc}}</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer modal-footer-benefits">
+            <button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Close</button>
+        </div>
+    </div>
+</ng-template>

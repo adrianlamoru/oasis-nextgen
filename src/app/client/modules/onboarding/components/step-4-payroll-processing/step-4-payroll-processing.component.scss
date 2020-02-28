@@ -1,0 +1,153 @@
+@import '~sass/variables';
+
+.payroll-processing-component{
+    margin-left: 48px;
+    margin-top: 54px;
+    max-width: 1240px;
+
+    .label-align{
+        align-self: center;
+    }
+
+    .label-margin{
+      margin-bottom: 10px;
+      margin-top: 6px;
+    }
+
+    .checkbox-margin{
+      margin-bottom: 26px;
+    }
+
+    .checkbox-margin2{
+      margin-bottom: 9px;
+    }
+
+    .checkbox-row{
+        margin: 5px 0 8px 0;
+        align-self: center;
+  
+        .checkbox-section{
+          align-self: center;
+        }
+      }
+  
+      .checkbox-row2{
+        margin: 7px 0 -7px 0;
+        align-self: center;
+  
+        .checkbox-section{
+          align-self: center;
+
+            .ee-last-name-checkbox{
+                margin-right: 15px;
+                margin-bottom: 26px;
+            }
+
+            .location-checkbox{
+                margin-right: 0;
+                margin-bottom: 26px;
+            }
+
+            .department-checkbox{
+                margin-right: 18px;
+            }
+
+            .division-checkbox{
+                margin-right: 2px;           
+            }
+        }
+      }
+
+      .checkbox-row3{
+        margin: 0 0 9px 0;
+        align-self: center;
+  
+        .checkbox-section{
+          align-self: center;
+        }
+      }
+
+      .checkbox-row4{
+        margin: 7px 0 9px 0;
+        align-self: center;
+  
+        .checkbox-section{
+          align-self: center;
+        }
+      }
+
+      .checkbox-row5{
+        margin: 7px 0 -7px 0;
+        align-self: center;
+  
+        .checkbox-section{
+          align-self: center;
+        }
+      }
+
+      .custom-margin{
+          margin-right: 14px !important;
+      }
+
+    .radio-button-row{
+        align-self: center;
+    }
+
+    .form-checkbox-width {
+        width: fit-content;
+        float: right;
+    }
+    
+    .info-box{
+        border-radius: 5px;
+        background-color: $gray-200;
+        padding: 27px 29px;
+        margin-bottom: 0px;
+      }
+
+    .upload-label{
+        margin-right: 47px;
+    }
+    
+    .horizontal-separator{
+        height: 1px;
+        background-color: $gray-300;
+        margin: 20px 0;
+      }
+
+      .horizontal-separator-title{
+        height: 1px;
+        background-color: $gray-300;
+        margin: 21px 0 24px 0;
+      }
+
+      .tips-label{
+          font-weight: bold !important;
+          margin-bottom: 10px;
+          font-size: 16px;
+          margin-top: 7px;
+      }
+
+      .section-title {
+        margin: 36px 0 11px 0;
+        font-size: 20px;
+      }
+
+      .taxes-disclamer{
+      
+        border-radius: 5px;
+        background-color: #f0f2f5;
+        padding: 25px 30px;
+        margin-bottom: 0px;
+        line-height: normal !important;
+  
+        .taxes-paragraph-bold {
+          font-weight: bold;
+        }
+      }
+
+      .upload-disclaimer {
+        line-height: 36px !important;
+      }
+
+}

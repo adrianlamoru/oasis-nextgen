@@ -1,0 +1,47 @@
+@import '~sass/variables';
+
+.employee-reports-pto{
+    .section{
+        .custom-margins-print{
+            margin-top: 23px;
+            margin-bottom: 16px;
+        }
+
+        .report-title{
+            margin-bottom: 17px !important;
+            margin-top: 15px !important;
+        }
+        
+        .date-range-row {
+          padding-top: 3px !important;
+          margin-bottom: 0px !important;
+        }
+
+        .grid-range-row {
+            padding-top: 10px !important;
+        }
+
+        .custom-dropdown {
+            width:100px !important;
+            margin-right: 26px;
+        }
+    }
+    .custom-table-title {
+        font-weight: bold;
+        text-transform: capitalize !important;
+      }
+
+}
+
+:host::ng-deep {
+    .dx-datagrid-rowsview {
+      border: none;    
+      .dx-row {
+        background-color: $gray-100;
+        &:hover {
+          background-color: $gray-100;
+          cursor: pointer;
+        }
+      }
+    }
+  }

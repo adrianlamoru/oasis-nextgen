@@ -1,0 +1,16 @@
+<div class="row" *ngIf="!isLoading" id="contentToRender">
+	<div class="col-12">
+    <dx-data-grid [dataSource]="compensationDeductionDetail" class="pair-row-color-gray-100 grid-head-font-weight-500 dx-data-grid-tab-title"
+      [columnAutoWidth]="true" [wordWrapEnabled]="true" keyExpr="id">
+      <dxo-paging [enabled]="false"></dxo-paging>
+      <dxi-column dataField="id" caption="ID" alignment="left" [allowSorting]="false"></dxi-column>
+      <dxi-column dataField="dentalSection" caption="Dental Section" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+      <dxi-column dataField="dentalSection" caption="Total" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+      </dxi-column>
+
+    </dx-data-grid>
+  </div>
+</div>

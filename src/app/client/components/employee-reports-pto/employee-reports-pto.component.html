@@ -1,0 +1,80 @@
+<div class="employee-reports-container employee-reports-pto p-0">
+  <div class="section">
+    <div class="row">
+      <div class="col-6 report-title align-self-center">
+        <span>Paid Time Off Summary</span>
+        <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-6 report-title align-self-center">                   
+        <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+      </div>
+    </div>
+
+    <div class="custom-grid pt-1 mb-0 pl-0">
+      <hr class="m-0 mb-1 p-0"/>
+        <div class="row date-range-row">
+          <div class="col-12 align-self-center p-0">
+            <div class="float-right custom-margins-print">
+              <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                      (click)="requestedFunction('print')">
+                  <span class="icon icon-pint"></span>
+                  <span>PRINT</span>
+              </button>
+              <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+                <button class="btn btn-light" id="downloadDD" ngbDropdownToggle>
+                  <span>Download
+                      <i class="icon icon-shape"></i>
+                  </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="Download">
+                  <button type="button" class="dropdown-item" *ngFor="let item of dropdownOptions[0].items" (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}</button>
+                </div>
+              </div>
+              <button type="button" class="btn btn-outline-primary xs-margin-top-8"
+                  (click)="openEmployeeActionModal('xl', employeeDetailsPTODetailData)">
+              <span>VIEW DETAILS</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-grid">
+
+      <div *ngFor="let ptoTableDataRowItem of ptoTableDataRows; let i=index">
+        <div class="row">
+          <div class="col-12 pb-3">
+            <div class=" custom-grid-header py-0">
+              <div class="row">
+                <div class="col-6">
+                  <h4 class="pl-0 table-title custom-table-title">{{ ptoTableDataRowItem.ptoDescription }}</h4>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <dx-data-grid 
+                    [dataSource]="grouped.get(ptoTableDataRowItem.ptoType)"
+                    class="pair-row-color-gray-100"
+                    [columnAutoWidth]="true" 
+                    [wordWrapEnabled]="true">
+                  <dxo-paging [enabled]="false"></dxo-paging>
+                  <dxi-column dataField="carryOver" [allowSorting]="false"></dxi-column>
+                  <dxi-column dataField="hoursAccrued" [allowSorting]="false"></dxi-column>
+                  <dxi-column dataField="hoursTaken" [allowSorting]="false"></dxi-column>
+                  <dxi-column dataField="hoursAvailable" [allowSorting]="false"></dxi-column>
+                  <dxi-column dataField="accruedThruDate" caption="Accured Through Date" [allowSorting]="false"></dxi-column>
+                  <dxi-column dataField="yearEndDate" caption="Year End" [allowSorting]="false"></dxi-column>
+                </dx-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+  </div>
+
+<ng-template #employeeDetailsPTODetailData let-c="close" let-d="dismiss">
+    <app-employee-details-pto-summary [selectedEmployeeId]="employeeId" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-details-pto-summary>
+</ng-template>

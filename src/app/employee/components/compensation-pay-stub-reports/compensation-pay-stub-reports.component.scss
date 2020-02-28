@@ -1,0 +1,46 @@
+@import '~sass/variables';
+.container-section {
+    padding-top: 15px;
+    padding-left: 0%;
+    padding-right: 0%;
+    .content-title {
+        font-weight: 500;
+        margin-bottom: 0;
+    }
+}
+
+.reports-container {
+    padding-top: 19px;
+    .custom-grid {
+        font-weight: bold;
+    }
+    .custom-table-title {
+        font-weight: bold;
+        text-transform: capitalize !important;
+    }
+}
+
+.compensation-pay-stub-reports-component {
+    margin: 0 0 60px;
+    padding: 13px 15px 25px;
+    border-radius: 10px;
+    background-color: $white;
+    box-shadow: 0 6px 16px 0 rgba(32, 44, 86, 0.04);
+    min-height: 100px;
+}
+
+.pading-l-20 {
+    padding-left: 20px;
+}
+
+.dx-menu-item-content {
+    padding: 6px 20px !important;
+}
+
+.pdng-top-20 {
+    padding-top: 20px;
+}
+
+.margin-top-15 {
+    margin-top: 15px !important;
+}

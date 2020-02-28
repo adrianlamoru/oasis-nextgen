@@ -1,0 +1,180 @@
+<nav #navbar class="navbar navbar-expand-sm navbar-light bg-light zindex1">
+  <div #leftnavbar class="navbar-btn-container d-flex flex-row align-items-xl-center" *ngIf="navbarCollapsed">
+    <button class="btn btn-link navbar-toggler btn-toggle-main-menu" type="button" (click)="navbarCollapsed = !navbarCollapsed"
+      [attr.aria-expanded]="!navbarCollapsed" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="icon icon-profile"></div>
+    </button>
+    <a *ngIf="header?.showResponsiveLogo == null? true: header?.showResponsiveLogo;" class="navbar-brand brand-oasis d-block d-sm-none"
+      href="#">
+      <img src="/assets/images/brand/oasis-logo-blue.png" alt="Oasis Logo">
+    </a>
+    <a #navbarLogo class="navbar-brand brand-oasis d-none d-sm-inline-block" href="#">
+      <img src="/assets/images/brand/oasis-logo-new.png" alt="Oasis Logo">
+    </a>
+    <a #navbarCompanyLogo *ngIf="header?.clientCompanyLogo" class="navbar-brand brand-company d-none d-sm-inline-block" href="#">
+      <img class="align-self-center" [src]="header?.clientCompanyLogo" alt="Levatas Logo">
+    </a>
+    <div #navbarCompanies class="navbar-companies d-sm-inline-block">
+      <div *ngIf="header?.companies?.length > 0" class="d-sm-inline-block" ngbDropdown placement="bottom-right" class="d-inline-block zero-outline">
+        <button class="btn btn-link btn-link-icon btn-profile" id="companiesMenu" ngbDropdownToggle>
+          <span class="manage-companies d-none">Select Companies</span>
+          <span class="selected-company">{{ selectedCompany?.text }}
+            <i class="icon icon-shape icon-rotate" tabindex="0"></i>
+          </span>
+        </button>
+        <div class="scrollable-dropdown" ngbDropdownMenu aria-labelledby="companiesMenu">
+          <button *ngFor="let company of header?.companies" (click)="getCompanyData(company)" class="dropdown-item">{{company.text}}</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-link navbar-toggler btn-toggle-main-menu" type="button" (click)="navbarCollapsed = !navbarCollapsed"
+      [attr.aria-expanded]="!navbarCollapsed" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+  <div class="navbar-collapsed-mode d-flex flex-row justify-content-between " *ngIf="!navbarCollapsed">
+    <button class="btn btn-link navbar-toggler btn-toggle-main-menu" type="button" (click)="navbarCollapsed = !navbarCollapsed"
+      [attr.aria-expanded]="!navbarCollapsed" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="btn btn-link" href="javascript: void(0)" (click)="open(searchModal)">
+      <i class="icon icon-search"></i>
+    </a>
+  </div>
+  <div class="collapse navbar-collapse justify-content-stretch text-center" [ngbCollapse]="navbarCollapsed" id="navbarContent">
+    <ul [ngClass]="{ 'd-none d-sm-flex' : !header?.showResponsiveHorizontalMenu }"
+      class="navbar-nav navbar-links menu-items ml-auto">
+      <ng-container *ngFor="let option of navMenuOptions; let i = index">
+        <li class="nav-item {{ option.enableOnFirstTimeLoging || boarded ? '': 'disabled'}}" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="option.enableOnFirstTimeLoging || boarded ? [option?.link] : ['#']">{{option.text}}
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>        
+        <span *ngIf="headerType == 0 && i === 1" class="nav-item vertical-separator"></span>
+      </ng-container>
+      <div ngbDropdown *ngIf="moreMenuOptions.length > 0" class="nav-item more-link d-inline-block custom-dropdown-component" (openChange)="moreMenuOptionOpenChange($event)">
+        <button class="nav-link btn-form-control dropdown-toggle" id="navbarMainMenuDropdown1" ngbDropdownToggle>
+          <span>More
+            <i class="icon icon-shape"></i>
+          </span>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="navbarMainMenuDropdown1">
+          <button type="button" class="dropdown-item {{ option.enableOnFirstTimeLoging || boarded ? '': 'disabled'}}" 
+              [routerLink]="option.enableOnFirstTimeLoging || boarded ? [option?.link] : ['#']" *ngFor="let option of moreMenuOptions">{{option.text}}</button>
+        </div>
+      </div>
+    </ul>
+    <hr class="d-block d-sm-none">
+    <ul #rightWidget class="navbar-nav navbar-icons ml-auto navbar-rigth" (onresize)="onResize()">
+      <li class="nav-item d-none d-sm-block">
+        <div>
+            <a class="nav-link link-icon waves-effect waves-light {{ boarded ? '': 'disabled'}}" href="javascript: void(0)" [ngbPopover]="searchModal" #popover="ngbPopover" placement="bottom-right" (click)="closeAlertPopover()">
+                <i class="icon icon-search" [ngClass]="{'icon-onhover': popover.isOpen() === true}"></i>
+              </a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link link-icon waves-effect waves-light {{ boarded ? '': 'disabled'}}" href="#">
+          <i class="icon icon-mail"></i>
+          <span class="d-inline-block d-sm-none nav-link-text">Messaging Center</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link link-icon waves-effect waves-light {{ boarded ? '': 'disabled'}}" href="javascript: void(0)" [ngbPopover]="alertsModal" #popoverAlert="ngbPopover" placement="bottom-right" (click)="closeSearchPopover();resetNewAlertsFlag()">
+          <i class="icon icon-alert" [ngClass]="{'icon-onhover': popoverAlert.isOpen() === true}">
+            <span class="icon icon-dot icon-custom-dot {{ hasNewAlerts ? '': 'd-none'}}"></span>
+          </i>
+          <span class="d-inline-block d-sm-none nav-link-text">Notifications</span>
+        </a>
+      </li>
+      <li class="nav-item d-block d-sm-none">
+        <a class="nav-link link-icon waves-effect waves-light" href="#">
+          <i class="icon icon-person"></i>
+          <span class="d-inline-block d-sm-none nav-link-text">My Profile</span>
+        </a>
+      </li>
+      <li class="nav-item d-block d-sm-none">
+        <a class="nav-link link-icon waves-effect waves-light" href="javascript:void(0)" (click)="authService.logout()">
+          <i class="icon icon-logout"></i>
+          <span class="d-inline-block d-sm-none nav-link-text">Log Out</span>
+        </a>
+      </li>
+      <li class="nav-item d-none d-sm-block">
+        <div ngbDropdown placement="bottom-right" class="d-inline-block">
+          <button class="btn btn-link btn-link-icon btn-profile" id="dropdownMenu" ngbDropdownToggle  (click)="closeAlertPopover();closeSearchPopover()">
+            <i class="icon icon-profile"></i>
+            <span class="d-inline-block d-sm-none nav-link-text">My Profile</span>
+            <i class="icon icon-shape icon-rotate"></i>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownMenu">
+            <button *ngFor="let option of header?.profileOptions" class="dropdown-item" (click)="navigateTo(option.link)">{{option.text}}</button>
+            <button class="dropdown-item" (click)="openModal('sm', changeUsernameModal, 'xs-modal')">Change Username</button>
+            <button class="dropdown-item" (click)="openModal('sm', changePasswordModal, 'xs-modal')">Change Password</button>
+            <button class="dropdown-item" (click)="authService.logout()">Logout</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <hr class="d-block d-sm-none">
+  </div>
+</nav>
+
+<nav [ngClass]="!header?.showResponsiveHorizontalMenu? 'd-none' : ''" class="navbar navbar-expand navbar-light bg-light d-sm-none scrollmenu">
+  <ul class="navbar-nav navbar-links">
+    <ng-container *ngFor="let option of header?.menuOptions">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="[option?.link]">{{option.text}}
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+    </ng-container>
+  </ul>
+</nav>
+
+<ng-template #searchModal let-c="close" let-d="dismiss">
+    <div class="modal-header search-modal-header">
+        <input type="text" class="modal-title search-bar-input align-self-center" [(ngModel)]="searchText" placeholder="Search" onfocus="this.placeholder = ''"
+          onblur="this.placeholder = 'Search'" (ngModelChange)="performSearch()" />
+        <button type="button" class="close d-none d-sm-block align-self-center" (click)="closeSearchPopover()" aria-label="Close">
+          <span class="icon icon-close search-bar-close"></span>
+        </button>
+      </div>
+
+      <div class="modal-body search-modal-body" *ngIf="searchResults.length > 0">
+        <div class="row search-results" *ngFor="let searchGroup of searchResults">
+
+          <div class="col-12 search-item-header">
+            <h6>{{searchGroup.key}}</h6>
+          </div>
+          <div class="col-12 search-item-no-upcase" *ngFor="let searchItem of searchGroup.value">
+            <a (click)="openActionUrl(searchItem.actionUrl, searchItem.externalLink)">{{searchItem.description}}</a>
+          </div>
+        </div>
+        <button type="button" class="btn btn-link btn-see-all" (click)="onToggleSeeAll()">
+          <span class="btn-link-text-blue">{{seeAll ? 'View Less' : 'View More'}}</span>
+          <span class="icon icon-arrow"></span>
+        </button>
+      </div>
+</ng-template>
+
+<ng-template #alertsModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <div class="modal-title search-bar-input align-self-center">Notifications</div>
+        <button type="button" class="close d-none d-sm-block align-self-center" (click)="closeAlertPopover()" aria-label="Close">
+          <span class="icon icon-close alert-modal-close"></span>
+        </button>
+      </div>
+
+      <div class="modal-body alert-modal-body">
+        <app-dashboard-alerts [alerts]="alerts" [showAll]="true"></app-dashboard-alerts>
+      </div>
+</ng-template>
+
+<ng-template #changeUsernameModal let-c="close" let-d="dismiss">
+  <app-change-username-modal [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-change-username-modal>
+</ng-template>
+
+<ng-template #changePasswordModal let-c="close" let-d="dismiss">
+  <app-change-password-modal [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-change-password-modal>
+</ng-template>

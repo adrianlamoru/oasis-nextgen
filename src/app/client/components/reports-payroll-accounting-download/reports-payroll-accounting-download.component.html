@@ -1,0 +1,103 @@
+<div class="reports-container reports-accounting-download">
+  <div class="section">
+    <div class="row breadcrumb-container-reports">
+      <div class="col-12">
+        <div class="breadcrumb-component">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item back-link">
+              <a (click)="goToBack()">Reports</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              <span class="breadcrumb-item-active">Accounting Download</span>
+            </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-7 report-title align-self-center">
+        <span>Accounting Download</span>
+        <span class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-5 align-self-center">                   
+        <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+      </div>
+    </div>
+    <div class="row select-year-batch-row">
+      <div class="custom-left-margin-col col-4">
+        <label>Select Year</label>  
+        <div ngbDropdown class="d-inline-block custom-dropdown-component" #ddYear="ngbDropdown">
+          <button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddYearBtn ngbDropdownToggle>
+            <span *ngIf= byYearValue>
+              - Select -
+              <i class="icon icon-shape float-right"></i>
+            </span>
+            <span *ngIf=!byYearValue>
+              {{ selectedYear }}
+              <i class="icon icon-shape float-right"></i>
+            </span>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="Year">
+            <button type="button" class="dropdown-item" *ngFor="let year of simpleYears" (click)="onSelectionYearChanged(year); ddYear.close()">{{year}}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <label>Batch</label>
+        <div ngbDropdown class="d-inline-block custom-dropdown-component" #ddBatch="ngbDropdown">
+          <button 
+            type="button" 
+            class="btn btn-form-control form-control-dropdown text-left" 
+            #ddBatchBtn 
+            ngbDropdownToggle
+            [disabled]="byYearValue">
+            
+            <!-- Year is not selected -->
+            <span *ngIf=byBatchValue>
+              - Select -
+              <i class="icon icon-shape float-right"></i>
+            </span>
+            
+            <!-- Year and Batch are selected -->
+            <span *ngIf='(!byBatchValue && selectedYear)'>
+                {{selectedBatchNumber.Text}}
+              <i class="icon icon-shape float-right"></i>
+            </span>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="ddBatch">
+            <button 
+              type="button" 
+              class="dropdown-item" 
+              *ngFor="let b of batchNumber" 
+              [disabled]="byYearValue"
+              (click)="selectBatch(b); ddBatch.close()">{{b.Text}}
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 align-self-end">
+        <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+          <button
+              class="btn btn-light"
+              id="downloadDD"
+              [disabled]="disableViewReportButton"
+              ngbDropdownToggle>
+              <span>Download
+                  <i class="icon icon-shape"></i>
+              </span>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="Download">
+            <button type="button" class="dropdown-item" *ngFor="let item of dropdownOptions[0].items" (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}</button>
+          </div>
+        </div>
+      </div>
+   </div>
+
+   <div class="hr-padding">
+    <hr class="m-0 mt-4 p-0"/>
+   </div>
+
+  </div>
+</div>

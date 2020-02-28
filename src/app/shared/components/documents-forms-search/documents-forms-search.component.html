@@ -1,0 +1,60 @@
+<div class="left-panel-container docu-form-search">
+  <div class="docu-forms-search-header">
+    <h5>DOCUMENTS AND FORMS</h5>
+  </div>
+  <div class="docu-forms-search-body">
+    <div class="input-group input-group-lg input-group-search">
+      <input type="text" class="form-control form-control-search" [(ngModel)]="criteria" placeholder="Search" style="width: 100%;display:table-cell;" />
+      <i class="icon icon-search" aria-hidden="true"></i>
+    </div>
+    <ul class="list-actions">
+      <li class="list-action-item" *ngFor="let doc of docList | containsfilter: 'title' : criteria | slice:0:4">
+        <i class="icon icon-single-content align-middle" aria-hidden="true"></i>
+        <a class="value-item-group align-middle" href="{{doc.url}}" download="{{doc.url}}">
+          <span class="item-value">
+            {{doc.title}}
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="docu-forms-search-footer">
+    <a href="javascript:void(0)" (click)="openModal(allDocumentsModal, 'xl')">SEE ALL DOCUMENTS AND FORMS <i class="icon icon-arrow"></i></a>
+  </div>
+</div>
+
+<ng-template #allDocumentsModal let-c="close" let-d="dismiss">
+  <div class="all-documents-modal">
+    <div class="modal-header">
+      <h4 class="modal-title align-self-center">All Documents and Forms</h4>
+      <button type="button" class="close align-self-center" aria-label="Close" (click)="d('Cross click')">
+        <span class="icon icon-close"></span>
+      </button>
+    </div>
+    <div class="modal-body all-documents-modal-body" id="all-documents-scrollbar">
+      <div class="form-group row">
+        <div class="col-sm-4">
+          <input type="text"
+                 class="form-control documents-filter"
+                 placeholder="Filter"
+                 [(ngModel)]="searchQuery"
+                 id="filterDownloads">
+        </div>
+      </div>
+      <div class="row list-risk-actions">
+        <div *ngFor="let doc of docList | containsfilter: 'title' : searchQuery" class="list-risk-action-item col-sm-4" (click)="download(doc)">
+          <i class="icon icon-single-content align-middle color-blue" aria-hidden="true"></i>
+          <a class="item-value align-middle">
+            {{doc.title}}
+          </a>
+          <div class="float-right align-middle mr-right-10">
+            <div class="not-float align-middle">
+              <i class="icon icon-square-upload align-middle" aria-hidden="true"></i>
+            </div>
+          </div>
+          <hr class="keep-last" />
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

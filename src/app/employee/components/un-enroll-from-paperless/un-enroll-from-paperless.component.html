@@ -1,0 +1,25 @@
+<div class="custom-modal-window un-enroll-from-paperless">
+    <div class="modal-header">
+        <h4 class="modal-title align-self-center float-left">Un-Enroll from Paperless</h4>
+        <button type="button" class="close align-self-center float-right" 
+            (click)="closeModalFunction && closeModalFunction($event)" aria-label="Close">
+            <span class="icon icon-close"></span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="un-enroll-from-paperless-check-box">
+                    <h4>Un-enroll in paperless pay stubs</h4>
+                    <dx-check-box [(ngModel)]="unEnrollFromPaperlessConfirmation" text="I agree"></dx-check-box>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary"
+            (click)="closeModalFunction && closeModalFunction($event)">Cancel</button>
+        <button [disabled]="!unEnrollFromPaperlessConfirmation" type="button" class="btn btn-primary"
+            (click)="onSubmitModal($event)">Confirm</button>
+    </div>
+</div>

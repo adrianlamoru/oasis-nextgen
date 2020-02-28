@@ -1,0 +1,86 @@
+<div class="custom-modal-window custom-support-modal">
+    <div class="modal-header modal-header-without-border">
+      <h4 class="modal-title align-self-center float-left">Case Number: {{selectedCaseData.caseNumber}}</h4>
+      <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+          <span class="icon icon-close"></span>
+      </button>
+    </div>
+    <div class="modal-header modal-header-with-tabbing">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a href="javascript: void(0)" class="nav-link {{ tabSelected === 'tab_summary' ? 'active' : ''}}" data-toggle="tab" (click)="updateTabSelection('tab_summary')">Summary</a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript: void(0)" class="nav-link {{ tabSelected === 'tab_details' ? 'active' : ''}}" data-toggle="tab" (click)="updateTabSelection('tab_details')">Details</a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript: void(0)" class="nav-link {{ tabSelected === 'tab_discussion' ? 'active' : ''}}" data-toggle="tab" (click)="updateTabSelection('tab_discussion')">Discussion</a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript: void(0)" class="nav-link {{ tabSelected === 'tab_resolution' ? 'active' : ''}}" data-toggle="tab" (click)="updateTabSelection('tab_resolution')">Resolution</a>
+            </li>
+        </ul> 
+    </div>
+
+    <!-- Summary Tab -->
+    <div class="modal-body create-ticket-modal-body custom-modal-body-padding" *ngIf="tabSelected === 'tab_summary'">
+      <div class="row">
+        <div class="form-group col-12">
+          <label for="subjectArea" class="label-subject">Subject</label>
+          <p class="case-text">{{selectedCaseData.subject}}</p>
+          <hr>
+        </div>
+        <div class="form-group col-12 d-inline-block">
+            <label>Category</label>
+            <input type="text" class="form-control case-text" [value]="selectedCaseData.category" disabled/>
+        </div>
+        <div class="form-group col-12 d-inline-block">
+            <label>Type</label>
+            <input type="text" class="form-control case-text" [value]="selectedCaseData.type" disabled/>
+        </div>
+        <div class="form-group col-12 d-inline-block">
+            <label>Status</label>
+            <input type="text" class="form-control case-text" placeholder="Status" [value]="selectedCaseData.status" disabled/>
+        </div>
+        <div class="form-group col-12 d-inline-block">
+            <label>Priority</label>
+            <input type="text" class="form-control case-text" [value]="selectedCaseData.priority" disabled/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detail Tab -->
+    <div class="modal-body create-ticket-modal-body custom-modal-body-padding" *ngIf="tabSelected === 'tab_details'">
+      <div class="row">
+        <div class="form-group col-12">
+          <label for="detailsTextArea">Details</label>
+          <textarea class="form-control case-text" id="detailsTextArea" rows="3" [value]="selectedCaseData.detail" disabled></textarea>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Discussion Tab -->
+    <div class="modal-body create-ticket-modal-body custom-modal-body-padding" *ngIf="tabSelected === 'tab_discussion'">
+      <div class="row">
+        <div class="form-group col-12">
+          <label for="detailsTextArea">Discussion</label>
+          <textarea class="form-control case-text" id="discussionTextArea" rows="3" [value]="selectedCaseData.discussion" disabled></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resolution Tab -->
+    <div class="modal-body create-ticket-modal-body custom-modal-body-padding" *ngIf="tabSelected === 'tab_resolution'">
+      <div class="row">
+        <div class="form-group col-12">
+          <label for="detailsTextArea">Resolution</label>
+          <textarea class="form-control case-text" id="discussionTextArea" rows="3" [value]="selectedCaseData.resolution" disabled></textarea>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="modalDismissFunc('Close click')">Close</button>
+    </div>
+  </div>

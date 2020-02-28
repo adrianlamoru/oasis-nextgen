@@ -1,0 +1,81 @@
+<div class="messages-component" *ngIf="showError">
+    <div class="alert alert-warning alert-dismissible">
+      <span class="icon icon-warning"></span>
+      <span class="message">
+        {{errorMsg}}
+      </span>
+    </div>
+</div>
+<div class="employee-paid-time-off" *ngIf="!showError">
+  <!--PTO Details-->
+  <div class="section">
+    <div class="row">
+      <div class="col-md-12 col-xl-2">
+        <h3 class="section-title">Paid Time Off</h3>
+      </div>
+      <div class="col-md-12 col-xl-10 section-title-buttons">
+        <div class="float-right max-lg-margin-bottom-10">
+          <button type="button" class="btn btn-link btn-link-icon mt-2 mb-2 p-0 mr-2"
+                  (click)="requestedFunction('print')">
+              <span class="icon icon-pint"></span>
+              <span>PRINT</span>
+          </button>
+          <button type="button" class="btn btn-link btn-link-icon mt-2 mb-2 p-0 mr-2"
+                  (click)="requestedFunction('download')">
+              <span class="icon icon-square-upload"></span>
+              <span>DOWNLOAD</span>
+          </button>
+          <button type="button" class="btn btn-link btn-link-icon mt-2 mb-2 p-0 mr-2"
+                  (click)="requestedFunction('download')">
+              <span class="icon icon-square-upload"></span>
+              <span>DOWNLOAD SUMMARY AND DETAIL</span>
+          </button>
+          <button type="button" class="btn btn-outline-primary xs-margin-top-8"
+                  (click)="openEmployeeActionModal('xl', employeeDetailsPTODetailData)">
+              <span>VIEW DETAILS</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- EXPANDABLE TABLE 1 -->
+  <div class="custom-grid">
+
+    <div *ngFor="let ptoTableDataRowItem of ptoTableDataRows; let i=index">
+      <div class="row">
+        <div class="col-12 pb-3">
+          <div class=" custom-grid-header py-0">
+            <div class="row">
+              <div class="col-6">
+                <h4 class="pl-0 table-title custom-table-title">{{ ptoTableDataRowItem.ptoDescription }}</h4>
+              </div>
+              <div class="col-6 text-right">
+                  
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <dx-data-grid [dataSource]="grouped.get(ptoTableDataRowItem.ptoType)" [columnAutoWidth]="true">
+                <dxo-paging [enabled]="false"></dxo-paging>
+                <!-- <dxo-export [enabled]="true" fileName="PTO" [allowExportSelectedData]="false"></dxo-export> -->
+                <dxi-column dataField="carryOver" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="hoursAccrued" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="hoursTaken" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="hoursAvailable" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="accruedThroughDate" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="yearEndDate" caption="Year End" [allowSorting]="false"></dxi-column>
+              </dx-data-grid>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+
+  </div>
+  <!-- END EXPANDABLE TABLE -->
+</div>
+
+<ng-template #employeeDetailsPTODetailData let-c="close" let-d="dismiss">
+    <app-employee-details-pto-summary [selectedEmployeeId]="employeeId" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-details-pto-summary>
+</ng-template>

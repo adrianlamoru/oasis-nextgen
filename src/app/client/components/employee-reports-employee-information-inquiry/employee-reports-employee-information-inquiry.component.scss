@@ -1,0 +1,49 @@
+@import "~sass/variables";
+
+.employee-reports-information-inquiry {
+
+    .section-title {
+        font-weight: 700;
+        margin-bottom: -4px !important;
+        margin-top: 28px !important;
+    }
+
+    .section-title2 {
+        font-weight: 700;
+        margin-bottom: -25px !important;
+        margin-top: 22px !important;
+    }
+
+    .report-title {
+        margin-bottom: 5px !important;
+        margin-top: 15px !important;
+    }
+
+    .employee-information-first-row {
+        margin: 24px 0 15px 0;
+    }
+
+    .employee-information-row {
+        margin: 21px 0 15px 0;
+    }
+
+    .employee-information-row2 {
+        margin: 21px 0 0 0;
+    }
+
+    .employee-information-field-padding {
+        padding: 0 3px 0 3px;
+    }
+
+    .employee-information-field-padding2 {
+        padding: 0 3px 0 15px;
+    }
+
+    .truncate-text {
+        overflow-y: hidden;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+}

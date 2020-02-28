@@ -1,0 +1,16 @@
+
+@import '~sass/variables';
+
+.payroll-analytics-single-batch-invoice-summary {
+    .pay-stub-link{
+        font-family: $font-family-sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        letter-spacing: normal;
+        text-decoration: none;
+        box-shadow: none;
+        outline: 0;
+    }
+}

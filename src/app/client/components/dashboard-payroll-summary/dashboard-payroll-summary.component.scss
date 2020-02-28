@@ -1,0 +1,17 @@
+.dashboard-card {
+	.ex-margin-bottom {
+        margin-bottom: 25px;
+    }
+    
+	.no-border {
+		border-bottom: 1px solid transparent;
+		margin-left: -5px;
+		.nav-item .nav-link {
+			padding: 9px 5px 0px;
+			.benefits-card-title {
+				line-height: 18px;
+    			height: 18px;
+			}
+		}
+	}
+}

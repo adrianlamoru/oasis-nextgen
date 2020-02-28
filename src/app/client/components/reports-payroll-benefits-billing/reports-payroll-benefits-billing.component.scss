@@ -1,0 +1,48 @@
+@import "~sass/variables";
+
+.payroll-benefits-billing {
+
+    padding: 29px 30px 60px 30px; 
+    
+   /deep/ .custom-dropdown-component .dropdown-menu {
+       width: auto;
+   }
+
+   .invalid-dates-ranges {
+        border: 1px solid $red;
+    }
+
+   [class*="col-"] {
+        &:first-child {
+            padding-left: 15px !important;
+        }
+        padding-left: 5px !important;
+    }
+    
+    .report-title{        
+        margin-bottom: 22px;
+    }
+
+    .custom-dropdown {
+        width: 100px !important;
+    }
+
+    .custom-margin-bottom-dropdown {
+        margin-bottom: 12px;
+        margin-top: 10px;
+    }
+
+    .custom-grid-padding {
+        margin-top: 4px;
+    }
+
+    .custom-date-picker {
+        margin-right: 15px;
+    }
+
+    .form-group{
+        margin-bottom: 3px;
+        margin-top: 3px;
+    }
+
+}

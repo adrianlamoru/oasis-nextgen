@@ -1,0 +1,96 @@
+
+<div class="card benefits-card dashboard-card">
+  	<div class="card-body">
+  		<div class="row">
+  			<div class="col-12 align-self-center">
+			    <!-- <ul class="nav nav-tabs no-border">
+	                <li class="nav-item">
+	                  <a href="javascript: void(0)" class="nav-link  {{ tabSelected === tab_P ? 'active' : ''}}" data-toggle="tab" (click)="updateTabSelection(tab_P)">
+	                     <h3 class="benefits-card-title">{{tab_P}}{{noOfProjects > 0 ? ' ' + noOfProjects : ''}}</h3>
+	                 </a>
+	                </li>
+	                <li class="nav-item">
+	                  <a href="javascript: void(0)" class="nav-link {{ tabSelected === tab_S ? ' ' + 'active' : ''}}" data-toggle="tab"  (click)="updateTabSelection(tab_S)">
+	                  	<h3 class="benefits-card-title">{{tab_S}}{{noOfServices > 0 ? ' ' + noOfServices : ''}}</h3>
+	                  </a>
+	               	</li>
+				</ul>	 -->
+				<h3 class="benefits-card-title">{{tab_S}}</h3>			    
+  			</div>
+  		</div> 
+		<div class="row ex-margin-bottom">
+			<div class="col-12">
+				<div class="benefits-features-items features-with-borders max-height-with-scroll">
+		          	<ul class="benefits-features-items m-0" *ngIf="tabSelected === tab_P">
+		            	<li *ngFor="let item of projectsDetailsList"> 		            		
+		            		<div class="media xxl-padding"> 
+		            			<div class="color-block {{item.projectStatusColor}}"></div>
+				              	<div class="media-body media-body-review">
+				              		<span class="projects-title">{{item.projectName}}</span><br/>
+									<span>{{item.taskName}}</span><br/>
+									<span class="media-body-date">Due Date:&nbsp;<span class="{{item.dueDateRedAlert ? 'due-date-with-alert' : ''}}">{{item.dueDate}}</span></span>
+								</div>
+				              	<div class="custom-progress-bar align-self-center">
+				              		<div *ngFor="let dummy of ' '.repeat(item.totalSteps).split(''), let x = index" class="step2 steps {{x < item.stepsCompleted ?'completed-step' : ''}}"></div>
+				              	</div>
+				              	<div class="steps-count">{{item.stepsCompleted}}/{{item.totalSteps}}</div>
+				            </div>
+		            	</li>
+		            	<li *ngIf="noOfProjects === 0">
+		            		<div class="text-center empty-bucket">
+		            			<div class="ex-margin-top ex-margin-bottom">
+		            				<img class="time-countdown" src="/assets/images/sun.svg" alt="sun icon">
+		            			</div>
+		            			<div class="ex-margin-bottom"><h3 class="display-3 text-color-gray">You have no current projects.</h3></div>
+		            			<div><button class="btn btn-primary" type="button" (click)="openMarketplace()">Open Marketplace</button></div>
+		            		</div>
+		            	</li>
+		          	</ul>
+		          	<ul class="benefits-features-items m-0" *ngIf="tabSelected === tab_S">
+		            	<li *ngFor="let item of supportListOfCases"> 		            		
+		            		<div class="media table-blocks xxl-padding"> 
+				              	<div class="media-body media-body-review md-box">
+				              		<span class="column-title">Case Number</span><br/>
+									<span>{{item.caseNumber}}</span>
+								</div>
+								<div class="media-body media-body-review">
+				              		<span class="column-title">Status</span><br/>
+									<span>{{item.status}}</span>
+								</div>
+								<div class="media-body media-body-review">
+				              		<span class="column-title">Severity</span><br/>
+									<span>{{item.priority}}</span>
+								</div>
+								<div class="media-body media-body-review lg-box">
+				              		<span class="column-title">Subject</span><br/>
+									<span>{{item.subject}}</span>
+								</div>
+								<div class="media-body-button">
+									<button class="btn btn-link float-right" (click)="openSupportTicketDetails(item?.caseNumber, 'sm', openDashboardTicketModalTemplate)">OPEN</button>
+								</div>
+				            </div>
+		            	</li>
+		            	<li *ngIf="noOfServices === 0">
+		            		<div class="text-center empty-bucket">
+		            			<div class="ex-margin-top ex-margin-bottom">
+		            				<img class="time-countdown" src="/assets/images/sun.svg" alt="sun icon">
+		            			</div>
+		            			<div class="ex-margin-bottom"><h3 class="display-3 text-color-gray">No support tickets details are available.</h3></div>
+		            			<div><button class="btn btn-primary" type="button" (click)="openMarketplace()">Open Marketplace</button></div>
+		            		</div>
+		            	</li>
+		          	</ul>
+		        </div>				
+			</div>
+		</div>
+		<button *ngIf="showLink" type="button" class="btn btn-link btn-abs-position" (click)="openSupport()">
+            <!-- <span class="btn-link-text">{{buttonText}}</span> -->
+            <span class="btn-link-text">See All Cases</span>
+			<span class="icon icon-arrow"></span>
+        </button>
+	</div>
+</div>
+
+<ng-template #openDashboardTicketModalTemplate let-c="close" let-d="dismiss">
+    <app-support-open-ticket [selectedCaseData]="selectedCaseData" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-support-open-ticket>
+</ng-template>

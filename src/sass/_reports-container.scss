@@ -1,0 +1,178 @@
+.reports-container {
+    margin: 0px 0 0;
+    padding: 29px 30px 50px;
+    border-radius: 10px;
+    background-color: $white;
+    // box-shadow: 0 6px 16px 0 rgba(32, 44, 86, 0.04);
+    min-height: 100px;
+    margin-bottom: 100px;
+    
+    .form-inline{
+        .form-group{
+            display: block;
+
+            h4 {
+              font-weight: 400 !important;
+            }
+        }
+    }
+
+    .form-group{
+        h4 {
+          font-weight: 400 !important;
+        }
+    }
+
+    .section{
+        width: 100%;
+        .section-title{
+            //margin-top: 15px;
+            //margin-bottom: 15px;
+            font-family: $font-family-sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.13;
+            text-align: left;
+            color: $gray-800; 
+        }
+
+        .report-title{
+          margin-top: 21px;
+          margin-bottom: 28px;
+          font-family: $font-family-sans-serif;
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 1.13;
+          text-align: left;
+          color: $gray-800; 
+          font-size: 24px;
+          font-weight: 500;
+        }
+
+        .report-title-date-time{
+            font-size: 14px;
+            font-weight: 500;
+            color: $gray-700;
+            padding-left: 12px;
+        }
+
+        .dropdown {
+          width: 160px;
+          margin-right: 10px;
+        }
+  
+        .section-title-buttons {
+           margin-top: 20px !important;
+          }
+
+        .custom-grid-company-reports{
+          margin-top: 20px; 
+        }
+
+        .tab-btn-without-padding {
+          margin-top: 16px;
+          padding: 0;          
+        }
+
+        .buttons {
+          .btn:not(.not-btn-section) {
+            border-color: $white;
+            background-color: $white;
+          }
+        }
+
+      //   .buttons {
+      //     .btn {
+      //         margin-left: 8px;
+      //         padding-left: 23px;
+      //         padding-right: 23px;
+      //         margin-top: 2px;
+
+      //         &:first-child {
+      //             padding-left: 14px;
+      //             padding-right: 14px;
+      //         }
+
+      //         &:first-child, &:nth-child(2) {
+      //             margin-left: 0px;
+      //         }
+      //     }
+      // }
+
+        .form-group{
+          margin-bottom: 2px;
+        }
+
+        .custom-dropdown-component{
+            width: 160px;
+        }
+
+        .breadcrumb-container-reports {
+
+          .breadcrumb{
+              padding: 0;
+              margin-bottom: 1px;
+          }
+
+        }
+
+        .breadcrumb-item-active{
+            color: $dark;
+            font-weight: 500;
+          }
+        
+        .back-link {
+          cursor:pointer;
+          font-weight: 500;
+        }
+
+        .date-range-row{
+          padding-top: 15px;
+      }
+
+      .report-date-range-label{
+        font-size: 14px;
+        font-weight: 500;
+        color: $gray-700;
+        padding-top: 25px;
+      }
+
+      .report-data-range-selected{
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 1.13;
+          color: $gray-800;
+      }
+
+      .year-print-download-row{
+        margin-bottom: 14px;
+      }
+
+
+    }
+
+    //  .dx-row.dx-data-row.dx-column-lines td {
+    //     padding-left: 10px;
+    //     padding-right: 0px;
+    //   }
+      
+      .custom-grid .dx-datagrid .dx-row.dx-header-row > td:first-child {
+        padding-left: 10px;
+        // padding-bottom: 20px;
+      }
+
+      // .custom-grid .dx-datagrid .dx-row.dx-header-row > td:last-child {
+      //   padding-left: 0;
+      //   padding-bottom: 20px;
+      //   padding-right: 0px;
+      // }
+    
+      .form-control-dropdown, .custom-dropdown-component .dropdown-menu {
+        width: 160px;
+      }
+    
+      #ddYear {
+        width: 150px;
+      }
+
+}

@@ -1,0 +1,59 @@
+<div class="container-section">
+    <div class="reports-container">
+        <div class="section">
+            <div class="row">
+                <div class="col-6">
+                    <h3 class="content-title">Paid Time Off</h3>
+                </div>
+                <div class="col-6">
+                    <div class="float-right padng-top-2">
+                        <button class="btn btn-outline-primary" (click)="openActionModal('xl', compensationPaidTimeOffModal)">View details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section pdng-top-20">
+            <div class="col-12" *ngIf="isLoading">
+                <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+            </div>
+
+            <div class="custom-grid" *ngIf="!isLoading">
+                <div *ngFor="let item of innerData; let i=index">
+                    <div class="row">
+                        <div class="col-12 pb-3">
+                            <div class="custom-grid-header py-0">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="pl-0 table-title custom-table-title">
+                                            {{item.description}}
+                                        </div>
+                                    </div>
+                                    <div class="col-6"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <dx-data-grid [dataSource]="grouped.get(item.description)" [columnAutoWidth]="true">
+                                        <dxo-paging [enabled]="false"></dxo-paging>
+                                        <dxi-column dataField="carryOverHours" caption="Carry Over Hours" [allowSorting]="false" alignment="left"></dxi-column>
+                                        <dxi-column dataField="yearToDateHoursAccrued" caption="Year-to-Date Hours Accrued" [allowSorting]="false" alignment="left"></dxi-column>
+                                        <dxi-column dataField="yearToDateHoursTaken" caption="Year-to-Date Hours Taken" [allowSorting]="false" alignment="left"></dxi-column>
+                                        <dxi-column dataField="yearToDateHoursAvailable" caption="Year-to-Date Hours Available" [allowSorting]="false" alignment="left"></dxi-column>
+                                        <dxi-column dataField="accruedThrough" dataType="datetime" format="MM/dd/y" caption="Accrued Through" [allowSorting]="false" alignment="left"></dxi-column>
+                                        <dxi-column dataField="yearEnd" dataType="datetime" format="MM/dd/y" caption="Year End" [allowSorting]="false" alignment="left"></dxi-column>
+                                    </dx-data-grid>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<ng-template #compensationPaidTimeOffModal let-c="close" let-d="dismiss">
+    <app-compensation-paid-time-off-modal [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-compensation-paid-time-off-modal>
+</ng-template>

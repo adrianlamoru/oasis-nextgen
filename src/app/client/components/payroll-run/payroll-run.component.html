@@ -1,0 +1,181 @@
+<!-- Grid for Dasboard -->
+<div class="run-payroll run-payroll-dashboard" *ngIf="isDashboard">
+  <div class="payroll-batches">
+    <div class="row data-grid-container" *ngFor="let batch of batches">
+      <div class="col-12">
+        <div class="custom-grid-header">
+          <div class="row">
+            <div class="col-12">
+              <h3 class="display-3 batch-title">Batch: {{ !batch?.isOffCycle ? batch.batchNumber: 'Off-Cycle'}}</h3>
+            </div>
+          </div>
+        </div>
+        <dx-data-grid class="payroll-batch-grid" id="gridContainer" [dataSource]="batch.rosters" keyExpr="id" #gridContainer [showColumnHeaders]="false"
+          [columnAutoWidth]="true" (onRowPrepared)="onRowPrepared($event)" (onCellClick)="onCellClick($event)">
+
+          <dxo-paging [enabled]="false"></dxo-paging>
+          <dxo-scrolling mode="virtual"></dxo-scrolling>
+          <dxi-column dataField="batchNumber" cellTemplate="batchNumberTemplate" >
+            <div *dxTemplate="let data of 'batchNumberTemplate'">
+              <div class="cell-batch">
+                <span class="cell-caption">{{ data.column.caption }}</span>
+                <span class="cell-value">{{ batch.batchNumber }}</span>
+              </div>
+            </div>
+          </dxi-column>
+          <dxi-column #batchStatus dataField="status" cellTemplate="contentTemplate"></dxi-column>
+          <dxi-column dataField="checkDate" caption="Check Date" cellTemplate="contentDateTemplate"></dxi-column>
+          <div *dxTemplate="let data of 'contentTemplate'">
+            <div class="cell-batch">
+              <span class="cell-caption">{{ data.column.caption }}</span>
+              <span class="cell-value">{{ data.value }}</span>
+            </div>
+          </div>          
+          <div *dxTemplate="let data of 'contentDateTemplate'">
+            <div class="cell-batch">
+              <div class="due-date-container">
+                <span class="cell-caption">{{ data.column.caption }}</span>
+                <span class="cell-value">{{ data.value | formatDate }}</span>
+              </div>
+              <span *ngIf="data.data['status'] === 'Past Due'" class="badge badge-pill badge-danger">Past Due</span>
+            </div>
+          </div>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Grid for Dasboard -->
+
+<!-- Grid for Page -->
+<div class="run-payroll" *ngIf="!isDashboard">
+  <div class="row header">
+    <div class="col-6">
+      <div class="title">
+        <span class="scheduled-payroll">Scheduled Payroll</span>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="buttons pull-right">
+        <button type="button" class="btn btn-primary mr-2" (click)="goToManualRosterPayRollStep()">Manual Check</button>
+        <button type="button" class="btn btn-primary" (click)="onOffCycleBatchClick()">Off-Cycle Batch</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="payroll-batches">
+    <div class="row data-grid-container" *ngFor="let batch of batches">
+      <div class="col-12">
+        <div class="custom-grid-header">
+          <div class="row">
+            <div class="col-6">
+              <h3 class="display-3 batch-title">Batch: {{ !batch?.isOffCycle ? batch.batchNumber: 'Off-Cycle'}}</h3>
+            </div>
+            <div class="col-6">
+              <div class="float-right">
+                <button type="button" class="btn btn-link btn-link-icon p-0 mb-1" (click)="openActionBatchNotesModal(batch)">
+                  <span class="icon icon-note"></span>
+                  <span class="add-note-batch">Add Note to batch</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <dx-data-grid class="payroll-batch-grid paryoll-run-grid" id="gridContainer" [dataSource]="batch.rosters" keyExpr="id" #gridContainer [showColumnHeaders]="false"
+          [columnAutoWidth]="true" (onRowPrepared)="onRowPrepared($event)" (onCellClick)="onCellClick($event)">
+
+          <dxo-paging [enabled]="false"></dxo-paging>
+          <dxi-column dataField="batchNumber" cellTemplate="batchNumberTemplate">
+            <div *dxTemplate="let data of 'batchNumberTemplate'">
+              <div class="cell-batch">
+                <span class="cell-caption">{{ data.column.caption }}</span>
+                <span class="cell-value">{{ batch.batchNumber }}</span>
+              </div>
+            </div>
+          </dxi-column>
+          <dxi-column dataField="frequency" cellTemplate="contentTemplate"></dxi-column>
+          <dxi-column #batchStatus dataField="status" cellTemplate="statusTemplate"></dxi-column>
+          <dxi-column [visible]="!batch?.isOffCycle" [formItem]="{visible: !batch?.isOffCycle}" dataField="location" cellTemplate="contentTemplate"></dxi-column>
+          <dxi-column dataField="checkDate" caption="Check Date" cellTemplate="contentDateTemplate"></dxi-column>
+          <div *dxTemplate="let data of 'contentTemplate'">
+            <div class="cell-batch">
+              <span class="cell-caption">{{ data.column.caption }}</span>
+              <span class="cell-value">{{ data.value }}</span>
+            </div>
+          </div>
+          <div *dxTemplate="let data of 'statusTemplate'">
+            <div class="cell-batch">
+              <span class="cell-caption">{{ data.column.caption }}</span>   
+              <ng-container *ngIf="!isSubmittedRoster(data.data); else elseSubmittedTemplate">
+                <span class="cell-value">{{ data.value }}</span>
+              </ng-container>
+              <ng-template #elseSubmittedTemplate>
+                <span class="cell-value">Submitted</span>
+              </ng-template>
+            </div>
+          </div>
+          <div *dxTemplate="let data of 'contentDateTemplate'">
+            <div class="cell-batch">
+              <div class="due-date-container">
+                <span class="cell-caption">{{ data.column.caption }}</span>
+                <span class="cell-value">{{ data.value | formatDate }}</span>
+              </div>
+              <span *ngIf="data.data['status'] === 'Past Due'" class="badge badge-pill badge-danger">Past Due</span>
+            </div>
+          </div>
+
+          <dxi-column dataField="" [height]="50" [allowFiltering]="false" [allowSorting]="false" cellTemplate="actionTemplate"
+            [allowEditing]="false" alignment="right">
+            <div *dxTemplate="let data of 'actionTemplate'">
+              <dx-menu #menu [dataSource]="getDropdownMenuActions(data.data)" displayExpr="name" orientation="horizontal" submenuDirection="auto"
+                [hideSubmenuOnMouseLeave]="false" (onItemClick)="onDropdownClick($event, data, menu)" tabindex="0">
+              </dx-menu>
+            </div>
+          </dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+    <div id="gridFooter"></div>
+  </div>
+</div>
+
+<ng-template #payrollActionDownload let-c="close" let-d="dismiss">
+  <app-payroll-action-download [roster]="selectedRoster" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-payroll-action-download>
+</ng-template>
+
+<ng-template #payrollActionUpload let-c="close" let-d="dismiss">
+  <app-upload [modalCloseFunc]="this.c" [modalDismissFunc]="this.d" [isTypeModal]="true"></app-upload>
+</ng-template>
+
+<ng-template #payrollActionNotes let-c="close" let-d="dismiss">
+  <app-payroll-action-notes [roster]="selectedRoster" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-payroll-action-notes>
+</ng-template>
+
+<ng-template #payrollOffCycleBatch let-c="close" let-d="dismiss">
+  <app-payroll-run-off-cycle-batch [roster]="selectedRoster" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d" (saveEvent)="saveRoster($event)"></app-payroll-run-off-cycle-batch>
+</ng-template>
+<ng-template #payrollActionBatchNotes let-c="close" let-d="dismiss">
+  <app-payroll-action-batch-notes [batch]="currentBatch" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-payroll-action-batch-notes>
+</ng-template>
+
+<ng-template #supportCreateTicketModalTemplate let-c="close" let-d="dismiss">
+  <app-support-create-ticket [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-support-create-ticket>
+</ng-template>
+
+<dx-popup class="custom-dx-popup" [showTitle]="false" [width]="'auto'" [height]="'auto'" [position]="{ my: 'middle', at: 'middle', of: window }"
+  [showCloseButton]="false" [dragEnabled]="false" [closeOnOutsideClick]="true" [(visible)]="restartPopupVisible">
+  <div *dxTemplate="let data of 'content'">
+    <div class="message-modal-window">
+      <div class="modal-body">
+        <div class="form-group d-flex justify-content-center">
+          <h3 class="display-3 text-center">Are you sure you want to restart this batch?</h3>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-outline-primary" (click)="onNoRestartClick()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="onYesRestartClick()">Confirm</button>
+      </div>
+    </div>
+  </div>
+</dx-popup>
+<!-- End Grid for Page -->

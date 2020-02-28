@@ -1,0 +1,31 @@
+.custom-radio-button {
+	display: inline-block;
+    vertical-align: text-top;
+}
+
+.custom-radio-button-label {
+	display: inline-block;
+    vertical-align: middle;
+    > h4 {
+    	margin-bottom: 0 !important;
+    	margin-top: 5px;
+    }
+    > P {
+    	margin-bottom: 0;
+    	font-weight: 500 !important;
+    }
+}
+
+hr {
+	margin-top: 25px;
+	&.bottom-line {
+		margin-bottom: 0;
+	}
+}
+
+.custom-date-picker-lg {
+    width: 263px;
+    .custom-input-field {
+        width: 263px;
+    }
+}

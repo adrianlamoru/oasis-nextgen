@@ -1,0 +1,82 @@
+@import "~bootstrap/scss/functions"; 
+@import '~sass/variables';
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.reports-status-download {
+    padding: 29px 35px 60px 30px; 
+    margin-bottom: 300px;
+
+    &.employee-custom-report-margin {
+        padding: 1px 6px 60px 0;
+    }
+    .section{
+
+        .custom-margin-bottom-dropdown {
+            margin-bottom: 12px;
+            margin-top: 10px;
+        }
+    
+        .custom-grid-padding {
+            margin-top: 4px;
+        }
+
+
+        [class*="col-"] {
+
+            &:first-child {
+                padding-left: 15px !important;
+            }
+            padding-right: 10px !important;
+            padding-left: 10px !important;
+        }
+
+        .custom-dropdown-component {
+            width: inherit !important;
+    
+            .form-control-dropdown {
+                width: inherit !important;
+            }
+            .btn-form-control span {
+                display: initial;
+            }
+        }
+        
+        @include media-breakpoint-down(lg) {
+            .custom-top-margin-col1 {
+                margin-top: 20px;
+            }
+        }
+
+
+       .report-title{        
+            margin-bottom: 22px;
+        }
+
+        .hr-padding{
+            padding-top: 14px !important;
+            padding-bottom: 11px !important;
+        }
+
+        .back-button{
+            margin-top: 17px;
+        }
+
+      .custom-date-picker{
+          width: inherit !important;
+        //   margin-right: 20px;
+
+          .custom-input-field{
+              width: inherit !important;
+              font-weight: 500;
+              line-height: 1.29;
+          }
+      }
+
+        .custom-dropdown {
+            width: 100px!important;
+        }
+
+    }
+
+}

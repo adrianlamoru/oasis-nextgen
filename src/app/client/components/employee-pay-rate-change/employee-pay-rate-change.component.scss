@@ -1,0 +1,23 @@
+@import '~sass/variables';
+
+.rate-information-content, .supervisor-information-content, .pay-history-content, .job-change-content {
+    border-bottom: 1px solid $gray-300;
+}
+
+.form-fields-section {
+    margin-bottom: 30px;
+}
+
+.custom-grid-header {
+    padding-top: 8px !important;
+}
+
+:host::ng-deep {
+    .modal-body.custom-modal-body-padding {
+        padding: 10px 1.875rem 1.5625rem 1.875rem;
+
+        .custom-grid {
+            margin-bottom: 0px !important;
+        }
+    }
+}

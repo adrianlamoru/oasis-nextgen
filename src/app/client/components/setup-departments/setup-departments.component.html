@@ -1,0 +1,89 @@
+<div class="row departments-component setup-container-content">
+    <div class="col-12 custom-grid">
+        <div class="row">
+            <div class="col-12">
+                <div class="custom-grid-header">
+                    <h3 class="display-3 table-title">Departments</h3>
+                    <dx-button text="Add Code" class="btn btn-primary pull-right" (onClick)="addCode()"></dx-button>
+                </div>
+
+                <!-- DataGrid -->
+                <dx-data-grid id="departmentsGrid" [dataSource]="departmentsDataRows" (onCellClick)="onCellButtonClick($event)">
+
+                    <dxo-paging [enabled]="false"></dxo-paging>
+
+                    <dxi-column dataField="departmentCode" caption="Department Code" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="departmentDescription" caption="Department Description" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="perDiem" [visible]="false"></dxi-column>
+                    <dxi-column dataField="glSegmentCode1" caption="Gl Segment 1" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="glSegmentCode2" caption="Gl Segment 2" [allowSorting]="false"></dxi-column>
+                    <dxi-column [allowSorting]="false" cellTemplate="cellEditTemplate" [width]="51"></dxi-column>
+
+                    <div *dxTemplate="let d of 'cellEditTemplate'" class="custom-cell">
+                        <button id="edit-button-departmentCode" tabindex="0" type="button" class="btn btn-link cell-button" >
+                            <span class="btn-link-text">Edit</span>
+                        </button>
+                    </div>
+
+                </dx-data-grid>
+                <!-- END DataGrid -->
+
+                <!-- ADD/EDIT Popup -->
+                <dx-popup
+                    class="custom-dx-popup"
+                    #popupEditDepartmentCode
+                    [showTitle]="false"
+                    [width]="383"
+                    [height]="'auto'"
+                    [position]="{ my: 'middle', at: 'middle', of: window }"
+                    [showCloseButton]="false"
+                    [dragEnabled]="false"
+                    [closeOnOutsideClick]="true"
+                    [(visible)]="editPopupVisible">
+                    <div *dxTemplate="let data of 'content'">
+
+                        <div class="custom-modal-window" ngForm #depCodeForm="ngForm">
+                          <div class="modal-header">
+                            <h4 class="modal-title modal-title-capitalize align-self-center float-left">{{popupTitle}}</h4>
+                            <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="onCancelClick()">
+                              <span class="icon icon-close"></span>
+                            </button>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="form-group">
+                                <h4>Division Code</h4>
+                                <input [disabled]="actionTypeSelected === 'EDIT'" id="departmentCodeInput" name="departmentCodeInput" placeholder="Department Code"  type="text" class="form-control" required [(ngModel)]="currentSelectedRow.departmentCode" #departmentCodeInput="ngModel">
+                            </div>
+                            <div class="form-group">
+                              <h4>Department Description</h4>
+                              <input id="departmentDescriptionInput" name="departmentDescriptionInput" placeholder="Department Description"  type="text" class="form-control" required [(ngModel)]="currentSelectedRow.departmentDescription" #departmentDescriptionInput="ngModel">
+                            </div>
+                            <div class="form-group">
+                              <h4>Per Diem</h4>
+                              <input id="perDiem" name="perDiem" placeholder="Per Diem"  type="text" class="form-control" [(ngModel)]="currentSelectedRow.perDiem">
+                            </div>
+                            <div class="form-group">
+                              <h4>Gl Segment 1</h4>
+                              <input id="glSegmentCode1Input" name="glSegmentCode1Input" placeholder="Gl Segment Code 1"  type="text" class="form-control" [(ngModel)]="currentSelectedRow.glSegmentCode1">
+                            </div>
+                            <div class="form-group">
+                              <h4>Gl Segment 2</h4>
+                              <input id="glSegmentCode2Input" name="glSegmentCode2Input" placeholder="Gl Segment Code 2"  type="text" class="form-control" [(ngModel)]="currentSelectedRow.glSegmentCode2">
+                            </div>
+                          </div>
+
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-primary" (click)="onCancelClick()">Cancel</button>
+                            <button type="button" [disabled]="depCodeForm.invalid" class="btn btn-primary" (click)="onSubmitClick()">Confirm</button>
+                          </div>
+                        </div>
+
+                    </div>
+                </dx-popup>
+                <!-- END ADD/EDIT Popup -->
+
+            </div>
+        </div>
+    </div>
+</div>

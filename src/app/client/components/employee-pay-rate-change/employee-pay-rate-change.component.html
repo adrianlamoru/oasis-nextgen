@@ -1,0 +1,363 @@
+<div class="custom-modal-window">
+    <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">Pay Rate Change - {{ selectedEmployeeName | middleTruncate: 50 }}</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+        <span class="icon icon-close"></span>
+    </button>
+    </div>
+    <div class="modal-body pay-rate-change-modal-body custom-modal-body-padding">
+        <form [formGroup]="payRateChangeFormGroup">
+        <div formGroupName="rateInformationGroup" class="rate-information-content">
+            <div class="row">
+                <div class="custom-grid col-12">
+                    <div class="custom-grid-header">
+                        <div class="row row-clickable" (click)="rateInfoOpened = !rateInfoOpened">
+                            <div class="col-6">
+                                <h3 class="display-3 table-title pl-0">Rate Information</h3>
+                            </div>
+                            <div class="col-6 text-right">
+                                <div class="toggle-icon mt-1 icon-shape"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 {{rateInfoOpened ? 'd-none' : 'd-block'}} mb-1">
+                    <button type="button" class="btn btn-link btn-link-icon p-0 float-right"
+                            (click)="editRate = !editRate; editForm('rateInformation')"
+                            [ngClass]="{'edit-disabled': editRate === true }">
+                        <span   class="icon icon-pencil"
+                                [ngClass]="{'icon-pencil-blue': editRate === false }"></span>
+                        <span class="{{editRate ? 'btn-link-text' : 'btn-link-text-blue'}}">EDIT</span>
+                    </button>
+                </div>
+            </div>
+            <div class="{{rateInfoOpened ? 'd-none' : 'd-block'}} form-fields-section">
+            <div class="row">
+                <div class="form-group col-4 d-inline-block pr-3">
+                    <label>Employee Status</label>
+                    <input type="text" class="form-control" placeholder="Employee Status" formControlName="empStatus">
+                </div>
+                <div class="form-group col-4 d-inline-block pl-1 pr-3">
+                    <label>Employee Type</label>
+                    <input type="text" class="form-control" placeholder="Employee Type" formControlName="empType">
+                </div>
+                <div class="form-group col-4 d-inline-block float-right pl-1">
+                    <label>Pay Period</label>
+                    <input type="text" class="form-control" placeholder="Pay Period" formControlName="payPeriod">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4 d-inline-block pr-3">
+                    <label>Pay Rate</label>
+                    <div class="form-row ml-0">
+                        <input type="text" class="form-control col-md-6" style="padding-left: 15px; padding-right: 15px;" placeholder="Pay Rate" formControlName="payRate">
+                        <div ngbDropdown class="d-inline-block col-md-6 employee-pay-rate-dropdown">
+                            <button class="btn btn-form-control form-control-dropdown text-left" id="perPayRate" [disabled]="!editRate" ngbDropdownToggle (click)="perPayRate = !perPayRate">
+                                <span>{{payRateChangeFormGroup.get('rateInformationGroup.perPayRate').value}}
+                                <i class="icon icon-shape float-right"></i>
+                                </span>
+                            </button>
+                            <div ngbDropdownMenu aria-labelledby="perPayRate">
+                                <button type="button" class="dropdown-item" *ngFor="let item of perPayRateItems" (click)="selectedPerPayRate(item);perPayRate = !perPayRate">{{item}}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-4 d-inline-block pl-1 pr-3">
+                    <label>Standard Hours</label>
+                    <input type="text" class="form-control" placeholder="Standard Hours" formControlName="standardHours">
+                </div>
+                <div class="form-group col-4 d-inline-block float-right pl-1">
+                    <label>Annualized Pay</label>
+                    <input type="text" class="form-control" placeholder="Annualized Pay" formControlName="annualizedPay">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4 d-inline-block pr-3">
+                    <label>Default Hours</label>
+                    <input type="text" class="form-control" placeholder="Default Hours" formControlName="defaultHours">
+                </div>
+                <div class="form-group col-4 d-inline-block pl-1 pr-3">
+                    <label>Reason Code</label>
+                    <div ngbDropdown class="d-inline-block employee-pay-rate-dropdown">
+                        <button class="btn btn-form-control form-control-dropdown text-left" id="reasonCodes" [disabled]="!editRate" ngbDropdownToggle (click)="reasonCodes = !reasonCodes">
+                            <span>{{payRateChangeFormGroup.get('rateInformationGroup.reasonCode').value}}
+                            <i class="icon icon-shape float-right"></i>
+                            </span>
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="reasonCodes">
+                            <button type="button" class="dropdown-item" *ngFor="let item of reasonCodesItems" (click)="selectedReasonCode(item);reasonCodes = !reasonCodes">{{item}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-4 d-inline-block float-right pl-1">
+                    <label>Effective Date</label>
+                    <div class="form-group">
+                        <div class="custom-date-picker" style="width: 100% !important">
+                            <div class="input-icon icon icon-calendar"></div>
+                            <input class="form-control custom-input-field" style="width: 100% !important" placeholder="Month dd, yyyy" formControlName="effDate" [(ngModel)]="effectiveDatePicker" ngbDatepicker
+                                placement="bottom-right" [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #effectiveDateId="ngbDatepicker">
+                            <button class="btn input-btn icon-shape" (click)="effectiveDateId.toggle(); effectiveDateOpened = !effectiveDateOpened" type="button"></button>
+                        </div>
+                    </div>
+                    <ng-template #effectiveDate let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-focused="focused">
+                        <div class="btn-light" [class.focused]="focused" [class.bg-primary]="selected" (click)="effectiveDateOpened = !effectiveDateOpened;" (keydown)="effectiveDateOpened = !effectiveDateOpened;">
+                            {{ date.day }}
+                        </div>
+                    </ng-template>
+                </div>
+                </div>
+                <div class="row">
+                    <!-- If USER TYPE IS ASO THEN DISPLAY THIS DIV ( PENDING) ***************-->
+                    <div class="form-group col-4 d-inline-block pr-3 mb-0">
+                        <label>Pay Method</label>
+                        <div class="form-row ml-0">
+                            <div ngbDropdown class="d-inline-block employee-pay-rate-dropdown">
+                                <button class="btn btn-form-control form-control-dropdown text-left" id="asoPayMethod" [disabled]="!editRate" ngbDropdownToggle (click)="asoPayMethod = !asoPayMethod">
+                                    <span>{{payRateChangeFormGroup.get('rateInformationGroup.asoPayMethod').value}}
+                                    <i class="icon icon-shape float-right"></i>
+                                    </span>
+                                </button>
+                                <div ngbDropdownMenu aria-labelledby="asoPayMethod">
+                                    <button type="button" class="dropdown-item" *ngFor="let item of asoPayMethodItems" (click)="selectedAsoPayMethod(item);asoPayMethod = !asoPayMethod">{{item}}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div formGroupName="supervisorInformationGroup" class="supervisor-information-content">
+            <div class="row">
+                <div class="custom-grid col-12">
+                    <div class="custom-grid-header">
+                        <div class="row row-clickable" (click)="supervisorInfoOpened = !supervisorInfoOpened">
+                            <div class="col-6">
+                                <h3 class="display-3 table-title pl-0">Supervisor Information</h3>
+                            </div>
+                            <div class="col-6 text-right">
+                                <div class="toggle-icon mt-1 icon-shape"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 {{supervisorInfoOpened ? 'd-none' : 'd-block'}} mb-1">
+                    <button type="button" class="btn btn-link btn-link-icon p-0 float-right"
+                            (click)="editSupervisor = !editSupervisor; editForm('supervisorInformation')"
+                            [ngClass]="{'edit-disabled': editSupervisor === true }">
+                        <span   class="icon icon-pencil"
+                                [ngClass]="{'icon-pencil-blue': editSupervisor === false }"></span>
+                        <span class="{{editSupervisor ? 'btn-link-text' : 'btn-link-text-blue'}}">EDIT</span>
+                    </button>
+                </div>
+            </div>
+            <div class="{{supervisorInfoOpened ? 'd-none' : 'd-block'}} form-fields-section">
+            <div class="row">
+                <div class="form-group col-4 d-inline-block pr-3">
+                    <label>Current Supervisor</label>
+                    <div ngbDropdown class="d-inline-block employee-pay-rate-dropdown">
+                        <button class="btn btn-form-control form-control-dropdown text-left" id="currentSupervisor" [disabled]="!editSupervisor" ngbDropdownToggle (click)="currentSupervisor = !currentSupervisor">
+                            <span>{{payRateChangeFormGroup.get('supervisorInformationGroup.currentSupervisor').value}}
+                            <i class="icon icon-shape float-right"></i>
+                            </span>
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="currentSupervisor">
+                            <button type="button" class="dropdown-item" *ngFor="let item of supervisorsDropdownItems" (click)="selectedCurrentSupervisor(item);currentSupervisor = !currentSupervisor">{{item}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-4 d-inline-block pl-1 pr-3">
+                    <label>Next Pay Review</label>
+                    <div class="form-group">
+                        <div class="custom-date-picker" style="width: 100% !important">
+                            <div class="input-icon icon icon-calendar"></div>
+                            <input class="form-control custom-input-field" style="width: 100% !important" formControlName="nextPayReview" [(ngModel)]="nextPayReviewDatePicker" placeholder="Month dd, yyyy" name="dp" [(ngModel)]="datePickerDate" ngbDatepicker
+                                    [dayTemplate]="nextPayReview" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #nextPayReviewId="ngbDatepicker">
+                            <button class="btn input-btn icon-shape" (click)="nextPayReviewId.toggle(); nextPayReviewOpened = !nextPayReviewOpened" type="button"></button>
+                        </div>
+
+                        <ng-template #nextPayReview let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-focused="focused">
+                            <div class="btn-light" [class.focused]="focused" [class.bg-primary]="selected" (click)="nextPayReviewOpened = !nextPayReviewOpened;" (keydown)="nextPayReviewOpened = !nextPayReviewOpened;">
+                                {{ date.day }}
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="form-group col-4 d-inline-block float-right pl-1">
+                    <label>Last Performance Review</label>
+                    <div class="form-group">
+                        <div class="custom-date-picker" style="width: 100% !important">
+                            <div class="input-icon icon icon-calendar"></div>
+                            <input class="form-control custom-input-field" style="width: 100% !important" formControlName="lastPerformanceReview" [(ngModel)]="lastPerformanceReviewDatePicker"  placeholder="Month dd, yyyy" name="dp" [(ngModel)]="datePickerDate" ngbDatepicker
+                                placement="bottom-right" [dayTemplate]="lastPerformanceReview" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #lastPerformanceReviewId="ngbDatepicker">
+                            <button class="btn input-btn icon-shape" (click)="lastPerformanceReviewId.toggle(); lastPerformanceReviewOpened = !lastPerformanceReviewOpened" type="button"></button>
+                        </div>
+
+                        <ng-template #lastPerformanceReview let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-focused="focused">
+                            <div class="btn-light" [class.focused]="focused" [class.bg-primary]="selected" (click)="lastPerformanceReviewOpened = !lastPerformanceReviewOpened;" (keydown)="lastPerformanceReviewOpened = !lastPerformanceReviewOpened;">
+                                {{ date.day }}
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-4 d-inline-block pr-3 mb-0">
+                    <label>Next Performance Review</label>
+                    <div class="form-group">
+                        <div class="custom-date-picker" style="width: 100% !important">
+                            <div class="input-icon icon icon-calendar"></div>
+                            <input class="form-control custom-input-field" style="width: 100% !important" formControlName="nextPerformanceReview" [(ngModel)]="nextPerformanceReviewDatePicker" placeholder="Month dd, yyyy" name="dp" [(ngModel)]="datePickerDate" ngbDatepicker
+                                    [dayTemplate]="nextPerformanceReview" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #nextPerformanceReviewId="ngbDatepicker">
+                            <button class="btn input-btn icon-shape" (click)="nextPerformanceReviewId.toggle(); nextPerformanceReviewOpened = !nextPerformanceReviewOpened" type="button"></button>
+                        </div>
+
+                        <ng-template #nextPerformanceReview let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-focused="focused">
+                            <div class="btn-light" [class.focused]="focused" [class.bg-primary]="selected" (click)="nextPerformanceReviewOpened = !nextPerformanceReviewOpened;" (keydown)="nextPerformanceReviewOpened = !nextPerformanceReviewOpened;">
+                                {{ date.day }}
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="form-group col-4 d-inline-block pl-1 pr-3 mb-0">
+                    <label>Current Job Code</label>
+                    <input type="text" class="form-control" placeholder="Current Job Code" formControlName="currentJobCode">
+                </div>
+                <div class="form-group col-4 d-inline-block float-right pl-1 mb-0">
+                    <label>Start Date</label>
+                    <input type="text" class="form-control" placeholder="Start Date" formControlName="startDate">
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="pay-history-content">
+            <div class="custom-grid {{ payHistoryOpened? 'mb-0': 'mb-4' }}">
+                <div class="row">
+                    <div class="col-lg-12">
+                    <div class="custom-grid-header">
+                        <div class="row row-clickable" (click)="payHistoryOpened = !payHistoryOpened">
+                            <div class="col-6">
+                                <h3 class="display-3 table-title pl-0">Pay History</h3>
+                            </div>
+                            <div class="col-6 text-right">
+                                <div class="toggle-icon mt-1 icon-shape"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="{{payHistoryOpened ? 'd-none' : 'd-block'}} form-fields-section">
+                        <dx-data-grid [dataSource]="payHistoryTableDataRows" [columnAutoWidth]="true" keyExpr="ID">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="Date Effective" [allowSorting]="false"></dxi-column>
+                            <dxi-column dataField="Rate of pay" [allowSorting]="false"></dxi-column>
+                            <dxi-column dataField="Per" [allowSorting]="false"></dxi-column>
+                            <dxi-column dataField="Standard Hours" [allowSorting]="false"></dxi-column>
+                            <dxi-column dataField="Change Percent" [allowSorting]="false"></dxi-column>
+                            <dxi-column dataField="Change Amount" [allowSorting]="false"></dxi-column>
+                        </dx-data-grid>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pay-history-content">
+            <div class="custom-grid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="custom-grid-header">
+                            <div class="row row-clickable" (click)="pendingJobsOpened = !pendingJobsOpened">
+                                <div class="col-6">
+                                    <h3 class="display-3 table-title pl-0">Pending Jobs</h3>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <div class="toggle-icon mt-1 icon-shape"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="{{pendingJobsOpened ? 'd-none' : 'd-block'}} form-fields-section">
+                            <dx-data-grid [dataSource]="pendingJobDatesTableDataRows" [columnAutoWidth]="true" keyExpr="ID">
+                                <dxo-paging [enabled]="false"></dxo-paging>
+                                <dxi-column dataField="Title" [allowSorting]="false"></dxi-column>
+                                <dxi-column dataField="Date" [allowSorting]="false"></dxi-column>
+                            </dx-data-grid>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div formGroupName="jobChangeInformationGroup" class="job-change-content">
+            <div class="row">
+                <div class="custom-grid col-12">
+                    <div class=" custom-grid-header">
+                        <div class="row row-clickable"  (click)="jobChangeOpened = !jobChangeOpened">
+                            <div class="col-6">
+                                <h3 class="display-3 table-title pl-0">Job Change</h3>
+                            </div>
+                            <div class="col-6 text-right">
+                                <div class="toggle-icon mt-1 icon-shape"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="{{jobChangeOpened ? 'd-none' : 'd-block'}} form-fields-section">
+            <div class="row">
+                <div class="form-group col-4 d-inline-block pr-3 mb-0">
+                    <label>Job Code</label>
+                    <div ngbDropdown class="d-inline-block employee-pay-rate-dropdown">
+                        <button class="btn btn-form-control form-control-dropdown text-left" id="jobCode" ngbDropdownToggle (click)="jobCode = !jobCode">
+                            <span>{{payRateChangeFormGroup.get('jobChangeInformationGroup.jobCode').value}}
+                            <i class="icon icon-shape float-right"></i>
+                            </span>
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="jobCode">
+                            <button type="button" class="dropdown-item" *ngFor="let item of jobChangeJobCodesItems" (click)="selectedJobChangeJobCode(item);jobCode = !jobCode">{{item}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-4 d-inline-block pl-1 pr-3 mb-0">
+                    <label>Reason</label>
+                    <div ngbDropdown class="d-inline-block employee-pay-rate-dropdown">
+                        <button class="btn btn-form-control form-control-dropdown text-left" id="jobChangeReason" ngbDropdownToggle (click)="jobChangeReason = !jobChangeReason">
+                            <span>{{payRateChangeFormGroup.get('jobChangeInformationGroup.reason').value}}
+                            <i class="icon icon-shape float-right"></i>
+                            </span>
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="jobChangeReason">
+                            <button type="button" class="dropdown-item" *ngFor="let item of reasonCodesItems" (click)="selectedJobChangeReason(item);jobChangeReason = !jobChangeReason">{{item}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-4 d-inline-block float-right pl-1 mb-0">
+                    <label>Start Date</label>
+                    <div class="form-group">
+                        <div class="custom-date-picker" style="width: 100% !important">
+                            <div class="input-icon icon icon-calendar"></div>
+                            <input class="form-control custom-input-field" style="width: 100% !important" formControlName="startDate" [(ngModel)]="startDatePicker" placeholder="Month dd, yyyy" name="dp" [(ngModel)]="datePickerDate" ngbDatepicker
+                                placement="bottom-right" [dayTemplate]="startDate" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #startDateId="ngbDatepicker">
+                            <button class="btn input-btn icon-shape" (click)="startDateId.toggle(); startDateOpened = !startDateOpened" type="button"></button>
+                        </div>
+
+                        <ng-template #startDate let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-focused="focused">
+                            <div class="btn-light" [class.focused]="focused" [class.bg-primary]="selected" (click)="startDateOpened = !startDateOpened;" (keydown)="startDateOpened = !startDateOpened;">
+                                {{ date.day }}
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div class="modal-footer d-inline-block">
+        <div class="float-right">
+            <button type="button" class="mr-2 btn btn-outline-primary" (click)="editRate=false; editSupervisor=false; cancelFormEdits()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="modalCloseFunc('Close click')">Confirm</button>
+        </div>
+        <div class="d-block modal-footer-jumbotron">
+                <div class="jumbotron">
+                    <p class="lead mb-0">It should be noted that this is not intended to be a "what-if" analysis of pay rate adjustment. All changes of this data reflect on the employee's actual pay rate information. All modifications are recorded for auditing purposes.</p>
+                </div>
+        </div>
+    </div>
+</div>

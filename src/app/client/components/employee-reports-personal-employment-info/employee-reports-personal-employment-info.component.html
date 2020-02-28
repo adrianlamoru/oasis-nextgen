@@ -1,0 +1,281 @@
+<div class="employee-reports-container employee-reports-personal-information">
+  <div class="section">
+    <div class="pt-3 mb-0">
+      <div class="col-12" *ngIf="isLoading">
+        <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <div class="row col-12 p-0 m-0" *ngIf="!isLoading">
+        <h3 class="col-9 align-self-center pl-0 m-0 font-weight-bold" [ngStyle]="{'height': (allTabSelected)? '30px': 'initial'}">Company Info (Home)</h3>
+        <div class="col-3 align-self-center pr-0" *ngIf="!allTabSelected">
+          <div class="float-right">
+            <button 
+              type="button" 
+              class="btn btn-link btn-link-icon p-0 mr-2"
+              (click)="requestedFunction('print')">
+            <span class="icon icon-pint"></span>
+            <span>PRINT</span>
+            </button>
+            <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+                <button 
+                  class="btn btn-light" 
+                  id="downloadDD" 
+                  ngbDropdownToggle>
+                    <span>
+                      Download
+                      <i class="icon icon-shape"></i>
+                    </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="Download">
+                  <button 
+                    type="button" 
+                    class="dropdown-item" 
+                    *ngFor="let item of dropdownOptions[0].items" 
+                    (click)="selectedDownloadOption(item); downloadDD.close()">
+                    {{item.name}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <!-- Section -1 -- Company Information -->
+      <div class="row" *ngIf="!isLoading">
+        <div class="col-8">
+          <div class="row employee-information-first-row" *ngFor="let ddItem of filteredEmployeeReportsEmployementInfoReport[0].employeeEmployementInformation">
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Client Name</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.clientName">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Job Title</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.jobTitle">
+              </div>
+            </div>
+
+            <div class="col-4"></div>
+
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Job Code</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.jobCode">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Job Date</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.jobDate">
+              </div>
+            </div>
+
+            <div class="col-4"></div>
+
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Status</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.status">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Status Date</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.statusDate">
+              </div>
+            </div>
+
+            <div class="col-4"></div>
+
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Type</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.type">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Type Date</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.typeDate">
+              </div>
+            </div>
+
+            <div class="col-4"></div>
+
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Benefit Group</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.benefitGroup">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding custom-margin-bottom">
+              <div class="form-group">
+                <label>Benefits Thru Date</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.benefitDate">
+              </div>
+            </div>
+            <div class="col-4 pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Work Shift</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.workShift">
+              </div>
+            </div>
+
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Project Code</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.projCode">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding custom-margin-bottom">
+              <div class="form-group">
+                <label>Department</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.department">
+              </div>
+            </div>
+            <div class="col-4 pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Division</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.division">
+              </div>
+            </div>
+
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Location</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.location">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding custom-margin-bottom">
+              <div class="form-group">
+                <label>Union Code</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.unionCode">
+              </div>
+            </div>
+            <div class="col-4 pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Employee/Clock #</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.clockNumber">
+              </div>
+            </div>
+
+
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Pay Group/ Method</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.payGroup">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>W/C Class Code</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.wcClassCode">
+              </div>
+            </div>
+          </div>
+
+          <hr/>
+          
+          <!-- Section -2 -- Client Info -->
+          <div class="row col-12 section-title2 p-0 m-0">
+            <h3 class="align-self-center pl-0 m-0 font-weight-bold">Client Info</h3>
+          </div>
+          <div class="row employee-information-row" *ngFor="let ddItem of filteredEmployeeReportsEmployementInfoReport[0].employeeEmployementInformation">
+            <div class="col-12 p-0" >
+              <div class="row employee-information-first-row pl-0">
+                
+                <div class="col-4 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>PEO Start Date</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.peoStartDate">
+                  </div>
+                </div>
+                <div class="col-4 employee-information-field-padding custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Client Start Date</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [ngModel]="ddItem.clientStartDate">
+                  </div>
+                </div>
+                <div class="col-4 pr-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Employer ID</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.employerId">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="hr-custom" *ngIf="allTabSelected"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  

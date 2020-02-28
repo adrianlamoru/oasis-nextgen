@@ -1,0 +1,68 @@
+@import '~sass/variables';
+
+.employee-details-tax {
+	padding-top: 15px;
+    padding-left: 0%;
+    padding-right: 0px;
+
+	.icon-pencil:before {
+		color: #3E434D;
+	}
+
+	.section-title-buttons {
+		margin-top: 11px !important;
+	}
+
+	.dx-item-content .dx-item {
+		padding-left: 0px;
+	}
+
+	.dx-texteditor.dx-state-readonly{
+		.dx-texteditor-container .dx-texteditor-input{
+			cursor: pointer;
+		}
+	}
+
+	.dx-texteditor .dx-texteditor-input {
+		color: $gray-600;
+	}
+
+	.dx-texteditor.dx-state-focused{
+		box-shadow: none;
+	}
+
+	.dx-field-item-label .dx-field-item-label-text{
+		font-weight: 400;
+	}
+
+	.dx-form-group-caption {
+		font-size: 14px !important;
+		font-weight: 700 !important;
+		line-height: 1.71 !important;
+	}
+
+	.dx-form-group-with-caption .dx-form-group-content {
+		margin-top: 0px !important;
+		padding-top: 15px !important;
+	}
+
+	.tab-caption-margin {
+		margin-top: 30px;
+	}
+
+	.tab-button {
+		margin-top: 25px;
+
+		.btn {
+			float: right;
+		}
+	}
+
+	dx-form {
+		padding-bottom: 1rem;
+	}
+
+	hr {
+		margin: 10px 0px 9px 0px;
+	}
+}

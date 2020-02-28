@@ -1,0 +1,21 @@
+.card.benefits-card .card-body {
+    .benefits-features-items.features-with-borders .media {
+        padding-bottom: 0;
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 1px solid #DFE1E5;
+    }
+
+    .btn-primary-benefits-card-footer {
+        margin-right: 8px;
+    }
+}
+
+.card {
+    overflow:visible;
+}
+
+:host /deep/ .tooltip .tooltip-inner {
+    white-space: nowrap;
+    max-width: none;
+}

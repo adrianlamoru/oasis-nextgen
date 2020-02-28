@@ -1,0 +1,15 @@
+@import '~sass/variables';
+
+.dashboard-container {
+	margin-top: -40px;
+	.container-spacing {
+		margin-top: 30px;
+	}
+}
+
+:host ::ng-deep {
+	.custom-hr-card {
+		margin-bottom: 30px;
+		min-width: 320px;
+  }
+}

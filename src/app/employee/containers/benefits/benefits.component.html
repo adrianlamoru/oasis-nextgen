@@ -1,0 +1,88 @@
+<div class="employee-container-content">
+
+    <div class="row align-items-center container-header">
+        <div class="col-12">
+            <div class="d-inline-block container-title"><span>Benefits</span></div>
+            <div class="d-inline-block float-right text-right container-buttons">
+                <button type="button" class="btn btn-primary btn-cta {{first ? 'cta-last-btn' :''}} {{last ? '' :'cta-button-right-margin'}}" *ngFor="let ctaItem of benefitsCTAButtons; let first = first; let last = last;" (click)="openCTAButtonAction(ctaItem.btnLink, ctaItem.btnLinkConfig)">{{ctaItem.btnLabel}}</button>
+            </div>
+        </div>
+    </div>
+    <div class="row container-content">
+        <div *ngFor="let benefitItem of benefitsPlanList; let index = index;" class="col custom-col-card">
+            <div *ngIf="benefitItem.display === true" class="card benefits-card" [ngClass]="{'benefits-card-available': benefitItem.planStatus === 'AVAILABLE'}">
+                <div class="card-body">
+                    <div class="benefits-card-row">
+
+                    <div *ngIf="benefitItem.planStatus === 'MEDICAL'" class="enrolled-label">
+                        <span class="badge badge-label-discount-programs">{{ benefitItem.planStatus }}</span>
+                    </div>
+                    
+                    <div *ngIf="benefitItem.planStatus === 'ANCILLARY'" class="enrolled-label">
+                        <span class="badge badge-label-financial-services">{{ benefitItem.planStatus }}</span>
+                    </div>
+
+                    <div *ngIf="benefitItem.planStatus === 'SUPPLEMENTAL'" class="enrolled-label">
+                        <span class="badge badge-label-health-wellness">{{ benefitItem.planStatus }}</span>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <h3 class="benefits-plan-year-title">Plan Year <span class="benefits-plan-year">{{ benefitItem.planYear }}</span></h3>
+                    </div>
+                    </div>
+                    <div class="custom-benefits-card-icon" [innerHTML]="benefitItem.iconPath">
+                    </div>
+                    <h3 class="benefits-card-title">{{ benefitItem.title }}</h3>
+                    <p class="benefits-card-description mb-0">{{ benefitItem.description}}</p>
+                    <div style="width:49%; display: inline-block;">
+                        <div class="product-card-features">
+                            <span>EMPLOYEE COST</span>
+                        </div>
+                        <div class="employee-cost">
+                            ${{benefitItem.employeeCost}}<span class="month">/month</span>
+                        </div>
+                    </div>
+                    <div style="width:49%; display: inline-block;">
+                        <div class="product-card-features">
+                            <span>EMPLOYER COST</span>
+                        </div>
+                        <div class="employee-cost">
+                            ${{benefitItem.employerCost}}<span class="month">/month</span>
+                        </div>
+                    </div>
+                    <div class="product-card-features">
+                        <span>FEATURES</span>
+                        </div>
+                    <div class="benefits-features-items">
+                        <ul class="benefits-features-items m-0">
+                            <li *ngFor="let featureItem of benefitItem.features"  class="media">
+                            <span class="custom-features-bullet-icon icon-triangle" > </span>
+                            <div class="media-body">
+                                {{ featureItem }}
+                            </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="product-card-features additional-info">
+                        <span>ADDITIONAL INFO</span>
+                    </div>
+                    <div class="modal-body benefits-modal-body additional-info-list">
+                        <ul class="mb-30">
+                            <li *ngFor="let additionalInfoItem of benefitItem.additionalInfo">
+                            <span class="benefits-modal-link" (click)="openAdditionalInfoAction(additionalInfoItem)"> {{ additionalInfoItem.text }} </span><hr>
+                            <!-- <span class="benefits-modal-link" (click)="openButtonAction(additionalInfoItem.link)"> {{ benefitsDetailsModalData.additionalInfoSite }} </span><hr> -->
+                            </li>
+                        </ul>
+                    </div>
+                <div class="row">
+                    <div class="col">
+                    <button type="button" class="btn btn-outline-primary btn-primary-benefits-card-footer" (click)="openWebsiteLink(benefitItem.websiteLink)">WEBSITE</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <router-outlet></router-outlet>
+</div>

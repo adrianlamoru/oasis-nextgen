@@ -1,0 +1,125 @@
+<div class="custom-modal-window">
+    <div class="modal-header">
+      <h4 class="modal-title align-self-center float-left">Cost Allocation Defaults - {{ selectedEmployeeName | middleTruncate: 50 }}</h4>
+      <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="closeModal()">
+          <span class="icon icon-close"></span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="custom-grid">
+                    <div class="custom-grid-header text-right">
+                        <dx-button text="Add" class="btn btn-primary" (onClick)="addCostAllocation()">
+                        </dx-button>
+                    </div>
+                    <div *ngIf="!isValid" class="messages-component">
+                        <div class="alert alert-danger alert-dismissible">
+                            <button aria-label="Close" class="close" type="button" (click)="closeValidationMessage()">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <span class="icon icon-danger"></span>
+                            <span class="message">
+                                Data is saved only when total is EXACTLY 100% and Submit is clicked
+                            </span>
+                        </div>
+                    </div>
+                    <dx-data-grid #costAllocationDataGrid [dataSource]="costAllocationDataRows"
+                        [columnAutoWidth]="true"
+                        keyExpr="id"
+                        (onInitNewRow)="onInitNewRow($event)"
+                        (onEditingStart)="onEditingStart($event)">
+                        <dxo-paging [enabled]="false"></dxo-paging>
+                        <dxi-column dataField="location" caption="Location" [allowSorting]="false">
+                            <dxo-lookup
+                                [dataSource]="dataDrivenValues"
+                                valueExpr="ID"
+                                displayExpr="Text">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column dataField="division" caption="Division" [allowSorting]="false">
+                            <dxo-lookup
+                                [dataSource]="dataDrivenValues"
+                                valueExpr="ID"
+                                displayExpr="Text">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column dataField="department" caption="Department" [allowSorting]="false">
+                            <dxo-lookup
+                                [dataSource]="dataDrivenValues"
+                                valueExpr="ID"
+                                displayExpr="Text">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column dataField="projectByCostCenter" caption="Project/Cost Center" [allowSorting]="false">
+                            <dxo-lookup
+                                [dataSource]="dataDrivenValues"
+                                valueExpr="ID"
+                                displayExpr="Text">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column dataField="job" caption="Job" [allowSorting]="false">
+                            <dxo-lookup
+                                [dataSource]="dataDrivenValues"
+                                valueExpr="ID"
+                                displayExpr="Text">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column dataField="percent" caption="Percent" alignment="left"
+                            [allowSorting]="false">
+                            <dxo-format type="percent" [precision]="2"></dxo-format>
+                        </dxi-column>
+                        <dxi-column cellTemplate="editTemplate" alignment="right" [width]="105" [minWidth]="105">
+                            <div *dxTemplate="let data of 'editTemplate'">
+                                <div class="dx-custom-command-edit">
+                                    <a class="dx-link dx-link-edit" tabindex="0" (click)="onEditRow(data)" (keydown)="onEditKeyDown($event, data)">Edit</a>
+                                    <a class="dx-link dx-link-delete" tabindex="0"  (click)="onDeleteRow(data)" (keydown)="onDeleteKeyDown($event, data)">Delete</a>
+                                </div>
+                            </div>
+                        </dxi-column>
+
+                        <dxo-editing mode="popup">
+                            <dxo-popup
+                                [title]="popupTitle"
+                                [showTitle]="true"
+                                [width]="383"
+                                [showCloseButton]="false"
+                                [position]="{ my: 'middle', at: 'middle', of: window }"
+                                [dragEnabled]="false"
+                                [closeOnOutsideClick]="true"
+                                [height]="'auto'"
+                                [toolbarItems]="[
+                                { widget: 'dxButton', location: 'after', options: { text: '', elementAttr: { class: ' btn btn-link btn-link-icon icon icon-close align-self-center vertical-middle' } }, toolbar: 'top', onClick: onCancelClick},
+                                { widget: 'dxButton', location: 'after', options: { text: 'Cancel', elementAttr: { class: ' btn btn-outline-primary' } }, toolbar: 'bottom', onClick: onCancelClick },
+                                { widget: 'dxButton', location: 'after', options: { text: 'Submit', elementAttr: { class: ' btn btn-primary' }  }, toolbar: 'bottom', onClick: onSubmitClick }]">
+                            </dxo-popup>
+
+                            <dxo-form [colCount]="1" [labelLocation]="'top'" [showColonAfterLabel]="false">
+                                <dxi-item dataField="location"></dxi-item>
+                                <dxi-item dataField="division"></dxi-item>
+                                <dxi-item dataField="department"></dxi-item>
+                                <dxi-item dataField="projectByCostCenter"></dxi-item>
+                                <dxi-item dataField="job"></dxi-item>
+                                <dxi-item dataField="percent" editorType="dxNumberBox" [editorOptions]="{ format: '#0.## %', step: '0.1', min: 0 }"></dxi-item>
+                            </dxo-form>
+                        </dxo-editing>
+
+                        <dxo-summary>
+                            <dxi-total-item
+                                column="percent"
+                                summaryType="sum"
+                                displayFormat="Total: {0}"
+                                valueFormat="percent"
+                                [precision]="2">
+                            </dxi-total-item>
+                        </dxo-summary>
+                    </dx-data-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="closeModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="submitModal()">Confirm</button>
+    </div>
+</div>

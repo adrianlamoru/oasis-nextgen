@@ -1,0 +1,74 @@
+<div class="employee-reports-container employee-reports-scheduled-deductions p-0">
+  <div class="section">
+      
+    <div class="row">
+      <div class="col-6 report-title align-self-center">
+          <span>Scheduled Deductions</span>
+          <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-6 report-title align-self-center">                   
+        <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+      </div>
+    </div>
+
+    <div class="custom-grid pt-1 mb-0 pl-0">
+      <hr class="m-0 mb-1 p-0"/>
+      <div class="col-12" *ngIf="isLoading">
+          <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+
+      <div *ngIf="!isLoading">
+        <div class="row date-range-row">
+          <div class="col-12 align-self-center p-0">
+            <div class="float-right section-title">
+              <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                      (click)="requestedFunction('print')">
+                  <span class="icon icon-pint"></span>
+                  <span>PRINT</span>
+              </button>
+              <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+                <button class="btn btn-light" id="downloadDD" ngbDropdownToggle>
+                  <span>Download
+                      <i class="icon icon-shape"></i>
+                  </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="Download">
+                  <button type="button" class="dropdown-item" *ngFor="let item of dropdownOptions[0].items" (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row grid-range-row" *ngIf="!isLoading">
+          <div class="col-lg-12">
+            <dx-data-grid 
+              [dataSource]="employeeReportsScheduledDeductions" 
+              class="pair-row-color-gray-100"
+              [columnAutoWidth]="true" 
+              [wordWrapEnabled]="true">
+              <dxi-column dataField="deductionCode" caption="Deduction Code" alignment="left" [allowSorting]="true"></dxi-column>
+              <dxi-column dataField="description" caption="Description" alignment="left" [allowSorting]="true"></dxi-column>
+              <dxi-column dataField="amount" caption="Amount" alignment="right" [allowSorting]="true">
+                  <dxo-format type="currency" [precision]="2"></dxo-format>
+              </dxi-column>
+              <dxi-column dataField="periods" caption="Periods" alignment="left" [allowSorting]="true"></dxi-column>
+              <dxi-column dataField="benefitPlan" caption="Benefit Plan" alignment="left" [allowSorting]="true"></dxi-column>
+              <dxi-column dataField="limit" caption="Limit" alignment="right" [allowSorting]="true"></dxi-column>
+              <dxi-column dataField="maximum" caption="Maximum" alignment="right" [allowSorting]="true"></dxi-column>
+              <dxi-column dataField="basis" caption="Basis" alignment="left" [allowSorting]="true"></dxi-column>
+              <dxi-column dataField="trackArrears" caption="Track Arrears" alignment="left" [allowSorting]="true"></dxi-column>
+              <dxi-column dataField="startDate" caption="Start Date" alignment="left" [allowSorting]="true" cellTemplate="dateCell"></dxi-column>
+              <dxi-column dataField="stopDate" caption="Stop Date" alignment="left" [allowSorting]="true" cellTemplate="dateCell"></dxi-column>
+              <dxi-column dataField="glOverrideAcct" caption="GL Override Account" alignment="left" [allowSorting]="true" width="150"></dxi-column>
+              <div *dxTemplate="let cellData of 'dateCell'">
+                {{cellData.value | date: 'MM/dd/yyyy'}}
+              </div>
+            </dx-data-grid>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>

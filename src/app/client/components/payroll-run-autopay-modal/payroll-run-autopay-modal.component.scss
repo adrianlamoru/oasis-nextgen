@@ -1,0 +1,39 @@
+.payrollRunAutoModalComponent {
+
+  .modal-body {
+
+    button:not(.close) {
+      /*width: 100%;*/
+      text-align: left;
+
+      .icon-shape {
+        margin-top: 4px;
+      }
+    }
+
+    .cbSubtractFromDefault {
+      margin-top: 6px;
+    }
+
+    .dx-datagrid-table-content {
+      .dx-group-row {
+        display: none;
+      }
+    }
+
+    .dx-datagrid-rowsview {
+      .dx-scrollbar-horizontal {
+        display: none;
+      }
+    }
+  }
+}
+
+:host ::ng-deep {
+  .dx-checkbox-container {
+    overflow: visible !important;
+    .dx-checkbox-text {
+      white-space:nowrap;
+    }
+  }
+}

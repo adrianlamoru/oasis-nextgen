@@ -1,0 +1,44 @@
+<div class="client-container-content">
+    <div class="row align-items-center container-header">
+        <div class="col-5 container-title"><span>Human Resources</span></div>
+        <div class="col-7">
+            <div class="float-right">
+                <button type="button" class="btn btn-primary btn-cta" *ngFor="let ctaItem of hrCTAButtons" (click)="openCTAButtonAction(ctaItem.btnLink, ctaItem.btnLinkConfig)">{{ctaItem.btnLabel}}</button>
+            </div>
+        </div>
+    </div>
+    <div class="row container-content">
+        <div class="col custom-hr-card" *ngIf="hrCards.showELearning">
+            <app-hr-e-learning [available]="company?.hrCardsAvailable[0].hrCardStatus"></app-hr-e-learning>
+        </div>
+
+        <div class="col custom-hr-card" *ngIf="hrCards.showUpcomingReviews">
+            <app-human-resources-upcoming-reviews-links [innerData]="upcomingReviewsCardData" available="false"></app-human-resources-upcoming-reviews-links>
+        </div>
+
+        <div class="col custom-hr-card" *ngIf="hrCards.showRecruitmentAppTracking">
+            <app-hr-recruitment-and-app-tracking [available]="company?.hrCardsAvailable[0].hrCardStatus"></app-hr-recruitment-and-app-tracking>
+        </div>
+        <div class="col custom-hr-card" *ngIf="hrCards.showRecruitmentAppTracking">
+            <app-hr-onboarding></app-hr-onboarding>
+        </div>
+
+        <div class="col custom-hr-card" *ngIf="hrCards.showHRCompliance">
+            <app-hr-compliance available="false"></app-hr-compliance>
+        </div>
+        <div class="col custom-hr-card" *ngIf="hrCards.showHandbooksDocuments">
+            <app-human-resources-training [websiteLink]="handBooksDocumentsLink" [humanResourcesActivitesCardData]="hrHandBooksDocuments" available="false"></app-human-resources-training>
+        </div>
+        <div class="col custom-hr-card" *ngIf="hrCards.showHRActivities">
+            <app-hr-activities available="false"></app-hr-activities>
+        </div>
+
+        <div class="col custom-hr-card" *ngIf="hrCards.showStateComplianceModule">
+            <div class="card hr-card">
+                <app-human-resources-states-compliance-tax [company]="company" [page]="page" titleModal="State-Compliance Documents" downloadModalText="Download Brief"></app-human-resources-states-compliance-tax>
+            </div>
+        </div>
+
+    </div>
+
+</div>

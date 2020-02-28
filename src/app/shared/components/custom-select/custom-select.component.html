@@ -1,0 +1,27 @@
+<div (click)="setEventOrigin($event)">
+  <label *ngIf="title" for="dropdown-{{elementId}}">{{title}}</label>
+  <div ngbDropdown
+      #drop="ngbDropdown"
+      class="d-inline-block custom-dropdown-component form-display-padding">
+    <button class="btn btn-form-control form-control-dropdown text-left dropdown-overflow"
+            id="dropdown-{{elementId}}"
+            (blur)="onComponentTouch($event)"
+            ngbDropdownToggle
+            [disabled]="disableDropdown">
+      <span class="{{selectedOption === placeholder ? 'text-placeholder' : '' }}">
+          {{hideItem ? '' : selectedOption}}
+          <i class="icon float-right"
+             [ngClass]="icon"></i>
+      </span>
+    </button>
+    <span class="triangle"></span>
+    <div ngbDropdownMenu
+         aria-labelledby="dropdown"
+         class="dropdown-overflow">
+      <button type="button"
+              class="dropdown-item"
+              *ngFor="let item of items"
+              (click)="selectItem(item[idProp], drop)">{{item[nameProp]}}</button>
+    </div>
+  </div>
+</div>

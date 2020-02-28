@@ -1,0 +1,106 @@
+<div class="job-title-component">
+  <div class="row">
+    <div class="col-8">
+      <p class="taxes-paragraph" style="padding: 29px 27px 34px 26px;">
+          We utilize a standard job code format that will control the employee job title,
+          FSLA status (exempt or nonexempt) and workers' compensation code based on the 
+          state in which the employee is performing work. Please complete the Job Codes table below.
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-10">
+      <div class="custom-grid-header">
+        <dx-data-grid #dxDataGrid [dataSource]="jobTitlesDataRows"
+          [columnAutoWidth]="true"
+          class="payroll-batch-grid row-edited-data-grid"
+          keyExpr="ID">
+          
+            <dxo-paging [enabled]="false"></dxo-paging>
+
+            <dxo-editing mode="batch" [allowUpdating]="true">
+            </dxo-editing>
+
+            <dxi-column dataField="JobStates" alignment="left"
+            [showEditorAlways]="true"
+            [allowSorting]="false"
+            editCellTemplate="multiSelectTemplate"
+            cellTemplate="statesCellTemplate">          
+            <div *dxTemplate="let cell of 'multiSelectTemplate'">
+              <dx-drop-down-box class="custom-multi-select"
+                [value]="getMultiSelected(cell.data)" 
+                [dataSource]="statesDropdown"
+                [(opened)]="cell.data.statesOpened"
+                valueExpr="abbr"
+                displayExpr="name" 
+                placeholder="States" 
+                contentTemplate="dropboxtemplate-multiselect" 
+                [showClearButton]="false"
+                (onKeyDown)="onEnterKeyDown($event, cell.data)"
+                (onDisposing)="onClosed($event, cell.data)"
+                (onClosed)="onClosed($event, cell.data)">
+                <div *dxTemplate="let contentData of 'dropboxtemplate-multiselect'">
+                  <dx-tree-view [dataSource]="statesDropdown" dataStructure="plain" keyExpr="abbr" selectionMode="multiple" showCheckBoxesMode="selectAll"
+                    selectAllText="All States" [selectNodesRecursive]="false" displayExpr="name" [selectByClick]="true"
+                    (onContentReady)="onContentReadydxTreeView($event, cell)" (onItemSelectionChanged)="contentReadyRowEdited? onItemSelectionChangedRowEdited($event, cell): null">
+                  </dx-tree-view>
+                </div>
+                <div *dxTemplate="let data of 'dropDownButton'">
+                  <i class="icon icon-shape icon-rotate"></i>
+                </div>
+              </dx-drop-down-box>
+            </div>
+          </dxi-column>   
+
+            <dxi-column dataField="W/C_Code" alignment="left"
+                [allowSorting]="false" [showEditorAlways]="true">
+            </dxi-column>
+
+            <dxi-column dataField="JobCode" alignment="left"
+                [allowSorting]="false" [showEditorAlways]="true">
+            </dxi-column>
+
+            <dxi-column dataField="JobTitle" alignment="left"
+                [allowSorting]="false" [showEditorAlways]="true">
+            </dxi-column>
+
+            <dxi-column dataField="JobDescription" alignment="left"
+                [allowSorting]="false" [showEditorAlways]="true">
+            </dxi-column>
+
+            <dxi-column 
+              dataField="FLSA_Exempt" 
+              alignment="left"
+              [showEditorAlways]="true"
+              editCellTemplate="multiCheckBoxes"
+              [allowSorting]="false">
+              <div *dxTemplate="let cell of 'multiCheckBoxes'">
+               <div class="form-group m-0">
+                <dx-check-box 
+                  [value]="isFLSA_Exempt(cell.data)" 
+                  (onValueChanged)="onChangeCellValue(cell.data, $event)" 
+                  text="Yes" >
+                </dx-check-box>
+                <dx-check-box 
+                  [value]="!isFLSA_Exempt(cell.data)" 
+                  (onValueChanged)="onChangeCellValue(cell.data, $event)" 
+                  text="No">
+                </dx-check-box>
+               </div>
+              </div>
+            </dxi-column>
+            
+            <dxi-column cellTemplate="editTemplate" alignment="left" [width]="60" [minWidth]="60">
+              <div *dxTemplate="let data of 'editTemplate'">
+                  <div class="dx-custom-command-edit">
+                      <a *ngIf="data.data.inserting" class="dx-link dx-link-edit" tabindex="0" (click)="onAddRow(data)" (keydown)="onAddKeyDown($event, data)">ADD</a>
+                      <a *ngIf="!data.data.inserting" class="dx-link dx-link-delete" tabindex="0"  (click)="onDeleteRow(data)" (keydown)="onDeleteKeyDown($event, data)">REMOVE</a>
+                  </div>
+              </div>
+          </dxi-column>
+
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>

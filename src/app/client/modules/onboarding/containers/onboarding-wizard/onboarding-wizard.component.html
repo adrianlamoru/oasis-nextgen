@@ -1,0 +1,57 @@
+<div class="wizard-content">
+  <div class="col-3 container-title">
+    <div class="container-header-title">My Onboarding</div>
+    <div class="container-header-description">2 out of 6 steps completed</div>
+  </div>
+  <div class="onboarding-wizard-container">
+    <ul class="nav custom-nav custom-nav-onboarding d-flex nav-fill">
+      <li class="nav-item flex-fill" routerLinkActive="active" *ngFor="let wizardStep of onboardingWizzardService.wizardSteps; let i = index">
+        <a [routerLink]="wizardStep.path" [ngClass]="{'has-errors': !isStepValid(wizardStep.id)}">{{i + 1}}. {{wizardStep.title}}</a>
+      </li>
+    </ul>
+    <div class="buttons d-flex">
+      <div class="buttons-container ml-auto">
+        <button *ngIf="onboardingWizzardService.currentStep.backPath" type="button" class="btn btn-outline-primary" (click)="onboardingWizzardService.back()">BACK</button>
+        <button type="button" class="btn btn-outline-primary" (click)="onboardingWizzardService.saveAndExit()">SAVE AND EXIT</button>
+        <button *ngIf="onboardingWizzardService.currentStep.nextPath" type="button" class="btn btn-primary" (click)="onboardingWizzardService.next()">NEXT</button>
+        <button *ngIf="onboardingWizzardService.currentStep.id === 'finalizeAndSubmit'" type="button" class="btn btn-primary" (click)="openFinalModal('md', finalModal)">SUBMIT</button>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+    <div class="buttons d-flex">
+      <div class="buttons-container ml-auto">
+        <button *ngIf="onboardingWizzardService.currentStep.backPath" type="button" class="btn btn-outline-primary" (click)="onboardingWizzardService.back()">BACK</button>
+        <button type="button" class="btn btn-outline-primary" (click)="onboardingWizzardService.saveAndExit()">SAVE AND EXIT</button>
+        <button *ngIf="onboardingWizzardService.currentStep.nextPath" type="button" class="btn btn-primary" (click)="onboardingWizzardService.next()">NEXT</button>
+        <button *ngIf="onboardingWizzardService.currentStep.id === 'finalizeAndSubmit'" type="button" class="btn btn-primary" (click)="openFinalModal('md', finalModal)">SUBMIT</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #finalModal let-c="close" let-d="dismiss">
+  <div class="custom-modal-window gsw-final-modal">
+    <div class="modal-header">
+      <div class="d-flex">
+      </div>
+      <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click')">
+        <span class="icon icon-close"></span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="custom-title">HOORAY! Almost there.</div>
+      <div class="custom-description">By clicking "submit" you are confirming that all information is complete. Once submitted, you will not be able to make changes to the information using this portal.</div>
+      <div class="custom-description custom-description-margin" >It’s easy to make changes now before you submit. Click Cancel if you need to make changes.</div>
+      <div class="custom-description custom-description-margin">If you have any questions, contact your Implementation Agent. See their contact information located in the left rail.</div>
+      <div>
+          <img class="custom-image" src="/assets/images/getting-started/confirmation-journey-min.png" alt="" width="400">
+      </div>
+     <hr class="custom-hr-margin"> 
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="c('Close click');updateOnboardingFlag()">Submit</button>
+    </div>
+  </div>
+</ng-template>

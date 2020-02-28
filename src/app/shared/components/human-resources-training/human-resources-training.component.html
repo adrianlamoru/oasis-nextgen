@@ -1,0 +1,52 @@
+<div class="card benefits-card hr-card" [ngClass]="{'hr-card-available': available === 'true'}">
+    <div class="card-body">
+        <h3 class="benefits-card-title title-max-height">{{humanResourcesActivitesCardData.title}}</h3>
+        <div class="benefits-features-items features-with-borders">
+            <ul class="benefits-features-items m-0">
+                <li *ngFor="let item of humanResourcesActivitesCardData.previewItemsList | slice:0:3">
+                    <a class="media a-link" target="_blank" href="{{item.docLink}}" download="{{item.docDownloadName}}">
+                        <span class="custom-features-bullet-icon-2 icon-single-content"> </span>
+                        <div class="media-body"><span ngbTooltip="{{item.docName}}">{{item.docName}}</span></div>
+                        <span class="custom-features-bullet-icon-2 icon-square-upload"> </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="row footer-fixed-position">
+            <div class="col">
+                <button type="button" class="btn btn-primary btn-primary-benefits-card-footer" (click)="openCardModal('sm', HADcardDetailsModalContent)">SEE ALL</button>
+                <button *ngIf="websiteLink" type="button" class="btn btn-outline-primary btn-primary-benefits-card-footer" (click)="openButtonAction(websiteLink)"> Website</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #HADcardDetailsModalContent let-c="close" let-d="dismiss">
+    <div class="custom-modal-window">
+        <div class="modal-header">
+            <h4 class="modal-title modal-title-capitalize align-self-center float-left">{{humanResourcesActivitesCardData.title}}</h4>
+            <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click')">
+        <span class="icon icon-close"></span>
+      </button>
+        </div>
+        <div class="modal-body benefits-modal-body">
+            <div class="benefits-item benefits-item-parent-padding">
+                <div class="features-items features-with-borders">
+                    <ul class="features-items">
+                        <li class="media" *ngFor="let item of humanResourcesActivitesCardData.previewItemsList">
+                            <a class="media a-link" target="_blank" href="{{item.docLink}}" download="{{item.docDownloadName}}">
+                                <span class="custom-features-bullet-icon-2 icon-single-content"> </span>
+                                <div class="media-body">{{item.docName}}</div>
+                                <span class="custom-features-bullet-icon-2 icon-square-upload link"> </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer modal-footer-benefits">
+            <button *ngIf="websiteLink" type="button" class="btn btn-outline-primary btn-primary-benefits-card-footer" (click)="openButtonAction(websiteLink)">WEBSITE</button>
+            <button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Close</button>
+        </div>
+    </div>
+</ng-template>

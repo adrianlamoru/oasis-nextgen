@@ -1,0 +1,83 @@
+<div class="reports-container reports-garnishments">
+  <div class="section">
+    <div class="row breadcrumb-container-reports">
+      <div class="col-12">
+        <div class="breadcrumb-component">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item back-link">
+                <a (click)="goToBack()">Reports</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <span class="breadcrumb-item-active">Garnishments</span>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-7 report-title align-self-center">
+          <span>Garnishments</span>
+          <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-5 align-self-center">                   
+          <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-6 col-xl-3">
+            <label>Docket</label>
+            <div ngbDropdown class="d-inline-block dropdown-scroll custom-dropdown-component dropdown-scroll" #ddYears="ngbDropdown">
+                <button 
+                      type="button"
+                      class="btn btn-form-control form-control-dropdown text-left"
+                      ngbDropdownToggle
+                      (click)="isOpened = !isOpened">
+                    <span>
+                    {{ selectedDocket || 'Select Docket' }}
+                    <i class="icon  icon-shape float-right"></i>
+                    </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="ddDocket" class="custom-dropdown-years">
+                    <button
+                            type="button"
+                            class="dropdown-item"
+                            *ngFor="let docketItem of docketsDD"
+                            (click)="onSelectionDocket(docketItem)">{{docketItem.Text}}</button>
+                </div>
+            </div>
+          </div>
+          <div class="col-6 col-xl-2 custom-top-margin-col1 d-flex">
+              <button class="btn btn-primary custom-view-report-btn" (click)="getFilteredData()" [disabled]="disableViewReportButton">View Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row custom-margin-top">
+        <div class="col-12" *ngIf="isLoading">
+          <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+        </div>
+        <div class="col-12" *ngIf="!isLoading && displayReport">
+          <ngb-tabset #tabSet="ngbTabset" class="ngbTabset garnishments-tabs">
+          <ngb-tab id="docketInformation">
+              <ng-template ngbTabTitle>Docket Information</ng-template>
+              <ng-template ngbTabContent>
+                <app-reports-payroll-garnishments-docket-info [displayReport]="displayReport" [docketInformationData]="filteredDocketInformationData"></app-reports-payroll-garnishments-docket-info>
+              </ng-template>
+          </ngb-tab>
+          <ngb-tab id="history">
+              <ng-template ngbTabTitle>History</ng-template>
+              <ng-template ngbTabContent>
+                <app-reports-payroll-garnishments-history [displayReport]="displayReport" [historyData]="filteredHistoryData"></app-reports-payroll-garnishments-history>
+              </ng-template>
+          </ngb-tab>
+          </ngb-tabset>
+        </div>
+      </div>
+
+  </div>
+</div>

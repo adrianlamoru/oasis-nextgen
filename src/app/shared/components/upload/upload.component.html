@@ -1,0 +1,79 @@
+<div class="custom-modal-window" *ngIf="isTypeModal">
+    <div class="modal-header">
+     	<h4 class="modal-title align-self-center float-left">Upload</h4>
+    	<button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+        	<span class="icon icon-close"></span>
+    	</button>
+    </div>
+    <div class="modal-body"> 
+	    <div class="file-upload-area">
+            <div *ngIf="showError" class="messages-component">
+                <div class="alert alert-danger alert-dismissible">
+                    <button aria-label="Close" class="close" type="button" (click)="closeErrorMessage()">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <span class="icon icon-danger"></span>
+                    <span class="message">
+                        Error! The file(s) did not upload.
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <dx-file-uploader
+						#fileUploader
+						class="custom-file-uploader"
+						uploadUrl="{{uploadURL}}"
+						[multiple]="multiple"
+						[accept]="accept"
+						uploadMode="useButtons"
+						labelText="or drop files here to upload."
+						selectButtonText="Choose Files"
+						(onUploadError)="onUploadedError($event)"
+						(onUploaded)="onUploaded($event)"
+						(onOptionChanged)="onOptionChanged($event)"
+						(onValueChanged)="valueChanged($event)"
+						(onUploadStarted)="onUploadStarted($event)">
+	                </dx-file-uploader>
+                </div>    
+            </div>        
+        </div>  
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="modalCloseFunc('Cross click')">Cancel</button>
+    </div>
+</div>
+
+
+<div class="file-upload-area" *ngIf="!isTypeModal">
+    <div *ngIf="showError" class="messages-component">
+        <div class="alert alert-danger alert-dismissible">
+            <button aria-label="Close" class="close" type="button" (click)="closeErrorMessage()">
+                <span aria-hidden="true">×</span>
+            </button>
+            <span class="icon icon-danger"></span>
+            <span class="message">
+                Error! The file(s) did not upload.
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <dx-file-uploader
+				#fileUploader
+				class="custom-file-uploader"
+				uploadUrl="{{uploadURL}}"
+				[multiple]="multiple"
+				[accept]="accept"
+				[(value)]="uploads"
+				uploadMode="useButtons"
+				labelText="or drop files here to upload."
+				selectButtonText="Choose Files"
+				(onUploadError)="onUploadedError($event)"
+				(onUploaded)="onUploaded($event)"
+				(onOptionChanged)="onOptionChanged($event)"
+				(onValueChanged)="valueChanged($event)">
+            </dx-file-uploader>
+        </div>    
+    </div>        
+</div> 

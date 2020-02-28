@@ -1,0 +1,28 @@
+.row-edited-data-grid{
+    .dx-row.dx-data-row.dx-column-lines.dx-edit-row.dx-row-inserted{
+      .dx-command-edit{
+        .dx-link.dx-link-cancel{
+          display: none;
+        }
+      }
+    }
+
+    .dx-row.dx-column-lines.dx-header-row {
+      .dx-datagrid-text-content {
+        height: auto;
+      }
+    }
+
+    .dx-datagrid .dx-row > td:not(.dx-master-detail-cell):not(.dx-command-select):first-child {
+      padding-left: 10px !important;
+    }
+
+    .dx-datagrid .dx-row > td {
+      padding: 4px 10px !important;
+      
+    }
+
+    .dx-datagrid .dx-row > td[role='gridcell']:focus-within {
+      box-shadow: none;
+    }
+  }

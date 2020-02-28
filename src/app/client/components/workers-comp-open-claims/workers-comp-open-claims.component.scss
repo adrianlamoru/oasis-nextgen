@@ -1,0 +1,10 @@
+.custom-right-margin {
+    margin-right: -7px;
+}
+
+.workers-comp-claim-card {
+    &:first-child, &:nth-child(2) {
+        margin-top: 0px !important;
+    }
+    margin-top: 30px;
+}

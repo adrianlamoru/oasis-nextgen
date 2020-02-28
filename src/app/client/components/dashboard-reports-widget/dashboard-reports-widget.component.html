@@ -1,0 +1,51 @@
+
+<div class="card benefits-card dashboard-card">
+  	<div class="card-body">
+  		<div class="row">
+  			<div class="col-4 align-self-center">
+			    <h3 class="benefits-card-title">Reports</h3>			    
+  			</div>
+  			<div class="col-8 align-self-center d-none">
+			    <div class="float-right">
+			         <button type="button" class="btn btn-outline-primary" >Create custom report</button>
+			    </div>
+			</div>
+  		</div> 
+		<div class="row ex-margin-bottom ex-margin-top">
+			<div class="col-12">
+				<div class="benefits-features-items features-with-borders max-height-with-scroll">
+		          	<ul class="benefits-features-items m-0">
+		          		<li>
+		          			<div class="media heading">
+		          				<div class="media-body">Name</div>
+		          				<div class="media-body">Category</div>
+		          				<a class="a-link a-link-ex-margin"> 
+				              		<span class="custom-features-bullet-icon-2 icon-square-upload" > </span>
+				              	</a>
+				              	<a class="a-link a-link-ex-margin"> 
+				              		<span class="custom-features-bullet-icon-2 icon-side-chevron"> </span> 
+				            	</a>
+		          			</div>
+		          		</li>
+		            	<li *ngFor="let item of recentReportsData | slice:0:5"> 
+		            		<div class="media"> 
+				              	<div class="media-body">{{item.docName}}</div>
+				              	<div class="media-body">{{item.category}}</div>
+				              	<a class="a-link  a-link-ex-margin" href="{{item.docLink}}" download="{{item.docDownloadName}}"> 
+				              		<span class="custom-features-bullet-icon-2 icon-square-upload"> </span> 
+				            	</a>				            	
+				              	<a class="a-link  a-link-ex-margin" target="_blank" routerLink="{{item.docLink}}"> 
+				              		<span class="custom-features-bullet-icon-2 icon-side-chevron" > </span>
+				              	</a>
+				            </div>
+		            	</li>
+		          	</ul>
+		        </div>
+			</div>
+		</div>
+		<button type="button" class="btn btn-link btn-abs-position" (click)="openSpecifiedSection('/client/reports')">
+            <span class="btn-link-text">See All Reports</span>
+            <span class="icon icon-arrow"></span>
+        </button>
+	</div>
+</div>

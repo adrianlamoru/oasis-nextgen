@@ -1,0 +1,120 @@
+@import "~bootstrap/scss/functions"; 
+@import '~sass/variables';
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+
+.benefits-detail {
+    &.card {
+        border: 0;
+        
+        .dashboard-benefit-detail-body {
+            padding: 0;
+
+            .card-display-value {
+                padding: 13px 0;
+                background-color: $forth-level-color;
+                margin-top: 10px;
+                border-radius: 4px;
+                cursor: pointer;
+
+                @include media-breakpoint-up(md) {
+                    padding: 13px 17px;
+                }
+                
+                .icon {
+                    font-size: 20px;
+                }
+
+                .col-2 {
+                    @include media-breakpoint-between(xs,sm) {
+                        padding-left: 10px !important;
+                        margin-right: 10px;
+                    }
+                }
+
+                .col-10 {
+                    @include media-breakpoint-up(md) {
+                        padding-left: 15px !important;
+                    }
+                }
+
+                .display {
+                    display: block;
+                    font-family: Roboto;
+                    font-size: 14px;
+                    font-weight: bold;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: 1.29;
+                    letter-spacing: normal;
+                    text-align: left;
+                }
+            
+                .value {
+                    display: block;
+                    font-family: Roboto;
+                    font-size: 12px;
+                    font-weight: 500;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                    text-align: left;
+
+                    .group-value {
+                        display: inline-block;
+                    }
+                }
+            }
+    
+            .row {
+                margin-right: 0;
+                margin-left: 0;
+                
+                .col-2 {
+                    padding-left: 0;
+                    padding-right: 0;
+                    max-width: 12.5% !important;
+                }
+
+                .col-10 {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+            }
+
+            .text-muted {
+                color: $gray-700 !important;
+            }
+        }
+
+        .dashboard-benefit-detail-footer {
+            a {
+                font-family: $font-family-sans-serif-secondary;
+                color: $blue;
+                text-transform: uppercase;
+                font-size: 11px;
+                line-height: 14px;
+                font-weight: bolder;
+                
+
+                .icon-arrow  {
+                    font-size: 9px;
+                }
+            }
+
+            a:hover {
+                text-decoration: none;
+                color: #004b9b;
+
+                .icon-arrow::before {
+                    margin-left: 5px;
+                    transition: margin-left 500ms;
+                }
+                
+            }
+        }
+
+    }
+}

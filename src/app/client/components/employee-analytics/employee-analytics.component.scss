@@ -1,0 +1,94 @@
+@import '~sass/variables';
+
+.employee-analytics-component {
+    margin: 0 0 60px;
+    padding: 13px 15px 25px;
+    border-radius: 10px;
+    background-color: $white;
+    box-shadow: 0 6px 16px 0 rgba(32, 44, 86, 0.04);
+    min-height: 100px;
+
+    .custom-grid-header {
+        padding-top: 8px;
+        padding-bottom: 5px;        
+        .table-title {
+            line-height: 2;
+            margin-bottom: 0;
+        }
+    }
+
+    .content-title {
+        padding: 0 !important;
+        height: 36px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 36px;
+        margin-bottom:  17px
+    }
+
+    .content-block {
+        padding: 10px 0 25px 0 !important;
+    }
+    .nopadding {
+       padding: 0 !important;
+    }
+
+    .dropdown .btn .icon-shape {
+        margin-left: 5px;
+    }
+
+    .chart-container {
+        width: 700px;
+        margin: auto;
+    }
+
+    .fields-content {
+        padding-right: 25px;
+        padding-left: 25px;
+        padding-top: 25px;
+    }
+
+    .field-display-section-container {        
+        min-width: 275px;
+        max-width: 100%;
+        overflow: hidden;
+        .field-display-section {
+            margin: 0 15px;
+            height: 45px;
+            line-height: 45px;
+            cursor: pointer;
+
+            &:nth-child(3n) {
+                margin-right: 0 !important;
+                float: right;
+            }
+
+            .title {
+                font-size: 14px;
+                font-weight: 500;
+                text-align: left;
+                color: $gray-700;
+            }
+            .value {
+                font-size: 20px;
+                font-weight: 500;
+                text-align: right;
+                color: $gray-800; 
+            }
+            .icon-side-chevron {
+                line-height: 45px;
+                margin: 0 10px;
+                font-size: 12px;
+                &:before{
+                    color: $gray-800;
+                }
+            }
+
+            &.custom-border-bottom {
+                border-bottom: 1px solid $gray-300;
+            }
+        }
+    }
+
+    
+}

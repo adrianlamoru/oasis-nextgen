@@ -1,0 +1,77 @@
+<div class="employee-reports-container employee-reports-personal-information p-0">
+  <div class="section">
+    <div class="row">
+      <div class="col-6 report-title align-self-center">
+          <span>Employee Personal Information</span>
+          <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-6 report-title align-self-center">                   
+        <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <ngb-tabset #tabSet="ngbTabset" class="ngbTabset garnishments-tabs">
+          <ngb-tab id="eeInfo">
+              <ng-template ngbTabTitle>EE Info</ng-template>
+              <ng-template ngbTabContent>
+                <app-employee-reports-personal-ee-info></app-employee-reports-personal-ee-info>
+              </ng-template>
+          </ngb-tab>
+          <ngb-tab id="employmentInfo">
+              <ng-template ngbTabTitle>Employment Info</ng-template>
+              <ng-template ngbTabContent>
+                <app-employee-reports-personal-employment-info></app-employee-reports-personal-employment-info>
+              </ng-template>
+          </ngb-tab>
+          <ngb-tab id="address">
+              <ng-template ngbTabTitle>Address</ng-template>
+              <ng-template ngbTabContent>
+                <app-employee-reports-personal-address></app-employee-reports-personal-address>
+              </ng-template>
+          </ngb-tab>
+          <ngb-tab id="compensation">
+              <ng-template ngbTabTitle>Compensation</ng-template>
+              <ng-template ngbTabContent>
+                <app-employee-reports-personal-compensation></app-employee-reports-personal-compensation>
+              </ng-template>
+          </ngb-tab>
+          <ngb-tab id="tax">
+              <ng-template ngbTabTitle>Tax</ng-template>
+              <ng-template ngbTabContent>
+                <app-employee-reports-personal-tax></app-employee-reports-personal-tax>
+              </ng-template>
+          </ngb-tab>
+          <ngb-tab id="other">
+              <ng-template ngbTabTitle>Other</ng-template>
+              <ng-template ngbTabContent>
+                <app-employee-reports-personal-other></app-employee-reports-personal-other>
+              </ng-template>
+          </ngb-tab>
+          <ngb-tab id="all">
+              <ng-template ngbTabTitle>All</ng-template>
+              <ng-template ngbTabContent>
+                <app-employee-reports-personal-all-info></app-employee-reports-personal-all-info>
+              </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+    </div>
+
+  </div>
+</div>
+  
+<!-- <ngb-tabset #tabSet="ngbTabset" class="ngbTabset garnishments-tabs">
+  <ngb-tab id="docketInformation">
+      <ng-template ngbTabTitle>Docket Information</ng-template>
+      <ng-template ngbTabContent>
+        <app-reports-payroll-garnishments-docket-info [displayReport]="displayReport" [docketInformationData]="filteredDocketInformationData"></app-reports-payroll-garnishments-docket-info>
+      </ng-template>
+  </ngb-tab>
+  <ngb-tab id="history">
+      <ng-template ngbTabTitle>History</ng-template>
+      <ng-template ngbTabContent>
+        <app-reports-payroll-garnishments-history [displayReport]="displayReport" [historyData]="filteredHistoryData"></app-reports-payroll-garnishments-history>
+      </ng-template>
+  </ngb-tab>
+</ngb-tabset> -->

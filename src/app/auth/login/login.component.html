@@ -1,0 +1,33 @@
+<div class="text-center">
+  <form class="form-signin">
+    <img class="mb-4" src="/assets/images/brand/oasis-logo-blue.png" alt="" width="200">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <div ngbDropdown class="d-inline-block mb-4">
+      <button type="button" class="btn btn-outline-primary" id="loginTypeMenu" ngbDropdownToggle>{{loginModel.loginType}}</button>
+      <div ngbDropdownMenu aria-labelledby="loginTypeMenu">
+        <button type="button" class="dropdown-item" *ngFor="let loginType of loginTypes" (click)="ChangeLoginType(loginType)">{{loginType}}</button>
+      </div>
+    </div>
+    <p>{{message}}</p>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" [(ngModel)]="loginModel.email" name="email" class="form-control" placeholder="Email address" required=""
+      autofocus="">
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" [(ngModel)]="loginModel.password" name="password" class="form-control" placeholder="Password" required="">
+    <div class="checkbox mb-3">
+      <label>
+        <input [(ngModel)]="loginModel.rememberMe" name="remmeberMe" type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+    <button type="button" class="btn btn-lg btn-primary btn-block" (click)="login()">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2018 Oasis Outsourcing, Inc.</p>
+  </form>
+</div>
+
+<ng-template #agreementModal let-c="close" let-d="dismiss">
+  <app-agreement [redirect]="redirect" [agreementContent]="agreementContent" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-agreement>
+</ng-template>
+
+<ng-template #newsModal let-c="close" let-d="dismiss">
+  <app-news [redirect]="redirect" [newsContent]="newsContent" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-news>
+</ng-template>

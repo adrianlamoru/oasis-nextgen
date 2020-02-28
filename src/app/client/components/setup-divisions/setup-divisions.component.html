@@ -1,0 +1,90 @@
+<div class="row divisions-component setup-container-content">
+    <div class="col-12 custom-grid">
+        <div class="row">
+            <div class="col-12">
+                <div class="messages-component" *ngIf="errorMessage">
+                    <div class="alert alert-warning alert-dismissible">
+                        <button aria-label="Close" class="close" type="button">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                        <span class="icon icon-warning"></span>
+                        <span class="message">
+                        {{errorMessage}}
+                        </span>
+                    </div>
+                </div>
+                <div class="custom-grid-header">
+                    <h3 class="display-3 table-title">Divisions</h3>
+                    <dx-button text="Add Code" class="btn btn-primary pull-right" (onClick)="addCode()"></dx-button>
+                </div>
+
+                <!-- DataGrid -->
+                <dx-data-grid id="divisionGrid" [dataSource]="divisionDataRows" (onCellClick)="onCellButtonClick($event)">
+
+                    <dxo-paging [enabled]="false"></dxo-paging>
+
+                    <dxi-column dataField="divisionCode" caption="Division Code" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="divisionDescription" caption="Division Description" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="glSegmentCode1" caption="Gl Segment Code" [allowSorting]="false"></dxi-column>
+                    <dxi-column [allowSorting]="false" cellTemplate="cellEditTemplate" [width]="51"></dxi-column>
+
+                    <div *dxTemplate="let d of 'cellEditTemplate'" class="custom-cell">
+                        <button id="edit-button-divisionCode" tabindex="0" type="button" class="btn btn-link cell-button" >
+                            <span class="btn-link-text">Edit</span>
+                        </button>
+                    </div>
+
+                </dx-data-grid>
+                <!-- END DataGrid -->
+
+                <!-- ADD/EDIT Popup -->
+                <dx-popup
+                    class="custom-dx-popup"
+                    #popupEditDivisionCode
+                    [showTitle]="false"
+                    [width]="383"
+                    [height]="'auto'"
+                    [position]="{ my: 'middle', at: 'middle', of: window }"
+                    [showCloseButton]="false"
+                    [dragEnabled]="false"
+                    [closeOnOutsideClick]="true"
+                    [(visible)]="editPopupVisible">
+                    <div *dxTemplate="let data of 'content'">
+
+                        <div class="custom-modal-window" ngForm #dcForm="ngForm">
+                          <div class="modal-header">
+                            <h4 class="modal-title modal-title-capitalize align-self-center float-left">{{popupTitle}}</h4>
+                            <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="onCancelClick()">
+                              <span class="icon icon-close"></span>
+                            </button>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="form-group">
+                                <h4>Division Code</h4>
+                                <input [disabled]="actionTypeSelected === 'EDIT'" id="divisionCodeInput" name="divisionCodeInput" placeholder="Division Code"  type="text" class="form-control" required [(ngModel)]="currentSelectedRow.divisionCode" #divisionCodeInput="ngModel">
+                            </div>
+                            <div class="form-group">
+                              <h4>Division Description</h4>
+                              <input id="divisionDescriptionInput" name="divisionDescriptionInput" placeholder="Division Description"  type="text" class="form-control" required [(ngModel)]="currentSelectedRow.divisionDescription" #divisionDescriptionInput="ngModel">
+                            </div>
+                            <div class="form-group">
+                              <h4>Gl Segment Code</h4>
+                              <input id="glSegmentCodeInput" name="glSegmentCodeInput" placeholder="Gl Segment Code"  type="text" class="form-control" [(ngModel)]="currentSelectedRow.glSegmentCode1">
+                            </div>
+                          </div>
+
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-primary" (click)="onCancelClick()">Cancel</button>
+                            <button type="button" [disabled]="dcForm.invalid" class="btn btn-primary" (click)="onSubmitClick()">Confirm</button>
+                          </div>
+                        </div>
+
+                    </div>
+                </dx-popup>
+                <!-- END ADD/EDIT Popup -->
+
+            </div>
+        </div>
+    </div>
+</div>

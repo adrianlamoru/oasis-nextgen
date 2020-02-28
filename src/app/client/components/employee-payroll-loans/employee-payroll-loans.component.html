@@ -1,0 +1,178 @@
+<div class="custom-modal-window #employeePayrollLoansComponent"> <!--[ngStyle]="{'opacity':formIsOpen ? 0.1 : 1, 'z-index': formIsOpen ? -1 : initial }"-->
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">Loans - {{ selectedEmployeeName | middleTruncate: 50 }}</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+      <span class="icon icon-close"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!--{{diagnosticEmployee}}-->
+    <!--Loan List-->
+    <div class="custom-grid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="custom-grid-header">
+            <h3 class="display-3 table-title"><!--Existing Loans--></h3>
+            <dx-button text="Add Loan" class="btn btn-primary pull-right" (onClick)="addLoan()"></dx-button>
+          </div>
+          <br />
+          <dx-data-grid #loansDataGrid [dataSource]="clientEmployeePayrollLoanList" [columnAutoWidth]="true" keyExpr="id"
+                        (onEditingStart)="onEditingStart($event)"
+                        (onInitNewRow)="onInitNewRow($event)">
+
+            <div *dxTemplate="let data of 'gridHeader'">
+              <div class="custom-grid-header">
+                <h3 class="display-3 table-title"><!--Existing Loans--></h3>
+                <dx-button text="Add Loan" class="btn btn-primary pull-right" (onClick)="addLoan()"></dx-button>
+              </div>
+            </div>
+
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="date" [allowSorting]="false" dataType="date"></dxi-column>
+            <!--<dxi-column dataField="reason.id" caption="Reason" [allowSorting]="false">
+              <dxo-lookup [dataSource]="clientEmployeePayrollLoanReasonList" displayExpr="name" valueExpr="id"></dxo-lookup>
+            </dxi-column>-->
+            <dxi-column dataField="reason" [allowSorting]="false" dataType="reason"></dxi-column>
+            <dxi-column dataField="amount" [allowSorting]="false" format="currency" precision="2" alignment="right"></dxi-column>
+            <dxi-column dataField="payAmount" [allowSorting]="false" format="currency" precision="2" alignment="right"></dxi-column>
+            <dxi-column dataField="startDate" [allowSorting]="false" dataType="date" alignment="right"></dxi-column>
+            <dxi-column dataField="stopDate" [allowSorting]="false" dataType="date" alignment="right"></dxi-column>
+            <dxi-column dataField="paybackAmount" [allowSorting]="false" format="currency" precision="2" alignment="right"></dxi-column>
+            <dxi-column dataField="repaidAmount" [allowSorting]="false" format="currency" precision="2" alignment="right"></dxi-column>
+            <dxi-column dataField="status.id" caption="Status" [allowSorting]="false" alignment="right">
+              <dxo-lookup [dataSource]="clientEmployeePayrollLoanStatusList" displayExpr="name" valueExpr="id"></dxo-lookup>
+            </dxi-column>
+            <dxi-column dataField="frequency.id" [allowSorting]="false" [visible]="false">
+              <dxo-lookup [dataSource]="clientEmployeePayrollLoanPaymentFrequencyList" displayExpr="name" valueExpr="id"></dxo-lookup>
+            </dxi-column>
+            <dxi-column dataField="startDatePicker" [allowSorting]="false" [visible]="false"></dxi-column>
+            <dxi-column cellTemplate="editTemplate" alignment="right" [width]="55" [minWidth]="55">
+                <div *dxTemplate="let data of 'editTemplate'">
+                    <div class="dx-custom-command-edit">
+                        <a class="dx-link dx-link-edit" tabindex="0" (click)="onEditRow(data)" (keydown)="onEditKeyDown($event, data)">Edit</a>
+                    </div>
+                </div>
+            </dxi-column>
+            <dxo-editing mode="popup" [allowDeleting]="false" [allowAdding]="false"></dxo-editing>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <!--<button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="c('Close click')">Submit</button>-->
+  </div>
+
+  <div class="modal-footnote">
+    It should be noted that this is not intended to be a "what-if" analysis of Employee Loans.
+    All changes to this data will be reflected on the employee's pay stub. All modifications are
+    recorded for auditing purposes.
+  </div>
+</div>
+
+
+<!--Form-->
+<ng-template #editEmployeePayrollLoanModal let-c="close" let-d="dismiss">
+  <!--{{diagnostic}}-->
+  <form #editEmployeePayrollLoanForm="ngForm" [formGroup]="editEmployeePayrollLoanFormGroup" ngNativeValidate novalidate (ngSubmit)="saveForm(editEmployeePayrollLoanForm)">
+    <input type="hidden" class="form-control" id="frequency" formControlName="frequency" [(ngModel)]="selectedClientEmployeePayrollLoanModel.frequency" />
+
+    <div class="custom-modal-window editEmployeePayrollLoanModal">
+      <div class="modal-header">
+        <h4 class="modal-title align-self-center float-left">{{formTitle}}</h4>
+        <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click')">
+          <span class="icon icon-close"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-group">
+          <h4 for="date">Loan Date</h4>
+          <div class="custom-date-picker">
+            <div class="input-icon icon icon-calendar"></div>
+            <input class="form-control custom-input-field" placeholder="Month dd, yyyy" formControlName="date" [(ngModel)]="selectedClientEmployeePayrollLoanModel.datePicker" ngbDatepicker
+                   [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #dpDate="ngbDatepicker">
+            <button class="btn input-btn {{dpDate.opened ? 'icon-shape-reverse' : 'icon-shape'}}" tabindex="-1" (click)="dpDate.toggle(); dpDate.opened = !dpDate.opened" type="button"></button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4 for="reason">Reason</h4>
+          <input type="text" class="form-control" id="reason" [(ngModel)]="selectedClientEmployeePayrollLoanModel.reason" formControlName="reason" aria-describedby="reason" required placeholder="Enter Reason">
+          <!--<select class="custom-select custom-select" id="reason" formControlName="reason" [compareWith]="compareByIdFn" [ngModel]="selectedClientEmployeePayrollLoanModel.reason" (ngModelChange)="selectedClientEmployeePayrollLoanModel.reason = $event" required>
+          <option *ngFor="let reason of clientEmployeePayrollLoanReasonList" [ngValue]="reason">{{reason.name}}</option>
+        </select>-->
+          <!--<div *ngIf="editEmployeePayrollLoanFormGroup.controls['reason'].invalid && (editEmployeePayrollLoanFormGroup.controls['reason'].dirty || editEmployeePayrollLoanFormGroup.controls['reason'].touched)" class="alert alert-danger">
+          <div *ngIf="editEmployeePayrollLoanFormGroup.controls['reason'].errors.required">
+            Reason is required.
+          </div>
+        </div>-->
+        </div>
+
+        <div class="form-group">
+          <h4 for="amount">Amount</h4>
+          <input type="number" class="form-control" id="amount" [(ngModel)]="selectedClientEmployeePayrollLoanModel.amount" formControlName="amount" aria-describedby="amount" placeholder="Enter Amount" min="1" required>
+        </div>
+
+        <div class="form-group">
+          <h4 for="payAmount">Payment Amount</h4>
+          <input type="number" class="form-control" id="payAmount" [(ngModel)]="selectedClientEmployeePayrollLoanModel.payAmount" formControlName="payAmount" aria-describedby="Payment Amount" placeholder="Enter Payment Amount" min="1">
+        </div>
+
+        <div class="form-group">
+          <h4 for="reason">Payment Frequency</h4><!--[selected]="selectedClientEmployeePayrollLoanModel?.frequency.id == frequency.id"-->
+          <!--<select class="custom-select custom-select" id="frequency" formControlName="frequency" [compareWith]="compareByIdFn" [ngModel]="selectedClientEmployeePayrollLoanModel.frequency" (ngModelChange)="selectedClientEmployeePayrollLoanModel.frequency = $event">
+          <option *ngFor="let frequency of clientEmployeePayrollLoanPaymentFrequencyList" [ngValue]="frequency">{{frequency.name}}</option>
+        </select>-->
+          <dx-select-box [dataSource]="clientEmployeePayrollLoanPaymentFrequencyList"
+            [(value)]="selectedClientEmployeePayrollLoanModel.frequency"
+            displayExpr="name" valueExpr="this"
+            (onEnterKey)="onPaymentFrequencyEnterKey($event)" (onClosed)="onPaymentFrequencyClosed($event)"
+            [opened]="openedPaymentFrequency" #ddFrequency>
+          </dx-select-box>
+        </div>
+
+        <div class="form-group">
+          <h4 for="startDate">Payment Start Date</h4>
+          <div class="custom-date-picker">
+            <div class="input-icon icon icon-calendar"></div>
+            <input class="form-control custom-input-field" placeholder="Month dd, yyyy" formControlName="startDate" [(ngModel)]="selectedClientEmployeePayrollLoanModel.startDatePicker" ngbDatepicker
+                   [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #dpStartDate="ngbDatepicker">
+            <button class="btn input-btn {{dpStartDate.opened ? 'icon-shape-reverse' : 'icon-shape'}}" tabindex="-1" (click)="dpStartDate.toggle(); dpStartDate.opened = !dpStartDate.opened" type="button"></button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4 for="startDate">Payment Stop Date</h4>
+          <div class="custom-date-picker">
+            <div class="input-icon icon icon-calendar"></div>
+            <input class="form-control custom-input-field" placeholder="Month dd, yyyy" formControlName="stopDate" [(ngModel)]="selectedClientEmployeePayrollLoanModel.stopDatePicker" ngbDatepicker
+                   [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #dpStopDate="ngbDatepicker">
+            <button class="btn input-btn {{dpStopDate.opened ? 'icon-shape-reverse' : 'icon-shape'}}" tabindex="-1" (click)="dpStopDate.toggle(); dpStopDate.opened = !dpStopDate.opened" type="button"></button>
+          </div>
+          <div class="disclaimer">
+            Entering a Payment Stop Date will cause the Loan Deduction to stop on that date, even if the Loan Payback Amount has not been reached
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4 for="paybackAmount">Loan Payback Amount</h4>
+          <input type="number" class="form-control" id="paybackAmount" [(ngModel)]="selectedClientEmployeePayrollLoanModel.paybackAmount" formControlName="paybackAmount" aria-describedby="Loan Payback Amount" placeholder="Enter Loan Payback Amount" min="1">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Cancel</button>
+        <button type="button" class="btn btn-primary" [disabled]="!editEmployeePayrollLoanForm.valid">Confirm</button>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+
+<ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-focused="focused">
+  <div class="btn-light" [class.focused]="focused" [class.bg-primary]="selected" (click)="opened = !opened;" (keydown)="opened = !opened;">
+    {{ date.day }}
+  </div>
+</ng-template>

@@ -1,0 +1,143 @@
+<div class="reports-container reports-benefits-payroll-register">
+  <div class="section">
+    <div class="row breadcrumb-container-reports">
+      <div class="col-12">
+        <div class="breadcrumb-component">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item back-link">
+                <a (click)="goToBack()">Reports</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <span class="breadcrumb-item-active">Benefits Payroll Register</span>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 report-title align-self-center">
+          <span>Benefits Payroll Register</span>
+          <span class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-9">
+        <div class="form-inline">
+            <div class="form-group">
+              <h4>Pay Date From</h4>
+              <div class="d-inline-flex">
+                  <div class="custom-date-picker custom-date-picker-size">
+                      <div class="input-icon icon icon-calendar"></div>
+                      <input
+                        class="form-control custom-input-field"
+                        placeholder="Month dd, yyyy"
+                        name="selectedBeginningDate"
+                        [(ngModel)]="selectedBeginningDate"
+                        ngbDatepicker
+                        [dayTemplate]="effectiveDate"
+                        [displayMonths]="2"
+                        [navigation]="'arrows'"
+                        [firstDayOfWeek]="7"
+                        #beginningEffectiveDate="ngbDatepicker">
+                      <button
+                        class="btn input-btn icon-shape"
+                        (click)="beginningEffectiveDate.toggle(); openedBeginning = !openedBeginning"
+                        type="button">
+                    </button>
+                  </div>
+              </div>
+            </div>
+            <div class="form-group">
+                <h4>Pay Date To</h4>
+                <div class="d-inline-flex">
+                    <div class="custom-date-picker custom-date-picker-size">
+                        <div class="input-icon icon icon-calendar"></div>
+                        <input
+                          class="form-control custom-input-field"
+                          placeholder="Month dd, yyyy"
+                          name="endDate"
+                          [(ngModel)]="selectedEndDate"
+                          ngbDatepicker [dayTemplate]="customDay"
+                          [displayMonths]="2"
+                          [navigation]="'arrows'"
+                          [firstDayOfWeek]="7"
+                          #endDate="ngbDatepicker">
+                        <button
+                          class="btn input-btn icon-shape"
+                          (click)="endDate.toggle(); opened = !opened"
+                          type="button">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="hr-padding">
+      <hr class="m-0 mb-1 p-0"/>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-inline">
+          <div class="form-group">
+            <h4>Sort By</h4>
+            <div class="d-inline-flex">
+                <dx-drop-down-box #sortSelectGridBox
+                  class="custom-multi-select custom-date-picker-size"
+                  [(value)]="selectedSort"
+                  [dataSource]="sort"
+                  valueExpr="ID"
+                  displayExpr="Text"
+                  placeholder="Select Sort"
+                  contentTemplate="dropboxtemplate-b"
+                  [showClearButton]="false"
+                  (onValueChanged)="syncTreeViewSelection($event)"
+                  (onOpened)="onOpened($event)"
+                  [(opened)]="isDropDownBoxOpened"
+                  (onKeyDown)="onEnterKeyDown($event)">
+                    <div *dxTemplate="let contentData of 'dropboxtemplate-b'">
+                        <dx-tree-view
+                          [dataSource]="sort"
+                          dataStructure="plain"
+                          keyExpr="ID"
+                          selectionMode="single"
+                          showCheckBoxesMode="false"
+                          [selectNodesRecursive]="false"
+                          displayExpr="Text"
+                          [selectByClick]="true"
+                          (onContentReady)="$event.component.selectItem(treeBoxValue)"
+                          (onItemSelectionChanged)="sortSelectionChanged($event)">
+                        </dx-tree-view>
+                    </div>
+                    <div
+                      *dxTemplate="let data of 'dropDownButton'">
+                        <i class="icon icon-shape icon-rotate"></i>
+                    </div>
+                </dx-drop-down-box>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row custom-left-margin">
+      <div>
+        <dx-check-box
+          class="subtotal-checkbox"
+          [value]="false"
+          border="false"
+          text="Subtotal">
+        </dx-check-box>
+     </div>
+     <div>
+      <div class="float-left section-title m-0">
+        <button type="button" class="btn btn-link btn-link-icon download-button-container pl-1"
+                (click)="onDownloadClick()">
+            <span class="icon icon-square-upload"></span>
+            <span>DOWNLOAD</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

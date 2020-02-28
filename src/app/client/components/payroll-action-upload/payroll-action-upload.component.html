@@ -1,0 +1,42 @@
+<div class="custom-modal-window payroll-upload">
+    <div class="modal-header">
+      <h4 class="modal-title align-self-center float-left">Upload</h4>
+      <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+          <span class="icon icon-close"></span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div *ngIf="showError" class="messages-component">
+            <div class="alert alert-danger alert-dismissible">
+                <button aria-label="Close" class="close" type="button" (click)="closeErrorMessage()">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <span class="icon icon-danger"></span>
+                <span class="message">
+                    {{ errorMessage !== ''? errorMessage: 'Error! The file does not upload successfully' }}
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <dx-file-uploader
+                  #fileUploader
+                  [uploadUrl]="uploadURL"
+                  multiple="true"
+                  accept="*"
+                  [(value)]="uploads"
+                  uploadMode="useButtons"
+                  labelText="or Drop files here"
+                  selectButtonText="Select files"
+                  (onUploaded)="onUploaded($event)"
+                  (onUploadError)="onUploadedError($event)"
+                  (onOptionChanged)="onOptionChanged($event)">
+                </dx-file-uploader>
+            </div>    
+        </div>        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-light" (click)="clearList(fileUploader)">Clear List</button>
+        <button type="button" class="btn btn-outline-primary" (click)="modalCloseFunc('Cross click')">Cancel</button>
+    </div>
+  </div>

@@ -1,0 +1,16 @@
+<div class="custom-modal-window">
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">News</h4>
+  </div>
+  <div class="modal-body">
+    <div class="news-container">
+      <div *ngFor="let news of newsContent">
+        <h5 class="display-4">{{news.title}}</h5>
+        <p>{{news.body}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="clickedContinue()">Continue</button>
+  </div>
+</div>

@@ -1,0 +1,72 @@
+@import '~sass/variables';
+
+.chart-container{
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    .title-area{
+        font-family: $font-family-sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: left;
+        color: $gray-600;          
+
+        .title-area-value{
+            color: $gray-800;
+            font-weight: bold;
+        }
+    }
+}
+
+.tooltip-area > p{
+    margin:0;
+    padding:0; 
+    font-family: $font-family-sans-serif;
+    font-size: 10px; 
+    font-weight: 500; 
+    font-style: normal; 
+    font-stretch: normal; 
+    line-height: normal;
+    letter-spacing: normal;
+
+    &.tooltip-area-arg{      
+        color: $gray-600;
+    }
+    &.tooltip-area-val{
+        color: $gray-800;
+        font-weight: bold;
+        font-size: 12px; 
+    }
+}
+
+.text-area-value-axis{
+    font-family: $font-family-sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: right;
+    color: $gray-600;
+}
+
+.text-area-arg-axis{
+    font-family: $font-family-sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: $gray-600;
+    text-transform: uppercase;
+}
+
+    

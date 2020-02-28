@@ -1,0 +1,71 @@
+@import '~sass/variables';
+
+.report-creator-component {
+    margin: 0px 0 60px;
+    border-radius: 10px;
+    min-height: 100px;
+
+    .report-creator-card-height {
+        min-height: 217px !important;
+    }
+
+    .report-creator-card-body {
+        padding: 30px;
+    }
+
+    .report-creator-card-icon {
+
+        .custom-img-size {
+            width: 35px !important;
+            height: 35px !important;
+        }
+    }
+
+    .report-creator-card-title {
+        font-size: 18px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1;
+        letter-spacing: normal;
+        text-align: left;
+        color: $dark;
+        margin-top: 16px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .report-creator-card-text {
+        font-size: 14px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.43;
+        letter-spacing: normal;
+        text-align: left;
+        color: $secondary;
+        margin-bottom: 25px;
+    }
+
+    .container-content {
+        margin: 0 -15px;
+        .custom-col-card {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            min-width: 350px;
+        }
+    }
+
+    .report-creator-card-margin {
+        margin: 15px 15px 15px 15px;
+        height: 255px;
+        width: 436px
+    }
+
+    .footer-fixed-position {
+        // position: absolute;
+        bottom: 30px;
+        width: 100%;
+    }
+   
+}

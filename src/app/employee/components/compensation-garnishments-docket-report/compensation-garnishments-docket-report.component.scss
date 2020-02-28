@@ -1,0 +1,54 @@
+@import '~sass/variables';
+.reports-container {
+    padding-left: 0%;
+    padding-right: 0px;
+    .section {
+        .row {
+            .right-alignment-text {
+                text-align: right;
+            }
+        }
+    }
+}
+
+.section {
+    padding: 24px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.docket-report {
+    padding-top: 10px;
+    .dx-item-content .dx-item {
+        padding-left: 0px;
+    }
+    .dx-texteditor.dx-state-readonly {
+        .dx-texteditor-container .dx-texteditor-input {
+            cursor: pointer;
+        }
+    }
+    .dx-texteditor .dx-texteditor-input {
+        color: $gray-600;
+    }
+    .dx-texteditor.dx-state-focused {
+        box-shadow: none;
+    }
+    .dx-field-item-label .dx-field-item-label-text {
+        font-weight: 500;
+    }
+    .dx-layout-manager .dx-item .dx-field-item-label-text {
+        font-weight: 500;
+    }
+    .dx-form-group-caption {
+        font-size: 14px !important;
+        font-weight: 700 !important;
+        line-height: 1.71 !important;
+    }
+    .dx-form-group-with-caption .dx-form-group-content {
+        margin-top: 0px !important;
+        padding-top: 15px !important;
+    }
+    dx-form {
+        padding-bottom: 1rem;
+    }
+}

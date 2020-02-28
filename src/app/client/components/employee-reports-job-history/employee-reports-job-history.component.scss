@@ -1,0 +1,29 @@
+@import '~sass/variables';
+
+.employee-reports-job-history{
+    .section{
+        .custom-margins-print{
+            margin-top: 23px;
+            margin-bottom: 16px;
+        }
+    
+        .report-title{
+                margin-bottom: 17px !important;
+                margin-top: 15px !important;
+            }
+        
+        .date-range-row {
+          padding-top: 3px !important;
+          margin-bottom: 0px !important;
+        }
+
+        .grid-range-row {
+            padding-top: 10px !important;
+        }
+
+        .custom-dropdown {
+            width:100px !important;
+            margin-right: 11px;
+        }
+    }
+}

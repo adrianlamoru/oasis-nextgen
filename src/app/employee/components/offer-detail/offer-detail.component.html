@@ -1,0 +1,10 @@
+<a [href]="offerDetail?.link">
+  <div class="main-area-container offer-detail">
+    <div class="offer-detail-body" *ngIf="offerDetail?.detail">
+      <a [href]="offerDetail?.link"><h2>{{ offerDetail?.detail }}</h2></a>
+    </div>
+    <div class="offer-detail-footer">
+      <a href="/discounts">See all oasis discounts <i class="fa fa-arrow-right"></i></a>
+    </div>
+  </div>
+</a>

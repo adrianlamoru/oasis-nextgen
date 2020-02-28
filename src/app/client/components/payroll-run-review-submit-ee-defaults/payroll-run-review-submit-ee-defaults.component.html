@@ -1,0 +1,112 @@
+<div class="payroll-run-review-submit-ee-defaults">
+    <div class="section mb-3">
+        <div class="row">
+            <div class="col-3">
+                <dx-form 
+                    labelLocation="top" 
+                    [(formData)]="sortCodeData"
+                    [showColonAfterLabel]="false">
+                    <dxi-item #sortCodeItem                        
+                        cssClass="dx-selectbox-36" 
+                        dataField="sortCode" 
+                        editorType="dxSelectBox"
+                        [editorOptions]="{ dataSource: sortCodes, displayExpr: 'Text', valueExpr: 'ID', onValueChanged: onValueChanged,
+                            onEnterKey: onEnterKey, onClosed: onClosed,
+                            onOpened: onOpened, opened: openedSortCodeSelectBox }">                        
+                        <dxo-label text="Select Sort Code"></dxo-label>
+                    </dxi-item>
+                </dx-form>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="row">
+            <div class="col-6">
+                <h3 class="tab-title">{{ selectedSortCode }} <span class="text-muted ml-3">Report Generated on {{ now | date:'MMM d, y, h:mm a' }}</span></h3>
+            </div>
+            <div class="col-6">
+                <div class="buttons pull-right">                    
+                    <div ngbDropdown class="d-inline-block" placement="bottom-right">
+                        <button type="button" class="btn btn-link btn-link-icon tab-btn-without-padding not-btn-dropdown" (click)="print()">
+                            <span class="icon icon-pint"></span>
+                            <span>PRINT</span>
+                        </button>                            
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="custom-grid" id="contentToRender">
+                <dx-data-grid #ptoOverLimitDataGrid [dataSource]="ptoOverLimitDataRows"
+                    class="pair-row-color-gray-100 grid-head-font-weight-500 
+                        grid-head-text-align-right-second grid-last-col-padding-56
+                        dx-data-grid-tab-title"
+                    [columnAutoWidth]="true"                         
+                    keyExpr="id">
+                    <dxo-paging [enabled]="false"></dxo-paging>
+                    <dxi-column dataField="date" [allowSorting]="false" alignment="left">
+                    </dxi-column>
+                    <dxi-column dataField="hrs" [allowSorting]="false" alignment="right">
+                        <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+                    </dxi-column>
+                    <dxi-column dataField="hrsWorked" [allowSorting]="false" alignment="right">
+                        <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+                    </dxi-column>
+                    <dxi-column dataField="amtUnits" caption="Amt/Units" [allowSorting]="false" alignment="right">
+                        <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+                    </dxi-column>
+                    <dxi-column dataField="rate" [allowSorting]="false" alignment="right">
+                        <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+                    </dxi-column>
+                    <dxi-column dataField="total"[allowSorting]="false" alignment="right">
+                        <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+                    </dxi-column>
+                    <dxi-column dataField="payCode" [allowSorting]="false" alignment="right"></dxi-column>
+                    <dxi-column dataField="department" [allowSorting]="false" alignment="right"></dxi-column>
+                    <dxi-column dataField="location" [allowSorting]="false" alignment="right"></dxi-column>
+                    <dxi-column dataField="division" [allowSorting]="false" alignment="right"></dxi-column>
+                    <dxi-column dataField="jobCode" [allowSorting]="false" alignment="right"></dxi-column>
+                    <dxi-column dataField="projectCode" [allowSorting]="false" alignment="right"></dxi-column>
+
+                    <dxo-summary>
+                        <dxi-total-item
+                            column="date"
+                            summaryType="min"
+                            displayFormat="Grand Total">
+                        </dxi-total-item>
+                        <dxi-total-item
+                            column="hrs"
+                            summaryType="sum"
+                            displayFormat="{0}"
+                            valueFormat="fixedPoint"
+                            [precision]="2">
+                        </dxi-total-item>
+                        <dxi-total-item
+                            column="hrsWorked"
+                            summaryType="sum"
+                            displayFormat="{0}"
+                            valueFormat="fixedPoint"
+                            [precision]="2">
+                        </dxi-total-item>
+                        <dxi-total-item
+                            column="amtUnits"
+                            summaryType="sum"
+                            displayFormat="{0}"
+                            valueFormat="fixedPoint"
+                            [precision]="2">
+                        </dxi-total-item>
+                        <dxi-total-item
+                            column="total"
+                            summaryType="sum"
+                            displayFormat="{0}"
+                            valueFormat="fixedPoint"
+                            [precision]="2">
+                        </dxi-total-item>
+                    </dxo-summary>
+                </dx-data-grid>
+            </div>            
+        </div>
+    </div>
+</div>

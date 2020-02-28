@@ -1,0 +1,37 @@
+@import '~sass/variables';
+
+.employee-details-401k {
+  .section {
+    .section-title {
+      margin-top: 15px;
+      margin-bottom: 22px;
+      font-family: $font-family-sans-serif;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1.13;
+      text-align: left;
+      color: $gray-800;
+    }
+
+    .section-title-buttons {
+      margin-top: 14px !important;
+    }
+  }
+
+  .dx-datagrid-text-content, .dx-row.dx-data-row.dx-column-lines td {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  .custom-grid .dx-datagrid .dx-row.dx-header-row > td:first-child {
+    padding-left: 0;
+  }
+
+  .form-control-dropdown, .custom-dropdown-component .dropdown-menu {
+    width: 160px;
+  }
+
+  #ddYear {
+    width: 150px;
+  }
+}

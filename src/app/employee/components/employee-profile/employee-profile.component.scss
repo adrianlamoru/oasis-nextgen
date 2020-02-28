@@ -1,0 +1,99 @@
+@import "~sass/variables";
+
+.employee-profile-component {
+	margin: 0 0 260px;
+
+	.content-title {
+		.employee-name-title-group {
+			padding-bottom: 9px;
+
+			.employee-name {
+				display: block;
+				height: 32px;
+				font-family: $font-family-sans-serif;
+				font-size: 24px;
+				font-weight: 500;
+				font-style: normal;
+				font-stretch: normal;
+				line-height: normal;
+				letter-spacing: normal;
+				text-align: left;
+				color: $gray-800;
+				margin-left: -1px;
+			}
+
+			.employee-title {
+				height: 19px;
+				font-family: $font-family-sans-serif;
+				font-size: 14px;
+				font-weight: 500;
+				font-style: normal;
+				font-stretch: normal;
+				line-height: normal;
+				letter-spacing: normal;
+				text-align: left;
+				color: $gray-700;
+			}
+		}
+	}
+
+	/deep/ .ngbTabset {
+		.nav-tabs {
+			.nav-item {
+				margin-left: -4px !important;
+			}
+		}
+	}
+}
+
+.dx-field-value {
+	width: 105px !important;
+}
+
+// CUSTOM ACTIONS BUTTON - DEVEX DROPDOWN
+
+:host ::ng-deep {
+	.employee-actions-button {
+		border: 0 !important;
+
+		.dx-texteditor .dx-texteditor-input {
+			font-size: 0.688rem;
+			font-weight: bold !important;
+			text-transform: uppercase;
+			letter-spacing: 0.3px;
+			line-height: 0.75rem;
+			padding: 10px 15px;
+		}
+
+		&.dx-state-focused {
+			border: 0 !important;
+			box-shadow: none !important;
+			-webkit-box-shadow: none !important;
+		}
+
+		// ACTIONS Button Chevron icon style
+		.dx-dropdowneditor-button .dx-dropdowneditor-icon {
+			padding: 0;
+			padding-top: 10px;
+
+			&::before {
+				font-family: 'icomoon' !important;
+				content: "\E911";
+				font-size: 8px;
+				font-weight: 700;
+				margin-left: -4px;
+			}
+		}
+
+		// ACTIONS Button chevron up & down action
+		&.dx-dropdowneditor-active {
+			.dx-dropdowneditor-button .dx-dropdowneditor-icon:before {
+				content: "\E980";
+			}
+		}
+
+		.employee-actions-custom-text-box {
+			width: 95px;
+		}
+	}
+}

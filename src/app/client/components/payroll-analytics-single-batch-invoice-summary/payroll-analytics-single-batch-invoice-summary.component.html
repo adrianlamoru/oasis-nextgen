@@ -1,0 +1,125 @@
+<div class="payroll-analytics-single-batch-invoice-summary">
+    <div class="section">
+        <div class="row">
+            <div class="col-6">
+                <h3 class="tab-title" style="visibility: hidden">Batch: {{ batchNumber }} <span class="ml-1 mr-1">•</span>
+                    Date: {{ batchDate | date:'MM/dd/y' }} <span class="text-muted ml-3">Report Generated on {{ now |
+                        date:'MMM d, y, h:mm a' }}</span></h3>
+            </div>
+            <div class="col-6">
+                <div class="buttons pull-right">
+                    <button type="button" class="btn btn-link btn-link-icon tab-btn-without-padding not-btn-dropdown">
+                        <span class="icon icon-pint"></span>
+                        <span>PRINT</span>
+                    </button>
+                    <div ngbDropdown placement="bottom-right" class="d-inline">
+                        <button type="button" class="btn btn-link btn-link-icon tab-btn-without-padding not-btn-dropdown  ml-3"
+                            id="downloadFormatMenu" ngbDropdownToggle>
+                            <span class="icon icon-square-upload"></span>
+                            <span>DOWNLOAD</span>
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="downloadFormatMenu">
+                            <button type="button" class="dropdown-item" *ngFor="let format of downloadFormats" (click)="onDownload(format)">{{format.name}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="row">
+            <div class="col-12">
+                <div class="custom-grid">
+                    <dx-data-grid #invoiceSummaryDataGrid [dataSource]="invoiceSummaryDataRows" class="pair-row-color-gray-100 grid-head-font-weight-500
+                            dx-data-grid-tab-title"
+                        [columnAutoWidth]="true" keyExpr="id">
+                        <dxo-paging [enabled]="false"></dxo-paging>
+                        <dxi-column dataField="employeeName" [allowSorting]="false" alignment="left"></dxi-column>
+                        <dxi-column dataField="employeeID" [allowSorting]="false" alignment="left"></dxi-column>
+                        <dxi-column dataField="payStub" [allowSorting]="false" alignment="left" cellTemplate="payStubTemplate">
+                            <div *dxTemplate="let cell of 'payStubTemplate'">
+                                <a class="dx-link pay-stub-link" tabindex="0" (click)="onClickPayStub(cell.data)"
+                                    (keydown)="onKeyDownPayStub($event, cell.value)">{{cell.value}}</a>
+                            </div>
+                        </dxi-column>
+                        <dxi-column dataField="grossPayroll" [allowSorting]="false" alignment="right">
+                            <dxo-format type="currency" [precision]="2"></dxo-format>
+                        </dxi-column>
+                        <dxi-column dataField="adminFee" [allowSorting]="false" alignment="right">
+                            <dxo-format type="currency" [precision]="2"></dxo-format>
+                        </dxi-column>
+                        <dxi-column dataField="netBenefits" [allowSorting]="false" alignment="right">
+                            <dxo-format type="currency" [precision]="2"></dxo-format>
+                        </dxi-column>
+                        <dxi-column dataField="deductions" [allowSorting]="false" alignment="right">
+                            <dxo-format type="currency" [precision]="2"></dxo-format>
+                        </dxi-column>
+                        <dxi-column dataField="workersComp" [allowSorting]="false" alignment="right">
+                            <dxo-format type="currency" [precision]="2"></dxo-format>
+                        </dxi-column>
+                        <dxi-column dataField="comTaxes" [allowSorting]="false" alignment="right">
+                            <dxo-format type="currency" [precision]="2"></dxo-format>
+                        </dxi-column>
+                        <dxi-column dataField="totalInvoice" [allowSorting]="false" alignment="right">
+                            <dxo-format type="currency" [precision]="2"></dxo-format>
+                        </dxi-column>
+                        <dxi-column dataField="cashPayments" [allowSorting]="false" alignment="right">
+                            <dxo-format type="currency" [precision]="2"></dxo-format>
+                        </dxi-column>
+                        <dxi-column dataField="totalTaxes" [allowSorting]="false" alignment="right">
+                            <dxo-format type="currency" [precision]="2"></dxo-format>
+                        </dxi-column>
+                        <dxi-column dataField="totalDeductions" [allowSorting]="false" alignment="right">
+                            <dxo-format type="currency" [precision]="2"></dxo-format>
+                        </dxi-column>
+                        <dxi-column dataField="netAmount" [allowSorting]="false" alignment="right">
+                            <dxo-format type="currency" [precision]="2"></dxo-format>
+                        </dxi-column>
+
+                        <dxo-summary>
+                            <dxi-total-item column="employeeName" displayFormat="Totals">
+                            </dxi-total-item>
+                            <dxi-total-item column="grossPayroll" summaryType="sum" displayFormat="{0}" valueFormat="currency"
+                                [precision]="2">
+                            </dxi-total-item>
+                            <dxi-total-item column="adminFee" summaryType="sum" displayFormat="{0}" valueFormat="currency"
+                                [precision]="2">
+                            </dxi-total-item>
+                            <dxi-total-item column="netBenefits" summaryType="sum" displayFormat="{0}" valueFormat="currency"
+                                [precision]="2">
+                            </dxi-total-item>
+                            <dxi-total-item column="deductions" summaryType="sum" displayFormat="{0}" valueFormat="currency"
+                                [precision]="2">
+                            </dxi-total-item>
+                            <dxi-total-item column="workersComp" summaryType="sum" displayFormat="{0}" valueFormat="currency"
+                                [precision]="2">
+                            </dxi-total-item>
+                            <dxi-total-item column="comTaxes" summaryType="sum" displayFormat="{0}" valueFormat="currency"
+                                [precision]="2">
+                            </dxi-total-item>
+                            <dxi-total-item column="totalInvoice" summaryType="sum" displayFormat="{0}" valueFormat="currency"
+                                [precision]="2">
+                            </dxi-total-item>
+                            <dxi-total-item column="cashPayments" summaryType="sum" displayFormat="{0}" valueFormat="currency"
+                                [precision]="2">
+                            </dxi-total-item>
+                            <dxi-total-item column="totalTaxes" summaryType="sum" displayFormat="{0}" valueFormat="currency"
+                                [precision]="2">
+                            </dxi-total-item>
+                            <dxi-total-item column="totalDeductions" summaryType="sum" displayFormat="{0}" valueFormat="currency"
+                                [precision]="2">
+                            </dxi-total-item>
+                            <dxi-total-item column="netAmount" summaryType="sum" displayFormat="{0}" valueFormat="currency"
+                                [precision]="2">
+                            </dxi-total-item>
+                        </dxo-summary>
+                    </dx-data-grid>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #payStubModal let-c="close" let-d="dismiss">
+    <app-payroll-analytics-pay-stub [payrollInvoice]="selectedInvoice" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-payroll-analytics-pay-stub>
+</ng-template>

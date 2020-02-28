@@ -1,0 +1,67 @@
+<div class="custom-modal-window payroll-run-off-cycle-batch-modal">
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">{{roster.batchNumber ? 'Edit': 'New'}} Off-Cycle Batch</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cancel')">
+      <span class="icon icon-close"></span>
+    </button>
+  </div>
+  <div class="modal-body modal-body-scroll">
+    <div class="row">
+      <div class="col-12">
+        <form #payrollRunOffCycleBatchForm="ngForm" [formGroup]="rosterFormGroup" ngNativeValidate novalidate autocomplete="off">
+          <div class="form-group">
+            <h4>Batch Description</h4>
+            <dx-text-box [(ngModel)]="roster.description" formControlName="description" [maxLength]="40"></dx-text-box>
+          </div>
+          <div class="form-group">
+            <h4>Pay Date</h4>
+            <div class="custom-date-picker">
+              <div class="input-icon icon icon-calendar"></div>
+              <input class="form-control custom-input-field" placeholder="Month dd, yyyy" name="dp" formControlName="checkDate" [(ngModel)]="roster.checkDate"
+                ngbDatepicker [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" (keyup.enter)="dpPayDate.toggle(); dpPayDate.opened = !dpPayDate.opened"
+                #dpPayDate="ngbDatepicker">
+              <button class="btn input-btn {{dpPayDate.opened ? 'icon-shape-reverse' : 'icon-shape'}}" (click)="dpPayDate.toggle(); dpPayDate.opened = !dpPayDate.opened"
+                type="button" tabindex="-1"></button>
+            </div>
+          </div>
+          <div class="form-group">
+            <h4>Period Start Date</h4>
+            <div class="custom-date-picker">
+              <div class="input-icon icon icon-calendar"></div>
+              <input class="form-control custom-input-field" placeholder="Month dd, yyyy" name="dp" formControlName="startDate" [(ngModel)]="roster.startDate"
+                ngbDatepicker [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" (keyup.enter)="dpPeriodStartDate.toggle(); dpPeriodStartDate.opened = !dpPeriodStartDate.opened"
+                #dpPeriodStartDate="ngbDatepicker">
+              <button class="btn input-btn {{dpPeriodStartDate.opened ? 'icon-shape-reverse' : 'icon-shape'}}" (click)="dpPeriodStartDate.toggle(); dpPeriodStartDate.opened = !dpPeriodStartDate.opened"
+                type="button" tabindex="-1"></button>
+            </div>
+          </div>
+          <div class="form-group">
+            <h4>Period End Date</h4>
+            <div class="custom-date-picker">
+              <div class="input-icon icon icon-calendar"></div>
+              <input class="form-control custom-input-field" placeholder="Month dd, yyyy" name="dp" formControlName="endDate" [(ngModel)]="roster.endDate"
+                ngbDatepicker [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" (keyup.enter)="dpPeriodEndDate.toggle(); dpPeriodEndDate.opened = !dpPeriodEndDate.opened"
+                #dpPeriodEndDate="ngbDatepicker">
+              <button class="btn input-btn {{dpPeriodEndDate.opened ? 'icon-shape-reverse' : 'icon-shape'}}" (click)="dpPeriodEndDate.toggle(); dpPeriodEndDate.opened = !dpPeriodEndDate.opened"
+                type="button" tabindex="-1"></button>
+            </div>
+          </div>
+          <div class="form-group">
+            <h4>Pay Period</h4>
+            <dx-select-box [items]="payPeriods" [(value)]="roster.frequency" [(ngModel)]="roster.frequency" (onEnterKey)="onEnterKey($event)" (onClosed)="onClosed($event)"
+              [opened]="openedPayPeriodBox" formControlName="frequency" #payPeriodSelectBox></dx-select-box>
+          </div>
+        </form>
+        <ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-focused="focused">
+          <div class="btn-light" [class.focused]="focused" [class.bg-primary]="selected" (click)="opened = !opened;" (keydown)="opened = !opened;">
+            {{ date.day }}
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="modalCloseFunc('Cancel')">Cancel</button>
+    <button type="button" class="btn btn-primary" [disabled]="!payrollRunOffCycleBatchForm.valid" (click)="saveForm(payrollRunOffCycleBatchForm)">Confirm</button>
+  </div>
+</div>

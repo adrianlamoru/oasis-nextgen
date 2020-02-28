@@ -1,0 +1,103 @@
+
+@import "~sass/variables";
+
+.onboarding {
+    margin-top: 26px;
+
+    .btn-primary {
+        &:hover {
+            background-color: #004070;
+            border-color: #004070;
+        }
+    }
+
+    .cta-buttons {
+    }
+    
+    & .container-header {
+        & .container-title {
+            .container-header-title {
+                font-size: 26px;
+                font-weight: 400;
+            }
+            
+            .container-header-description {
+                font-size: 14px;
+                font-weight: 400;
+                letter-spacing: -0.3px;
+                color: $gray-700;
+                margin-top: -4px;
+            }
+        }
+        
+        .cta-button-right-margin {
+            margin-right: 14px;
+		}
+    }
+
+    .my-onboarding-completed {
+   
+        margin-top: 22px;
+        border-radius: 10px;
+        background-color: #fff;
+        -webkit-box-shadow: 0 6px 16px 0 rgba(32, 44, 86, 0.04);
+        box-shadow: 0 6px 16px 0 rgba(32, 44, 86, 0.04);
+        min-height: 800px;
+
+
+        .onboarding-completed-custom-margins {
+            margin-top: 123px;
+            margin-left: 72px;
+        }
+
+        .custom-image {
+            width: 40px;
+            height: 32px;
+            margin-bottom: 30px;
+        }
+
+        .onboarding-completed-title {
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 1.08;
+            letter-spacing: -0.5px;
+            color: $gray-800;
+        }
+
+        .onboarding-completed-text {
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.43;
+            letter-spacing: normal;
+            color: $gray-800;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .case-details {
+            background-color: $gray-100;
+            padding: 20px 30px;
+            min-width: 320px;
+            
+            .case-title {
+                font-size: 14px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.43;
+                letter-spacing: normal;
+                color: $gray-800;
+            }
+
+            .case-number {
+                font-size: 20px;
+                font-weight: 500;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 0.9;
+                letter-spacing: normal;
+                color: $blue;
+            }
+        }
+    }
+}

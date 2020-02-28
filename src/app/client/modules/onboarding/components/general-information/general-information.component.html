@@ -1,0 +1,100 @@
+<div class="general-information-component">
+  <div class="row">
+    <div class="col-8">
+      <form [formGroup]="formGroup" autocomplete="off" novalidate>
+        <div class="row">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <label for="clientID">Client ID</label>
+            <input type="text" class="form-control input-field-size" formControlName="clientId" id="clientID" aria-describedby="clientID" placeholder="12345">
+          </div>
+          <div class="form-group col-6 d-inline-block float-right">
+            <label for="clientFein">Client FEIN</label>
+            <input type="text" class="form-control input-field-size" formControlName="clientFein" autocomplete="off" placeholder="Client FEIN">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <label for="clientLegalName">Client Legal Name</label>
+            <input type="text" class="form-control input-field-size" formControlName="clientLegalName" id="clientLegalName" autocomplete="off" placeholder="Client Legal Name">
+          </div>
+          <div class="form-group col-6 d-inline-block float-right">
+            <label for="clientDbaName">Client DBA Name</label>
+            <input type="text" class="form-control input-field-size" formControlName="clientDbaName" id="clientDbaName" autocomplete="off" placeholder="Client DBA Name">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <label for="mainPhone">Main Phone Number</label>
+            <input 
+              type="text" 
+              formControlName="mainPhoneNumber" 
+              class="form-control input-field-size" 
+              id="mainPhone" 
+              autocomplete="off" 
+              placeholder="Main Phone"
+              phoneFaxMask
+              maxlength="14" >
+          </div>
+          <div class="form-group col-6 d-inline-block float-right">
+            <label for="mainFax">Main Fax Number</label>
+            <input 
+              type="text" 
+              formControlName="mainFaxNumber" 
+              class="form-control input-field-size" 
+              id="mainFax" autocomplete="off" 
+              placeholder="Main Fax Number"
+              phoneFaxMask
+              maxlength="14" >
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+
+        <div class="row main-address-title">
+          <span>Main Address</span>
+        </div>
+        <div class="row">
+          <div class="form-group col-12 d-inline-block pr-3">
+            <label for="mainAddress2">Address 1</label>
+            <input type="text" class="form-control" formControlName="address1" id="mainAddress" placeholder="Address 1" autocomplete="off">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-12 d-inline-block pr-3">
+            <label for="address2">Address 2</label>
+            <input type="text" class="form-control" formControlName="address2" id="mainAddress2" placeholder="Address 2" autocomplete="off">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <label for="city">City</label>
+            <input type="text" class="form-control input-field-size" formControlName="city" id="city" placeholder="City" autocomplete="off">
+          </div>
+          <div class="form-group col-6 d-inline-block float-right">
+            <label for="county">County</label>
+            <input type="text" class="form-control input-field-size" formControlName="county" id="county" placeholder="County" autocomplete="off">
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <label for="statesList">State</label>
+            <app-custom-select id="statesList"
+                               [placeholder]="'State'"
+                               [items]="statesList"
+                               [listAccessor]="{ name: 'Name', id: 'ID' }"
+                               formControlName="state">
+            </app-custom-select>
+          </div>
+          <div class="form-group col-6 d-inline-block float-right">
+            <label for="zip">Zip Code</label>
+            <input type="text" class="form-control input-field-size" formControlName="zip" id="zip" placeholder="Zip Code" autocomplete="off">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

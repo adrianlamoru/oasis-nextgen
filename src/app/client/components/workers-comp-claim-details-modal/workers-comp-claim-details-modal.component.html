@@ -1,0 +1,65 @@
+<div class="custom-modal-window">
+	<div class="modal-header">
+		<h4 class="modal-title align-self-center float-left">Claim Details</h4>
+		<button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+			<span class="icon icon-close"></span>
+		</button>
+	</div>
+	<div class="modal-body modal-body-scroll modal-body-details">
+		<div class="row">
+			<div class="col-12">
+				<div class="details-title">{{workersCompClaim.employeeName}}</div>
+				<div class="text-details-gray extra-margin-bottom">
+					<span>{{workersCompClaim.employeeTitle}}</span><br/>
+					<span>{{workersCompClaim.employeeCompany}}</span>
+				</div> 
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3">
+				<div class="form-group">
+					<label class="text-details-gray text-label">Claim</label>
+					<div class="details-value">{{workersCompClaim.claim}}</div>
+				</div>
+			</div>
+			<div class="col-3">
+				<div class="form-group">
+					<label class="text-details-gray text-label">Status</label>
+					<div class="details-value {{ isStatusOpen(workersCompClaim.status) ? 'text-details-green' : '' }}">{{workersCompClaim.status}}</div>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="form-group">
+					<label class="text-details-gray text-label">Injury</label>
+					<div class="details-value">{{workersCompClaim.injury}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-3">
+				<div class="form-group">
+					<label class="text-details-gray text-label">Updated</label>
+					<div class="details-value">{{workersCompClaim.updated}}</div>
+				</div>
+			</div>
+			<div class="col-9">
+				<div class="form-group">
+					<label class="text-details-gray text-label">Claim Type</label>
+					<div class="details-value">{{workersCompClaim.claimType}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<label class="text-details-gray text-label text-label-ex-padding">Case Details</label>
+				<div class="text-details-list {{ isFirst ? 'no-padding-top' : ''}} " *ngFor="let details of workersCompClaim.details; first as isFirst">
+					<div class="details-value details-value-header">{{details.detailsDate}} - {{details.detailsUpdateBy}} - {{details.detailsActionTaken}}</div>
+					<p class="details-desc">{{details.detailsDesc}}</p>
+				</div>			
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-primary" (click)="modalCloseFunc('Cross click')">Close</button>
+	</div>
+</div>

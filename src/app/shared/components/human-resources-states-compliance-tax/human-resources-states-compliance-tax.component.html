@@ -1,0 +1,59 @@
+<div *ngIf="modalOpening==true" class="workers-comp-posters-component">
+    <div class="card call-out-card posters-card">
+        <div class="card-body">
+            <span class="icon icon-poster"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span></span>
+            <span class="card-title">{{posterCardLabel.displayTitle}}</span>
+            <p class="card-text">{{posterCardLabel.displayText}}</p>
+        
+            <div class="form-group ">
+                <h4 for="state">State</h4>
+                
+                <div ngbDropdown class="d-inline-block custom-dropdown-component " #ddWCStates="ngbDropdown">
+                    <button type="button" class="btn  btn-form-control form-control-dropdown text-left " ngbDropdownToggle (click)="isddWCStates = !isddWCStates">
+            <span >
+              {{model.state ? model.state.Name : 'Select State'}}
+              <i class="icon  icon-shape float-right"></i>
+            </span>
+          </button>
+                    <div ngbDropdownMenu aria-labelledby="State">
+                        <button type="button" class="dropdown-item" *ngFor="let state of company?.states" (click)="ngbDropdownChange(model, 'state', state);">{{state.Name}}</button>
+                    </div>
+                </div>
+                
+            </div>
+        
+            <button type="button" class="btn btn-primary btnOpen" (click)="openActionModal('xs', workersCompPostersModal)" [disabled]="!model.state">Open</button>
+        </div>
+    </div>
+</div>
+
+<ng-template #workersCompPostersModal let-c="close" let-d="dismiss">
+    <app-human-resources-states-compliance-tax-modal [title]="titleModal" [downloadText]="downloadModalText" [company]="company" [selectedState]="model.state" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-human-resources-states-compliance-tax-modal>
+</ng-template>
+
+<div *ngIf="modalOpening==false" class="workers-comp-posters-component">
+    <div class="card call-out-card posters-card">
+        <div class="card-body">
+            <span class="icon icon-poster"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span></span>
+            <span class="card-title">{{posterCardLabel.displayTitle}}</span>
+            <p class="card-text">{{posterCardLabel.displayText}}</p>
+
+            <div class="form-group">
+                <h4 for="state">State</h4>
+                <div ngbDropdown class="d-inline-block custom-dropdown-component" #ddWCStates="ngbDropdown">
+                    <button type="button" class="btn  btn-form-control form-control-dropdown text-left" ngbDropdownToggle (click)="isddWCStates = !isddWCStates">
+      <span>
+        {{model.state ? model.state.Name : 'Select State'}}
+        <i class="icon  icon-shape float-right"></i>
+      </span>
+    </button>
+                    <div ngbDropdownMenu aria-labelledby="State">
+                        <button type="button" class="dropdown-item" *ngFor="let state of states" (click)="ngbDropdownChange(model, 'state', state);">{{state.Name}}</button>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <button type="button" class="btn btn-primary btnOpen" [disabled]="!model.state" (click)="download(this.model.state.StateCompliancePoster)">Download</button>
+        </div>
+    </div>
+</div>

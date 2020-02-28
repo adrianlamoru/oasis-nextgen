@@ -1,0 +1,43 @@
+@import '~sass/variables';
+.container-section {
+    padding-left: 0%;
+    padding-right: 0px;
+}
+
+.content-title {
+    font-weight: 500;
+}
+
+.reports-container {
+    padding-top: 19px;
+    .custom-grid {
+        font-weight: bold;
+    }
+    .custom-table-title {
+        font-weight: 500;
+        text-transform: capitalize !important;
+    }
+}
+
+.pdng-top-20 {
+    padding-top: 20px;
+}
+
+.padng-top-2 {
+    padding-top: 2px;
+}
+
+:host::ng-deep {
+    .dx-datagrid-rowsview {
+        //font-weight: bold;
+        border: none;
+        .dx-row {
+            background-color: $gray-100;
+            //font-weight: bold;
+            &:hover {
+                background-color: $gray-100;
+                cursor: pointer;
+            }
+        }
+    }
+}

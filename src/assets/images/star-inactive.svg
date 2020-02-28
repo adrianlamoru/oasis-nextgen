@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="18px" viewBox="0 0 17 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Artboard</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="17 7.09684211 10.8885 6.57473684 8.5 1 6.1115 6.58315789 0 7.09684211 4.641 11.08 3.247 17 8.5 13.8589474 13.753 17 12.3675 11.08"></polygon>
+        <filter x="-158.8%" y="-131.2%" width="417.6%" height="437.5%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="6" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feMorphology radius="1" operator="erode" in="SourceAlpha" result="shadowInner"></feMorphology>
+            <feOffset dx="0" dy="6" in="shadowInner" result="shadowInner"></feOffset>
+            <feComposite in="shadowOffsetOuter1" in2="shadowInner" operator="out" result="shadowOffsetOuter1"></feComposite>
+            <feGaussianBlur stdDeviation="8" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.125771057   0 0 0 0 0.173614207   0 0 0 0 0.336309524  0 0 0 0.0384963768 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Shape" fill-rule="nonzero">
+            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+            <path stroke="#B5B9C2" stroke-width="1" d="M15.7715166,7.49371406 L10.5470476,7.04738783 L8.5003469,2.27040731 L6.45295432,7.05622103 L1.23172661,7.49507602 L5.19738514,10.8986192 L4.00451372,15.9644721 L8.5,13.2763778 L12.9974058,15.9656199 L11.811539,10.8986177 L15.7715166,7.49371406 Z" stroke-linejoin="square"></path>
+        </g>
+    </g>
+</svg>

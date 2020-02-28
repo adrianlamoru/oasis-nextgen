@@ -1,0 +1,77 @@
+<div class="benefits-orientation">
+  <form [formGroup]="formGroup" autocomplete="off">
+    <div class="row">
+      <div class="col-8">
+        <div class="row mb-19">
+          <div class="col-12">
+            <p class="taxes-paragraph">
+              The implementation Team will be reaching out to schedule and discuss the client employee orientation requirements.
+            </p>
+          </div>
+        </div>
+        <div class="row checkbox-row">
+          <div class="form-group checkbox-section col-6 mb-0 p-0">
+            <label class="vertical-sub mb-0">I-9 Election</label>
+          </div>
+          <div class="form-group col-6 checkbox-section p-0">
+            <!-- <dx-check-box [(ngModel)]="i9ElectionCheckboxGroup.i9sOasis" text="We will obtain new I-9s with Oasis" (onOptionChanged)="onGroupedCheckBoxChanged('i9ElectionCheckboxGroup', 'i9sOasis', $event)"></dx-check-box>
+            <dx-check-box [(ngModel)]="i9ElectionCheckboxGroup.i9sCurrent" text="We will rely on our current I-9s" (onOptionChanged)="onGroupedCheckBoxChanged('i9ElectionCheckboxGroup', 'i9sCurrent', $event)"></dx-check-box> -->
+            <div formGroupName="i9ElectionGroup" class="form-checkbox-width mr-0">
+              <dx-check-box 
+                formControlName="i9ElectionOasis" 
+                text="We will obtain new I-9s with Oasis" 
+                class="float-right i9-margin"
+                (onOptionChanged)="onGroupedCheckBoxChanged('i9ElectionOasis', 'i9ElectionGroup', $event)"></dx-check-box>
+              
+              <dx-check-box 
+                class="mr-0"
+                formControlName="i9ElectionCurrent" 
+                text="We will rely on our current I-9s    " 
+                class="float-right"
+                (onOptionChanged)="onGroupedCheckBoxChanged('i9ElectionCurrent', 'i9ElectionGroup', $event)"></dx-check-box>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+              <div class="horizontal-separator"></div>
+            </div>
+          </div>  
+        <div class="row checkbox-row3">
+          <div class="form-group col-9 d-inline-block mb-0 p-0">
+            <label class="vertical-sub mb-0">Are there any bilingual needs for employee enrollment meetings?</label>
+          </div>
+          <div class="form-group col-3 checkbox-section p-0">
+            <!-- <dx-check-box [(ngModel)]="biLingualNeedsCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('biLingualNeedsCheckboxGroup', 'yes', $event)"></dx-check-box>
+            <dx-check-box [(ngModel)]="biLingualNeedsCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('biLingualNeedsCheckboxGroup', 'no', $event)"></dx-check-box> -->
+            <div formGroupName="biLingualGroup" class="form-checkbox-width">
+                <dx-check-box 
+                  formControlName="biLingualYes" 
+                  text="Yes" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('biLingualYes', 'biLingualGroup', $event)"></dx-check-box>
+                
+                <dx-check-box 
+                  class="mr-0"
+                  formControlName="biLingualNo" 
+                  text="No" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('biLingualNo', 'biLingualGroup', $event)"></dx-check-box>
+            </div>  
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+              <div class="horizontal-separator"></div>
+            </div>
+          </div>    
+        <div class="row">
+          <label for="dunsNumber" class="form-group col-6 d-inline-block pr-3">
+            Please provide language required
+          </label>
+          <div class="form-group col-6 d-inline-block float-right">
+              <input type="text" class="form-control" placeholder="" [disabled]="biLingualName != 'biLingualYes'">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

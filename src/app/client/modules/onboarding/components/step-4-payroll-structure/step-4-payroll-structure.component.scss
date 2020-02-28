@@ -1,0 +1,100 @@
+@import '~sass/variables';
+
+.payroll-structure-component {
+    margin-left: 48px;
+    margin-top: 58px;
+    max-width: 1240px;
+
+    .checkbox-row{
+        margin: 7px 0 8px 0;
+        align-self: center;
+  
+        .checkbox-section{
+          align-self: center;
+        }
+    }
+
+    .checkbox-row2{
+        margin: 0px 0 -9px 0;
+        align-self: center;
+  
+        .checkbox-section{
+          align-self: center;
+        }
+    }
+
+    .checkbox-row3{
+        margin: 7px 0 -7px 0;
+        align-self: center;
+  
+        .checkbox-section{
+          align-self: center;
+        }
+    }
+
+    .company-sponsored-label{
+        font-weight: bold !important;
+        margin-bottom: 7px;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+
+    .mb-24{
+        margin-bottom:24px;
+    }
+
+    .select-pay-codes-padding{
+        padding-bottom: 19px;
+    }
+
+    .form-checkbox-width {
+        width: fit-content;
+        float: right;
+    }
+
+    .taxes-paragraph{
+        border-radius: 5px;
+        background-color: $gray-200;
+        padding: 25px 30px;
+        margin-bottom: 0px;
+        line-height: 36px;
+    }
+
+    .horizontal-separator{
+        height: 1px;
+        background-color: $gray-300;
+        margin: 20px 0;
+    }
+
+    .horizontal-separator-title{
+        height: 1px;
+        background-color: $gray-300;
+        margin: 20px 0 24px 0;
+    }
+
+    .horizontal-separator-title2{
+        height: 1px;
+        background-color: $gray-300;
+        margin: 21px 0 24px 0;
+    }
+
+    .section-title-payroll{
+        font-size: 18px;
+    }
+
+    .section-title-payroll2{
+        font-size: 20px;
+        margin-top: 39px;
+        margin-bottom: 4px;
+    }
+
+    .ssnReadOnlyMask {
+        &.dx-texteditor {
+            .dx-texteditor-input {
+                font-size: 20px;
+                line-height: 24px;
+                color: $gray-500;
+            }
+        } 
+    }
+}

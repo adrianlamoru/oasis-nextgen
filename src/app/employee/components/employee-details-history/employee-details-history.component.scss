@@ -1,0 +1,61 @@
+@import '~sass/variables';
+
+.employee-details-history {
+    padding-top: 15px;
+    padding-left: 0%;
+    padding-right: 0px;
+    .view-history-link {
+        text-transform: uppercase;
+        margin-right: 10px;
+        font-size: 12px;
+        cursor: pointer;
+
+        .icon {
+            margin-left: 3px;
+
+            &.custom-icon {
+                font-size: 10px !important;
+                display: inline-flex;
+            }
+
+            &.icon-rotate {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    .dx-datagrid .dx-row-alt>td,
+    .dx-datagrid .dx-row-alt>tr>td {
+    	background-color: #f8f9fa;
+    }
+    .dx-row-alt:hover>td, .dx-row-alt:hover>tr>td {
+        border-bottom: 1px solid #F0F2F5 !important;
+        background-color: #F0F2F5;
+    }
+
+    .not-hovered tr, .not-hovered tr>td {
+        background-color: initial !important;
+    }
+
+    .dx-master-detail-cell {
+        background-color: #f8f9fa !important;
+    }
+
+    .section-title-buttons {
+    	margin-top: 11px !important;
+    }
+
+    .dx-row.dx-column-lines.dx-master-detail-row {
+        .dx-master-detail-cell {
+            padding-left: 0px;
+
+            dx-data-grid {
+                margin-top: 15px;
+                
+                .dx-row>td {
+                	border-bottom: none !important;
+                }
+            }
+        }
+    }
+}

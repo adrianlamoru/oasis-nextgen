@@ -1,0 +1,26 @@
+<div class="payroll-analytics-single">
+    <app-payroll-analytics-breadcrumb [batchNumber]="batchNumber"></app-payroll-analytics-breadcrumb>
+
+    <div class="row header">
+        <div class="col-7">
+            <span class="title">{{tabTitle}}</span>
+            <span class="title-date">{{tabTitleDate || formatDate}}</span>        
+        </div>
+        <div class="col-5">
+            <div class="buttons pull-right">                   
+                <button type="button" class="btn btn-outline-primary" (click)="goToBack()">BACK</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">           
+            <ngb-tabset #tabSet="ngbTabset" class="ngbTabset">
+                <ngb-tab title="Invoice Summary" id="tab-tax">
+                    <ng-template ngbTabContent>
+                        <app-payroll-analytics-single-batch-invoice-summary [batchNumber]="batchNumber"></app-payroll-analytics-single-batch-invoice-summary>
+                    </ng-template>
+                </ngb-tab>      
+            </ngb-tabset>
+        </div>
+    </div>
+</div>

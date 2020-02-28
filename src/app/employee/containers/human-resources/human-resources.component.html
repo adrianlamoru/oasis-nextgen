@@ -1,0 +1,30 @@
+<div class="employee-container-content">
+    <div class="row align-items-center container-header">
+        <div class="col-5 container-title"><span>Human Resources</span></div>
+        <div class="col-7">
+            <div class="float-right">
+                <button type="button" class="btn btn-primary btn-cta" *ngFor="let ctaItem of hrCTAButtons" (click)="openCTAButtonAction(ctaItem.btnLink, ctaItem.btnLinkConfig)">{{ctaItem.btnLabel}}</button>
+            </div>
+        </div>
+    </div>
+    <div class="row container-content">
+
+        <div class="col custom-hr-card" *ngIf="hCards.showLinks">
+            <app-human-resources-upcoming-reviews-links [innerData]="linksCardData" available="false"></app-human-resources-upcoming-reviews-links>
+        </div>
+
+        <div class="col custom-hr-card" *ngIf="hCards.showTraining">
+            <app-human-resources-training [humanResourcesActivitesCardData]="hrTraining" available="false" [websiteLink]="trainingLink"></app-human-resources-training>
+        </div>
+
+        <div class="col custom-hr-card" *ngIf="hCards.showHandbooksDocuments">
+            <app-human-resources-handbooks-documents [humanResourcesActivitesCardData]="hrHandbookDocuments" available="false"></app-human-resources-handbooks-documents>
+        </div>
+
+        <div class="col custom-hr-card" *ngIf="hCards.showStateTaxForms">
+            <div class="card hr-card">
+                <app-human-resources-states-compliance-tax [states]="stateTaxPostsStates" titleModal="State Tax Forms" downloadModalText="Download"></app-human-resources-states-compliance-tax>
+            </div>
+        </div>
+    </div>
+</div>

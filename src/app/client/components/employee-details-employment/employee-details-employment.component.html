@@ -1,0 +1,103 @@
+<div class="employee-details-employment">
+  <div class="section">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="tab-title-employee-employment">Employment Details</h3>
+      </div>        
+    </div>
+  </div>
+
+  <dx-form  [(formData)]="employmentData"
+            [showColonAfterLabel]="false" 
+            class="dx-form-padding-bottom"
+    labelLocation="top" [readOnly]="true">
+    <dxi-item itemType="group" [colCount]="3">
+      <dxi-item dataField="jobTitle"></dxi-item>
+      <dxi-item dataField="jobCodeDate" caption="Job Code - Date">
+          <dxo-label text="Job Code Date"></dxo-label>
+      </dxi-item>
+      <dxi-item dataField="statusDate" caption="Status - Date">
+          <dxo-label text="Status Date"></dxo-label>
+      </dxi-item>
+      <dxi-item dataField="typeDate">
+          <dxo-label text="Type Date"></dxo-label>
+      </dxi-item>
+      <dxi-item dataField="benefitGroup"></dxi-item>
+      <dxi-item dataField="benefitThruDate">
+        <dxo-label text="Benefits Thru Date"></dxo-label>
+      </dxi-item>
+      <dxi-item dataField="workShift"></dxi-item>
+      <dxi-item dataField="unionCode"></dxi-item>
+      <dxi-item dataField="employeeClock">
+        <dxo-label text="Employee/Clock#"></dxo-label>
+      </dxi-item>
+      <dxi-item dataField="payGroup">
+        <dxo-label text="Pay Group/Method"></dxo-label>
+      </dxi-item>
+      <dxi-item dataField="workersCompClass">
+        <dxo-label text="Workers' Comp Class Code"></dxo-label>
+      </dxi-item>
+      <dxi-item dataField="clientName"></dxi-item>
+      <dxi-item dataField="employerName">
+          <dxo-label text="Employer ID"></dxo-label>
+      </dxi-item>
+      <dxi-item dataField="projectCode"></dxi-item>
+      <dxi-item dataField="homeDepartment">
+        <dxo-label text="Department"></dxo-label>
+      </dxi-item>
+      <dxi-item dataField="homeDivision">
+        <dxo-label text="Division"></dxo-label>
+      </dxi-item>
+      <dxi-item dataField="homeLocation">
+        <dxo-label text="Location"></dxo-label>
+      </dxi-item>
+      <dxi-item dataField="peoStartDate">
+          <dxo-label text="PEO Start Date"></dxo-label>
+      </dxi-item>
+      <dxi-item dataField="clientStartDate"></dxi-item>
+    </dxi-item>
+  </dx-form>
+
+  <hr/>
+
+  <div class="section">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="tab-title-employee-employment">Compensation</h3>
+      </div>        
+    </div>
+  </div>
+
+  <dx-form  [(formData)]="compensationData"
+            [showColonAfterLabel]="false"
+            class="dx-form-padding-bottom"
+    labelLocation="top" [readOnly]="true">
+    <dxi-item itemType="group" [colCount]="3">
+        <dxi-item dataField="currentPayRate"></dxi-item>
+        <dxi-item dataField="payPeriod"></dxi-item>
+        <dxi-item dataField="currentAnnualizedPay"></dxi-item>
+        <dxi-item dataField="standardHours"></dxi-item>
+        <dxi-item dataField="autoAcceptTS">
+          <dxo-label text="Auto Accept Timesheet"></dxo-label>
+        </dxi-item>
+        <dxi-item dataField="defaultTsHours">
+          <dxo-label text="Default Timesheet Hours"></dxo-label>
+        </dxi-item>
+        <dxi-item dataField="dailyTimesheets"></dxi-item>
+        <dxi-item dataField="lastHireDate"></dxi-item>
+        <dxi-item dataField="originalHireDate">
+            <dxo-label text="Original Hire Date"></dxo-label>
+        </dxi-item>
+        <dxi-item dataField="senorityDate">
+            <dxo-label text="Seniority Date"></dxo-label>
+        </dxi-item>
+        <dxi-item dataField="peoStartDate">
+            <dxo-label text="PEO Start Date"></dxo-label>
+        </dxi-item>
+        <dxi-item dataField="lastPerformanceReviewDate">
+            <dxo-label text="Last Performance Review Date"></dxo-label>
+        </dxi-item>
+        <dxi-item dataField="Termination Reason"></dxi-item>
+    </dxi-item>
+  </dx-form>
+</div>

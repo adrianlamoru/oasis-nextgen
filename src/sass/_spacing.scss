@@ -1,0 +1,23 @@
+.xs-margin-top-8 {
+    @media only screen and (max-width: 767px) {
+        margin-top: 8px;         
+    }
+}
+
+.xs-margin-bottom-8 {
+    @media only screen and (max-width: 767px) {
+        margin-bottom: 8px;         
+    }
+}
+
+.xs-margin-bottom-10 {
+    @media only screen and (max-width: 767px) {
+        margin-bottom: 10px;         
+    }
+}
+
+.max-lg-margin-bottom-10 {
+    @media only screen and (max-width: 1023px) {
+        margin-bottom: 10px;         
+    }
+}

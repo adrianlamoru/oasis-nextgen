@@ -1,0 +1,39 @@
+@import "~sass/variables";
+
+.employee-reports-401k-summary {
+
+    .custom-dropdown {
+        width: 100px !important;
+    }
+
+    .report-title{
+        margin-bottom: 16px !important;
+        margin-top: 17px !important;
+    }
+
+    .custom-left-margin-col {
+        padding-left: 0px !important;
+        padding-right: 5px;
+    }
+
+    .select-year-batch-row {
+        margin-bottom: 14px;
+        margin-left: 2px;
+    }
+
+    .custom-dropdown-component {
+        width: inherit !important;
+
+        .form-control-dropdown {
+            width: inherit !important;
+        }
+        .btn-form-control span {
+            display: initial;
+        }
+    }
+
+    .print-download-row {
+        margin-top: -13px;
+    }
+
+}

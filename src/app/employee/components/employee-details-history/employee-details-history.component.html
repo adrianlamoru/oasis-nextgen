@@ -1,0 +1,71 @@
+<div class="employee-details-history container-section">
+  <div class="reports-container">
+    <div class="section">
+      <div class="row">
+        <div class="col-6">
+        </div>
+        <div class="col-6">
+          <div class="float-right mb-3">
+            <button type="button" class="btn btn-link btn-link-icon p-0">
+              <span class="icon icon-pint"></span>
+              <span>PRINT REPORT</span>
+            </button>				
+          </div>
+        </div>
+      </div>
+      <div class="custom-grid">
+        <div class="row">
+          <div class="col-lg-12">
+            <dx-data-grid id="gridContainer"
+                class="grid-head-font-weight-500 dx-data-grid-tab-title"
+                [dataSource]="employees"
+                [masterDetail]="{ enabled: false, template: 'detail' }"
+                keyExpr="id"
+                [showBorders]="true"
+                [rowAlternationEnabled]="true"
+                (onRowClick)="onRowClick($event)">
+  
+                <dxi-column dataField="date" [width]="150" dataType="date" format="MMM dd, yyyy"></dxi-column>
+                <dxi-column dataField="jobTitle" [width]="180" alignment="left"></dxi-column>
+                <dxi-column dataField="jobCode" [width]="150" alignment="left"></dxi-column>
+                <dxi-column dataField="statusCode" [width]="120" alignment="left"></dxi-column>
+                <dxi-column dataField="typeCode" [width]="120" alignment="left"></dxi-column>
+                <dxi-column dataField="" [allowFiltering]="false" [allowSorting]="false" cellTemplate="actionTemplate"
+                  [allowEditing]="false" alignment="right"></dxi-column>
+  
+                <div *dxTemplate="let data of 'actionTemplate'">
+                  <span class="view-history-link">View Pay History <i [ngClass]="{'icon-rotate': data.data.isOpened}" class="icon icon-shape custom-icon"></i></span>
+                </div>
+  
+                <div *dxTemplate="let employee of 'detail'">
+                    <dx-data-grid
+                        class="grid-head-font-weight-500 dx-data-grid-tab-title not-hovered"
+                        [dataSource]="employee.data.payHistory"
+                        [showBorders]="true"
+                        [columnAutoWidth]="true">
+                            <dxi-column dataField="dateEffective" [width]="150" dataType="date" format="MMM dd, yyyy"></dxi-column>
+                            <dxi-column dataField="rateOfPayPer" [width]="180" alignment="left" format="$#0,###.00##/Hour">
+                            </dxi-column>
+                            <dxi-column dataField="stdHours" [width]="150" alignment="left">
+                              <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+                            </dxi-column>
+                            <dxi-column dataField="changePercent" [width]="120" alignment="left">
+                              <dxo-format type="percent" [precision]="2"></dxo-format>
+                            </dxi-column>
+                            <dxi-column dataField="changeAmount" [width]="120" alignment="left">
+                              <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+                            </dxi-column>
+                            <dxi-column dataField="" [allowFiltering]="false" [allowSorting]="false"
+                              [allowEditing]="false" alignment="right" cellTemplate="emptyTemplate"></dxi-column>
+  
+                            <div *dxTemplate="let data of 'emptyTemplate'"><span>&nbsp;</span></div>
+                    </dx-data-grid>
+                </div>
+            </dx-data-grid>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+   
+</div>

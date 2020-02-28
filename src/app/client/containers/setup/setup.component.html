@@ -1,0 +1,122 @@
+<div class="client-container-content">
+    <div class="row align-items-center container-header">
+        <div class="col-3 container-title"><span>Codes</span></div>
+        <div class="col-9">
+            <div class="float-right">
+                <button type="button" class="btn btn-primary btn-cta" (click)="openClientContactsModal('lg', clientContactsModal)">Client Contacts</button>
+                <button type="button" class="btn btn-primary btn-cta cta-last-btn" (click)="openWebAuthPDF();">Website Authorization</button>
+            </div>
+        </div>
+    </div>
+    <div class="row align-items-center container-nav-pills-margin-bottom">
+        <div class="col-12">
+            <ul class="nav nav-pills" role="tablist">
+                <ng-container *ngFor="let option of subnavMenu?.subMenuOptions">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="{{option.route}}" routerLinkActive="active">{{option.label}}</a>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+    </div>
+
+    <router-outlet></router-outlet>
+
+    <ng-template #clientContactsModal let-c="close" let-d="dismiss">
+        <div class="custom-modal-window">
+            <div class="modal-header">
+                <h4 class="modal-title align-self-center float-left">Client Contacts</h4>
+                <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click')">
+                    <span class="icon icon-close"></span>
+                </button>
+            </div>
+            <div class="modal-body pb-0">
+                <form [formGroup]="clientContactsForm">
+                    <div formArrayName="clientContactsArray">
+                        <div formGroupName="{{i}}" *ngFor="let contactItem of clientContactsForm.get('clientContactsArray').controls; let i = index" class="client-contact-section">
+                            <div class="section-title">
+                                <h3>{{clientContactsForm.get(['clientContactsArray', i, 'contactType']).value}} Contact</h3>
+                                <!-- <div class="custom-control custom-checkbox custom-control-inline" *ngIf="clientContactsForm.get(['clientContactsArray', i, 'contactType']).value != 'Primary'">
+                                    <label class="custom-control-label">
+                                        <input type="checkbox" class="custom-control-input" ngbButton formControlName="sameAsPrimary" id="sameAsPrimary" name="sameAsPrimary" ngModal (change)="selectedCheckbox('payroll', $event, i)"> Same as Primary
+                                    </label>
+                                </div> -->
+                                <div *ngIf="clientContactsForm.get(['clientContactsArray', i, 'contactType']).value != 'Primary'">
+                                    <dx-check-box text="Same as Primary" formControlName="sameAsPrimary" ngModal (onValueChanged)="selectedCheckbox('payroll', $event, i)"></dx-check-box>
+                                </div>
+                            </div>
+                            <div formGroupName="userData">
+                                <div class="row">
+                                    <div class="form-group col-6 d-inline-block pr-3">
+                                        <h4>First Name</h4>
+                                        <input type="text" class="form-control" placeholder="First Name" formControlName="firstName">
+                                    </div>
+                                    <div class="form-group col-6 d-inline-block float-right pl-1">
+                                        <h4>Last Name</h4>
+                                        <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-6 d-inline-block pr-3">
+                                        <h4>Title</h4>
+                                        <input type="text" class="form-control" placeholder="Title" formControlName="title">
+                                    </div>
+                                    <div class="form-group col-6 d-inline-block float-right pl-1">
+                                        <h4>Email Address</h4>
+                                        <input type="text" class="form-control" placeholder="Email Address" formControlName="email">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-4 d-inline-block pr-3">
+                                        <h4>Phone</h4>
+                                        <input 
+                                            type="text" 
+                                            class="form-control" 
+                                            pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" 
+                                            placeholder="Phone" 
+                                            formControlName="phone"
+                                            phoneFaxMask
+                                            maxlength="14" >
+                                    </div>
+                                    <div class="form-group col-2 d-inline-block pl-1 pr-3">
+                                        <h4>Ext</h4>
+                                        <input type="text" class="form-control" placeholder="Ext" formControlName="ext">
+                                    </div>
+                                    <div class="form-group col-6 d-inline-block float-right pl-1">
+                                        <h4>Mobile Phone</h4>
+                                        <input 
+                                            type="text" 
+                                            class="form-control" 
+                                            pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" 
+                                            placeholder="Mobile Phone" 
+                                            formControlName="cellPhone"
+                                            phoneFaxMask
+                                            maxlength="14" >
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-6 d-inline-block pr-3">
+                                        <h4>Fax</h4>
+                                        <input 
+                                            type="text" 
+                                            pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" 
+                                            class="form-control" 
+                                            placeholder="Fax" 
+                                            formControlName="fax"
+                                            phoneFaxMask
+                                            maxlength="14">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="c('Close click')">Confirm</button>
+            </div>
+        </div>
+    </ng-template>
+</div>

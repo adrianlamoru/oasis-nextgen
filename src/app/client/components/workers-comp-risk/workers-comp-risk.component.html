@@ -1,0 +1,36 @@
+<div class="workers-comp-risk-component">
+  <div class="card call-out-card risk-card">
+    <div class="card-body pb-0">
+      <span class="icon icon-risk">
+        <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span>
+      </span>
+      <span class="card-title">Learn More from Oasis About Controlling Risk</span>
+      <p class="card-text">Download information you can use today, provided free from Oasis.</p>
+    </div>
+
+    <div class="custom-grid">
+        <div class="row">
+          <div class="col-5">
+              <ul class="list-risk-actions">
+                <li *ngFor="let item of downloadRiskItems" class="list-risk-action-item" (click)="download(item)">
+                    <i class="icon icon-single-content align-middle color-blue" aria-hidden="true"></i>
+                    <a class="item-value align-middle">
+                            {{item.title}}
+                    </a>
+                    <div class="float-right align-middle mr-right-10">
+                        <div class="not-float align-middle">
+                            <i class="icon icon-square-upload align-middle" aria-hidden="true"></i>
+                        </div>
+                    </div>
+
+                    <hr/>
+                </li>
+              </ul>
+          </div>
+      </div>
+      </div>
+
+
+
+  </div>
+</div>

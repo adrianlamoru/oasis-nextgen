@@ -1,0 +1,9 @@
+Department,Employee Name,Last Hire Date,Pay Status,Pay Period,Plan Description,Total Taken/EE,Total Taken/Client,Total Taken,Per Month/Employee,Per Month/Client,Monthly Total
+1,John Smith,1/1/2018,A,Bi,DENTAL,14.5,0,14.5,29,0,29
+1,John Smith,1/1/2018,A,Bi,HNO ,5,167.5,172.5,10,335,345
+1,John Smith,1/1/2018,A,Bi,CHUBB CRITICAL ILLNESS,7.46,0,7.46,14.92,0,14.92
+1,John Smith,1/1/2018,A,Bi,GAP 6350,31.99,0,31.99,63.97,0,63.97
+1,John Smith,1/1/2018,A,Bi,VISION,3.5,0,3.5,7,0,7
+1,John Smith,1/1/2018,A,Bi,TIME & ATTENDANCE,0,2.41,2.41,0,2.41,2.41
+1,John Smith,1/1/2018,A,Bi,LIFE,0,0.65,0.65,0,1.3,1.3
+,Employee Totals,,,,,62.45,170.56,233.01,124.89,338.71,463.6

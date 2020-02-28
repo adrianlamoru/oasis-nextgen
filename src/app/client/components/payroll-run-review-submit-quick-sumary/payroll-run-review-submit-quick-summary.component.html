@@ -1,0 +1,160 @@
+<div class="payroll-run-review-submit-quick-summary">
+    <div class="section">
+        <div class="row">
+            <div class="col-6">
+                <h3 class="tab-title">Quick Summary</h3>
+            </div>
+            <div class="col-6">
+                <div class="buttons pull-right ml-2">
+                    <div *ngIf="selectedType" ngbDropdown class="d-inline-block" placement="bottom-right">                       
+                        <button class="btn btn-light tab-btn-dropdown" id="btn2ndSortBy" ngbDropdownToggle>
+                            <span>
+                                {{ selected2ndSortType? selected2ndSortType.Text : 'SORT BY' }}
+                                <i class="icon icon-shape"></i>
+                            </span>
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="btn2ndSortBy" class="custom-dropdown-menu">
+                            <button type="button" class="dropdown-item" *ngFor="let type of secondSortTypes[selectedType.ID]" (click)="ngbDropdown2ndSortChange(type)">{{type.Text}}</button>
+                        </div>
+                    </div>
+                </div>      
+                <div class="buttons pull-right">                    
+                    <div ngbDropdown class="d-inline-block" placement="bottom-right">
+                        <button type="button" class="btn btn-link btn-link-icon tab-btn not-btn-dropdown" (click)="print()">
+                            <span class="icon icon-pint"></span>
+                            <span>PRINT</span>
+                        </button>
+                        <button class="btn btn-light tab-btn-dropdown" id="btnSortBy" ngbDropdownToggle>
+                            <span>
+                               {{ selectedType? selectedType.Text : 'SORT BY' }}
+                                <i class="icon icon-shape"></i>
+                            </span>
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="btnSortBy" class="custom-dropdown-menu">
+                            <button type="button" class="dropdown-item" *ngFor="let type of sortTypes" (click)="ngbDropdownSortChange(type)">{{type.Text}}</button>
+                        </div>
+                    </div>
+                </div>                          
+            </div>
+        </div>
+    </div>
+    <div id="contentToRender">
+    <div class="row">
+        <div class="col-12">
+            <div class="custom-grid">
+                <dx-data-grid #quickSummaryDataGrid [dataSource]="quickSummaryDataRows"
+                    class="pair-row-color-gray-100 grid-head-font-weight-500 
+                        grid-head-text-align-right-second grid-last-col-padding-56
+                        dx-data-grid-tab-title"
+                    [columnAutoWidth]="true"                       
+                    keyExpr="id">
+                    <dxo-paging [enabled]="false"></dxo-paging>
+                    <dxi-column dataField="payCode" caption="Pay Code" [allowSorting]="false">
+                        <dxo-lookup
+                            [dataSource]="payCodes"
+                            valueExpr="ID"
+                            displayExpr="Text">
+                        </dxo-lookup>
+                    </dxi-column>
+                    <dxi-column dataField="hours" caption="Hours" [allowSorting]="false" alignment="right">
+                        <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+                    </dxi-column>
+                    <dxi-column dataField="hoursWorked" caption="Hours Worked" [allowSorting]="false" alignment="right">
+                        <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+                    </dxi-column>
+                    <dxi-column dataField="unit" caption="Unit" [allowSorting]="false" alignment="right">
+                        <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+                    </dxi-column>
+                    <dxi-column dataField="amount" caption="Amount" alignment="right"
+                        [allowSorting]="false">
+                        <dxo-format type="currency" [precision]="2"></dxo-format>
+                    </dxi-column>
+            
+                    <dxo-summary>
+                        <dxi-total-item
+                            column="payCode"
+                            summaryType="min"
+                            displayFormat="Totals">
+                        </dxi-total-item>
+                        <dxi-total-item
+                            column="hours"
+                            summaryType="sum"
+                            displayFormat="{0}"
+                            valueFormat="fixedPoint"
+                            [precision]="2">
+                        </dxi-total-item>
+                        <dxi-total-item
+                            column="hoursWorked"
+                            summaryType="sum"
+                            displayFormat="{0}"
+                            valueFormat="fixedPoint"
+                            [precision]="2">
+                        </dxi-total-item>
+                        <dxi-total-item
+                            column="unit"
+                            summaryType="sum"
+                            displayFormat="{0}"
+                            valueFormat="fixedPoint"
+                            [precision]="2">
+                        </dxi-total-item>
+                        <dxi-total-item
+                            column="amount"
+                            summaryType="sum"
+                            displayFormat="{0}"
+                            valueFormat="currency"
+                            [precision]="2">
+                        </dxi-total-item>
+                    </dxo-summary>
+                </dx-data-grid>
+            </div>            
+        </div>
+    </div>
+    <div class="section">
+        <div class="row">
+            <div class="col-12">
+                    <h3 class="section-title-without-margin-top">Deductions</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-6">
+                <div class="custom-grid">
+                    <dx-data-grid #deductionDataGrid [dataSource]="deductionDataRows"
+                        class="pair-row-color-gray-100 grid-head-font-weight-500
+                            grid-head-text-align-right-second grid-last-col-padding-56
+                            dx-data-grid-tab-title dx-datagrid-header-border-1"
+                        [columnAutoWidth]="true"                         
+                        keyExpr="ID">
+                        <dxo-paging [enabled]="false"></dxo-paging>
+                        <dxi-column dataField="PayCode" caption="Pay Code" [allowSorting]="false">
+                            <dxo-lookup
+                                [dataSource]="deductionPayCodes"
+                                valueExpr="ID"
+                                displayExpr="Text">
+                            </dxo-lookup>
+                        </dxi-column>
+                        <dxi-column dataField="Amount" caption="Amount" alignment="right"
+                            [allowSorting]="false">
+                            <dxo-format type="currency" [precision]="2"></dxo-format>
+                        </dxi-column>
+                
+                        <dxo-summary>
+                            <dxi-total-item
+                                column="PayCode"
+                                summaryType="min"
+                                displayFormat="Total">
+                            </dxi-total-item>
+                            <dxi-total-item
+                                column="Amount"
+                                summaryType="sum"
+                                displayFormat="{0}"
+                                valueFormat="currency"
+                                [precision]="2">
+                            </dxi-total-item>
+                        </dxo-summary>
+                    </dx-data-grid>
+                </div>            
+            </div>
+        </div>
+    </div>
+</div>

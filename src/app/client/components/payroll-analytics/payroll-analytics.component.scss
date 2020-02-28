@@ -1,0 +1,113 @@
+@import '~sass/variables';
+
+.payroll-analytics {
+
+    .header {
+        margin-bottom: 30px;
+    }
+
+    // .support-chart-container, .support-chart-area-container {
+    //     padding: 25px !important;
+    //     margin-top: 16px;
+    //     border-radius: 10px;
+    //     background-color: $white;
+    //     box-shadow: 0 6px 16px 0 rgba(32, 44, 86, 0.04);
+    //     height: 95%;
+    // }
+
+    .payrollanalytics-chart-header{
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.13;
+    }
+
+    .payrollanalytics-area-chart-container {
+        height: 300px !important;
+        border-radius: 10px;
+        background-color: $white;
+        box-shadow: 0 6px 16px 0 rgba(32, 44, 86, 0.04);
+
+
+        .payrollanalytics-area-chart-container-center{
+            position: relative;
+            padding: 0px 30px 0px 30px;
+            
+        }
+
+    }
+
+    .payrollanalytics-pie-chart-container {
+        height: 300px !important;
+        border-radius: 10px;
+        background-color: $white;
+        box-shadow: 0 6px 16px 0 rgba(32, 44, 86, 0.04);
+
+        .payrollanalytics-pie-chart-header{
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.13;
+            padding-left: 30px;
+        }
+
+        .payrollanalytics-pie-chart-container-center{
+            position: relative;
+            padding: 0px 0px 0px 47px;
+            
+        }
+
+    }
+
+    .support-chart-container .row {
+        max-width: 500px;
+    }
+
+    .area-chart {
+        margin-bottom: 15px;
+    }
+
+    .form-control-dropdown, .custom-dropdown-component .dropdown-menu {
+        width: 160px;
+    }
+    
+    #ddYear {
+        width: 150px;
+    }
+
+    .chart-padding-top-0 .chart-container {
+        padding-top: 0;
+    }
+
+    .chart-padding-bottom-0 .chart-container {
+        padding-bottom: 0;
+    }
+
+    .width-160 {
+        width: 160px;
+    }
+
+    .batch-history-component {
+        margin: 30px 0;
+        border-radius: 10px;
+        background-color: $white;
+        box-shadow: 0 6px 16px 0 rgba(32, 44, 86, 0.04);
+        min-height: 100px;
+    
+        .content-title {
+            margin-bottom:  16px
+        }
+    }
+
+    .mr-10 {
+        margin-right: 10px;
+    }
+
+    
+}
+
+.dx-selectbox-popup-wrapper {
+    .dx-list-item-selected:not(.dx-state-hover) {
+        background-color: transparent !important;    
+    }
+}
+
+

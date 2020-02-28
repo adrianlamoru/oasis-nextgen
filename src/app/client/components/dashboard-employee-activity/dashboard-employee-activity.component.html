@@ -1,0 +1,63 @@
+
+<div class="card benefits-card dashboard-card">
+  	<div class="card-body">
+  		<div class="row ex-margin-bottom">
+  			<div class="col-12 align-self-center">
+  				<div class="d-inline-block">
+			    <ul class="nav nav-tabs no-border">
+	                <li class="nav-item">
+	                  <a href="javascript: void(0)" class="nav-link  {{ tabSelected === tab_EA ? 'active' : ''}}" data-toggle="tab" (click)="updateTabSelection(tab_EA)">
+	                     <h3 class="benefits-card-title">{{tab_EA}}</h3>
+	                 </a>
+	                </li>
+	                <li class="nav-item">
+	                  <a href="javascript: void(0)" class="nav-link {{ tabSelected === tab_TEA ? 'active' : ''}}" data-toggle="tab"  (click)="updateTabSelection(tab_TEA)">
+	                  	<h3 class="benefits-card-title">{{tab_TEA}}</h3>
+	                  </a>
+	               	</li>
+	            </ul>	
+	        </div>
+	        <div class="d-inline-block float-right text-right">
+	            <div class="employee-list-sort-dropdown d-flex">
+			        <div ngbDropdown class="d-inline-block pr-2" placement="bottom-right"  *ngIf="tabSelected === tab_EA">
+			            <button class="btn btn-light" id="empActivityDropdown" ngbDropdownToggle>
+			                <span>{{selectedCategory}}<i class="icon icon-shape"></i></span>
+			            </button>
+			            <div ngbDropdownMenu aria-labelledby="empActivityDropdown">
+			                <button *ngFor="let item of barEADataSource" class="dropdown-item" (click)="updateEmpActivitySelection(item.name, item.name, selectedTimeBasedActivity, 'category')">{{item.name}}</button>
+			            </div>
+					</div>
+					<div ngbDropdown class="d-inline-block" placement="bottom-right"  *ngIf="tabSelected === tab_EA">
+						<button class="btn btn-light" id="timebasedEmpActivityDropdown" ngbDropdownToggle>
+							<span>{{selectedTimeBasedActivity}}<i class="icon icon-shape"></i></span>
+						</button>
+						<div ngbDropdownMenu aria-labelledby="timebasedEmpActivityDropdown">
+							<button *ngFor="let item of barEATimeDataSource" class="dropdown-item" (click)="updateEmpActivitySelection(item.name, selectedCategory, item.name, 'year')">{{item.name}}</button>
+						</div>
+					</div>
+			        <!-- <div ngbDropdown class="d-inline-block" placement="bottom-right"  *ngIf="tabSelected === tab_TEA">
+			            <button class="btn btn-light" id="timebasedEmpActivityDropdown" ngbDropdownToggle>
+			                <span>{{barTimeBasedActivity}}<i class="icon icon-shape"></i></span>
+			            </button>
+			            <div ngbDropdownMenu aria-labelledby="timebasedEmpActivityDropdown">
+			                <button *ngFor="let item of barEATimeDataSource" class="dropdown-item" (click)="updateEmpStatusSelection(item.name)">{{item.name}}</button>
+			            </div>
+			        </div> -->
+			    </div>
+			</div>
+  			</div>
+  			<!-- <div class="col-4 align-self-center">
+			    
+			</div> -->
+  		</div> 
+		<div class="row ex-margin-bottom">
+			<div class="col-12 chart-abs-position">
+				<app-bar-chart [dataSource]="dataSourceForGraph" [height]="177" [isModalNeeded]="true" ></app-bar-chart>
+			</div>
+		</div>
+		<button type="button" class="btn btn-link btn-abs-position" (click)="openEmpAnalytics()">
+            <span class="btn-link-text">See All Employee Activity</span>
+            <span class="icon icon-arrow"></span>
+        </button>
+	</div>
+</div>

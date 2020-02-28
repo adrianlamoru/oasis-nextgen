@@ -1,0 +1,231 @@
+@import "~bootstrap/scss/functions"; 
+@import '~sass/variables';
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.pay-summary {
+    background-color: $white;
+    
+    input[type="password"] {
+        background-color: $white;
+        border: 0;
+        text-align: center;    
+        color: $gray-800;             
+    }
+
+    .show-text {
+        background-color: $white;       
+        text-align: center;
+        color: $gray-800;
+    }
+    
+    .dashboard-pay-summary-header {
+        font-size: 12px;
+        font-weight: 900;
+
+        h3 {
+            font-size: 16px;
+            line-height: 18px;
+            letter-spacing: normal;
+            font-weight: 500;
+        }
+
+        .dashboard-pay-summary-header-right{
+            a{
+                font-size: 11px;
+                font-weight: bold;
+                color: #156bc7 !important;
+            }
+        }
+
+        .icon {
+            position: relative;
+            top: 0.5px;
+        }
+    }
+
+    .dashboard-pay-summary-body {
+        margin-bottom: 46.023px;
+        padding-top: 36px;
+
+        .row {
+            position: relative;
+        }
+        .col-md-12 {
+
+            .display {
+                display: block;
+                font-size: 12px;
+                font-weight: 500;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: normal;
+                text-align: center;
+                color: $gray-700;
+            }
+        
+            .value {
+                display: block;
+                font-size: 14px;
+                font-weight: bold;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: normal;
+                text-align: center;
+            }
+
+            input[type="text"] {
+                font-size: 14px;
+                font-weight: bold !important;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: normal;
+            }
+        }
+
+        .card-display-value {
+            margin-top: 16px;
+    
+            .display {
+                display: block;
+                font-size: 14px;
+                font-weight: 500;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: normal;
+                text-align: center;
+                color: $gray-700;
+            }
+        
+            .value {
+                display: block;
+                font-size: 42px;
+                font-weight: normal;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: -0.8px;
+                text-align: center;
+
+                input[type="password"] {
+                    font-size: 14px;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                }
+            }
+        }
+
+
+        hr {
+            margin-right: -34px;
+            margin-left: -34px;
+            margin-top: 24px;
+            margin-bottom: 24px;
+        }
+
+        .sub-header {
+            margin-bottom: 19px;
+            font-size: 16px;
+            font-weight: bold; 
+        }
+
+        .table th {
+            border-top: 0;
+            border-bottom: 0;
+
+            padding: 0;
+
+            font-size: 14px;
+            font-weight: 500;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            text-align: left;
+            color: #969ba8;
+        }
+
+        .table td {
+            border-top: 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+            padding-left: 0;
+            padding-right: 0;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            font-size: 14px;
+            font-weight: 500;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: 1.29;
+            letter-spacing: normal;
+            text-align: left;
+
+            input[type="password"] {
+                text-align: left !important;   
+                color: $gray-700;          
+            }
+        }
+
+        .pay-stub-date {
+            @include media-breakpoint-up(xl) {
+                 padding-left: 60px !important; 
+            }
+        }
+
+        .icon-hit-down {
+            padding: 14px;
+            font-size: 16px;
+        }
+
+        .pay-stub-download a {
+            color: $blue !important;
+        }
+
+        .pay-stub-download a:hover {
+            color: $blue !important;
+            text-decoration: none;
+        }
+
+    }
+
+    .dashboard-pay-summary-footer {
+        margin-top: 27px;
+        a {
+            font-family: $font-family-sans-serif-secondary;
+            color: $blue;
+            text-transform: uppercase;
+            font-size: 11px;
+            line-height: 14px;
+            font-weight: bolder;
+           
+
+            .icon-arrow  {
+                font-size: 9px;
+            }
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: #004b9b;
+
+            .icon-arrow::before {
+                margin-left: 5px;
+                transition: margin-left 500ms;
+            }
+            
+        }
+    }
+}
+
+#pie {
+    height: 208px;
+    margin: 0 auto
+}

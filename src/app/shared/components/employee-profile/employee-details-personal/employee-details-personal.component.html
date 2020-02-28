@@ -1,0 +1,441 @@
+<div class="container-section">
+	<div class="reports-container">
+		<!--{{diagnosticFormGroupControls}}-->
+		<form #employeePersonalDetailForm="ngForm" [formGroup]="employeePersonalDetailFormGroup" ngNativeValidate novalidate (ngSubmit)="saveForm(employeePersonalDetailForm)" autocomplete="off">
+			<!--Personal Details-->
+			<div class="section">
+				<div class="row">
+					<div class="col-6">
+						<h3 class="tab-title-employee-details">Personal Details</h3>
+					</div>
+					<div class="col-6 buttons">
+						<app-edit-button-link [isEnabled]="isInEditMode" (clickEvent)="editBtnListener($event);"></app-edit-button-link>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-5">
+						<div class="form-group">
+							<label for="firstName">First Name</label>
+							<input type="text" class="form-control" id="firstName" formControlName="firstName" [(ngModel)]="clientEmployeeDetailsModel.employeePersonalDetails[0].firstName" aria-describedby="firstName" placeholder="First Name">
+						</div>
+					</div>
+					<div class="col-5">
+						<div class="form-group">
+							<label for="lastName">Last Name</label>
+							<input type="text" class="form-control" id="lastName" formControlName="lastName" [(ngModel)]="clientEmployeeDetailsModel.employeePersonalDetails[0].lastName" aria-describedby="lastName" placeholder="Last Name">
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="form-group">
+							<label for="middleInitial">Middle Initial</label>
+							<input type="text" class="form-control" id="middleInitial" formControlName="middleName" [(ngModel)]="clientEmployeeDetailsModel.employeePersonalDetails[0].middleName" aria-describedby="middleInitial" placeholder="Middle Initial" maxlength="1">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-3">
+						<div class="form-group">
+							<label for="firstName">Nickname</label>
+							<input type="text" class="form-control" id="nickname" formControlName="nickname" [(ngModel)]="clientEmployeeDetailsModel.employeePersonalDetails[0].nickName" aria-describedby="nickname" placeholder="Nickname">
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="form-group">
+							<label for="date">Date of Birth</label>
+							<div class="custom-date-picker">
+								<div class="input-icon icon icon-calendar"></div>
+								<input class="form-control custom-input-field" placeholder="mm/dd/yyyy" formControlName="dob" [(ngModel)]="clientEmployeeDetailsModel.employeePersonalDetails[0].dateOfBirth" ngbDatepicker
+											 [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #dpDob="ngbDatepicker">
+								<!--<button class="btn input-btn" tabindex="-1" (click)="dpDob.toggle(); dpDob.opened = !dpDob.opened" type="button"></button>-->
+							</div>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="form-group age-field-margin">
+							<label for="age">Age</label>
+							<input type="number" class="form-control" id="age" formControlName="age" [(ngModel)]="clientEmployeeDetailsModel.employeePersonalDetails[0].age" aria-describedby="age" placeholder="">
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="form-group">
+							<label for="employeeId">Employee ID</label>
+							<input type="text" class="form-control" placeholder="Employee ID" id="employeeId" formControlName="employeeId" [(ngModel)]="clientEmployeeDetailsModel.employeePersonalDetails[0].employeeId" aria-describedby="employeeId" placeholder="Employee Id">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-3">
+						<div class="form-group">
+							<label for="ssn">SSN</label>
+							<input type="text" class="form-control" id="ssn" formControlName="ssn" [(ngModel)]="clientEmployeeDetailsModel.employeePersonalDetails[0].ssn" aria-describedby="ssn" placeholder="Social Security Number">
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="form-group">
+							<label for="gender">Gender</label>
+							<div ngbDropdown class="custom-dropdown-component employee-pay-rate-dropdown" #ddGender="ngbDropdown">
+								<button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddGenderBtn ngbDropdownToggle>
+					<span>
+					  {{clientEmployeeDetailsModel.employeePersonalDetails[0].gender || 'Select Gender'}}
+										<i class="icon icon-shape float-right"></i>
+					</span>
+								</button>
+								<div ngbDropdownMenu aria-labelledby="Gender">
+									<button type="button" class="dropdown-item" *ngFor="let gender of genderList" (click)="ngbDropdownChange(clientEmployeeDetailsModel.employeePersonalDetails[0], 'gender', gender); ddGender.close()">{{gender.name}}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="form-group">
+							<label for="ethnicity">Ethnicity</label>
+							<div ngbDropdown class="custom-dropdown-component employee-pay-rate-dropdown" #ddEthnicity="ngbDropdown">
+								<button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddEthnicityBtn ngbDropdownToggle>
+					<span>
+					  {{clientEmployeeDetailsModel.employeePersonalDetails[0].ethnicity | slice:0:18 }}{{clientEmployeeDetailsModel.employeePersonalDetails[0].ethnicity.length > 18 ? '...' : ''}}
+										<i class="icon icon-shape float-right"></i>
+					</span>
+								</button>
+								<div ngbDropdownMenu aria-labelledby="Ethnicity">
+									<button type="button" class="dropdown-item" *ngFor="let ethnicity of ethnicityList" (click)="ngbDropdownChange(clientEmployeeDetailsModel.employeePersonalDetails[0], 'ethnicity', ethnicity); ddEthnicity.close()">{{ethnicity.name}}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="form-group">
+							<label for="maritalStatus">Marital Status</label>
+							<div ngbDropdown class="custom-dropdown-component employee-pay-rate-dropdown" #ddMaritalStatus="ngbDropdown">
+								<button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddMaritalStatusBtn ngbDropdownToggle>
+					<span>
+					  {{clientEmployeeDetailsModel.employeePersonalDetails[0].maritalStatus || 'Select Marital Status'}}
+										<i class="icon icon-shape float-right"></i>
+					</span>
+								</button>
+								<div ngbDropdownMenu aria-labelledby="Marital Status">
+									<button type="button" class="dropdown-item" *ngFor="let maritalStatus of maritalStatusList" (click)="ngbDropdownChange(clientEmployeeDetailsModel.employeePersonalDetails[0], 'maritalStatus', maritalStatus); ddMaritalStatus.close()">{{maritalStatus.name}}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-3">
+						<div class="form-group">
+							<label for="primaryPhone">Home Phone Number</label>
+							<input
+								type="text"
+								class="form-control"
+								id="primaryPhone" formControlName="phone1"
+								[(ngModel)]="clientEmployeeDetailsModel.employeePersonalDetails[0].phone1"
+								aria-describedby="primaryPhone"
+								placeholder="Primary Phone"
+								phoneFaxMask
+								maxlength="14">
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="form-group">
+							<label for="secondaryPhone">Alternate Phone Number</label>
+							<input
+								type="text"
+								class="form-control"
+								id="secondaryPhone" formControlName="phone2"
+								[(ngModel)]="clientEmployeeDetailsModel.employeePersonalDetails[0].phone2"
+								aria-describedby="secondaryPhone"
+								placeholder="Secondary Phone"
+								phoneFaxMask
+								maxlength="14">
+						</div>
+					</div>
+					<div class="col-3">
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input type="email" class="form-control" id="email" formControlName="email" [(ngModel)]="clientEmployeeDetailsModel.employeePersonalDetails[0].email" aria-describedby="email" placeholder="Email">
+						</div>
+					</div>
+				</div>
+				<div class='row' [hidden]="isClient()">
+					<div class='col-6'></div>
+					<div class='col-3'>
+						<div class='form-group'>
+							<dx-check-box text="Unsubscribe" formControlName="isUnsubscribeChecked" [(value)]="clientEmployeeDetailsModel.employeePersonalDetails[0].isUnsubscribeChecked"></dx-check-box>
+							<span class="icon icon-info" placement="top" ngbTooltip="{{unsubscribeTooltipText}}"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<hr/>
+			<!--Home Address-->
+			<div class="section">
+				<div class="row">
+					<div class="col-12">
+						<h3 class="tab-title-employee-details">Home Address</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-5">
+						<div class="form-group">
+							<label for="homeAddressLine1">Street Address Line 1</label>
+							<input type="text" class="form-control" id="homeAddressLine1" formControlName="homeAddressLine1" [(ngModel)]="clientEmployeeDetailsModel.employeeHomeAddress[0].address1" (input)="syncWithHomeAddress($event, 'Home')" aria-describedby="homeAddressLine1" placeholder="Street Address Line 1">
+						</div>
+					</div>
+					<div class="col-5">
+						<div class="form-group">
+							<label for="homeAddressUnitNumber">Apt/Suite #</label>
+							<input type="text" class="form-control" id="homeAddressUnitNumber" formControlName="homeAddressUnitNumber" [(ngModel)]="clientEmployeeDetailsModel.employeeHomeAddress[0].unitNumber" (input)="syncWithHomeAddress($event, 'Home')" aria-describedby="homeAddressUnitNumber" placeholder="Apt/Unit">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-5">
+						<div class="form-group">
+							<label for="homeAddressCity">City</label>
+							<input type="text" class="form-control" id="homeAddressCity" formControlName="homeAddressCity" [(ngModel)]="clientEmployeeDetailsModel.employeeHomeAddress[0].city" (input)="syncWithHomeAddress($event, 'Home')" aria-describedby="homeAddressCity" placeholder="City">
+						</div>
+					</div>
+					<div class="col-5">
+						<div class="form-group">
+							<label for="homeAddressState">State</label>
+							<div ngbDropdown class="custom-dropdown-component employee-pay-rate-dropdown" #ddHomeAddressState="ngbDropdown">
+								<button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddHomeAddressStateBtn ngbDropdownToggle>
+					<span>
+					  {{clientEmployeeDetailsModel.employeeHomeAddress[0].state || 'Select State'}}
+										<i class="icon icon-shape float-right"></i>
+					</span>
+								</button>
+								<div ngbDropdownMenu aria-labelledby="Home Address State" class="dropdown-overflow">
+									<button type="button" class="dropdown-item" *ngFor="let state of statesList" (click)="ngbDropdownChange(clientEmployeeDetailsModel.employeeHomeAddress[0], 'state', state); ddHomeAddressState.close(); syncWithHomeAddress($event, 'Home');">{{state.Name}}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="form-group">
+							<label for="homeAddressZip">Zip Code</label>
+							<input type="text" class="form-control" id="homeAddressZip" formControlName="homeAddressZip" [(ngModel)]="clientEmployeeDetailsModel.employeeHomeAddress[0].zip" (input)="syncWithHomeAddress($event, 'Home')" aria-describedby="Home Address Zip" placeholder="Zip Code">
+						</div>
+					</div>
+					<!-- <div class="col-2">
+			  <div class="form-group">
+				<label for="homeAddressZip-plus-four">+ 4</label>
+				<input type="text" class="form-control" id="homeAddressZipPlusFour" formControlName="homeAddressZipPlusFour" [(ngModel)]="clientEmployeeModel.homeAddress.zipCodePlusFour" (input)="syncWithHomeAddress($event, 'Home')" aria-describedby="Home Address Zip - Four" placeholder="+ 4">
+			  </div>
+			</div> -->
+				</div>
+			</div>
+	
+			<hr/>
+			<!--Mail Address-->
+			<div class="section">
+				<div class="row">
+					<div class="col-12">
+						<h3 class="tab-title-employee-details">Mailing Address</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="form-group">
+							<dx-check-box #cbMailingAddressSync text="Same as Home Address" formControlName="mailingAddressIsSameAsHome" [(value)]="clientEmployeeDetailsModel.employeeMailingAddress[0].isSameAsHomeAddress" (onValueChanged)="syncWithHomeAddress($event, 'Mailing')"></dx-check-box>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-5">
+						<div class="form-group">
+							<label for="mailingAddressLine1">Street Address Line 1</label>
+							<input type="text" class="form-control" id="mailingAddressLine1" formControlName="mailingAddressLine1" [(ngModel)]="clientEmployeeDetailsModel.employeeMailingAddress[0].address1" aria-describedby="mailingAddressLine1" placeholder="Street Address Line 1">
+						</div>
+					</div>
+					<div class="col-5">
+						<div class="form-group">
+							<label for="mailingAddressUnitNumber">Apt/Suite #</label>
+							<input type="text" class="form-control" id="mailingAddressUnitNumber" formControlName="mailingAddressUnitNumber" [(ngModel)]="clientEmployeeDetailsModel.employeeMailingAddress[0].unitNumber" aria-describedby="mailingAddressUnitNumber" placeholder="Apt/Unit">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-5">
+						<div class="form-group">
+							<label for="mailingAddressCity">City</label>
+							<input type="text" class="form-control" id="mailingAddressCity" formControlName="mailingAddressCity" [(ngModel)]="clientEmployeeDetailsModel.employeeMailingAddress[0].city" aria-describedby="mailingAddressCity" placeholder="City">
+						</div>
+					</div>
+					<div class="col-5">
+						<div class="form-group">
+							<label for="mailingAddressState">State</label>
+							<div ngbDropdown class="custom-dropdown-component employee-pay-rate-dropdown" #ddMailingAddressState="ngbDropdown">
+								<button type="button" class="btn btn-form-control form-control-dropdown text-left" ngbDropdownToggle #ddMailingAddressStateBtn>
+					<span>
+					  {{clientEmployeeDetailsModel.employeeMailingAddress[0].state || 'Select State'}}
+										<i class="icon icon-shape float-right"></i>
+					</span>
+								</button>
+								<div ngbDropdownMenu aria-labelledby="Home Address State" class="dropdown-overflow">
+									<button type="button" class="dropdown-item" *ngFor="let state of statesList" (click)="ngbDropdownChange(clientEmployeeDetailsModel.employeeMailingAddress[0], 'state', state); ddMailingAddressState.close()">{{state.Name}}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="form-group">
+							<label for="mailingAddressZip">Zip Code</label>
+							<input type="text" class="form-control" id="mailingAddressZip" formControlName="mailingAddressZip" [(ngModel)]="clientEmployeeDetailsModel.employeeMailingAddress[0].zip" aria-describedby="mailingAddressZip" placeholder="Zip Code">
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<hr/>
+			<!--W2 Address-->
+			<div class="section">
+				<div class="row">
+					<div class="col-12">
+						<h3 class="tab-title-employee-details">W-2 Address</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<div class="form-group">
+							<dx-check-box text="Same as Home Address" formControlName="w2AddressIsSameAsHome" #cbW2AddressSync [(value)]="clientEmployeeDetailsModel.employeeW2Address[0].isSameAsHomeAddress" (onValueChanged)="syncWithHomeAddress($event, 'W2')"></dx-check-box>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-5">
+						<div class="form-group">
+							<label for="w2AddressLine1">Street Address Line 1</label>
+							<input type="text" class="form-control" id="w2AddressLine1" formControlName="w2AddressLine1" [(ngModel)]="clientEmployeeDetailsModel.employeeW2Address[0].address1" aria-describedby="w2AddressLine1" placeholder="Street Address Line 1">
+						</div>
+					</div>
+					<div class="col-5">
+						<div class="form-group">
+							<label for="w2AddressUnitNumber">Apt/Suite #</label>
+							<input type="text" class="form-control" id="w2AddressUnitNumber" formControlName="w2AddressUnitNumber" [(ngModel)]="clientEmployeeDetailsModel.employeeW2Address[0].unitNumber" aria-describedby="w2AddressUnitNumber" placeholder="Apt/Unit">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-5">
+						<div class="form-group">
+							<label for="w2AddressCity">City</label>
+							<input type="text" class="form-control" id="w2AddressCity" formControlName="w2AddressCity" [(ngModel)]="clientEmployeeDetailsModel.employeeW2Address[0].city" aria-describedby="w2AddressCity" placeholder="City">
+						</div>
+					</div>
+					<div class="col-5">
+						<div class="form-group">
+							<label for="w2AddressState">State</label>
+							<div ngbDropdown class="custom-dropdown-component employee-pay-rate-dropdown" #ddw2AddressState="ngbDropdown">
+								<button type="button" class="btn btn-form-control form-control-dropdown text-left" ngbDropdownToggle #ddw2AddressStateBtn>
+					<span>
+					  {{clientEmployeeDetailsModel.employeeW2Address[0].state || 'Select State'}}
+										<i class="icon icon-shape float-right"></i>
+					</span>
+								</button>
+								<div ngbDropdownMenu aria-labelledby="Home Address State" class="dropdown-overflow">
+									<button type="button" class="dropdown-item" *ngFor="let state of statesList" (click)="ngbDropdownChange(clientEmployeeDetailsModel.employeeW2Address[0], 'state', state); ddw2AddressState.close()">{{state.Name}}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-2">
+						<div class="form-group">
+							<label for="w2AddressZip">Zip Code</label>
+							<input type="text" class="form-control" id="w2AddressZip" formControlName="w2AddressZip" [(ngModel)]="clientEmployeeDetailsModel.employeeW2Address[0].zip" aria-describedby="w2AddressZip" placeholder="Zip Code">
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<hr/>
+			<!--Emergency Contact -->
+			<div class="section">
+				<div class="row">
+					<div class="col-12">
+						<h3 class="tab-title-employee-details">Emergency Contact</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-4">
+						<div class="form-group">
+							<label for="contactName">Name</label>
+							<input type="text" class="form-control" id="contactName" formControlName="contactName" [(ngModel)]="clientEmployeeDetailsModel.employeeEmergencyContact[0].name" aria-describedby="contactName" placeholder="Name">
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="form-group">
+							<label for="relationship">Relationship</label>
+							<div ngbDropdown class="custom-dropdown-component employee-pay-rate-dropdown" #ddInterRelationship="ngbDropdown">
+								<button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddInterRelationshipBtn ngbDropdownToggle>
+					<span>
+					  {{clientEmployeeDetailsModel.employeeEmergencyContact[0].relationship || 'Select Relationship'}}
+										<i class="icon icon-shape float-right"></i>
+					</span>
+								</button>
+								<div ngbDropdownMenu aria-labelledby="Inter-Relationship" class="dropdown-overflow">
+									<button type="button" class="dropdown-item" (click)="ngbDropdownChange(clientEmployeeDetailsModel.employeeEmergencyContact[0], 'relationship', {}); ddInterRelationship.close()">Select Relationship</button>
+									<button type="button" class="dropdown-item" *ngFor="let interRelationship of interRelationshipList" (click)="ngbDropdownChange(clientEmployeeDetailsModel.employeeEmergencyContact[0], 'relationship', interRelationship); ddInterRelationship.close()">{{interRelationship.name}}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="form-group">
+							<label for="contactPhoneNumber">Phone Number</label>
+							<input
+								type="text"
+								class="form-control"
+								id="contactPhoneNumber"
+								formControlName="contactPhoneNumber"
+								[(ngModel)]="clientEmployeeDetailsModel.employeeEmergencyContact[0].phone"
+								aria-describedby="contactPhoneNumber"
+								placeholder="Phone"
+								phoneFaxMask
+								maxlength="14">
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<hr/>
+			<!--Other Details -->
+			<div class="section" [hidden]="!isClient()">
+				<div class="row">
+					<div class="col-12">
+						<h3 class="tab-title-employee-details">Other Details</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-3 other-detail {{last ? 'mb-0' : ''}}" *ngFor="let item of simDataOtherDetail; let last = last">
+						<span class="title">{{item.dataPoint}}</span>
+						<span class="value">{{item.value}}</span>
+					</div>
+				</div>
+			</div>
+	
+			<div class="section">
+				<div class="row">
+					<div class="col-12 pull-right buttons" *ngIf="isInEditMode">
+						<hr class="d-inline-block custom-footer-hr-padding"/>
+						<ng-container *ngTemplateOutlet="formActionsTemplate">
+						</ng-container>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+<ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-focused="focused">
+	<div class="btn-light" [class.focused]="focused" [class.bg-primary]="selected" (click)="opened = !opened;" (keydown)="opened = !opened;">
+		{{ date.day }}
+	</div>
+</ng-template>
+
+
+<ng-template #formActionsTemplate>
+	<button type="button" class="btn btn-outline-primary tab-btn-cancel not-btn-section" (click)="cancelModel()">Cancel</button>
+	<button type="submit" class="btn btn-primary tab-btn-save not-btn-section" [disabled]="!employeePersonalDetailForm.valid">Save</button>
+</ng-template>

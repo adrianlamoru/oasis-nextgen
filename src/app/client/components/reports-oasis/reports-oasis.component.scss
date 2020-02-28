@@ -1,0 +1,26 @@
+.reports-oasis
+{
+    /deep/ 
+    {
+        .payroll-batch-grid .dx-datagrid .dx-column-lines > td {
+            padding: 0 6px !important;
+        }
+    
+        .custom-date-picker {
+            &:first-child {
+                margin-right: 5px;
+            }    
+        }
+
+        .ending-date, .btn-filter {
+            margin-left: 5px;
+        }
+
+        .dx-menu {
+            text-align: right;
+            .dx-menu-item-has-text.dx-menu-item-has-submenu .dx-menu-item-text {
+                padding: 0 5px 5px 5px;
+            }        
+        } 
+    }
+}

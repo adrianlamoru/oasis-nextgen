@@ -1,0 +1,58 @@
+<div class="left-panel-container docu-form-search">
+  <div class="docu-forms-search-header">
+    <h5>Featured Links</h5>
+  </div>
+  <div class="docu-forms-search-body">
+    <div class="input-group input-group-lg input-group-search">
+      <input type="text" class="form-control form-control-search" placeholder="Search" style="width: 100%;display:table-cell;" />
+      <i class="icon icon-search" aria-hidden="true"></i>
+    </div>
+    <ul class="list-actions">
+      <li class="list-action-item" *ngFor="let doc of docList?.slice(0, 4)">
+        <i class="icon align-middle {{ doc.type === 'video' ? 'icon-video' : 'icon-single-content' }}" aria-hidden="true"></i>
+        <a class="value-item-group align-middle" href="{{doc.url}}" download="{{doc.url}}">
+          <span class="item-value">
+            {{doc.title}}
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="docu-forms-search-footer">
+    <a href="javascript:void(0)" (click)="openModal(allDocumentsModal, 'xl')">SEE ALL <i class="icon icon-arrow"></i></a>
+  </div>
+</div>
+
+<ng-template #allDocumentsModal let-c="close" let-d="dismiss">
+  <div class="all-documents-modal">
+    <div class="modal-header">
+      <h4 class="modal-title align-self-center">Getting Started</h4>
+      <button type="button" class="close align-self-center" aria-label="Close" (click)="d('Cross click')">
+        <span class="icon icon-close"></span>
+      </button>
+    </div>
+    <div class="modal-body all-documents-modal-body" id="all-documents-scrollbar">
+      <div class="form-group">
+        <input type="text"
+               class="form-control"
+               placeholder="Filter"
+               [(ngModel)]="searchQuery"
+               id="filterDownloads">
+      </div>
+      <div class="row list-risk-actions">
+        <div *ngFor="let doc of docList | containsfilter: 'title' : searchQuery" class="list-risk-action-item col-sm-4" (click)="download(doc)">
+          <i class="icon align-middle color-blue {{ doc.type === 'video' ? 'icon-video' : 'icon-single-content' }}" aria-hidden="true"></i>
+          <a class="item-value align-middle">
+            {{doc.title}}
+          </a>
+          <div class="float-right align-middle mr-right-10">
+            <div class="not-float align-middle">
+              <i class="icon icon-square-upload align-middle" aria-hidden="true"></i>
+            </div>
+          </div>
+          <hr/>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

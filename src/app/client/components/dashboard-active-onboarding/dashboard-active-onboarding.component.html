@@ -1,0 +1,75 @@
+
+<div class="card benefits-card dashboard-card">
+  	<div class="card-body">
+  		<div class="row">
+  			<div class="col-7 align-self-center">
+			    <h3 class="benefits-card-title">Active Onboarding</h3>			    
+  			</div>
+  			<div class="col-5 align-self-center">
+			    <div class="float-right">
+			         <button type="button" class="btn btn-outline-primary" (click)="openSpecifiedSection(activeOnboardingData.usVerifyURL)">Manager Onboarding</button>
+			    </div>
+			</div>
+  		</div> 
+		<div class="row ex-margin-bottom ex-margin-top">
+			<div class="col-12">
+				<div class="benefits-features-items features-with-borders max-height-with-scroll">
+		          	<ul class="benefits-features-items m-0">
+		            	<li *ngFor="let item of activeOnboardingData.activeOnboardingList | slice:0:5"> 
+		            		<div class="media xxl-padding"> 
+		            			<span class="custom-features-bullet-icon-2 icon-profile" > </span>    
+				              	<div class="media-body media-body-review">
+									<span>{{item.employeeName}}</span><br/>
+									<!-- <span class="media-body-date">{{item.title}}&nbsp;<span class="divider">.</span>&nbsp;&nbsp;&nbsp;{{item.dept}}</span> -->
+								</div>
+										<!-- <div class="custom-progress-bar align-self-center">
+											<div *ngFor="let dummy of ' '.repeat(item.totalSteps).split(''), let x = index" class="step2 steps {{x < item.stepsCompleted ?'completed-step' : ''}}"></div>
+										</div>
+										<div class="steps-count">{{item.stepsCompleted}}/{{item.totalSteps}}</div> -->
+										<div class="steps-count">{{item.statusDesc}}</div>
+				            </div>
+		            	</li>
+		          	</ul>
+		        </div>
+			</div>
+		</div>
+		<button type="button" class="btn btn-link btn-abs-position" (click)="openCardModal('sm', ActiveOnboardingModalContent)">
+            <span class="btn-link-text">See all Active Onboarding</span>
+            <span class="icon icon-arrow"></span>
+        </button>
+	</div>
+</div>
+
+<ng-template #ActiveOnboardingModalContent let-c="close" let-d="dismiss">
+  <div class="custom-modal-window">
+      <div class="modal-header">
+        <h4 class="modal-title modal-title-capitalize align-self-center float-left">Active Onboarding</h4>
+        <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click')">
+          <span class="icon icon-close"></span>
+        </button>
+      </div>
+      <div class="modal-body benefits-modal-body">
+        <div class="benefits-item benefits-item-parent-padding">
+          <div class="features-items features-with-borders">
+            <ul class="features-items">
+              	<li class="media xxl-padding" *ngFor="let item of activeOnboardingData.activeOnboardingList"> 
+		    		<span class="custom-features-bullet-icon-2 icon-profile" > </span>    
+	              	<div class="media-body media-body-review">
+						<span>{{item.employeeName}}</span><br/>
+						<!-- <span class="media-body-date">{{item.title}}&nbsp;<span class="divider">.</span>&nbsp;&nbsp;&nbsp;{{item.dept}}</span> -->
+					</div>
+							<!-- <div class="custom-progress-bar align-self-center">
+								<div *ngFor="let dummy of ' '.repeat(item.totalSteps).split(''), let x = index" class="step2 steps {{x < item.stepsCompleted ?'completed-step' : ''}}"></div>
+							</div>
+							<div class="steps-count">{{item.stepsCompleted}}/{{item.totalSteps}}</div> -->
+							<div class="steps-count">{{item.statusDesc}}</div>
+		    	</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer modal-footer-benefits">
+        <button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Close</button>
+      </div>
+    </div>
+</ng-template>

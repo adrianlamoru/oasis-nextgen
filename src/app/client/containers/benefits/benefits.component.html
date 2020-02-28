@@ -1,0 +1,33 @@
+<div class="client-container-content">
+
+    <div class="row align-items-center container-header">
+      <div class="col-12">
+        <div class="d-inline-block container-title"><span>Benefits</span></div>
+        <div class="d-inline-block float-right text-right container-buttons">
+            <!-- TO DO -- NEED TO ADD THE CONDTION FOR THE NEXT LINE -- NEED TO DISPLAY ONLY IF THE WORKSITE OF CLIENT IS NEW YORK -->
+            <button type="button" class="btn btn-primary btn-cta cta-button-right-margin" *ngFor="let ctaNewYorkItem of benefitsNewYorkCTAButtons; let last = last;" (click)="openCTAButtonAction(ctaNewYorkItem.btnLink, ctaNewYorkItem.btnLinkConfig)">{{ctaNewYorkItem.btnLabel}}</button>
+
+            <button type="button" class="btn btn-primary btn-cta {{first ? 'cta-last-btn' :''}} {{last ? '' :'cta-button-right-margin'}}" *ngFor="let ctaItem of benefitsCTAButtons; let first = first; let last = last;" (click)="openCTAButtonAction(ctaItem.btnLink, ctaItem.btnLinkConfig)">{{ctaItem.btnLabel}}</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row align-items-center container-nav-pills-margin-bottom">
+        <div class="col-12">
+            <ul class="nav nav-pills" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="medical" routerLinkActive="active">Medical</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="ancillary" routerLinkActive="active">Ancillary</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="supplemental" routerLinkActive="active">Supplemental</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <router-outlet></router-outlet>
+
+  

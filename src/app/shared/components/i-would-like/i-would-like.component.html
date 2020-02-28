@@ -1,0 +1,76 @@
+<div class="left-panel-container i-would-like">
+  <div class="i-would-like-header">
+    <h5>I would like to...</h5>
+  </div>
+  <div class="i-would-like-body">
+    <div class="input-group input-group-lg input-group-search">
+      <input type="text" class="form-control form-control-search" [(ngModel)]="model.criteria" placeholder="Search" />
+      <i class="icon icon-search" aria-hidden="true"></i>
+    </div>
+    <ul class="list-actions">
+      <li class="list-action-item" *ngFor="let link of page.iWouldLikeLinks | containsfilter: 'searchableText' : model.criteria | slice:0:page.maxIWouldLikeLinks" (click)="onClick(link)">
+        <i class="icon icon-{{link.icon}} align-baseline" aria-hidden="true"></i>
+        <div class="value-item-group align-middle">
+          <p class="item-value">
+            {{link.title}}
+          </p>
+          <span class="item-detail">
+            {{link.text}}
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="i-would-like-footer">
+      <a href="javascript:void(0)" (click)="openModal(iwouldLIkToSeeAll, 'xl')">SEE ALL <i class="icon icon-arrow"></i></a>
+    </div>
+</div>
+
+
+<ng-template #iwouldLIkToSeeAll let-c="close" let-d="dismiss">
+    <div class="i-would-like-modal">
+      <div class="modal-header i-would-like">
+        <h4 class="modal-title align-self-center">I Would Like To...</h4>
+        <button type="button" class="close align-self-center" aria-label="Close" (click)="d('Cross click')">
+          <span class="icon icon-close"></span>
+        </button>
+      </div>
+      <div class="modal-body i-would-like-modal-body" id="all-documents-scrollbar">
+        <div class="form-group row">
+          <div class="col-sm-4">
+            <input type="text"
+                   class="form-control i-would-like-filter"
+                   placeholder="Filter"
+                   [(ngModel)]="searchQuery"
+                   id="filterDownloads">
+          </div>
+        </div>
+        <div class="row list-risk-actions">
+          <div *ngFor="let link of page.iWouldLikeLinks | containsfilter: 'title' : searchQuery" class="list-risk-action-item col-sm-4" (click)="onClick(link)">
+            <i class="icon icon-{{link.icon}} align-baseline" aria-hidden="true"></i>
+            <div class="value-item-group align-middle">
+              <p class="item-value">
+                {{link.title}}
+              </p>
+              <span class="item-detail" *ngIf="link.text.length >= 30" placement="top" ngbTooltip="{{link.text}}">{{ link.text | middleTruncate: 30 }}</span>
+              <span class="item-detail" *ngIf="link.text.length < 30">{{ link.text }}</span>
+            </div>
+            <hr class="keep-last" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+<ng-template #supportCreateTicketModalTemplate let-c="close" let-d="dismiss">
+  <app-support-create-ticket 
+          [modalCloseFunc]="this.c"
+          [modalDismissFunc]="this.d"
+          (createTicketEvent)="createTicket($event)"
+          selectedCaseCategory="401K"
+          selectedCaseType="Deferral Change/Addition"></app-support-create-ticket>
+</ng-template>
+
+<ng-template #supportComponentTemplate let-c="close" let-d="dismiss">
+  <app-support></app-support>
+</ng-template>

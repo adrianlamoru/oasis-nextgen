@@ -1,0 +1,267 @@
+<div class="reports-container reports-hr-termination">
+    <div class="section">
+      <div class="row breadcrumb-container-reports">
+        <div class="col-12">
+          <div class="breadcrumb-component">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+              <li class="breadcrumb-item back-link">
+                <a (click)="goToBack()">Reports</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <span class="breadcrumb-item-active">Termination</span>
+              </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-7 report-title align-self-center">
+          <span>Termination</span>
+          <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+        </div>
+        <div class="col-5 align-self-center">                   
+            <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+        </div>
+      </div>
+      <div class="row custom-margins">
+        <div class="col-9">
+          <div class="form-inline">
+            <dx-radio-group
+                class="custom-radio-group-ca"
+                [items]="terminationReportRadioType"
+                [value]="terminationReportRadioType[0]"
+                layout="horizontal"
+                (onValueChanged)="onTerminationReportRadioValueChanged($event)">
+            </dx-radio-group>
+          </div>
+        </div>
+      </div>
+      <div class="hr-padding">
+        <hr class="m-0 mb-1 p-0"/>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-6 col-xl-2">
+              <label>Start Date</label>
+              <div class="custom-date-picker">
+                <div class="input-icon icon icon-calendar"></div>
+                <input
+                  class="form-control custom-input-field"
+                  placeholder="Month dd, yyyy"
+                  name="selectedStartDate"
+                  [(ngModel)]="selectedStartDate"
+                  (ngModelChange)="enableViewReportButton()"
+                  ngbDatepicker
+                  [dayTemplate]="effectiveDate"
+                  [displayMonths]="2"
+                  [navigation]="'arrows'"
+                  [firstDayOfWeek]="7"
+                  [disabled]="byDateRangeValue"
+                  #startDate="ngbDatepicker">
+                <button
+                  class="btn input-btn icon-shape custom-icon-margin"
+                  [disabled]="byDateRangeValue"
+                  (click)="startDate.toggle(); openedStart = !openedStart"
+                  type="button">
+                </button>
+              </div>
+            </div>
+            <div class="col-6 col-xl-2">
+              <label>End Date</label>
+              <div class="custom-date-picker">
+                <div class="input-icon icon icon-calendar"></div>
+                <input
+                  class="form-control custom-input-field"
+                  placeholder="Month dd, yyyy"
+                  name="endDate"
+                  [(ngModel)]="selectedEndDate"
+                  (ngModelChange)="enableViewReportButton()"
+                  ngbDatepicker [dayTemplate]="customDay"
+                  [displayMonths]="2"
+                  [navigation]="'arrows'"
+                  [firstDayOfWeek]="7"
+                  [disabled]="byDateRangeValue"
+                  #endDate="ngbDatepicker">
+                <button
+                  class="btn input-btn icon-shape custom-icon-margin"
+                  [disabled]="byDateRangeValue"
+                  (click)="endDate.toggle(); opened = !opened"
+                  type="button">
+                </button>
+              </div>
+            </div>
+            <div class="col-6 col-xl-2 custom-top-margin-col1">
+              <label>Year</label>
+              <div 
+                ngbDropdown class="d-inline-block custom-dropdown-component dropdown-scroll" 
+                #ddYears="ngbDropdown">
+                <button 
+                  type="button"
+                  class="btn btn-form-control form-control-dropdown text-left"
+                  ngbDropdownToggle
+                  [disabled]="byMonthValue"
+                  (click)="isOpened = !isOpened">
+                    <span>
+                      {{ selectedYear }}
+                      <i class="icon  icon-shape float-right"></i>
+                    </span>
+                </button>
+                <div 
+                  ngbDropdownMenu aria-labelledby="ddYears" 
+                  class="custom-dropdown-years">
+                  <button
+                    type="button"
+                    class="dropdown-item"
+                    *ngFor="let year of simpleYears"
+                    [disabled]="byMonthValue"
+                    (click)="onSelectionYears(year)">{{year}}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-2 custom-top-margin-col1">
+              <label>Month</label>
+              <div 
+                ngbDropdown class="d-inline-block custom-dropdown-component dropdown-scroll" 
+                #ddMonth="ngbDropdown">
+                <button
+                  type="button"
+                  class="btn btn-form-control form-control-dropdown text-left"
+                  ngbDropdownToggle
+                  [disabled]="byMonthValue"
+                  (click)="isOpened = !isOpened">
+                    <span>
+                      {{ selectedMonth }}
+                      <i class="icon icon-shape float-right"></i>
+                    </span>
+                </button>
+                <div 
+                  ngbDropdownMenu aria-labelledby="ddMonth" 
+                  class="custom-dropdown-years ca-report-custom-dd-menu">
+                  <button
+                    type="button"
+                    class="dropdown-item"
+                    *ngFor="let m of monthData"
+                    [disabled]="byMonthValue"
+                    (click)="onSelectionMonth(m)">{{m.Text}}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-2 custom-top-margin-col1 d-flex">
+              <button 
+                class="btn btn-primary custom-view-report-btn" 
+                (click)="getFilteredData()" 
+                [disabled]="disableViewReportButton">View Report
+              </button>
+            </div>
+          </div>
+        </div>        
+      </div>
+
+      <div class="hr-padding2">
+        <hr class="m-0 mb-1 p-0"/>
+      </div>
+
+      <div class="col-12" *ngIf="isLoading">
+        <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+
+      <div class="row pt-3 mb-0" *ngIf="!isLoading">
+        <div class="col-12 align-self-center">
+          <div class="float-right section-title">
+            <button 
+              type="button" 
+              class="btn btn-link btn-link-icon p-0 mr-2"
+              (click)="requestedFunction('print')">
+              <span class="icon icon-pint"></span>
+              <span>PRINT</span>
+            </button>
+            <div 
+              ngbDropdown class="d-inline-block custom-dropdown custom-download-dd-margin" 
+              placement="bottom-right">
+              <button 
+                class="btn btn-light" 
+                id="downloadDD" 
+                ngbDropdownToggle>
+                  <span>
+                    Download
+                    <i class="icon icon-shape"></i>
+                  </span>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="Download">
+                <button 
+                  type="button" 
+                  class="dropdown-item" 
+                  *ngFor="let item of dropdownOptions[0].items" 
+                  (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!isLoading">
+        <div class="col-lg-12 custom-grid">
+          <dx-data-grid 
+            [dataSource]="filteredHRTerminationReport" 
+            class="pair-row-color-gray-100 dx-data-grid-tab-title"
+            [columnAutoWidth]="true" 
+            [wordWrapEnabled]="true">
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="termDate" caption="Term Date" alignment="left" [allowSorting]="false" cellTemplate="dateCell" [width]="400"></dxi-column>
+            <dxi-column dataField="employeeName" caption="Name" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="employeeTitle" caption="Title" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="employeeDept" caption="Department" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="employeeLoc" caption="Location" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="employeeDiv" caption="Division" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="termReason" caption="Termination Reason" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="hireDate" caption="Hire Date" format="MM/dd/yyyy" alignment="left" [allowSorting]="false" cellTemplate="dateCell"></dxi-column>
+            <dxi-column dataField="yearsService" caption="Years Service" alignment="right" [allowSorting]="false" format="fixedPoint" [precision]="2"></dxi-column>
+            <dxi-column dataField="annualPay" caption="Annual Pay" alignment="right" [allowSorting]="false">
+              <dxo-format type="currency" [precision]="2"></dxo-format>
+            </dxi-column>
+            <dxi-column dataField="status" caption="Status" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="rehireOkay" caption="Rehire Okay" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="garnFlag" caption="Garnishment Flag" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="clientId" caption="Client" alignment="right" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="clientId" [groupIndex]="0" caption="Client" alignment="right" [allowSorting]="false"></dxi-column>
+            
+            <dxo-summary>
+              <dxi-group-item
+                column="annualPay"
+                summaryType="avg"
+                displayFormat="Average Terminated Employee Annual Pay: {0}"
+                valueFormat="currency"
+                showInColumn="termDate"
+                [showInGroupFooter]="true">
+              </dxi-group-item>
+              <dxi-group-item
+                column="annualPay"
+                summaryType="sum"
+                displayFormat="Total Terminated Employee Annual Pay: {0}"
+                valueFormat="currency"
+                showInColumn="termDate"
+                [showInGroupFooter]="true">
+              </dxi-group-item> 
+              <dxi-group-item
+                summaryType="count"
+                displayFormat="Total Terminated Employees: {0}"
+                column="annualPay"
+                showInColumn="termDate"
+                [showInGroupFooter]="true">
+              </dxi-group-item> 
+            </dxo-summary>
+           
+            <div *dxTemplate="let cellData of 'dateCell'">
+              {{cellData.value | date: 'MM/dd/yyyy'}}
+            </div>
+
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+@import "~sass/variables";
+
+.employee-reports-personal-tax { 
+
+    .section-title {
+        font-weight: 700;
+        margin-bottom: -4px !important;
+        margin-top: 28px !important;
+    }
+
+    .section-title2 {
+        font-weight: 700;
+        margin-bottom: -15px !important;
+        margin-top: -4px !important;
+    }
+
+    .report-title {
+        margin-bottom: 6px !important;
+        margin-top: 15px !important;
+    }
+
+    .employee-information-first-row {
+        margin: 8px 0 8px 0;
+    }
+
+    .employee-information-row {
+        margin: 28px 0 8px 0;
+    }
+
+    .employee-information-row2 {
+        margin: 21px 0 0 0;
+    }
+
+    .employee-information-field-padding {
+        padding: 0 3px 0 3px;
+    }
+
+    .employee-information-field-padding2 {
+        padding: 0 3px 0 15px;
+    }
+
+    .truncate-text {
+        overflow-y: hidden;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
+    .custom-margin-bottom {
+        margin-bottom: 17px;
+    }    
+    
+    hr {
+        margin: -2px 16px 25px 0px;
+    }
+
+    .hr-custom {
+        margin: -2px 0px 14px 0px;
+    }
+}

@@ -1,0 +1,84 @@
+<div class="payroll-analytics">  
+  <div class="row">
+    <div class="col-6">
+      <div class="payrollanalytics-area-chart-container container-section">
+        <span class="content-title">Chart Summary</span>
+        <div class="payrollanalytics-area-chart-container-center">
+          <app-area-chart [dataSource]="getAreaChartDataSource()" [height]="195" [width]="469" [gross]="getAreaChartGross()" [net]="getAreaChartNet()"></app-area-chart>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="payrollanalytics-pie-chart-container  container-section">
+        <span class="content-title">Chart Summary</span>
+        <div class="payrollanalytics-pie-chart-container-center">
+          <app-pie-chart [dataSource]="getPieDataSource()" [customRightAlignment]="30" [customTopAlignment]="35" [height]="188" [width]="434"></app-pie-chart>
+        </div>
+      </div>
+    </div>    
+  </div>
+  <div class="row batch-history-component container-section d-block">
+    <div class="col-12 content-title">
+      Batch History
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-inline form-group">
+          <dx-select-box class="width-160 mr-10" [items]="simpleYears" [(value)]="selectedYear"
+            (onEnterKey)="onYearEnterKey($event)" (onClosed)="onYearClosed($event)" [opened]="openedYearBox"
+            #ddYearBtn>
+          </dx-select-box>
+          <button class="btn btn-primary" (click)="searchPayrollAnalytics(selectedYear)">SEARCH</button>     
+        </div>
+      </div>
+    </div>
+    <div class="custom-grid">
+      <div class="row">
+        <div class="col-lg-12">
+          <dx-data-grid id="gridContainer"
+            class="historical-grid pair-row-color-gray-100 grid-head-font-weight-500 
+            dx-data-grid-tab-title grid-last-cell-actions" 
+            [dataSource]="payrollAnalytics" 
+            [columnAutoWidth]="true"
+            keyExpr="invoice">
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="invoice" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="invoiceDate" alignment="left" [allowSorting]="false" format="MM/dd/yyyy"></dxi-column>
+            <dxi-column dataField="batch"  alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="status" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="batchDescription" alignment="right" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="invoiceAmount" alignment="right" [allowSorting]="false" format="currency" [precision]="2"></dxi-column>
+            <dxi-column dataField="invoiceBalance" alignment="right" [allowSorting]="false" format="currency" [precision]="2"></dxi-column>             
+            <dxi-column dataField="" [allowFiltering]="false" [allowSorting]="false"
+            cellTemplate="actionTemplate" [allowEditing]="false" alignment="right"></dxi-column>
+  
+            <div *dxTemplate="let data of 'actionTemplate'">
+              <dx-menu id="actionMenu" #menu [dataSource]="dropdownActions" displayExpr="name" orientation="horizontal" submenuDirection="auto" [hideSubmenuOnMouseLeave]="false"
+                (onItemClick)="onDropdownClick($event, data, menu)" tabindex="0">
+              </dx-menu>
+            </div>
+  
+            <dxo-summary>
+              <dxi-total-item column="invoice" displayFormat="Total"></dxi-total-item>
+              <dxi-total-item
+                column="invoiceAmount"
+                summaryType="sum"
+                displayFormat="{0}"
+                valueFormat="currency"
+                [precision]="2">
+              </dxi-total-item>
+              <dxi-total-item
+                column="invoiceBalance"
+                summaryType="sum"
+                displayFormat="{0}"
+                valueFormat="currency"
+                [precision]="2">
+              </dxi-total-item>
+            </dxo-summary>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>  
+    </div>
+  </div>
+  

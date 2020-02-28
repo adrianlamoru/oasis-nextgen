@@ -1,0 +1,15 @@
+<div class="custom-modal-window">
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">Agreement</h4>
+  </div>
+  <div class="modal-body" [innerHtml]="agreementContent.content">
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="modalCloseFunc('Close click')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="clickedAgree()">I Agree</button>
+  </div>
+</div>
+
+<ng-template #newsModal let-c="close" let-d="dismiss">
+  <app-news [redirect]="redirect" [newsContent]="newsContent" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-news>
+</ng-template>

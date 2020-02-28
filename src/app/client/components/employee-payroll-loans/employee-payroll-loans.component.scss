@@ -1,0 +1,12 @@
+@import '~sass/variables';
+
+.editEmployeePayrollLoanModal {
+  input, .custom-date-picker {
+    width: 100%;
+  }
+}
+
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+}

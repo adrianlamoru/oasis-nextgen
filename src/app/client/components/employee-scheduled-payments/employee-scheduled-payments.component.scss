@@ -1,0 +1,19 @@
+@import '~sass/variables';
+
+.editEmployeeScheduledPaymentsModal {
+    input, .custom-date-picker {
+        width: 100% !important;
+    }
+}
+:host ::ng-deep {
+    .btn.btn-primary.dx-state-focused {
+        border-color: $blue;
+        background-color: $blue;
+    }
+}
+
+:host ::ng-deep {
+    .dx-datagrid-content .dx-datagrid-table .dx-row .dx-command-edit {
+        padding-left:10px
+    }
+}

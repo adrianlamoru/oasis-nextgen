@@ -1,0 +1,169 @@
+@import "~bootstrap/scss/functions"; 
+@import '~sass/variables';
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.steps-examples{ 
+    .step {
+        height: 90px;
+        background-color: $white;
+        box-shadow: 0 4px 14px 0 rgba(32, 44, 86, 0.06);
+
+        vertical-align: middle;
+        padding-left: 26px;
+        padding-right: 26px;
+        font-family: $font-family-sans-serif;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.29;
+        letter-spacing: normal;
+
+        .step-img {
+            // margin-top: 26px;
+            margin-right: 23px;
+            height: 34px;
+            width: 40px;
+        }
+
+        .red-dot {
+            height: 8px;
+            width: 8px;
+            background-color: #dc3737;
+            border-radius: 50%;
+            display: inline-block;
+            margin-bottom: 5px;
+            margin-left: 2px;
+        }
+
+        // .caption {
+        //     margin-top: 26px;
+        // }
+
+        .step-title {
+            font-size: 12px;
+            font-weight: 500;
+            color: $gray-710;
+            display: block;
+        }
+
+        .step-value {
+            font-size: 14px;
+            font-weight: 500;
+            display: grid;
+            
+            color: $gray-800;
+
+            overflow: hidden;
+            text-overflow: ellipsis; 
+
+            .step-sections {
+                font-size: 12px;
+                font-weight: 500;
+                color: $gray-710;
+            }
+
+            &.step-value-green {
+                color: #2abb91;
+            }
+
+            &.step-value-not-started {
+                color: #959ba7;
+            }
+        }
+
+        .step-actions { 
+            // margin-top: 23px;           
+            .dx-menu .dx-menu-item-text {
+                font-family: $font-family-sans-serif;
+                font-size: 11px;
+                font-weight: 900;
+                letter-spacing: 0.5px;
+                text-align: center;
+                color: $gray-800;
+                padding: 0.25rem;
+            }
+
+            .dx-context-menu-container-border {
+                background-color: transparent;
+                border: none;
+                box-shadow: none; 
+            }
+
+            .dx-menu .dx-menu-horizontal {
+                height: 36px !important;
+            }
+
+            .dx-menu .dx-menu-horizontal .dx-menu-item-popout:before {
+                font-family: 'icomoon' !important;
+                content: "\E911";
+                font-size: 8px;
+                font-weight: 700;
+            }
+
+            .dx-menu-item.dx-state-hover {
+                background-color: transparent;
+            }
+        }
+        .step-percents {
+            // margin-top: 30px;
+            .step-percent {
+                font-family: $font-family-sans-serif;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: normal;
+                color: $gray-800;
+            }
+        }
+
+        .custom-onboarding-progressbar .dx-progressbar-wrapper{
+            margin-bottom: 2.5px;
+
+            .dx-progressbar-container {
+                // margin-top: 2px;
+                border-radius: 0;
+                border: 0;
+                //border: 1px solid $blue;
+                .dx-progressbar-range {
+                    border: 0;
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                    background-color: $blue;
+                }
+            }
+        }
+    }
+
+    .bl {
+        &-green{
+            border-left: 4px solid #3ec88b;
+        }
+
+        &-blue{
+            border-left: 4px solid #005dc1;
+        }
+
+        &-red{
+            border-left: 4px solid $red;
+        }
+
+        &-red{
+            border-left: 4px solid $gray-400;
+
+            &.bl-error {
+                border-left: 4px solid $red !important;
+            }
+        }
+        
+    }
+    
+}
+
+.complete {
+    .dx-progressbar-container {
+        // border: 1px solid #2abb91 !important;
+    }
+    .dx-progressbar-range {
+        background-color: #2abb91 !important;
+        border: 0;
+    }
+}

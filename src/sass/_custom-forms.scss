@@ -1,0 +1,284 @@
+// Checkboxes and radios
+//
+// Base class takes care of all the key behavioral aspects.
+
+.custom-control {
+    position: relative;
+    display: block;
+    min-height: (1rem * $line-height-base);
+    padding-left: 20px;
+
+    &.disabled {
+        .custom-control-label {
+            color: $custom-control-label-disabled-color;
+            border: none;
+
+            &::before {
+                background-color: $custom-control-indicator-disabled-bg;
+            }
+        }
+    }
+  }
+
+  .custom-control-inline {
+    display: inline-flex;
+    margin-right: $custom-control-spacer-x;
+  }
+
+   .custom-control-label {
+
+    &.btn {
+        font-size: 0.875rem;
+        font-weight: 400;
+        text-transform: initial;
+        outline: none;
+        box-shadow: none;
+        padding: 8px 8px;
+        border: 0;
+    }
+
+    &.active {
+        &::before {
+            color: $custom-control-indicator-checked-color;
+            @include gradient-bg($custom-control-indicator-checked-bg);
+            @include box-shadow($custom-control-indicator-checked-box-shadow);
+            // box-shadow: none;
+        }
+    }
+  }
+
+  .custom-control:not(.disabled) {
+    .custom-control-label {
+      &.focus {
+        &::before {
+                // the mixin is not used here to make sure there is feedback
+                box-shadow: $custom-control-indicator-focus-box-shadow;
+        }
+      }
+
+      &.active {
+          &::before {
+              box-shadow: $custom-control-indicator-focus-box-shadow;
+              border: 1px solid #005DC1;
+          }
+      }
+    }
+  }
+
+  .custom-control-input {
+    position: absolute;
+    z-index: -1; // Put the input behind the label so it doesn't overlay text
+    opacity: 0;
+  }
+
+  // Custom control indicators
+  //
+  // Build the custom controls out of psuedo-elements.
+
+  .custom-control-label {
+    margin-bottom: 0;
+
+    // Background-color and (when enabled) gradient
+    &::before {
+      position: absolute;
+      top: (($line-height-base - $custom-control-indicator-size) / 2);
+      left: 0;
+      display: block;
+      width: $custom-control-indicator-size;
+      height: $custom-control-indicator-size;
+      pointer-events: none;
+      content: "";
+      user-select: none;
+      background-color: $custom-control-indicator-bg;
+      @include box-shadow($custom-control-indicator-box-shadow);
+      // box-shadow: none;
+      border: 1px solid $input-border-color;
+    }
+
+    // Foreground (icon)
+    &::after {
+      position: absolute;
+      top: (($line-height-base - $custom-control-indicator-size) / 2);
+      left: 0;
+      display: block;
+      width: $custom-control-indicator-size;
+      height: $custom-control-indicator-size;
+      content: "";
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: $custom-control-indicator-bg-size;
+    }
+  }
+
+  // Select
+//
+// Replaces the browser default select with a custom one, mostly pulled from
+// https://primer.github.io/.
+//
+
+.custom-select {
+    display: inline-block;
+    width: 100%;
+    height: $custom-select-height;
+    padding: $custom-select-padding-y ($custom-select-padding-x + $custom-select-indicator-padding) $custom-select-padding-y $custom-select-padding-x;
+    line-height: $custom-select-line-height;
+    color: $custom-select-color;
+    vertical-align: middle;
+    background: $custom-select-bg $custom-select-indicator no-repeat right $custom-select-padding-x center;
+    background-size: $custom-select-bg-size;
+    border: $custom-select-border-width solid $custom-select-border-color;
+    @if $enable-rounded {
+      border-radius: $custom-select-border-radius;
+    } @else {
+      border-radius: 0;
+    }
+    appearance: none;
+
+    &:focus {
+      border-color: $custom-select-focus-border-color;
+    //   outline: 0;
+      box-shadow: $custom-select-focus-box-shadow;
+
+
+      &::-ms-value {
+        // For visual consistency with other platforms/browsers,
+        // suppress the default white text on blue background highlight given to
+        // the selected option text when the (still closed) <select> receives focus
+        // in IE and (under certain conditions) Edge.
+        // See https://github.com/twbs/bootstrap/issues/19398.
+        color: $input-color;
+        background-color: $input-bg;
+      }
+    }
+
+    &[multiple],
+    &[size]:not([size="1"]) {
+      height: auto;
+      padding-right: $custom-select-padding-x;
+      background-image: none;
+    }
+
+    &:disabled {
+      color: $custom-select-disabled-color;
+      background-color: $custom-select-disabled-bg;
+    }
+
+    // Hides the default caret in IE11
+    &::-ms-expand {
+      opacity: 0;
+    }
+  }
+
+  .custom-select-sm {
+    height: $custom-select-height-sm;
+    padding-top: $custom-select-padding-y;
+    padding-bottom: $custom-select-padding-y;
+    font-size: $custom-select-font-size-sm;
+  }
+
+  .custom-select-lg {
+    height: $custom-select-height-lg;
+    padding-top: $custom-select-padding-y;
+    padding-bottom: $custom-select-padding-y;
+    font-size: $custom-select-font-size-lg;
+  }
+
+
+  // input-group
+  .input-group {
+      &.input-group-icon {
+        .input-group-prepend {
+            position: absolute;
+            z-index: 5;
+            top: 11px;
+            font-size: 14px;
+            padding-left: 16px;
+        }
+
+        input, select {
+          padding-left: 36px;
+          border-radius: 0.25rem !important;
+        }
+      }
+
+      .form-control:not(:last-child), .custom-select:not(:last-child) {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+  }
+
+.form-group {
+  .disclaimer {
+    width: 100%;
+    margin-top: 5px;
+    font-size: 80%;
+  }
+
+  h4 {
+    margin-bottom: 0.375rem !important;
+    line-height: 1.29 !important;
+    font-weight: 500 !important;
+    color: $gray-800 !important;
+  }
+}
+
+.input-group-search {
+  margin-bottom: 10px;
+
+  &.form-control {
+
+  }
+
+  .form-control-search {
+      padding-left: 35px;
+      height: 36px;
+      border: 1px solid $forth-level-color;
+      width: 350px;
+      border-radius: $btn-border-radius;
+      border: 0;
+      background-color: $forth-level-color;
+      color: $gray-800;
+
+      &::placeholder, &:-ms-input-placeholder, &::-ms-input-placeholder {
+          font-size: 14px;
+          font-weight: 500;
+          font-style: normal;
+          font-stretch: normal;
+          line-height: normal;
+          letter-spacing: normal;
+          text-align: left;
+          color: $gray-700;
+      }
+
+  }
+
+  .icon-search {
+      position: absolute;
+      z-index: 4;
+      top: 11px;
+      font-size: 13px;
+      left: 14px;
+      display: flex;
+      align-items: center;
+  }
+
+  .icon-search::before {
+      color: $gray-700;
+  }
+
+}
+
+.ng-valid:not(form):not(.dx-checkbox):not(div), .ng-valid[required], .ng-valid.required {
+  &.ng-touched {
+    //border-left: 5px solid $green;
+    //border: 1px solid $green;
+  }
+}
+
+.ng-invalid:not(form):not([novalidate]) {
+  &.ng-touched {
+    //border-left: 5px solid $red !important;
+    border: 1px solid $red;
+  }
+}
+

@@ -1,0 +1,17 @@
+@import '~sass/variables';
+
+.client-workers-comp-component {
+  .right-rail {
+    background-color: $white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding-left: 0px;
+    padding-right: 0px;
+
+    .horizontal-rule {
+      margin: 10px 29px 10px 29px;
+    }
+  }
+}

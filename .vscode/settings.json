@@ -1,0 +1,9 @@
+{
+  // Configure glob patterns for excluding files and folders in searches. Inherits all glob patterns from the files.exclude setting.
+  "search.exclude": {
+    "**/documentation": true
+  },
+  "editor.formatOnSave": false,
+  "typescript.preferences.quoteStyle": "single",
+  "prettier.singleQuote": true
+}

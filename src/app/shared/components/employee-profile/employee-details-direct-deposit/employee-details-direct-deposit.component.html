@@ -1,0 +1,30 @@
+<div class="employee-details-direct-deposit">
+	<div class="section">
+		<div class="row">
+			<div class="col-12">
+				<h3 class="tab-title">Direct Deposit</h3>
+			</div>
+		</div>
+		<div class="custom-grid">
+			<div class="row">
+				<div class="col-lg-12">
+					<dx-data-grid [dataSource]="directDepositData" [columnAutoWidth]="true" keyExpr="type" 
+						class="pair-row-color-gray-100 grid-head-font-weight-500 dx-data-grid-tab-title">
+						<dxo-paging [enabled]="false"></dxo-paging>
+						<dxi-column dataField="type" alignment="left" [allowSorting]="false">
+							<dxo-lookup [dataSource]="typeDataDriven" displayExpr="Text" valueExpr="ID"> </dxo-lookup>
+						</dxi-column>
+						<dxi-column dataField="account" [allowSorting]="false">
+							<dxo-lookup [dataSource]="accountDataDriven" displayExpr="Text" valueExpr="ID"> </dxo-lookup>
+						</dxi-column>
+						<dxi-column dataField="amount" [allowSorting]="false">
+							<dxo-lookup [dataSource]="amountDataDriven" displayExpr="Text" valueExpr="ID"> </dxo-lookup>
+						</dxi-column>
+						<dxi-column dataField="status" [allowSorting]="false">
+							<dxo-lookup [dataSource]="statusDataDriven" displayExpr="Text" valueExpr="ID"> </dxo-lookup> </dxi-column>
+					</dx-data-grid>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

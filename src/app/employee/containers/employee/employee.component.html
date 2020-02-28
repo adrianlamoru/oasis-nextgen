@@ -1,0 +1,22 @@
+<app-header></app-header>
+<div class="container-fluid container-bg">
+  <div class="row">
+    <div class="col-sm-3 mb-5">
+      <app-adds-carousel [slides]="slides" id="leftRailMenu"></app-adds-carousel>
+      <app-i-would-like></app-i-would-like>
+      <hr>
+      <app-documents-forms-search></app-documents-forms-search>
+      <hr>
+      <app-dashboard-news [areaContainer]="1" [newsModalData]="newsModalData" [newsModalFilteredList]="newsModalDataFiltered"></app-dashboard-news>
+      <hr>
+      <!-- <app-benefits-detail [benefitsDetail]="benefitsDetail"></app-benefits-detail>
+      <hr> -->
+      <app-dashboard-contacts [portal]="portal"></app-dashboard-contacts>
+      <hr>
+    </div>
+    <div class="col-sm-9 employee-content">
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>

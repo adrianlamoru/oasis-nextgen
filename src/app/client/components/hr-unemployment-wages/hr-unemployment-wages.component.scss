@@ -1,0 +1,70 @@
+@import "~sass/variables";
+
+.hr-unemployment-wages {
+        .content-title {
+            margin-bottom:  16px;
+            padding-left: 15px !important;
+        }
+
+        .report-title{
+            margin-bottom: 22px !important;
+        }
+
+        .custom-margin-bottom-dropdown {
+            margin-bottom: 12px;
+            margin-top: 10px;
+        }
+    
+        .custom-grid-padding {
+            margin-top: 4px;
+        }
+        
+        .custom-date-picker{
+            margin-right: 15px;
+        }
+        .section .form-group .dropdown {
+            margin-right: 20px;
+        }
+
+        .form-inline.form-group{
+            margin-bottom: 0px;
+        }
+
+        .form-inline{
+            align-items: baseline;
+            .form-group{
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        .mr-right-5 {
+            margin-right: 5px;
+        }
+    
+        .custom-dropdown-component {
+            max-width: 180px !important;
+        }
+    
+        .custom-dropdown-unemp-wages {
+            max-height: 200px;
+            overflow-y: scroll;
+        }
+    
+        .btn-without-padding {
+            margin-top: 40px;
+            padding: 0;
+            padding-top: 0px;
+            padding-right: 0px;
+            padding-bottom: 0px;
+            padding-left: 0px;
+        }  
+
+        .custom-dropdown {
+            width: 100px !important;
+        }
+
+        .custom-grid {
+            min-height: 300px;
+        }
+}

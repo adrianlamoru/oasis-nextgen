@@ -1,0 +1,36 @@
+<div class="payroll-run-wizard">
+  <app-payroll-run-breadcrumb [batchNumber]="roster.batchNumber" [rosterId]="roster.id"></app-payroll-run-breadcrumb>
+  <app-payroll-navbar></app-payroll-navbar>
+  <div class="payroll-confirmation">
+    <div class="row  align-items-center">
+      <div class="col-2"></div>
+      <div class="col-4">
+        <div class="card call-out-card  confirmation-card">
+          <div class="card-body">
+            <span class="icon-smiley"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></span>
+            <span class="card-title">{{confirmation.title}}</span>
+            <p class="card-text">{{confirmation.message}}</p>
+            <button type="button" class="btn btn-primary" (click)="goToPayrollLandingPage()">Back to Payroll</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="payroll-summary">
+          <div class="title">Payroll Summary</div>
+          <hr><!--class="my-4"-->
+          <div class="section">
+            <div class="title">Pay Period</div>
+            <div class="content">{{batch.payPeriodDescription}}</div>
+          </div>
+          <hr><!--class="my-4"-->
+          <div class="section">
+            <div class="title">Employee Pay Date</div>
+            <div class="content">{{batch.employeePayDateDescription}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-2"></div>
+    </div>
+  </div>
+  
+</div>

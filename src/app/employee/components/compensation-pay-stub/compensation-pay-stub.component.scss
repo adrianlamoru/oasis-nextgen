@@ -1,0 +1,92 @@
+@import '~sass/variables';
+
+.pay-stub-modal {
+    .modal-header {
+        display:block; 
+        height:auto;
+        padding-bottom: 0px;
+
+        .nav.nav-tabs {
+            margin-top: 8px;
+            margin-bottom: 0px;        
+            border-bottom: none;
+        }
+        .product-card-title {
+            height: 21px;
+            font-family: $font-family-base;
+            font-size: 16px;
+            font-weight: bold;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: normal;
+            color: $gray-800;
+        }
+
+    }
+
+    .modal-body {
+        padding: 25px 30px 30px 30px;
+
+        .modal-btn-without-padding {
+            padding: 0;
+        }
+    }
+
+    .mb-14 {
+        margin-bottom: 14px;
+    }
+
+    .custom-grid {
+        margin-bottom: 28px !important;
+
+        &.mb-0 {
+            margin-bottom: 0px !important;
+        }
+        .table-title {
+            padding-left: 0px;
+        }
+
+        .custom-grid-header {
+            margin-top: -5px;
+            padding-bottom: 4px;
+        }
+
+        .summary-label {
+            text-align: left;
+            vertical-align: middle;
+            color: $gray-700 !important;
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+        }
+
+        .dx-datagrid-total-footer td {
+            padding-top: 12px !important;
+            padding-bottom: 12px !important;
+        }
+    }
+    .field-display-section {    
+        span {
+            font-family: $font-family-sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            &.label {           
+               text-align: left;
+               vertical-align: middle;
+               color: $gray-700;
+               font-size: 0.6875rem;
+               text-transform: uppercase;
+            }
+            &.value {
+                text-align: right;
+                color: $gray-800; 
+            }
+        }
+    }
+
+    .modal-footer{
+        .btn-electronic-pay{
+            width: 13.25rem;
+        }
+    }
+}

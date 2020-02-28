@@ -1,0 +1,80 @@
+<div class="reports-container payroll-loans {{pageSource === 'employeeReports'? 'employee-custom-report-margin': ''}}">
+  <div class="section">
+
+    <div class="row breadcrumb-container-reports" *ngIf="pageSource !== 'employeeReports'">
+      <div class="col-12">
+        <div class="breadcrumb-component">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item back-link">
+                <a (click)="goBack()">Reports</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <span class="breadcrumb-item-active">Loans</span>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-7 report-title align-self-center">
+        <span>Loans</span>
+        <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-5 align-self-center">                   
+        <button type="button" class="btn btn-outline-primary float-right" (click)="goBack()">BACK</button>
+      </div>
+    </div>
+
+    <div class="custom-grid pt-1 mb-0">
+      <hr class="m-0 mb-1 p-0"/>
+      <div class="col-12" *ngIf="isLoading">
+        <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <div class="row pt-3 mb-0" *ngIf="!isLoading">
+        <div class="col-12 align-self-center">
+          <div class="float-right custom-margin-bottom-dropdown">
+            <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                    (click)="requestedFunction('print')">
+              <span class="icon icon-pint"></span>
+              <span>PRINT</span>
+            </button>
+            <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+              <button class="btn btn-light" id="downloadDD" ngbDropdownToggle>
+                <span>Download
+                  <i class="icon icon-shape"></i>
+                </span>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="Download">
+                <button type="button" class="dropdown-item" *ngFor="let item of dropdownOptions[0].items" (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row custom-grid-padding" *ngIf="!isLoading">
+        <div class="col-lg-12">
+          <dx-data-grid id="gridContainer"
+            class="historical-grid pair-row-color-gray-100"
+            [dataSource]="loansDataRows"
+            [columnAutoWidth]="true"
+            keyExpr="employeeName">
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="employeeName" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="employeeSSN" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="loanDate" [allowSorting]="false" format="MM/dd/yyyy"></dxi-column>
+            <dxi-column dataField="loanReason" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="deductionFrequency" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="paybackAmount" [allowSorting]="false" precision="2"></dxi-column>
+            <dxi-column dataField="paidToDate" [allowSorting]="false" precision="2"></dxi-column>
+            <dxi-column dataField="balance" [allowSorting]="false" precision="2"></dxi-column>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

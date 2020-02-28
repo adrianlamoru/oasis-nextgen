@@ -1,0 +1,31 @@
+@import '~sass/variables';
+
+.header {
+  color: $gray-700;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.name {
+  margin-bottom: 0;
+}
+
+/*.title {
+  margin-bottom: 6px;
+}
+*/
+
+.icon-phone2 {
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.see-all-btn {
+  padding: 0;
+}
+
+/*.contacts-container {
+  padding-top: 5px;
+}
+*/

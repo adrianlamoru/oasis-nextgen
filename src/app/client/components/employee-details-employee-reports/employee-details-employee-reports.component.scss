@@ -1,0 +1,8 @@
+/deep/ .employee-details-employee-reports {
+    .report-list-component {
+        box-shadow: none !important;
+        &.container-section  {
+            margin: -13px 0 60px;
+        }
+    }
+}

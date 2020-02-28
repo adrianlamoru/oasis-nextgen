@@ -1,0 +1,116 @@
+<div class="custom-modal-window #employeeHrEventAssignmentComponent"> <!--[ngStyle]="{'opacity':formIsOpen ? 0.1 : 1, 'z-index': formIsOpen ? -1 : initial }"-->
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">Event Assignment - {{ selectedEmployeeName | middleTruncate: 50 }}</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+      <span class="icon icon-close"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!--{{diagnosticEmployee}}-->
+    <!--Event Assignment List-->
+    <div class="custom-grid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="custom-grid-header">
+            <h3 class="display-3 table-title"><!--Existing Event Assignments List--></h3>
+            <dx-button text="Add Event Assignment" class="btn btn-primary pull-right" (onClick)="addEventAssignment()"></dx-button>
+          </div>
+          <br />
+          <dx-data-grid #eventAssignmentDataGrid [dataSource]="clientEmployeeHrEventAssignmentList" [columnAutoWidth]="true" keyExpr="id"
+                        (onEditingStart)="onEditingStart($event)">
+
+            <div *dxTemplate="let data of 'gridHeader'">
+              <div class="custom-grid-header">
+                <h3 class="display-3 table-title"><!--Existing Event Assignments --></h3>
+                <dx-button text="Add" class="btn btn-primary pull-right" (onClick)="addEventAssignment()"></dx-button>
+              </div>
+            </div>
+
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="eventType.code" caption="Event Code" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="date" [allowSorting]="false" dataType="date"></dxi-column>
+            <dxi-column dataField="eventType.description" caption="Event Description" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="comment" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="nextActionDate" [allowSorting]="false" dataType="date"></dxi-column>
+            <dxi-column cellTemplate="editTemplate" alignment="right" [width]="105" [minWidth]="105">
+                <div *dxTemplate="let data of 'editTemplate'">
+                    <div class="dx-custom-command-edit">
+                        <a class="dx-link dx-link-edit" tabindex="0" (click)="onEditRow(data)" (keydown)="onEditKeyDown($event, data)">Edit</a>
+                        <a class="dx-link dx-link-delete" tabindex="0"  (click)="onDeleteRow(data)" (keydown)="onDeleteKeyDown($event, data)">Delete</a>
+                    </div>
+                </div>
+            </dxi-column>
+
+            <dxo-editing mode="popup" [allowAdding]="false" [width]="200"></dxo-editing>
+
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+    <br/>
+
+  </div>
+  <div class="modal-footer">
+    <!--<button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="c('Close click')">Submit</button>-->
+  </div>
+</div>
+
+
+<!--Form-->
+<ng-template #editEmployeeHrEventAssignmentModal let-c="close" let-d="dismiss">
+  <!--{{diagnostic}}-->
+  <form #editEmployeeHrEventAssignmentForm="ngForm" [formGroup]="editEmployeeHrEventAssignmentFormGroup" ngNativeValidate novalidate (ngSubmit)="saveForm(editEmployeeHrEventAssignmentForm)">
+    <div class="custom-modal-window editEmployeeHrEventAssignmentModal">
+      <div class="modal-header">
+        <h4 class="modal-title align-self-center float-left">{{formTitle}}</h4>
+        <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click'); cancelForm();">
+          <span class="icon icon-close"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="eventType">Event Code</label>
+          <div ngbDropdown class="d-inline-block custom-dropdown-component employee-pay-rate-dropdown" #ddeventType="ngbDropdown">
+            <button type="button" class="btn btn-form-control form-control-dropdown text-left" ngbDropdownToggle>
+              <span>
+                <span>{{selectedClientEmployeeHrEventAssignmentModel.eventType?.code}}<i class="icon icon-shape float-right"></i></span>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="eventType">
+              <button type="button" class="dropdown-item" *ngFor="let eventType of clientEmployeeHrEventAssignmentTypeList" (click)="changeEventType(eventType); ddeventType.close()">{{eventType.code}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="startDate">Event Date</label>
+          <div class="custom-date-picker">
+            <div class="input-icon icon icon-calendar"></div>
+            <input class="form-control custom-input-field" placeholder="Month dd, yyyy" formControlName="date" [(ngModel)]="selectedClientEmployeeHrEventAssignmentModel.datePicker" ngbDatepicker
+                    [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #dpStartDate="ngbDatepicker">
+            <button class="btn input-btn icon-shape" tabindex="-1" (click)="dpStartDate.toggle(); dpStartDate.opened = !dpStartDate.opened" type="button"></button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="stopDate">Next Action Date</label>
+          <div class="custom-date-picker">
+            <div class="input-icon icon icon-calendar"></div>
+            <input class="form-control custom-input-field" placeholder="Month dd, yyyy" formControlName="nextActionDate" [(ngModel)]="selectedClientEmployeeHrEventAssignmentModel.nextActionDatePicker" ngbDatepicker
+                    [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #dpNextActionDate="ngbDatepicker">
+            <button class="btn input-btn icon-shape" tabindex="-1" (click)="dpNextActionDate.toggle(); dpNextActionDate.opened = !dpNextActionDate.opened" type="button"></button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="amount">Comment</label>
+          <input type="text" class="form-control" id="comment" [(ngModel)]="selectedClientEmployeeHrEventAssignmentModel.comment" formControlName="comment" aria-describedby="comment" placeholder="Enter Comment">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="c('Close click'); cancelForm();">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!editEmployeeHrEventAssignmentForm.valid">Save</button><!-- -->
+      </div>
+    </div>
+  </form>
+</ng-template>

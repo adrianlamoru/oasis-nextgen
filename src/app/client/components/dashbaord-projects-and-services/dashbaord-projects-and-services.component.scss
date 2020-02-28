@@ -1,0 +1,70 @@
+@import '~sass/variables';
+
+.dashboard-card {
+
+
+.icon-sun {
+  width: 1.1640625em;
+}
+    
+    .ex-margin-top {
+        margin-top: 25px;
+        padding: 0 15px;
+    }
+
+    .ex-margin-bottom {
+        margin-bottom: 25px;
+    }
+
+    .no-border {
+        border-bottom: 1px solid transparent;
+        margin-left: -5px;
+        .nav-item .nav-link {
+            padding: 9px 5px 0px;
+            .benefits-card-title {
+                line-height: 18px;
+                height: 18px;
+            }
+        }
+    }
+
+    .empty-bucket {
+        .icon {
+            font-size: 60px;
+        }
+        .text-color-gray {
+            color: $gray-710;
+        }
+    }
+
+    .color-block {
+        width: 4px;
+        background-color: $blue;
+        height: 100%;
+        margin-right: 15px;
+
+        &.blue {
+            background-color: $blue; 
+        }
+
+        &.green {
+            background-color: #3ec88b; 
+        }
+
+        &.red {
+            background-color: $red; 
+        }
+    }
+
+    .due-date-with-alert {
+        color: $red;
+    }
+
+    .projects-title {
+        font-size: 10px;
+        line-height: 1.1;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: $gray-710;
+    }
+}

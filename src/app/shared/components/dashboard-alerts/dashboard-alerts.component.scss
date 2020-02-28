@@ -1,0 +1,68 @@
+@import "~bootstrap/scss/functions";
+@import '~sass/variables';
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.dashboard-alerts {
+    .alert-header {
+        .side-rail-header {
+            color: $gray-700;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 0 !important;
+        }
+    }
+    .dashboard-list-container {
+
+        .list-item {
+            margin-bottom: 13px;
+
+            .dashboard-alert {
+                display: inline-flex;
+                .icon {
+                    font-size: 18px;
+                    margin-right: 12px;
+                    top: 5px;
+                    position: relative;
+                }
+                .alert-description {
+                    font-family: $font-family-base;
+                    letter-spacing: normal;
+                    font-style: normal;
+                    font-stretch: normal;
+                    .alert-message {                
+                        font-size: 14px;
+                        font-weight: normal;                
+                        line-height: 1.29;
+                        color: $gray-800;
+                    }
+                    .alert-time {
+                        margin-top: 4px;
+                        display: block;
+                        font-family: $font-family-base;
+                        font-size: 12px;
+                        font-weight: 500;
+                        height: 16px;
+                        vertical-align: text-bottom;              
+                        color: $gray-710;
+                    }
+                }
+            }  
+        }
+              
+    }
+
+    &.alerts-scroll {
+        .dashboard-list-container {
+            .list-item {
+                margin: 0 1.875rem;
+                padding: 13px 0;
+                border-bottom: 1px solid $gray-400;
+                &:last-child {
+                    border-bottom: 0;
+                    padding-bottom: 30px;
+                }
+            }
+        }
+    }
+}

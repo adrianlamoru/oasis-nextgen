@@ -1,0 +1,34 @@
+<div class="payroll client-container-content">
+  <div *ngIf="showCardTop" class="row">
+    <div class="col-6">
+      <div class="card call-out-card">
+        <div class="card-body text-center">
+          <img class="time-countdown" src="/assets/images/payroll-icon.svg" alt="payroll icon">
+          <p class="card-text text-center">{{ payrollText}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <app-payroll-calendar></app-payroll-calendar>
+    </div>
+  </div>
+  <div class="container-header">
+    <h2 class="container-title">Payroll</h2>
+  </div>
+  <div class="row align-items-center container-nav-pills-margin-bottom">
+    <div class="col-12">
+      <ul class="nav nav-pills" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="run" routerLinkActive="active">Run Payroll</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="analytics" routerLinkActive="active">Analytics</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="payroll-container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+

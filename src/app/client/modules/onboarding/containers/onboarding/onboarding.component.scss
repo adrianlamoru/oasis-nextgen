@@ -1,0 +1,87 @@
+
+@import "~sass/variables";
+
+.onboarding {
+    margin-top: 26px;
+
+    .btn-primary {
+        &:hover {
+            background-color: #004070;
+            border-color: #004070;
+        }
+    }
+
+    .cta-buttons {
+    }
+    
+    & .container-header {
+        & .container-title{
+            .container-header-title {
+                font-size: 26px;
+                font-weight: 400;
+            }
+            
+            .container-header-description {
+                font-size: 14px;
+                font-weight: 400;
+                letter-spacing: -0.3px;
+                color: $gray-700;
+                margin-top: -4px;
+            }
+        }
+        
+        .cta-button-right-margin {
+            margin-right: 14px;
+		}
+    }
+
+}
+
+.onboarding {
+  // .header {
+  //   margin-bottom: 27px;
+
+  //   .title {
+  //     // padding: 6px 0px;
+  //     display: grid;
+
+  //     .my-onboarding-title {
+  //       font-family: $font-family-sans-serif;
+  //       font-size: 18px;
+  //       font-weight: bold;
+  //       font-style: normal;
+  //       font-stretch: normal;
+  //       line-height: 1.13;
+  //       letter-spacing: normal;
+  //       color: $primary-text-color;
+  //       padding: 4px 0;
+  //     }
+
+  //     .my-onboarding-steps-completed {
+  //       font-size: 14px;
+  //       font-weight: 500;
+  //       font-style: normal;
+  //       font-stretch: normal;
+  //       line-height: 1.86;
+  //       letter-spacing: -0.3px;
+  //       color: #969ba8;
+  //     }
+  //   }
+  // }
+
+  .my-onboarding-custom-grid {
+    margin-top: 23px;
+
+      .getting-started-steps {
+          padding-left: 30px;
+          padding-right: 30px;
+      }
+  }
+}
+
+:host ::ng-deep {
+    .steps-examples {
+        margin-bottom: 10px;
+    }
+}
+

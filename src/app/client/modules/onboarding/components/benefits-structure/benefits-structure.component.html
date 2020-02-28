@@ -1,0 +1,669 @@
+<div class="benefits-structure">
+  <form [formGroup]="formGroup" autocomplete="off">
+    <div class="row">
+      <div class="col-8">
+        <div class="row checkbox-row">
+          <div class="form-group col-6 mb-0 p-0">
+            <label class="vertical-sub mb-0">Are you an Applicable Large Employer (ALE)?</label>
+          </div>
+          <div class="form-group col-6 checkbox-section p-0">
+            <!-- <dx-check-box [(ngModel)]="aleCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('aleCheckboxGroup', 'yes', $event)"></dx-check-box>
+            <dx-check-box [(ngModel)]="aleCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('aleCheckboxGroup', 'no', $event)"></dx-check-box> -->
+          
+            <div formGroupName="applicableLargeEmployerGroup" class="form-checkbox-width">
+              <dx-check-box 
+                formControlName="applicableLargeEmployerYes" 
+                text="Yes" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('applicableLargeEmployerYes', 'applicableLargeEmployerGroup', $event)"></dx-check-box>
+              
+              <dx-check-box 
+                class="mr-0"
+                formControlName="applicableLargeEmployerNo" 
+                text="No" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('applicableLargeEmployerNo', 'applicableLargeEmployerGroup', $event)"></dx-check-box>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <label class="vertical-sub mb-0">Tentative Oasis Benefits effective date</label>
+          </div>
+          <div class="form-group col-6 d-inline-block float-right">
+            <div class="custom-date-picker">
+              <div class="input-icon icon icon-calendar"></div>
+              <input class="form-control custom-input-field" placeholder="Month dd, yyyy" [(ngModel)]="datePicker" ngbDatepicker formControlName="tentativeBenefitsEffectiveDate" [dayTemplate]="customDay"
+                [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #dpStartDate="ngbDatepicker">
+              <button class="btn input-btn {{dpStartDate.opened ? 'icon-shape-reverse' : 'icon-shape'}}" tabindex="-1" 
+                (click)="dpStartDate.toggle(); $event.stopPropagation(); dpStartDate.opened = !dpStartDate.opened"
+                (document:click)="dpStartDate.close(); dpStartDate.opened = false"
+                type="button"></button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <h3 class="display-3 beneftits-structure-title">Oasis-Sponsored Benefits</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator-title"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <label for="fieldTitle" class="mb-19">Elected Oasis-sponsored plans:</label>
+            <div class="row">
+              <div formGroupName="oasisSponsoredGroup" class="col-12">
+                <div class="row mb-19">
+                  <div class="col-2">
+                      <dx-check-box 
+                      formControlName="oasisSponsoredHealth" 
+                      text="Health" 
+                      (onOptionChanged)="onGroupedCheckBoxChanged('oasisSponsoredHealth', 'oasisSponsoredGroup', $event)"></dx-check-box>
+                  </div>
+
+                  <div class="col-3">
+                      <!-- <dx-check-box [(ngModel)]="oasisSponsoredPlans.longTermDisablity" text="Long-Term Disability">
+                    </dx-check-box> -->
+                   <dx-check-box 
+                    formControlName="oasisSponsoredLongTermDisability" 
+                    text="Long-Term Disability" 
+                    (onOptionChanged)="onGroupedCheckBoxChanged('oasisSponsoredLongTermDisability', 'oasisSponsoredGroup', $event)"></dx-check-box>
+                  </div>
+
+                  <div class="col-2">
+                      <!-- <dx-check-box [(ngModel)]="oasisSponsoredPlans.life" text="Life">
+                    </dx-check-box> -->
+                    <dx-check-box 
+                    formControlName="oasisSponsoredLife" 
+                    text="Life" 
+                    (onOptionChanged)="onGroupedCheckBoxChanged('oasisSponsoredLife', 'oasisSponsoredGroup', $event)"></dx-check-box>
+                  </div>                                 
+                </div>     
+
+                <div class="row mb-19">
+                    <div class="col-2">
+                        <!-- <dx-check-box [(ngModel)]="oasisSponsoredPlans.vision" text="Vision">
+                      </dx-check-box> -->
+                      <dx-check-box 
+                      formControlName="oasisSponsoredVision" 
+                      text="Vision" 
+                      (onOptionChanged)="onGroupedCheckBoxChanged('oasisSponsoredVision', 'oasisSponsoredGroup', $event)"></dx-check-box>
+                    </div>
+                    
+                    <div class="col-3">
+                        <!-- <dx-check-box [(ngModel)]="oasisSponsoredPlans.shortTermDisability" text="Short-Term Disability">
+                      </dx-check-box> -->
+                      <dx-check-box 
+                      formControlName="oasisSponsoredShortTermDisability" 
+                      text="Short-Term Disability" 
+                      (onOptionChanged)="onGroupedCheckBoxChanged('oasisSponsoredShortTermDisability', 'oasisSponsoredGroup', $event)"></dx-check-box>
+                    </div>
+
+                    <div class="col-2">
+                        <!-- <dx-check-box [(ngModel)]="oasisSponsoredPlans.dental" text="Dental">
+                      </dx-check-box> -->
+                      <dx-check-box 
+                      formControlName="oasisSponsoredDental" 
+                      text="Dental" 
+                      (onOptionChanged)="onGroupedCheckBoxChanged('oasisSponsoredDental', 'oasisSponsoredGroup', $event)"></dx-check-box>
+                    </div>  
+
+                    <div class="col-2">
+                        <!-- <dx-check-box [(ngModel)]="oasisSponsoredPlans.adAndD" text="AD&D">
+                      </dx-check-box> -->
+                      <dx-check-box 
+                      formControlName="oasisSponsoredAdAndD" 
+                      text="AD&D" 
+                      (onOptionChanged)="onGroupedCheckBoxChanged('oasisSponsoredAdAndD', 'oasisSponsoredGroup', $event)"></dx-check-box>
+                    </div>                                               
+                  </div>                                  
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row mb-19">
+          <div class="col-12">
+              <label for="fieldTitle" class="mb-19">Elected Oasis-sponsored plans:</label>      
+            <p class="taxes-paragraph">
+              The following deduction frequencies are available for Oasis benefits: 12 x year, Semi-monthly and Bi-weekly 24 x year, and
+              Weekly 48 x year.
+            </p>
+          </div>
+        </div>
+        <div class="row mb-19">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <h3 class="display-3 beneftits-structure-title2">Client-Sponsored Benefits</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator-title"></div>
+          </div>
+        </div>
+        <div formGroupName="clientSponseredGroup">
+          <div class="row">
+            <div class="form-group col-6 d-inline-block pr-3">
+              <label class="vertical-sub mb-0">Client maintaining their own plans?</label>
+            </div>
+            <div class="form-group col-6 d-inline-block float-right">
+              <!-- <dx-check-box [(ngModel)]="ownPlanCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('ownPlanCheckboxGroup', 'yes', $event)"></dx-check-box>
+              <dx-check-box [(ngModel)]="ownPlanCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('ownPlanCheckboxGroup', 'no', $event)"></dx-check-box> -->
+            
+              <div formGroupName="ownPlanGroup" class="form-checkbox-width">
+                <dx-check-box 
+                  formControlName="ownPlanYes" 
+                  text="Yes" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('ownPlanYes', 'ownPlanGroup', $event)"></dx-check-box>
+                
+                <dx-check-box 
+                  class="mr-0 checkbox-margin1"
+                  formControlName="ownPlanNo" 
+                  text="No" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('ownPlanNo', 'ownPlanGroup', $event)"></dx-check-box>
+                </div>
+            
+            </div>
+          </div>
+          <div class="row" formGroupName="ownPlanYesGroup">
+            <div class="col-12">
+              <div class="row mb-19">
+                <div class="col-2">
+                  <dx-check-box
+                    [disabled]="ownPlanName !== 'ownPlanYes'"
+                    formControlName="health" 
+                    text="Health">
+                  </dx-check-box>
+                </div>
+                <div class="col-2">
+                  <dx-check-box
+                    [disabled]="ownPlanName !== 'ownPlanYes'"
+                    formControlName="dental" 
+                    text="Dental">
+                  </dx-check-box>
+                </div>
+                <div class="col-2">
+                  <dx-check-box
+                    [disabled]="ownPlanName !== 'ownPlanYes'"
+                    formControlName="life" 
+                    text="Life">
+                  </dx-check-box>
+                </div>
+              </div>
+              <div class="row mb-19">
+                <div class="col-2">
+                  <dx-check-box
+                    [disabled]="ownPlanName !== 'ownPlanYes'"
+                    formControlName="vision" 
+                    text="Vision">
+                  </dx-check-box>
+                </div>
+                <div class="col-2">
+                  <dx-check-box
+                    [disabled]="ownPlanName !== 'ownPlanYes'"
+                    formControlName="voluntary" 
+                    text="Voluntary">
+                  </dx-check-box>
+                </div>
+                <div class="col-2">
+                  <dx-check-box
+                    [disabled]="ownPlanName !== 'ownPlanYes'"
+                    formControlName="other" 
+                    text="Other">
+                  </dx-check-box>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-12 input-field-margin">
+            <label for="fieldDetails">Please provide details:</label>
+            <textarea [disabled]="!(ownPlanYesGroup.get('other').value && ownPlanGroup.get('ownPlanYes').value)" class="form-control" id="fieldDetails" rows="3" value="Value"></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <h3 class="display-3 beneftits-structure-title">Deduction frequency and periods:</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator-title2"></div>
+          </div>
+        </div>
+        <div class="row mb-19">
+            <div formGroupName="deductionFreqAndPeriodsGroup" class="col-12">
+              <div class="row mb-19">
+                <!-- <div class="col-4 offset-4">
+                  <dx-check-box [(ngModel)]="deductionFreqAndPeriodsGroup.p12xYr" text="12 x yr = Monthly, period 1">
+                  </dx-check-box>
+                </div>
+                <div class="col-4">
+                    <dx-check-box [(ngModel)]="deductionFreqAndPeriodsGroup.p24xYr" text="24 x yr = Semi-monthly, period 1, 2">
+                    </dx-check-box>
+                  </div>           -->
+
+                  <div class="col-6">
+                    <dx-check-box 
+                      formControlName="deductionFreqAndPeriodsMonthly" 
+                      text="12 x yr = Monthly, period 1" 
+                      (onOptionChanged)="onGroupedCheckBoxChanged('deductionFreqAndPeriodsMonthly', 'deductionFreqAndPeriodsGroup', $event)"></dx-check-box>
+                  </div>
+                  <div class="col-6">
+                    <dx-check-box 
+                      formControlName="deductionFreqAndPeriodsSemiMonthly" 
+                      text="24 x yr = Semi-monthly, period 1, 2" 
+                      (onOptionChanged)="onGroupedCheckBoxChanged('deductionFreqAndPeriodsSemiMonthly', 'deductionFreqAndPeriodsGroup', $event)"></dx-check-box>
+                  </div>
+
+              </div>
+              <div class="row mb-19">
+                <!-- <div class="col-4 offset-4">
+                  <dx-check-box [(ngModel)]="deductionFreqAndPeriodsGroup.p26xYr" text="26 x yr = Bi-weekly, period 1, 2, 3">
+                  </dx-check-box>
+                </div>
+                <div class="col-4">
+                  <dx-check-box [(ngModel)]="deductionFreqAndPeriodsGroup.p48xYr" text="48 x yr = Weekly, period 1, 2, 3, 4">
+                  </dx-check-box>
+                </div> -->
+
+                <div class="col-6">
+                  <dx-check-box 
+                    formControlName="deductionFreqAndPeriodsBiWeekly" 
+                    text="26 x yr = Bi-weekly, period 1, 2, 3" 
+                    (onOptionChanged)="onGroupedCheckBoxChanged('deductionFreqAndPeriodsBiWeekly', 'deductionFreqAndPeriodsGroup', $event)"></dx-check-box>
+                </div>
+                <div class="col-6">
+                  <dx-check-box 
+                    formControlName="deductionFreqAndPeriodsWeekly" 
+                    text="48 x yr = Weekly, period 1, 2, 3, 4" 
+                    (onOptionChanged)="onGroupedCheckBoxChanged('deductionFreqAndPeriodsWeekly', 'deductionFreqAndPeriodsGroup', $event)"></dx-check-box>
+                </div>
+
+              </div>
+              <div class="row deduction-frequency-margin">
+                  <!-- <div class="col-4 offset-4"> -->
+                    <!-- <dx-check-box [(ngModel)]="deductionFreqAndPeriodsGroup.p52xYr" text="52 x yr = Bi-weekly, period 1, 2, 3, 4, 5">
+                    </dx-check-box> -->
+                  
+                  <div class="col-6">
+                    <dx-check-box 
+                      formControlName="deductionFreqAndPeriodsTwiceWeekly" 
+                      text="52 x yr = Bi-weekly, period 1, 2, 3, 4, 5" 
+                      (onOptionChanged)="onGroupedCheckBoxChanged('deductionFreqAndPeriodsTwiceWeekly', 'deductionFreqAndPeriodsGroup', $event)"></dx-check-box>
+                  
+                  </div>
+                </div>        
+            </div>
+          </div>
+          <div class="row mb-19">
+            <div class="col-12">
+              <div class="horizontal-separator"></div>
+            </div>
+          </div>
+          <div class="row mb-19">
+            <div class="col-12">
+              <p class="taxes-paragraph">
+                Periods are the number of times the deduction is taken per month.
+              </p>
+            </div>
+          </div>
+          <div class="row mb-19">
+              <div class="col-12">
+                <div class="horizontal-separator"></div>
+              </div>
+            </div>    
+        <div class="row checkbox-row2">
+          <div class="form-group col-6 d-inline-block mb-0 p-0">
+            <label class="vertical-sub mb-0">Do you have scheduled deductions to add?</label>
+          </div>
+          <div class="form-group col-6 checkbox-section p-0">
+            <!-- <dx-check-box [(ngModel)]="deductionsToAddCheckboxGroup.yes" text="Yes" 
+              (onOptionChanged)="onGroupedCheckBoxChanged('deductionsToAddCheckboxGroup', 'yes', $event)"></dx-check-box>
+            <dx-check-box [(ngModel)]="deductionsToAddCheckboxGroup.no" text="No" 
+              (onOptionChanged)="onGroupedCheckBoxChanged('deductionsToAddCheckboxGroup', 'no', $event)"></dx-check-box> -->
+        
+            <div formGroupName="deductionsToAddGroup" class="form-checkbox-width">
+              <dx-check-box 
+                formControlName="deductionsToAddYes" 
+                text="Yes" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('deductionsToAddYes', 'deductionsToAddGroup', $event)"></dx-check-box>
+              
+              <dx-check-box 
+                class="mr-0"
+                formControlName="deductionsToAddNo" 
+                text="No" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('deductionsToAddNo', 'deductionsToAddGroup', $event)"></dx-check-box>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div>
+                <label>Please Complete the
+                    <b>Scheduled Deduction Data Form.</b>
+                  </label>
+            </div>
+            <div>
+                <label class="mb-19">You may also upload the information prior to completion.</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10">
+        <dx-data-grid #dxScheduledDeductionDataGrid [dataSource]="scheduledDeductionData" 
+          [columnAutoWidth]="true" 
+          class="payroll-batch-grid row-edited-data-grid mt-0"
+          [disabled]="deductionsToAddName !== 'deductionsToAddYes'"
+          keyExpr="ID">
+
+          <dxo-paging [enabled]="false"></dxo-paging>
+
+          <dxo-editing mode="batch" [allowUpdating]="true">
+          </dxo-editing>
+
+          <dxi-column dataField="employeeName" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="socialSecurity" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="benefitPlanName" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="deductionAmount" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="deductionPeriod.id" alignment="right"
+          [allowSorting]="false" [showEditorAlways]="true">
+          <dxo-lookup
+              [dataSource]="deductionPeriods"
+              valueExpr="abbr"
+              displayExpr="name" valueExpr="id">
+          </dxo-lookup>
+        </dxi-column>                  
+          <dxi-column dataField="planType" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="tracksArrears" alignment="left"
+          [showEditorAlways]="true"
+          editCellTemplate="chboxtTemplate"
+          [allowSorting]="false">
+          <div *dxTemplate="let cell of 'chboxtTemplate'">
+            <dx-check-box [value]="cell.value"></dx-check-box>
+          </div>
+        </dxi-column>                  
+          <!-- <dxi-column dataField="tracksArrears" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column> -->
+          <dxi-column dataField="effectiveDate" alignment="left" [allowSorting]="false" [showEditorAlways]="true" dataType="date">
+          </dxi-column>
+          <dxi-column dataField="clientID" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column cellTemplate="editTemplate" alignment="left" [width]="60" [minWidth]="60">
+            <div *dxTemplate="let data of 'editTemplate'">
+              <div class="dx-custom-command-edit">
+                <a *ngIf="data.data.inserting" class="dx-link dx-link-edit" tabindex="0" (click)="onScheduledDeductionAddRow(data)" (keydown)="onScheduledDeductionAddKeyDown($event, data)">ADD</a>
+                <a *ngIf="!data.data.inserting" class="dx-link dx-link-delete" tabindex="0" (click)="onScheduledDeductionDeleteRow(data)"
+                  (keydown)="onScheduledDeleteKeyDown($event, data)">REMOVE</a>
+              </div>
+            </div>
+          </dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row checkbox-row3">
+          <div class="form-group col-6 d-inline-block mb-0 p-0">
+            <label class="vertical-sub mb-0">Do you want variable-hour tracking reports?</label>
+          </div>
+          <div class="form-group col-6 checkbox-section p-0">
+            <!-- <dx-check-box [(ngModel)]="variableTrackingReportCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('variableTrackingReportCheckboxGroup', 'yes', $event)"></dx-check-box>
+            <dx-check-box [(ngModel)]="variableTrackingReportCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('variableTrackingReportCheckboxGroup', 'no', $event)"></dx-check-box> -->
+          
+            <div formGroupName="variableTrackingReportGroup" class="form-checkbox-width">
+              <dx-check-box 
+                formControlName="variableTrackingReportYes" 
+                text="Yes" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('variableTrackingReportYes', 'variableTrackingReportGroup', $event)"></dx-check-box>
+              
+              <dx-check-box 
+                class="mr-0"
+                formControlName="variableTrackingReportNo" 
+                text="No" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('variableTrackingReportNo', 'variableTrackingReportGroup', $event)"></dx-check-box>
+            </div> 
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <h3 class="display-3 beneftits-structure-title">Oasis or Client-Sponsored Retirement Plans</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator-title3"></div>
+          </div>
+        </div>
+        <div class="row checkbox-row4">
+          <div class="form-group col-5 mb-0 p-0">
+            <label class="vertical-sub mb-0">Sponsored Retirement Plans/401(k)?</label>
+          </div>
+          <div class="form-group col-7 checkbox-section p-0">
+            <!-- <dx-check-box [(ngModel)]="retirementPlanGroup.retirementPlanNA" text="N/A" (onOptionChanged)="onGroupedCheckBoxChanged('retirementPlanGroup', 'retirementPlanNA', $event)"></dx-check-box>
+            <dx-check-box [(ngModel)]="retirementPlanGroup.retirementPlanOasisSponsored" text="Oasis-sponsored" (onOptionChanged)="onGroupedCheckBoxChanged('retirementPlanGroup', 'retirementPlanOasisSponsored', $event)"></dx-check-box>
+            <dx-check-box [(ngModel)]="retirementPlanGroup.retirementPlanClientSponsored" text="Client-sponsored" (onOptionChanged)="onGroupedCheckBoxChanged('retirementPlanGroup', 'retirementPlanClientSponsored' , $event)"></dx-check-box> -->
+          
+            <div formGroupName="retirementPlanGroup" class="form-checkbox-width">
+              <dx-check-box 
+                formControlName="retirementPlanNA" 
+                text="N/A" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('retirementPlanNA', 'retirementPlanGroup', $event)"></dx-check-box>
+              <dx-check-box 
+                formControlName="retirementPlanOasisSponsored" 
+                text="Oasis-sponsored" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('retirementPlanOasisSponsored', 'retirementPlanGroup', $event)"></dx-check-box>
+              <dx-check-box 
+                class="mr-0"
+                formControlName="retirementPlanClientSponsored" 
+                text="Client-sponsored" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('retirementPlanClientSponsored', 'retirementPlanGroup', $event)"></dx-check-box>
+            </div>            
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+              <div>
+                  <label>Please Complete the <b>401(k) Deduction Form.</b></label>
+              </div>
+              <div>
+                  <label class="mb-19">You may also upload the information prior to completion.</label>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10">
+        <dx-data-grid #dxSavingDeductionDataGrid [dataSource]="savingDeductionData" 
+        [columnAutoWidth]="true" class="payroll-batch-grid row-edited-data-grid mt-0"
+          [disabled]="retirementPlanName !== 'retirementPlanClientSponsored'"
+          keyExpr="ID">
+
+          <dxo-paging [enabled]="false"></dxo-paging>
+
+          <dxo-editing mode="batch" [allowUpdating]="true">
+          </dxo-editing>
+
+          <dxi-column dataField="employeeName" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="socialSecurity" caption="Social Security Number" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="effectiveDate" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="traditionalDeducitonElectedPercentage" caption="Elected %" alignment="left" [allowSorting]="false"
+            [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="traditionalDeductionPeriod" caption="Traditional Deduction Period" alignment="left" [allowSorting]="false"
+            [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="rothDeductionPeriodPercentage" caption="Elected %" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="rothDeductionPeriod" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="loanBalance" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="perPayPeriod" caption="Per Pay Period(Loan $ Amount)" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column cellTemplate="editTemplate" alignment="left" [width]="60" [minWidth]="60">
+            <div *dxTemplate="let data of 'editTemplate'">
+              <div class="dx-custom-command-edit">
+                <a *ngIf="data.data.inserting" class="dx-link dx-link-edit" tabindex="0" (click)="onSavingDeductionAddRow(data)" (keydown)="onSavingDeductionAddKeyDown($event, data)">ADD</a>
+                <a *ngIf="!data.data.inserting" class="dx-link dx-link-delete" tabindex="0" (click)="onSavingDeductionDeleteRow(data)" (keydown)="onSavingDeleteKeyDown($event, data)">REMOVE</a>
+              </div>
+            </div>
+          </dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-12">
+            <h3 class="display-3 beneftits-structure-title">COBRA</h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator-title4"></div>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <label class="vertical-sub">Do you have
+              <b>COBRA</b> participants?</label>
+          </div>
+          <div class="form-group col-6 checkbox-section p-0">
+            <!-- <dx-check-box [(ngModel)]="cobraParticipantsCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('cobraParticipantsCheckboxGroup', 'yes', $event)"></dx-check-box>
+            <dx-check-box [(ngModel)]="cobraParticipantsCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('cobraParticipantsCheckboxGroup', 'no', $event)"></dx-check-box> -->
+         
+            <div formGroupName="cobraParticipantsGroup" class="form-checkbox-width">
+              <dx-check-box 
+                formControlName="cobraParticipantsYes" 
+                text="Yes" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('cobraParticipantsYes', 'cobraParticipantsGroup', $event)"></dx-check-box>
+              
+              <dx-check-box 
+                class="mr-0 mb-2"
+                formControlName="cobraParticipantsNo" 
+                text="No" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('cobraParticipantsNo', 'cobraParticipantsGroup', $event)"></dx-check-box>
+            </div>         
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div>
+                    <label>Please Complete the <b>COBRA Form.</b></label>
+                </div>
+                <div>
+                    <label class="mb-19">You may also upload the information prior to completion.</label>
+                </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10">
+        <dx-data-grid #dxCobraParticipantGrid [dataSource]="cobraParticipantForm" 
+          [columnAutoWidth]="true" 
+          class="payroll-batch-grid row-edited-data-grid"
+          [disabled]="cobraParticipantsName !== 'cobraParticipantsYes'"
+          keyExpr="ID">
+
+          <dxo-paging [enabled]="false"></dxo-paging>
+
+          <dxo-editing mode="batch" [allowUpdating]="true">
+          </dxo-editing>
+
+          <dxi-column dataField="employeeName" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="beneficiaryAddress" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="city" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="state" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="zip Code" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="qualifyingEventDate" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="cobraEffectiveDate" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column dataField="eventCode" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+          </dxi-column>
+          <dxi-column cellTemplate="editTemplate" alignment="left" [width]="60" [minWidth]="60">
+            <div *dxTemplate="let data of 'editTemplate'">
+              <div class="dx-custom-command-edit">
+                <a *ngIf="data.data.inserting" class="dx-link dx-link-edit" tabindex="0" (click)="onCobraParticipantAddRow(data)" (keydown)="onCobraParticipantAddKeyDown($event, data)">ADD</a>
+                <a *ngIf="!data.data.inserting" class="dx-link dx-link-delete" tabindex="0" (click)="onCobraParticipantDeleteRow(data)" (keydown)="onCobraParticipantDeleteKeyDown($event, data)">REMOVE</a>
+              </div>
+            </div>
+          </dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+  </form>
+</div>

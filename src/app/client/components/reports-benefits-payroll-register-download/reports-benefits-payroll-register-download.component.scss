@@ -1,0 +1,73 @@
+@import '~sass/variables';
+
+.reports-benefits-payroll-register{
+
+    .section{
+        .section-title{
+            margin-bottom: 15px; 
+       }
+       .report-title{        
+            margin-bottom: 22px;
+        }
+
+        .hr-padding{
+            padding-top: 14px !important;
+            padding-bottom: 11px !important;
+        }
+
+        .back-button{
+            margin-top: 17px;
+        }
+
+      .date-range-row{
+          padding-top: 14px;
+      }
+
+      .custom-date-picker-size{
+          width: 208px;
+          margin-right: 20px;
+
+          .custom-input-field{
+              width: 208px;
+              font-weight: 500;
+              line-height: 1.29;
+          }
+      }
+
+      .dx-texteditor-input{
+          font-size: 14px;
+          font-weight: 500 !important;
+          color: $dark;
+      }
+
+      .custom-left-margin {
+          margin-left: -1px;
+      }
+
+      .subtotal-checkbox{
+          padding-top: 16px;
+          margin-right: 5px;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 1.29;
+          color: $dark;
+
+          .dx-checkbox-text{
+              padding-left: 7px;
+          }
+      }
+
+      .download-button-container{
+          margin-top: 10px;
+          margin-left:  7px;
+      }
+
+      .dx-checkbox:focus{
+          border: 1px solid transparent;
+          border-radius: 0;
+          box-shadow: none;
+      }
+
+    }
+
+}

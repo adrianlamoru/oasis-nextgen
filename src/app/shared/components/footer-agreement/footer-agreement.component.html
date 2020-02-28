@@ -1,0 +1,35 @@
+<div class="custom-modal-window">
+    <div class="modal-header">
+      <h4 class="modal-title align-self-center float-left">Oasis Agreement</h4>
+      <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalDismissFunc('Cross click')">
+        <span class="icon icon-close"></span>
+      </button>
+    </div>
+
+    <div class="modal-body modal-body-scroll">
+        <div *ngIf="isClient()">
+            <p class="font-weight-bold">Agreement</p>
+
+            <p>Client agrees and accepts that it is solely responsible for the entry of payroll data into Oasis' system. Oasis is not responsible for reviewing any data entered by Client into Oasis' computer system or for any errors or omissions in the data entered by Client. Client hereby agrees to indemnify and hold harmless Oasis from any liability arising from or relating to the data entered into or omitted from Oasis' system, whether such data was entered by Client, Client's employees, Client's independent contractors or otherwise. The provisions of this Section are intended to supplement and not to substitute for the indemnification provisions of the Service Agreement.</p>
+
+            <p>Oasis will provide Client with an initial password which will allow Client to access its accounts. Client agrees to change the initial password prior to its first use of the Internet Service and Client acknowledges that it is Client's responsibility to take reasonable precautions to safeguard the password. In the event Client has reason to believe that its password or accounts may have been compromised, Client agrees to change the password and notify Oasis immediately.</p>
+
+            <p>Client shall not allow any person or entity to access Oasis' system and shall not share its password with any person or entity, except for Client's leased employees.</p>
+
+            <p class="footer-padding">You ("Client") are about to enter information regarding employee compensation which is governed by Federal, State and local laws. It is your responsibility to understand and comply with these laws as they apply to your situation. Under no circumstances will Oasis or any of its employees or affiliates of Oasis be responsible for ensuring your compliance with the law. By clicking on the "I agree" button below, you acknowledge your agreement to the above provisions as well as the terms of the Service Agreement, and your responsibility to understand and comply with all Federal, State and local laws, including without limitation employee compensation laws, and you agree to indemnify and hold harmless Oasis from any Breach or violation thereof.</p>
+        </div>
+        <div *ngIf="isEmployee()">
+            <p class="font-weight-bold">Agreement</p>
+
+            <p>Your password allows access to your personal information contained on this website. It is your responsibility to ensure that your password remains confidential and not to share it with others.</p>
+
+            <p>Remember that anyone who obtains your password will be able to access the information contained in your account and may be able to change information associated with your account. You are responsible for any and all activities that occur in connection with your account and your password.</p>
+
+            <p>If you believe your password may have been compromised, you should immediately change your password and notify your system administrator.</p>
+
+            <p class="footer-padding">By clicking on the "I Agree" button below, you acknowledge that you understand and agree with the terms above.</p>
+        </div>
+    </div>
+
+    
+</div>

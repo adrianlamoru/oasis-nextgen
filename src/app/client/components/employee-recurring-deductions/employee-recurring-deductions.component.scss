@@ -1,0 +1,19 @@
+@import '~sass/variables';
+
+.editEmployeeRecurringDeductionModal {
+  input, .custom-date-picker {
+    width: 100% !important;
+  }
+}
+
+.btn-primary {
+  background-color: $primary;
+  border-color: $primary;
+}
+
+:host ::ng-deep {
+  .dx-datagrid-content .dx-datagrid-table .dx-row .dx-command-edit {
+    padding-left:10px
+  }
+}
+

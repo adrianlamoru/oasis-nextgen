@@ -1,0 +1,48 @@
+<div class="row custom-right-margin">
+  <div class="col-6 workers-comp-claim-card" *ngFor="let claimItem of workersCompOpenClaimsData">
+    <div class="card claims-card">
+        <div class="card-body">
+          <h3 class="claims-card-title title-max-height">{{claimItem.employeeName}}</h3>
+          <div class="claims-card-section">
+              <div class="title">{{claimItem.employeeTitle}}</div>
+              <div class="company">{{claimItem.employeeCompany}}</div>
+          </div>
+          <div class="row claims-card-section-groups">
+              <div class="col-6 claims-card-group">
+                  <div class="title">CLAIM</div>
+                  <div class="value">{{claimItem.claim}}</div>
+              </div>
+              <div class="col-6 claims-card-group">
+                  <div class="title">STATUS</div>
+                  <div class="value open-claim-status">{{claimItem.status}}</div>
+              </div>
+          </div>
+          <div class="row claims-card-section-groups">
+              <div class="col-6 claims-card-group">
+                  <div class="title">INJURY</div>
+                  <div class="value">{{claimItem.injury}}</div>
+              </div>
+              <div class="col-6 claims-card-group">
+                  <div class="title">UPDATED</div>
+                  <div class="value">{{claimItem.updated}}</div>
+              </div>
+          </div>
+          <div class="row claims-card-section-groups">
+              <div class="col-6 claims-card-group">
+                  <div class="title">CLAIM TYPE</div>
+                  <div class="value">{{claimItem.claimType}}</div>
+              </div>
+          </div>
+          <div class="row claims-card-footer footer-fixed-position">
+            <div class="col">
+                <button type="button" class="btn btn-primary btn-primary-claims-card-footer" (click)="onViewClick(claimItem)" (keydown)="onViewClick(claimItem)">View Claim</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #workersCompDetailsViewModalForOpen let-c="close" let-d="dismiss">
+    <app-workers-comp-claim-details-modal [workersCompClaim]="workersClaimsRowSelected" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-workers-comp-claim-details-modal>
+</ng-template>

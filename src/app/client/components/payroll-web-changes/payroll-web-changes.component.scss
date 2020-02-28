@@ -1,0 +1,78 @@
+@import "~sass/variables";
+
+.payroll-web-changes{
+    padding: 29px 30px 60px 30px; 
+
+    &.employee-custom-report-margin {
+        padding: 1px 1px 60px 0;
+    }
+
+    .content-title {
+        margin-bottom:  16px;
+        padding-left: 15px !important;
+    }
+
+    .report-title{
+        margin-bottom: 22px;
+    }
+
+    .custom-date-picker{
+        margin-right: 15px;
+    }
+    
+    .custom-margin-bottom-dropdown {
+        margin-bottom: 12px;
+        margin-top: 10px;
+    }
+
+    .custom-grid-padding {
+        margin-top: 4px;
+    }
+    
+    .form-inline.form-group{
+        margin-bottom: 0px;
+    }
+
+    .form-inline{
+        align-items: baseline;
+        .form-group{
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .custom-margin-right {
+        margin-right: 10px;
+    }
+
+    .custom-dropdown-component {
+        width: 280px !important;
+
+        .form-control-dropdown, .dropdown-menu {
+            width: inherit !important;
+        }
+        .btn-form-control span {
+            display: initial;
+        }
+    }
+
+    .truncate-dropdown-text {
+        overflow-y: hidden;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .custom-dropdown-web-changes {
+        max-height: 200px;
+        overflow-y: scroll;
+    }
+
+    .btn-without-padding {
+        margin-top: 40px;
+        padding: 0;
+    }
+
+    .custom-dropdown {
+        width: 100px!important;
+    }
+}

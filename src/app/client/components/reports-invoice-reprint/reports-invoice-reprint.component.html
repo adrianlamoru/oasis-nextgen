@@ -1,0 +1,126 @@
+<div class="reports-container reports-invoice-reprint">
+  <div class="section">
+    <div class="row breadcrumb-container-reports">
+      <div class="col-12">
+        <div class="breadcrumb-component">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item back-link">
+                <a (click)="goToBack()">Reports</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <span class="breadcrumb-item-active">Invoice Reprint</span>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="row col-12 report-title-margin p-0">
+      <div class="col-6 report-title align-self-center p-0">
+          <span>Invoice Reprint</span>
+          <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-6 report-title align-self-center p-0">
+        <button type="button" class="btn btn-outline-primary back-button" (click)="goToBack()">Back</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="d-inline-flex">
+            <div ngbDropdown class="d-inline-block custom-dropdown-component" #ddYear="ngbDropdown">
+              <button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddYearBtn ngbDropdownToggle>
+                <span>
+                  {{selectedYearDisplay || 'Select Year'}}
+                  <i class="icon icon-shape float-right firefox-chevron"></i>
+                </span>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="Year">
+                <button type="button" class="dropdown-item" *ngFor="let year of simpleYears" (click)="onSelectionChanged(year); ddYear.close()">{{year}}</button>
+              </div>
+            </div>
+            <button class="btn btn-primary" (click)="getFilteredData()" [disabled]="disableViewReportButton">View Report</button>
+        </div>  
+      </div>
+    </div>
+    <div class="custom-grid pt-3 mb-0">
+      <hr class="m-0 mb-1 p-0"/>
+      <div class="col-12" *ngIf="isLoading">
+          <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <div class="row date-range-row" *ngIf="!isLoading">
+          <div class="col-12">
+            <span class="report-date-range-label">Year Selected</span>
+          </div>
+      </div>
+      <div class="row year-print-download-row"  *ngIf="!isLoading">
+        <div class="col-6 align-self-center">
+            <span class="report-data-range-selected">
+              Year: {{ selectedYear }}
+            </span>
+        </div>
+        <div class="col-6 align-self-center">
+          <div class="float-right section-title">
+            <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                    (click)="requestedFunction('print')">
+                <span class="icon icon-pint"></span>
+                <span>PRINT</span>
+            </button>
+            <button type="button" class="btn btn-link btn-link-icon p-0 ml-1 "
+                    (click)="requestedFunction('download')">
+                <span class="icon icon-square-upload"></span>
+                <span>DOWNLOAD</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="!isLoading">
+        <div class="col-lg-12">
+          <dx-data-grid 
+            [dataSource]="filteredInvoiceReprintReport" 
+            class="payroll-batch-grid"
+            [columnAutoWidth]="true" 
+            [wordWrapEnabled]="true" 
+            >
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column 
+              dataField="invoices" 
+              caption="Invoices" 
+              alignment="left" 
+              [allowSorting]="false"
+              cellTemplate="invoiceDetailTemplate">
+            </dxi-column>
+                <div *dxTemplate="let cell of 'invoiceDetailTemplate'">
+                  <a
+                    class="dx-link invoice-detail-link" 
+                    tabindex="0" 
+                    (click)="onClickInvoiceDetail(cell.data)">
+                    {{cell.value}}
+                  </a>
+                </div>
+            <dxi-column dataField="date" caption="Date" alignment="left" [allowSorting]="false" cellTemplate="dateCell"></dxi-column>
+            <dxi-column dataField="batchNumber" caption="Batch Number" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="amount" caption="Amount" alignment="right" [allowSorting]="false">
+                <dxo-format type="currency" [precision]="2"></dxo-format>
+            </dxi-column>
+            <dxi-column dataField="detail" caption="" alignment="right" [allowSorting]="false" cellTemplate="downloadCell"></dxi-column>
+              
+              <div *dxTemplate="let cellData of 'dateCell'">
+                {{cellData.value | date: 'MM/dd/yyyy'}}
+              </div>
+
+              <div *dxTemplate="let downloadCellData of 'downloadCell'" class="float-right ">
+                <dx-menu 
+                  #menu [dataSource]="dropdownOptions" 
+                  displayExpr="name"
+                  orientation="horizontal" 
+                  submenuDirection="auto" 
+                  [hideSubmenuOnMouseLeave]="false">
+                </dx-menu>
+              </div>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<div class="reports-container reports-oasis {{pageSource === 'employeeReports'? 'employee-custom-report-margin': ''}}">
+  <div class="section">
+    <div class="row breadcrumb-container-reports" *ngIf="pageSource !== 'employeeReports'">
+      <div class="col-12">
+        <div class="breadcrumb-component">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active" aria-current="page">
+                <span class="breadcrumb-item-active">Report Downloads</span>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 report-title align-self-center">
+        <span>Report Downloads</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="form-inline form-group">
+          <div class="form-group">
+            <h4>Beginning Date</h4>
+            <div class="d-inline-flex">
+              <div class="custom-date-picker">
+                <div class="input-icon icon icon-calendar"></div>
+                <input class="form-control custom-input-field" placeholder="Month dd, yyyy" name="beginningDate"
+                  [(ngModel)]="selectedBeginningDate" (ngModelChange)="enableViewReportButton()" ngbDatepicker
+                  [dayTemplate]="effectiveDate" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7"
+                  #beginningDate="ngbDatepicker">
+                <button class="btn input-btn icon-shape" (click)="beginningDate.toggle(); openedBeginning = !openedBeginning"
+                  type="button"></button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group ending-date">
+            <h4>Ending Date</h4>
+            <div class="d-inline-flex">
+              <div class="custom-date-picker">
+                <div class="input-icon icon icon-calendar"></div>
+                <input class="form-control custom-input-field" placeholder="Month dd, yyyy" name="endDate" [(ngModel)]="selectedEndDate"
+                  (ngModelChange)="enableViewReportButton()" ngbDatepicker [dayTemplate]="customDay" [displayMonths]="2"
+                  [navigation]="'arrows'" [firstDayOfWeek]="7" #endDate="ngbDatepicker">
+                <button class="btn input-btn icon-shape" (click)="endDate.toggle(); openedEnding = !openedEnding" type="button"></button>
+              </div>
+              <button class="btn btn-primary btn-filter" (click)="getFilteredData()" [disabled]="disableViewReportButton">Filter</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="custom-grid pt-3 mb-0">
+      <div class="col-12" *ngIf="isLoading">
+        <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <div class="row custom-grid-padding" *ngIf="!isLoading">
+        <div class="col-lg-12">
+          <dx-data-grid id="gridContainer" class="payroll-batch-grid reports-oasis-grid pair-row-color-gray-100" [dataSource]="reports"
+            [columnAutoWidth]="true">
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="reportName" alignment="left" [width]="600" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="runDate" alignment="left" [allowSorting]="false" format="MM/dd/yyyy"></dxi-column>
+            <dxi-column dataField="" [height]="50" [allowFiltering]="false" [allowSorting]="false" cellTemplate="actionTemplate"
+              [allowEditing]="false" alignment="right">
+              <div *dxTemplate="let data of 'actionTemplate'">
+                <dx-menu #menu [dataSource]="menuOptions" displayExpr="name" orientation="horizontal"
+                  submenuDirection="auto" [hideSubmenuOnMouseLeave]="false" tabindex="0" (onItemClick)="onDropdownClick($event, data, menu)">
+                </dx-menu>
+              </div>
+            </dxi-column>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

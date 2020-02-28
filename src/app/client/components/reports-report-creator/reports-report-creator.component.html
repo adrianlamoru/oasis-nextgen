@@ -1,0 +1,20 @@
+<div class="report-creator-component ">
+  <div class="row container-content">
+      <div class="col custom-col-card" *ngFor="let reportCreatorCardItem of reportsReportCreatorCard; let i = index">
+        <div class="card report-creator-card-height">
+          <div class="card-body report-creator-card-body">
+            <div class="report-creator-card-icon">
+              <img class="custom-img-size" src="{{ reportCreatorCardItem.imagePath }}" alt="{{ reportCreatorCardItem.imageAlt }}">
+            </div> 
+            <span class="report-creator-card-title">{{ reportCreatorCardItem.title }}</span>
+            <p class="report-creator-card-text">{{ reportCreatorCardItem.description }}</p>
+            <div class="row footer-fixed-position">
+              <div class="col">
+                <button type="button" class="btn btn-primary btn-primary-benefits-card-footer">Start Report</button>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

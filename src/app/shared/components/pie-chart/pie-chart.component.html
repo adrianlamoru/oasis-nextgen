@@ -1,0 +1,48 @@
+<div class="chart-container">
+    <div *ngIf="chartSummary" class="pie-chart-summary">
+        <span>{{ chartSummary }}</span>
+    </div>
+    <dx-pie-chart    
+        type="doughnut"
+        [palette]="customSupportPalette? customSupportPalette : palette"
+        [dataSource]="dataSource"
+        (onPointClick)="pointClickHandler($event)"
+        (onLegendClick)="legendClickHandler($event)"
+        paddingLeftRight="10">
+        <dxo-common-series-settings
+            [innerRadius]="0.3">
+            <dxo-label [visible]="false" ></dxo-label>
+        </dxo-common-series-settings>
+        <dxo-export [enabled]="false"></dxo-export>
+        <dxo-legend   
+            [customizeText]="customizeLegendText" 
+            horizontalAlignment="right"
+            [columnCount]="1"
+            [markerSize]="8"
+            [rowItemSpacing]="5"
+            [paddingLeftRight]="0">
+            <dxo-margin 
+                [right]="customRightAlignment? customRightAlignment : 0" 
+                [top]="customTopAlignment? customTopAlignment : 50">
+            </dxo-margin>
+        </dxo-legend>
+
+    <dxi-series        
+        argumentField="arg"
+        valueField="val">
+        <dxo-hover-style
+            [hatching]="false"></dxo-hover-style>
+    </dxi-series>
+    <dxo-tooltip
+        [enabled]="true"
+        [arrowLength]="0"
+        [paddingLeftRight]="9"
+        [paddingTopBottom]="6"
+        [customizeTooltip]="customizeTooltip">
+        <dxo-shadow color="rgba(32, 44, 86)" [blur]="4" [opacity]="0.18"></dxo-shadow>
+    </dxo-tooltip>
+    <dxo-size *ngIf="height && !width" [height]="height"></dxo-size>
+    <dxo-size *ngIf="width && !height" [width]="width"></dxo-size>
+    <dxo-size *ngIf="width && height" [height]="height" [width]="width"></dxo-size>
+</dx-pie-chart>
+</div>

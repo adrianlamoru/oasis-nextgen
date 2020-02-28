@@ -1,0 +1,53 @@
+<div class="custom-modal-window">
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">Upload</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+      <span class="icon icon-close"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-12 global-error-msg mt-2 p-0" *ngIf="showAlert">
+        <div class="messages-component" *ngIf="alertType === 'warning'">
+          <div class="alert alert-warning alert-dismissible">
+            <button aria-label="Close" class="close" type="button" (click)="resetAlertMessages()">
+              <span aria-hidden="true">×</span>
+            </button>
+            <span class="icon icon-warning"></span>
+            <span class="message">
+              {{alertMessage}}
+            </span>
+          </div>
+        </div>
+        <div class="messages-component" *ngIf="alertType === 'success'">
+          <div class="alert alert-success alert-dismissible">
+            <button aria-label="Close" class="close" type="button" (click)="resetAlertMessages()">
+              <span aria-hidden="true">×</span>
+            </button>
+            <span class="icon icon-success"></span>
+            <span class="message">
+              {{alertMessage}}
+            </span>
+          </div>
+        </div>
+    </div>
+    <div id="dropZone" class="form-group justify-content-center file-upload-area {{ inDropzone? 'in-drag-zone': ''}}">
+      <label class="custom-file-input-button" for="Upload"></label> 
+      <label class="ml-1 font-weight-bold custom-drop-files-label">or drop files ...</label>
+      <input id="Upload" type="file" multiple="multiple" style="visibility: hidden" (change)="processFiles($event.target.files)"  accept=".csv, .txt"/>
+    </div>
+    <div class="form-group">
+      <div class="d-flex mt-2" *ngFor="let fileItem of selectedFiles; let index=index">
+        <button type="button" class="close align-self-center float-left" aria-label="Close" (click)="removeSelectedFile(index)">
+          <span class="icon icon-close"></span>
+        </button> &nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="icon icon-folder"></span>&nbsp;&nbsp;
+          {{fileItem.name}}
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary" (click)="modalCloseFunc('Close click')">Cancel</button>
+    <button type="button" class="btn btn-primary" [disabled]="dImportButton" (click)="importFile()">Upload</button>
+  </div>
+</div>
+

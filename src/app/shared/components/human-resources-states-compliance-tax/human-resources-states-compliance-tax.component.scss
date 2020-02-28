@@ -1,0 +1,50 @@
+.workers-comp-posters-component {
+    .form-group h4 {
+        margin-bottom: -10px !important;
+        
+    }
+    .custom-dropdown-component .form-control-dropdown span {
+        font-weight: 400 !important;
+        margin-top: 1px;
+    }
+    .card {
+     
+        background-color: transparent;
+        border: 0px;
+        box-shadow: none;
+        &.call-out-card {
+            .card-body {
+                padding-top: 40px;
+                padding-right: 30px;
+                
+            }
+        }
+    }
+    .posters-card {
+        .dropdown .dropdown-toggle {
+            
+            margin-bottom: -40px;
+        }
+        .dropdown-menu {
+            position: absolute;
+            width: 100%;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+           
+        }
+        .icon-shape {
+            margin-top: 4px;
+        }
+        .icon-poster {
+            font-size: 36px;
+        }
+        .btnOpen {
+            width: 110px;
+        }
+    }
+}

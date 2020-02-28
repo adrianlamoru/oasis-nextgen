@@ -1,0 +1,140 @@
+<div class="payroll-run-manual-review-submit-summary">
+  <div class="section">
+    <div class="row">
+      <div class="col-6">
+        <h3 class="tab-title">Gross Pay</h3>
+      </div>
+      <div class="col-3">
+        <h3 class="tab-title">Pay Code</h3>
+      </div>
+      <div class="col-3">
+        <div class="buttons pull-right ml-2">
+          <div *ngIf="selectedType" ngbDropdown class="d-inline-block" placement="bottom-right">
+            <button class="btn btn-light tab-btn-dropdown" id="btn2ndSortBy" ngbDropdownToggle>
+              <span>
+                {{ selected2ndSortType? selected2ndSortType.Text : 'SORT BY' }}
+                <i class="icon icon-shape"></i>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="btn2ndSortBy" class="custom-dropdown-menu">
+              <button type="button" class="dropdown-item" *ngFor="let type of secondSortTypes[selectedType.ID]" (click)="ngbDropdown2ndSortChange(type)">{{type.Text}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="buttons pull-right">
+          <div ngbDropdown class="d-inline-block" placement="bottom-right">
+            <button type="button" class="btn btn-link btn-link-icon tab-btn not-btn-dropdown">
+              <span class="icon icon-pint"></span>
+              <span>PRINT</span>
+            </button>
+            <button class="btn btn-light tab-btn-dropdown" id="btnSortBy" ngbDropdownToggle>
+              <span>
+                {{ selectedType? selectedType.Text : 'SORT BY' }}
+                <i class="icon icon-shape"></i>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="btnSortBy" class="custom-dropdown-menu">
+              <button type="button" class="dropdown-item" *ngFor="let type of sortTypes" (click)="ngbDropdownSortChange(type)">{{type.Text}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="custom-grid">
+        <dx-data-grid #grossPayDataGrid [dataSource]="manualPayrollSummaryGrossPayRows" class="pair-row-color-gray-100 grid-head-font-weight-500 grid-last-col-padding-56
+                              dx-data-grid-tab-title" [columnAutoWidth]="true" keyExpr="id">
+          <dxo-paging [enabled]="false"></dxo-paging>
+          <dxi-column dataField="grossPay" caption="Gross Pay" [allowSorting]="false" alignment="left">
+            <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+          </dxi-column>
+          <dxi-column dataField="taxes" caption="Taxes" [allowSorting]="false" alignment="right">
+            <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+          </dxi-column>
+          <dxi-column dataField="deductions" caption="Deductions" [allowSorting]="false" alignment="right">
+            <dxo-format type="fixedPoint" [precision]="4"></dxo-format>
+          </dxi-column>
+          <dxi-column dataField="netPay" caption="Net Pay" [allowSorting]="false" alignment="right">
+            <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+          </dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="custom-grid">
+        <dx-data-grid #payCodeDataGrid [dataSource]="manualPayrollSummaryPayCodeRows" class="pair-row-color-gray-100 grid-head-font-weight-500 grid-last-col-padding-56
+                          dx-data-grid-tab-title" [columnAutoWidth]="true" keyExpr="id">
+          <dxo-paging [enabled]="false"></dxo-paging>
+          <dxi-column dataField="payCode" caption="Pay Code" [allowSorting]="false">
+            <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+          </dxi-column>
+          <dxi-column dataField="units" caption="Hours/Units" [allowSorting]="false" alignment="right">
+            <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+          </dxi-column>
+          <dxi-column dataField="payRate" caption="Pay Rate" [allowSorting]="false" alignment="right">
+            <dxo-format type="fixedPoint" [precision]="4"></dxo-format>
+          </dxi-column>
+          <dxi-column dataField="payAmonut" caption="Pay Amount" [allowSorting]="false" alignment="right">
+            <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+          </dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="row">
+      <div class="col-6">
+        <h3 class="section-title-without-margin-top">Deductions</h3>
+      </div>
+      <div class="col-6">
+        <h3 class="section-title-without-margin-top">Tax Code</h3>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <div class="custom-grid">
+        <dx-data-grid #deductionDataGrid [dataSource]="deductionDataRows" class="pair-row-color-gray-100 grid-head-font-weight-500
+                            grid-head-text-align-right-second grid-last-col-padding-56
+                            dx-data-grid-tab-title dx-datagrid-header-border-1" [columnAutoWidth]="true" keyExpr="ID">
+          <dxo-paging [enabled]="false"></dxo-paging>
+          <dxi-column dataField="PayCode" caption="Pay Code" [allowSorting]="false">
+            <dxo-lookup [dataSource]="deductionPayCodes" valueExpr="ID" displayExpr="Text">
+            </dxo-lookup>
+          </dxi-column>
+          <dxi-column dataField="Amount" caption="Amount" alignment="right" [allowSorting]="false">
+            <dxo-format type="currency" [precision]="2"></dxo-format>
+          </dxi-column>
+
+          <dxo-summary>
+            <dxi-total-item column="PayCode" summaryType="min" displayFormat="Total">
+            </dxi-total-item>
+            <dxi-total-item column="Amount" summaryType="sum" displayFormat="{0}" valueFormat="currency" [precision]="2">
+            </dxi-total-item>
+          </dxo-summary>
+        </dx-data-grid>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="custom-grid">
+        <dx-data-grid #taxCodeDataGrid [dataSource]="manualPayrollSummaryTaxCodeRows" class="pair-row-color-gray-100 grid-head-font-weight-500 
+                            grid-head-text-align-right-second grid-last-col-padding-56
+                            dx-data-grid-tab-title" [columnAutoWidth]="true" keyExpr="id">
+          <dxo-paging [enabled]="false"></dxo-paging>
+          <dxi-column dataField="taxCode" caption="Tax Code" [allowSorting]="false">
+          </dxi-column>
+          <dxi-column dataField="description" caption="Description" [allowSorting]="false">
+          </dxi-column>
+          <dxi-column dataField="taxableAmount" caption="Taxable Amount" [allowSorting]="false" alignment="right">
+            <dxo-format type="fixedPoint" [precision]="4"></dxo-format>
+          </dxi-column>
+          <dxi-column dataField="amountWithheld" caption="Amount Withheld" [allowSorting]="false" alignment="right">
+            <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+          </dxi-column>
+        </dx-data-grid>
+      </div>
+    </div>
+  </div>
+</div>

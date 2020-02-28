@@ -1,0 +1,182 @@
+<div class="row employee-search-component container-section">
+    <div class="col-12 content-title">
+        Employee Search
+    </div>
+    <div class="col-12 content-search">
+        <div class="input-group-search">
+            <input type="text" class="form-control form-control-search" #searchString placeholder="Search Employee" style="display:table-cell;"
+                [ngbTypeahead]="searchAutocompleteField" [inputFormatter]="searchAutocompleteFormatter" [resultTemplate]="searchAutocomplete"
+            />
+            <i class="icon icon-search" aria-hidden="true"></i>
+            <ng-template #searchAutocomplete let-r="result" let-t="term">
+                {{ r.firstName }} {{ r.lastName }}
+            </ng-template>
+            <button class="btn btn-primary btn-employee-search" (click)="searchEmployees(searchString.value)">SEARCH</button>
+            <button class="btn btn-link btn-show-all" (click)="searchEmployees('')" [disabled]="showAllToggle">Show All</button>
+        </div>
+    </div>
+    <div class="col-12 px-0">
+        <dx-check-box [value]="true" text="Search within all companies"></dx-check-box>
+        <div class="float-right">
+            <div class="employee-list-sort-dropdown align-self-center float-right">
+                <div ngbDropdown class="d-inline-block" placement="bottom-right">
+                    <button class="btn btn-light" id="employeeListSortDropdown" ngbDropdownToggle>
+                        <span>Sort By
+                            <i class="icon icon-shape"></i>
+                        </span>
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="employeeListSortDropdown">
+                        <button class="dropdown-item" (click)="sortEmployeeListBy('Name')">Name</button>
+                        <button class="dropdown-item" (click)="sortEmployeeListBy('Title')">Title</button>
+                        <button class="dropdown-item" (click)="sortEmployeeListBy('Department')">Department</button>
+                        <button class="dropdown-item" (click)="sortEmployeeListBy('Type')">Type</button>
+                        <button class="dropdown-item" (click)="sortEmployeeListBy('Status')">Status</button>
+                        <button class="dropdown-item" (click)="sortEmployeeListBy('ClientID')">Client ID</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12" *ngIf="isLoading">
+        <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+    </div>
+    <div class="col-12 content-list"  *ngIf="!isLoading">
+        <ul class="employees-list">
+            <span *ngFor="let employeeItem of employeesList; let i = index">
+                <li class="row mx-0 list-item">
+                    <div class="col-4 px-0" style="display: inline-flex;">
+                        <div class="employee-name-title-group">
+                            <p class="employee-name">
+                                {{ employeeItem?.firstName | lowercase }} {{ employeeItem?.lastName | lowercase }}
+                            </p>
+                            <span class="employee-title">
+                                <span *ngIf="employeeItem?.titleDescription.length >= 22" placement="top" ngbTooltip="{{employeeItem?.titleDescription}}">{{ employeeItem?.titleDescription | lowercase | middleTruncate: 22 }}</span>
+                                <span *ngIf="employeeItem?.titleDescription.length < 22">{{ employeeItem?.titleDescription | lowercase }}</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row col-7 px-0">
+                        <div class="col-5 px-0 employee-item-group align-self-center">
+                            <p class="employee-item-title">
+                                Department
+                            </p>
+                            <span class="employee-item-value">
+                                <span *ngIf="employeeItem?.homeDepartmentDescription.length >= 15" placement="top" ngbTooltip="{{employeeItem?.homeDepartmentDescription}}">{{ employeeItem?.homeDepartmentDescription | lowercase | middleTruncate: 15 }}</span>
+                                <span *ngIf="employeeItem?.homeDepartmentDescription.length < 15">{{ employeeItem?.homeDepartmentDescription | lowercase }}</span>
+                            </span>
+                        </div>
+                        <div class="col-3 px-0 employee-item-group align-self-center">
+                            <p class="employee-item-title">
+                                Type
+                            </p>
+                            <span class="employee-item-value">
+                                {{ employeeItem?.typeDescription | lowercase}}
+                            </span>
+                        </div>
+                        <div class="col-2 px-0 employee-item-group align-self-center">
+                            <p class="employee-item-title">
+                                Status
+                            </p>
+                            <span class="employee-item-value">
+                                {{ employeeItem?.statusDescription | lowercase }}
+                            </span>
+                        </div>
+                        <div class="col-2 px-0 employee-item-group align-self-center">
+                            <p class="employee-item-title">
+                                Client Id
+                            </p>
+                            <span class="employee-item-value">
+                                {{ employeeItem?.clientId }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col px-0 align-self-center col-fixed-size">
+                        <div class="employee-actions-dropdown align-self-center float-right">
+                            <div>
+                                <dx-select-box class="employeeActionsCustomDropdown employee-actions-btn" #menu [dataSource]="dropdownActions" [grouped]="true"
+                                    displayExpr="name" fieldTemplate="field" (onItemClick)="onEmployeeActionsDropdownClick($event, menu, employeeItem)" (onOpened)="onOpened($event)">
+                                    <div *dxTemplate="let data of 'field'">
+                                        <dx-text-box class="employee-actions-custom-text-box" value="ACTIONS" [readOnly]="true"></dx-text-box>
+                                    </div>
+                                </dx-select-box>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </span>
+        </ul>
+    </div>
+</div>
+
+<ng-template #employeeHrEventAssignmentModal let-c="close" let-d="dismiss">
+    <app-employee-hr-event-assignment [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-hr-event-assignment>
+</ng-template>
+
+<ng-template #employeeSkillCodeAssignmentModal let-c="close" let-d="dismiss">
+    <app-employee-skill-code-assignment [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-skill-code-assignment>
+</ng-template>
+
+<ng-template #employeeStatusChangeModal let-c="close" let-d="dismiss">
+    <app-employee-status-change [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-status-change>
+</ng-template>
+
+<ng-template #employeeTerminationModal let-c="close" let-d="dismiss">
+    <app-employee-termination [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-termination>
+</ng-template>
+
+<ng-template #employeeSupervisorChangeModal let-c="close" let-d="dismiss">
+    <app-employee-supervisor-change [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-supervisor-change>
+</ng-template>
+
+<ng-template #payRateChangeModal let-c="close" let-d="dismiss">
+    <app-employee-pay-rate-change [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-pay-rate-change>
+</ng-template>
+
+<ng-template #employeeCostAllocationModal let-c="close" let-d="dismiss">
+    <app-employee-payroll-cost-allocation [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-payroll-cost-allocation>
+</ng-template>
+
+<ng-template #employeeAllocationsModal let-c="close" let-d="dismiss">
+    <app-employee-payroll-allocations [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-payroll-allocations>
+</ng-template>
+
+<ng-template #employeePayrollPayCodeModal let-c="close" let-d="dismiss">
+    <app-employee-payroll-pay-code [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-payroll-pay-code>
+</ng-template>
+
+<ng-template #employeePayrollLoanModal let-c="close" let-d="dismiss">
+    <app-employee-payroll-loans [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-payroll-loans>
+</ng-template>
+
+<ng-template #employeeScheduledPaymentsModal let-c="close" let-d="dismiss">
+    <app-employee-scheduled-payments [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-scheduled-payments>
+</ng-template>
+
+<ng-template #employeeRecurringDeductionModal let-c="close" let-d="dismiss">
+    <app-employee-recurring-deductions [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-recurring-deductions>
+</ng-template>
+
+<ng-template #employeePayrollPtoRegisterModal let-c="close" let-d="dismiss">
+    <app-employee-payroll-pto-register-adjustments [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-payroll-pto-register-adjustments>
+</ng-template>
+
+<ng-template #employeePayrollJobRatesModal let-c="close" let-d="dismiss">
+    <app-employee-payroll-job-rates [clientEmployee]="selectedEmployee" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-employee-payroll-job-rates>
+</ng-template>
+
+<ng-template #employeeWorkersCompDetailsViewModal let-c="close" let-d="dismiss">
+    <app-workers-comp-claim-details-modal [workersCompClaim]="employeeWorkersClaimsData" [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-workers-comp-claim-details-modal>
+</ng-template>
+
+<ng-template #employeeWorkersCompNoDataModal let-c="close" let-d="dismiss">
+    <div class="custom-modal-window">
+        <div class="modal-body">
+            <p class="text-center my-0">
+                Employee doesn't have any open workers comp claims.
+            </p>
+        </div>
+        <div class="modal-footer align-items-center float-right" style="justify-content: center;">
+            <button type="button" class="btn btn-primary" (click)="c('Close click')">OK</button>
+        </div>
+    </div>
+</ng-template>

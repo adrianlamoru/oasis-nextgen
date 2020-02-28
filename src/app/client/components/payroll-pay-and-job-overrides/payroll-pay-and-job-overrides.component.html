@@ -1,0 +1,86 @@
+<div class="reports-container pay-and-job-overrides {{pageSource === 'employeeReports'? 'employee-custom-report-margin': ''}}">
+  <div class="section">
+    <div class="row breadcrumb-container-reports" *ngIf="pageSource !== 'employeeReports'">
+      <div class="col-12">
+        <div class="breadcrumb-component">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item back-link">
+              <a (click)="goToBack()">Reports</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              <span class="breadcrumb-item-active">Pay and Job Code Overrides</span>
+            </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-7 report-title align-self-center">
+          <span>Pay and Job Code Overrides</span>
+          <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-5 align-self-center">                   
+          <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+      </div>
+    </div>
+
+    <div class="custom-grid pt-1 mb-0">
+      <hr class="m-0 mb-1 p-0"/>
+      <div class="col-12" *ngIf="isLoading">
+        <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <div class="row pt-3 mb-0" *ngIf="!isLoading">
+        <div class="col-12 align-self-center">
+          <div class="float-right custom-margin-bottom-dropdown">
+            <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                    (click)="requestedFunction('print')">
+              <span class="icon icon-pint"></span>
+              <span>PRINT</span>
+            </button>
+            <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+                <button class="btn btn-light" id="downloadDD" ngbDropdownToggle>
+                    <span>Download
+                        <i class="icon icon-shape"></i>
+                    </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="Download">
+                  <button type="button" class="dropdown-item" *ngFor="let item of dropdownOptions[0].items" (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row custom-grid-padding" *ngIf="!isLoading">
+        <div class="col-lg-12">
+          <dx-data-grid id="gridContainer"
+            class="historical-grid pair-row-color-gray-100"
+            [dataSource]="filteredPayAndJobDataRows"
+            [columnAutoWidth]="true"
+            keyExpr="employeeID">
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="type" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="clientID" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="employeeID" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="employeeName" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="jobCode" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="jobTitle" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="standardPayRate" [allowSorting]="false">
+              <dxo-format type="fixedPoint" [precision]="4"></dxo-format>
+            </dxi-column>
+            <dxi-column dataField="payCode" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="payDesc" [allowSorting]="false" caption="PAY DESCRIPTION"></dxi-column>
+            <dxi-column dataField="payRate" [allowSorting]="false">
+              <dxo-format type="fixedPoint" [precision]="4"></dxo-format>
+            </dxi-column>
+            <dxi-column dataField="billRate" [allowSorting]="false">
+              <dxo-format type="fixedPoint" [precision]="2"></dxo-format>
+            </dxi-column>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

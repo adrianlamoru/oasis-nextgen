@@ -1,0 +1,70 @@
+@import "~sass/variables";
+
+.reports-osha-300-log {
+    padding: 27px 30px 60px 30px; 
+
+    .content-title {
+        margin-bottom:  16px;
+        padding-left: 15px !important;
+    }
+
+    .report-title{
+        margin-bottom: 25px !important;
+    }
+
+    .custom-margin-bottom-dropdown {
+        margin-bottom: 12px;
+        margin-top: 10px;
+    }
+
+    .custom-grid-padding {
+        margin-top: 4px;
+    }
+    
+    .form-inline.form-group{
+        margin-bottom: 0px;
+    }
+
+    .form-inline{
+        align-items: baseline;
+        .form-group{
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+    }
+
+    .custom-dropdown-component {
+        width: 160px !important;
+        margin-right: 20px;
+
+        .form-control-dropdown, .dropdown-menu {
+            width: inherit !important;
+        }
+        .btn-form-control span {
+            display: initial;
+        }
+    }
+
+    .custom-dropdown-web-changes {
+        max-height: 200px;
+        overflow-y: scroll;
+    }
+
+    .btn-without-padding {
+        margin-top: 40px;
+        padding: 0;
+    }
+
+    .custom-dropdown {
+        width: 100px!important;
+    }
+
+    .taxes-paragraph{
+    
+        border-radius: 5px;
+        background-color: #f0f2f5;
+        padding: 27px 29px;
+        margin-bottom: 0px;
+        margin-top: 10px;
+    }
+}

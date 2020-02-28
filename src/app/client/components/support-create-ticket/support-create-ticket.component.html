@@ -1,0 +1,95 @@
+<div class="custom-modal-window custom-support-modal">
+    <div class="modal-header modal-header-without-border">
+        <h4 class="modal-title align-self-center float-left">Create a Case</h4>
+        <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+            <span class="icon icon-close"></span>
+        </button>
+    </div>
+    <div class="modal-header modal-header-with-tabbing">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a href="javascript: void(0)" class="nav-link {{ tabSelected === 'tab_summary' ? 'active' : ''}}" data-toggle="tab" (click)="updateTabSelection('tab_summary')">Summary</a>
+            </li>
+            <li class="nav-item">
+                <a href="javascript: void(0)" class="nav-link {{ tabSelected === 'tab_details' ? 'active' : ''}}" data-toggle="tab" (click)="updateTabSelection('tab_details')">Details</a>
+            </li>
+            <li class="nav-item disabled">
+                <a class="nav-link disabled" data-toggle="tab">Discussion</a>
+            </li>
+            <li class="nav-item disabled">
+                <a class="nav-link disabled" data-toggle="tab">Resolution</a>
+            </li>
+        </ul>
+    </div>
+    <form [formGroup]="createTicketForm" >
+        <div class="modal-body create-ticket-modal-body custom-modal-body-padding" *ngIf="tabSelected === 'tab_summary'">
+            <div class="row">
+                <div class="form-group col-12">
+                    <label for="ticketSubjectTextarea">Subject</label>
+                    <textarea class="form-control" formControlName="subject" rows="3" value="Value"></textarea>
+                </div>
+                <div class="form-group col-12 d-inline-block">
+                    <label>Category</label>
+                    <div ngbDropdown class="d-inline-block employee-pay-rate-dropdown">
+                        <button class="btn btn-form-control form-control-dropdown text-left" id="supportCategory" ngbDropdownToggle (click)="supportCategory = !supportCategory">
+                            <span class="{{createTicketForm.get('category').value === '' ? 'text-placeholder' : '' }}">{{createTicketForm.get('category').value === '' ? 'Select Category' : createTicketForm.get('category').value}}
+                                <i class="icon icon-shape float-right"></i>
+                            </span>
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="supportCategory">
+                            <button type="button" class="dropdown-item" *ngFor="let item of categoryTypesDropdownItems" (click)="selectedCategory(item);supportCategory = !supportCategory">{{item.categoryName}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 d-inline-block">
+                    <label>Type</label>
+                    <div ngbDropdown class="d-inline-block employee-pay-rate-dropdown">
+                        <button class="btn btn-form-control form-control-dropdown text-left" id="supportType" ngbDropdownToggle (click)="supportType = !supportType" [disabled]="createTicketForm.get('category').value === ''">
+                            <span class="{{createTicketForm.get('type').value === '' ? 'text-placeholder' : '' }}">{{createTicketForm.get('type').value === '' ? 'Select Type' : createTicketForm.get('type').value}}
+                                <i class="icon icon-shape float-right"></i>
+                            </span>
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="supportType">
+                            <button type="button" class="dropdown-item" *ngFor="let item of categoryTypes" (click)="selectedType(item);supportType = !supportType">{{item}}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-12 d-inline-block">
+                    <label>Status</label>
+                    <input type="text" class="form-control" placeholder="Status" formControlName="status" disabled>
+                </div>
+                <div class="form-group col-12 d-inline-block">
+                    <label>Priority</label>
+                    <div ngbDropdown class="d-inline-block employee-pay-rate-dropdown">
+                        <button class="btn btn-form-control form-control-dropdown text-left" id="supportPriority" ngbDropdownToggle (click)="supportPriority = !supportPriority">
+                            <span class="{{createTicketForm.get('priority').value === '' ? 'text-placeholder' : '' }}">{{createTicketForm.get('priority').value === '' ? 'Select Priority' : createTicketForm.get('priority').value}}
+                                <i class="icon icon-shape float-right"></i>
+                            </span>
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="supportPriority">
+                            <button type="button" class="dropdown-item" *ngFor="let item of priorityDropdownItems" (click)="selectedPriority(item);supportPriority = !supportPriority">{{item}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-body create-ticket-modal-body custom-modal-body-padding" *ngIf="tabSelected === 'tab_details'">
+            <div class="row">
+                <div class="form-group col-12">
+                    <label for="ticketDetailsTextarea">Details</label>
+                    <textarea class="form-control"  formControlName="detail" rows="3" value="Value"></textarea>
+                </div>
+                <div>
+                    <app-upload  [isTypeModal]="false"></app-upload>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="modalDismissFunc('Close click')">Cancel</button>
+        <button type="button" class="btn btn-primary" *ngIf="tabSelected === 'tab_summary'" (click)="updateTabSelection('tab_details')">Next</button>
+        <button type="button" class="btn btn-outline-primary" *ngIf="tabSelected === 'tab_details'" (click)="updateTabSelection('tab_summary')">Back</button>
+        <button type="button" class="btn btn-primary" *ngIf="tabSelected !== 'tab_summary'" [disabled]="createTicketForm.get('subject').value === null || createTicketForm.get('subject').value === ''  || createTicketForm.get('category').value === null || createTicketForm.get('type').value === null || createTicketForm.get('priority').value === null" (click)="createTicket();modalCloseFunc('Close click');">Submit</button><!-- -->
+    </div>
+</div>

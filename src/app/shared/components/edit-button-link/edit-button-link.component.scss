@@ -1,0 +1,11 @@
+@import '~sass/variables';
+
+.edit-disabled {
+  color: $gray-700 !important;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-link-text-blue, .icon-pencil-blue:before {
+  color: $blue !important;
+}

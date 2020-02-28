@@ -1,0 +1,66 @@
+<div class="custom-modal-window">
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">Oasis Website Requirements</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalDismissFunc('Cross click')">
+      <span class="icon icon-close"></span>
+    </button>
+  </div>
+  <div class="modal-body modal-body-scroll">
+      <div *ngIf="isClient()">
+          <p class="font-weight-bold">Recommended Browsers for Windows Users*</p>
+          <ul>
+              <li>Chrome 60.x</li>
+              <li>Firefox 55.x</li>
+              <li>Microsoft Internet Explorer 10.x</li>
+              <li>Microsoft Internet Explorer 11.x</li>
+              <li>Microsoft Edge</li>
+          </ul>
+
+          <p class="font-weight-bold">Recommended Browsers for Apple MacIntosh Users*</p>
+          <ul>
+              <li>Chrome 60.x</li>
+              <li>Firefox 55.x</li>
+              <li>Safari 8.x </li>
+          </ul>
+
+          <p class="font-weight-bold font-italic">There are known limitations in pdf support depending on your OS version.</p>
+
+          <p>*Javascript is required.</p>
+
+          <p>Browser requires support for 2048 bit certificate with recommended cipher capability of 256 or higher.</p>
+
+          <p class="font-weight-bold">Connection </p>
+
+          <p class="footer-padding">This service recommends using a DSL, Cable Modem or faster connection for optimum experience.
+              Please note, the speed at which you actually connect to the Internet may vary causing different performance results.</p>
+      </div>
+      <div *ngIf="isEmployee()">
+          <p class="font-weight-bold">Recommended Browsers for Windows Users*</p>
+          <ul>
+              <li>Chrome 60.x</li>
+              <li>Firefox 55.x</li>
+              <li>Microsoft Internet Explorer 10.x</li>
+              <li>Microsoft Internet Explorer 11.x</li>
+              <li>Microsoft Edge</li>
+          </ul>
+
+          <p class="font-weight-bold">Recommended Browsers for Apple MacIntosh Users*</p>
+          <ul>
+              <li>Chrome 60.x</li>
+              <li>Firefox 55.x</li>
+              <li>Safari 8.x </li>
+          </ul>
+
+          <p class="font-weight-bold font-italic">There are known limitations in pdf support depending on your OS version.</p>
+
+          <p>*Javascript is required.</p>
+
+          <p>Browser requires support for 2048 bit certificate with recommended cipher capability of 256 or higher.</p>
+
+          <p class="font-weight-bold">Connection </p>
+
+          <p class="footer-padding">This service recommends using a DSL, Cable Modem or faster connection for optimum experience.
+              Please note, the speed at which you actually connect to the Internet may vary causing different performance results.</p>
+      </div>
+  </div>
+</div>

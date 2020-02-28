@@ -1,0 +1,25 @@
+.job-costing-component{
+    margin-left: 48px;
+    margin-top: 58px;
+    max-width: 1240px;
+
+    .row-checkboxes{
+        align-items: center;
+        margin: 0;
+    }
+    
+    .question-class {
+        height: 18px;
+        font-size: 14px;
+        //font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.29;
+        letter-spacing: normal;
+        color: #3e434d;
+    }
+    
+    .ex-margin-top {
+        margin-top: 10px;
+    }
+}

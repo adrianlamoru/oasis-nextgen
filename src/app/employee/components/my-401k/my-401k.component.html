@@ -1,0 +1,83 @@
+<div class="main-area-container  my-401k">
+    <div class="my-401k-header row">
+        <div class="col-6">
+          <h3 class="text-left">My 401(k)</h3>
+        </div>
+        <div class="col-6">
+          <h3 class="text-right my-401k-header-right">
+            <a href="javascript:void(0)" (click)="toggle401K()" *ngIf="toggle401KValue === false"> 
+              <i class="icon icon-eye-hide left-pos"></i>
+              HIDE CONTRIBUTIONS
+            </a>
+            <a href="javascript:void(0)" (click)="toggle401K()" *ngIf="toggle401KValue === true">
+              <i class="icon icon-eye-show left-pos"></i>
+              SHOW CONTRIBUTIONS
+            </a>
+          </h3>
+        </div>    
+    </div>
+    <div class="my-401k-body row">
+      <div class="col-md-6 order-md-12 my401kChartData">
+          <dx-chart
+            id="my401kChart"
+            [palette]="myPalette"
+            [dataSource]="my401kData">
+            <dxi-series valueField="balance" name="Balance"></dxi-series>
+            <dxi-series valueField="employerMatch" name="Employer Match"></dxi-series>
+            <dxi-series valueField="employeeContribution" name="My Contribution"></dxi-series>
+            <dxi-value-axis>                  
+              <dxo-grid [visible]=false></dxo-grid>
+              <dxo-label [visible]=false></dxo-label>
+            </dxi-value-axis>
+            <dxo-argument-axis>
+                <dxo-label [visible]=true></dxo-label>   
+            </dxo-argument-axis>
+            <dxo-common-series-settings
+                argumentField="month"
+                type="stackedBar">
+            </dxo-common-series-settings>
+            <dxo-legend
+                [visible]=false>
+            </dxo-legend>
+            <dxo-export [enabled]="false"></dxo-export>
+            <dxo-tooltip
+                [enabled]="!toggle401KValue"
+                location="edge"
+                [customizeTooltip]="customizeTooltip"
+                [arrowLength] = 0>
+            </dxo-tooltip>
+          </dx-chart>
+      </div>
+      <div class="col-md-6 order-md-1">
+        <div class="my-401k-amount"> 
+          <input type="password" class="form-control disabled-black" *ngIf="toggle401KValue === true" value="12345" disabled/>
+          <input type="text" class="form-control disabled-black" *ngIf="toggle401KValue === false" value="${{balanceAmount}}" disabled/> 
+        </div>
+        <div class="my-401k-balance text-muted">Balance as of {{ contributionDate }}</div>
+        <div class="contribution-data">
+          <div class="contribution-data-title">
+            My Contribution: 
+              <span  *ngIf="toggle401KValue === true"><input type="password" class="black" value="12345" size="6" disabled/></span>
+              <span  *ngIf="toggle401KValue === false"><input type="text" value="${{myContributionAmount}}" size="6" disabled/></span>
+          </div>
+          <hr>
+          <div class="contribution-data-body">
+            <div class="text-muted">
+              Pre-Tax: 
+              <span  *ngIf="toggle401KValue === true"><input type="password" value="12345" size="6" disabled  class="text-muted"/></span>
+              <span  *ngIf="toggle401KValue === false"><input type="text" value="${{preTaxAmount}}" size="6" disabled  class="text-muted"/></span>
+            </div>
+            <div class="text-muted">
+              Roth: 
+              <span  *ngIf="toggle401KValue === true"><input type="password" value="12345" size="6" disabled  class="text-muted"/></span>
+              <span  *ngIf="toggle401KValue === false"><input type="text" value="${{rothAmount}}" size="6" disabled  class="text-muted"/></span>
+            </div>
+          </div>
+        </div>
+      </div>      
+    </div>
+    <div class="my-401k-footer">  
+      <a href="{{makeChangesUrl}}" target="_blank">Make Changes <span class="icon icon-arrow"></span></a>
+    </div>
+  </div>
+  

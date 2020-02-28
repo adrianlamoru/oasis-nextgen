@@ -1,0 +1,143 @@
+<div class="custom-grid">
+    <dx-data-grid 
+    [dataSource]="clientAllocationData" 
+    class="pair-row-color-gray-100 dx-data-grid-tab-title"
+    [columnAutoWidth]="true" 
+    [wordWrapEnabled]="true" 
+    keyExpr="Location">
+    <dxo-paging [enabled]="false"></dxo-paging>
+    <dxi-column *ngIf="showCol('Division')" dataField="Division" caption="Division" alignment="left" [allowSorting]="false"></dxi-column>
+    <dxi-column *ngIf="showCol('Department')" dataField="Department" caption="Department" alignment="left" [allowSorting]="false"></dxi-column>
+    <dxi-column *ngIf="showCol('Location')" dataField="Location" caption="Location" alignment="left" [allowSorting]="false"></dxi-column>
+    <dxi-column *ngIf="showCol('Project')" dataField="Project" caption="Project" alignment="left" [allowSorting]="false"></dxi-column>
+    <dxi-column *ngIf="showCol('PayMethod')" dataField="PayMethod" caption="Pay Method" alignment="left" [allowSorting]="false"></dxi-column>
+    <dxi-column *ngIf="showCol('JobCode')" dataField="JobCode" caption="Job Code" alignment="left" [allowSorting]="false"></dxi-column>
+    
+    <dxi-column *ngIf="displayCheckNumberCol" dataField="CheckNumber" caption="Check Number" alignment="left" [allowSorting]="false"></dxi-column>
+    <dxi-column dataField="EmployeeName" caption="Employee Name" alignment="left" [allowSorting]="false"></dxi-column>
+    <dxi-column dataField="EmployeeSsn" caption="Employee Ssn" alignment="left" [allowSorting]="false"></dxi-column>
+    <dxi-column dataField="HrsWorked" caption="Hrs Worked" alignment="right" [allowSorting]="false">
+      <dxo-format [precision]="2"></dxo-format>
+    </dxi-column>
+    <dxi-column dataField="GrossWages" caption="Gross Wages" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+    </dxi-column>
+    <dxi-column dataField="FicaMedicare" caption="Fica Medicare" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+    </dxi-column>
+    <dxi-column dataField="Futa" caption="Futa" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+    </dxi-column>
+    <dxi-column dataField="Suta" caption="Suta" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+    </dxi-column>
+    <dxi-column dataField="WorkComp" caption="Work Comp" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+    </dxi-column>
+    <dxi-column dataField="AdminFee" caption="Admin Fee" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+    </dxi-column>
+    <dxi-column dataField="ErBenefits" caption="Er Benefits" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+    </dxi-column>
+    <dxi-column dataField="EeRetDeduct" caption="Ee Ret Deduct" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+    </dxi-column>
+    <dxi-column dataField="delHireOthrFee" caption="Del/hireOthr/fee" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+    </dxi-column>
+    <dxi-column dataField="OtherChgs" caption="Other Changes" alignment="right" [allowSorting]="false">
+        <dxo-format type="currency" [precision]="2"></dxo-format>
+    </dxi-column>
+    <dxi-column dataField="EmployeeTotal" caption="Employee Total" alignment="right" [allowSorting]="false">
+      <dxo-format type="currency" [precision]="2"></dxo-format>
+    </dxi-column>
+
+    <!-- <dxo-summary>
+            <dxi-total-item column="EmployeeName" displayFormat="Grand Totals"></dxi-total-item>
+            <dxi-total-item
+              column="HrsWorked"
+              summaryType="sum"
+              displayFormat="{0}"
+              [precision]="2">
+            </dxi-total-item>
+            <dxi-total-item
+              column="GrossWages"
+              summaryType="sum"
+              displayFormat="{0}"
+              valueFormat="currency"
+              [precision]="2">
+            </dxi-total-item>
+            <dxi-total-item
+              column="FicaMedicare"
+              summaryType="sum"
+              displayFormat="{0}"
+              valueFormat="currency"
+              [precision]="2">
+            </dxi-total-item>
+            <dxi-total-item
+              column="Futa"
+              summaryType="sum"
+              displayFormat="{0}"
+              valueFormat="currency"
+              [precision]="2">
+            </dxi-total-item>
+            <dxi-total-item
+              column="Suta"
+              summaryType="sum"
+              displayFormat="{0}"
+              valueFormat="currency"
+              [precision]="2">
+            </dxi-total-item>
+            <dxi-total-item
+              column="WorkComp"
+              summaryType="sum"
+              displayFormat="{0}"
+              valueFormat="currency"
+              [precision]="2">
+            </dxi-total-item>
+            <dxi-total-item
+              column="AdminFee"
+              summaryType="sum"
+              displayFormat="{0}"
+              valueFormat="currency"
+              [precision]="2">
+            </dxi-total-item>
+            <dxi-total-item
+              column="ErBenefits"
+              summaryType="sum"
+              displayFormat="{0}"
+              valueFormat="currency"
+              [precision]="2">
+            </dxi-total-item>
+            <dxi-total-item
+              column="EeRetDeduct"
+              summaryType="sum"
+              displayFormat="{0}"
+              valueFormat="currency"
+              [precision]="2">
+            </dxi-total-item>
+            <dxi-total-item
+              column="delHireOthrFee"
+              summaryType="sum"
+              displayFormat="{0}"
+              valueFormat="currency"
+              [precision]="2">
+            </dxi-total-item>
+            <dxi-total-item
+              column="OtherChgs"
+              summaryType="sum"
+              displayFormat="{0}"
+              valueFormat="currency"
+              [precision]="2">
+            </dxi-total-item>
+            <dxi-total-item
+              column="EmployeeTotal"
+              summaryType="sum"
+              displayFormat="{0}"
+              valueFormat="currency"
+              [precision]="2">
+            </dxi-total-item>
+          </dxo-summary> -->
+  </dx-data-grid>
+</div>

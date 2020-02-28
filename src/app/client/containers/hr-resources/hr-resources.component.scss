@@ -1,0 +1,28 @@
+@import '~sass/variables';
+
+.container-content {
+	margin: 10px -15px 0 -15px;
+}
+
+:host ::ng-deep {
+	.custom-hr-card {
+		margin-bottom: 30px;
+		min-width: 320px;
+		.form-group {
+            margin-bottom: 20px;
+            .h4{
+                margin-bottom: -10px;
+            }
+        }
+	}
+
+	.custom-dropdown-component {
+		max-width: 350px;
+	}
+	
+	.btnOpen{
+		margin-top:20px;
+	}
+	
+	
+}

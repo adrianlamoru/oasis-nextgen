@@ -1,0 +1,165 @@
+<div class="main-area-container  my-leave-tracker">
+    <div class="my-leave-tracker-header row">
+        <div class="col-12 col-md-6"><h3 class="text-left bold">My Leave Tracker</h3></div>
+        <!-- <div class="col-12 col-md-6"><button class="btn btn-outline-primary float-right form-control text-center">REQUEST TIME OFF</button></div> -->
+    </div>
+    <div class="my-leave-tracker-body">
+      <div class="row pto-data">
+          <div class="col-12 col-lg-2 pto-type">{{ ptoDataVacation[0].ptoType }}</div>
+          <div class="col-8 col-lg-8">
+            <div class="row">
+                <div class="col">
+                    <dx-chart
+                        id="ptoVacationChart"
+                        [rotated]=true
+                        [barWidth]="1"
+                        [palette]="vacationChartPalette"
+                        [dataSource]="ptoDataVacation">
+                        <dxi-series valueField="remaining" name="Remaining">
+                            <dxo-label [visible]="true">
+                                <dxo-connector [visible]="false"></dxo-connector>
+                            </dxo-label>
+                        </dxi-series>
+                        <dxi-series valueField="used" name="Used">
+                            <dxo-label [visible]="true">
+                                <dxo-connector [visible]="false"></dxo-connector>
+                            </dxo-label>
+                        </dxi-series>
+                        <dxi-value-axis>
+                            <dxo-grid [visible]=false></dxo-grid>
+                            <dxo-label [visible]=false></dxo-label>
+                        </dxi-value-axis>
+                        <dxo-argument-axis>
+                            <dxo-label [visible]=false></dxo-label>
+                        </dxo-argument-axis>
+                        <dxo-common-series-settings
+                            argumentField="ptoType"
+                            type="fullStackedBar">
+                        </dxo-common-series-settings>
+                        <dxo-legend
+                        [visible]=false>
+                        </dxo-legend>
+                        <dxo-export [enabled]="false"></dxo-export>
+                        <dxo-tooltip
+                            [enabled]="false"
+                            location="edge"
+                            [customizeTooltip]="customizeTooltip"
+                            [arrowLength] = 0>
+                        </dxo-tooltip>
+                    </dx-chart>
+                </div>
+            </div>
+            <div class="row pto-data-display">
+                <div class="col-6"><h3 class="text-left">Remaining: {{ ptoDataVacation[0].remaining }} Hours</h3></div>
+                <div class="col-6"><h3 class="text-right">Used: {{ ptoDataVacation[0].used }} Hours</h3></div>
+            </div>
+          </div>
+          <div class="col-4 col-lg-2 pto-request-pending"><div class="badge badge-pill badge-warning pending-badge">PENDING</div></div>
+      </div>
+      <div class="row pto-data">
+          <div class="col-12 col-lg-2 pto-type">{{ ptoDataPersonal[0].ptoType }}</div>
+          <div class="col-8 col-lg-8">
+            <div class="row">
+                <div class="col">
+                    <dx-chart
+                        id="ptoPersonalChart"
+                        [rotated]=true
+                        [barWidth]="1"
+                        [palette]="personalChartPalette"
+                        [dataSource]="ptoDataPersonal">
+                        <dxi-series valueField="remaining" name="Remaining">
+                        <dxo-label [visible]="true">
+                            <dxo-connector [visible]="false"></dxo-connector>
+                        </dxo-label>
+                        </dxi-series>
+                        <dxi-series valueField="used" name="Used">
+                        <dxo-label [visible]="true">
+                            <dxo-connector [visible]="false"></dxo-connector>
+                        </dxo-label>
+                        </dxi-series>
+                        <dxi-value-axis>
+                            <dxo-grid [visible]=false></dxo-grid>
+                            <dxo-label [visible]=false></dxo-label>
+                        </dxi-value-axis>
+                        <dxo-argument-axis>
+                            <dxo-label [visible]=false></dxo-label>
+                        </dxo-argument-axis>
+                        <dxo-common-series-settings
+                            argumentField="ptoType"
+                            type="fullStackedBar">
+                        </dxo-common-series-settings>
+                        <dxo-legend
+                        [visible]=false>
+                        </dxo-legend>
+                        <dxo-export [enabled]="false"></dxo-export>
+                        <dxo-tooltip
+                            [enabled]="false"
+                            location="edge"
+                            [customizeTooltip]="customizeTooltip"
+                            [arrowLength] = 0>
+                        </dxo-tooltip>
+                    </dx-chart>
+                </div>
+            </div>
+            <div class="row pto-data-display">
+                <div class="col-6"><h3 class="text-left">Remaining: {{ ptoDataPersonal[0].remaining }} Hours</h3></div>
+                <div class="col-6"><h3 class="text-right">Used: {{ ptoDataPersonal[0].used }} Hours</h3></div>
+            </div>
+          </div>
+          <div class="col-4 col-lg-2 pto-request-pending"></div>
+      </div>
+      <div class="row pto-data">
+          <div class="col-12 col-lg-2 pto-type">{{ ptoDataSick[0].ptoType }}</div>
+          <div class="col-8 col-lg-8">
+            <div class="row">
+                <div class="col">
+                    <dx-chart
+                        id="ptoSickChart"
+                        [rotated]=true
+                        [barWidth]="1"
+                        [palette]="sickChartPalette"
+                        [customizeLabel]="customizeLabel"
+                        [dataSource]="ptoDataSick">
+                        <dxi-series valueField="remaining" name="Remaining">
+                        
+                        </dxi-series>
+                        <dxi-series valueField="used" name="Used">
+                        
+                        </dxi-series>
+                        <dxi-value-axis>
+                            <dxo-grid [visible]=false></dxo-grid>
+                            <dxo-label [visible]=false></dxo-label>
+                        </dxi-value-axis>
+                        <dxo-argument-axis>
+                            <dxo-label [visible]=false></dxo-label>
+                        </dxo-argument-axis>
+                        <dxo-common-series-settings
+                            argumentField="ptoType"
+                            type="fullStackedBar">
+                        </dxo-common-series-settings>
+                        <dxo-legend
+                        [visible]=false>
+                        </dxo-legend>
+                        <dxo-export [enabled]="false"></dxo-export>
+                        <dxo-tooltip
+                            [enabled]="false"
+                            location="edge"
+                            [customizeTooltip]="customizeTooltip"
+                            [arrowLength] = 0>
+                        </dxo-tooltip>
+                    </dx-chart>
+                </div>
+            </div>
+            <div class="row pto-data-display">
+                <div class="col-6"><h3 class="text-left">Remaining: {{ ptoDataSick[0].remaining }} Hours</h3></div>
+                <div class="col-6"><h3 class="text-right">Used: {{ ptoDataSick[0].used }} Hours</h3></div>
+            </div>
+          </div>
+          <div class="col-4 col-lg-2 pto-request-pending"></div>
+      </div>
+    </div>
+    <div class="my-leave-tracker-footer">  
+      <a href="/employee/compensation/paidTimeOff">View History <span class="icon icon-arrow"></span></a>
+    </div>
+  </div>
+  

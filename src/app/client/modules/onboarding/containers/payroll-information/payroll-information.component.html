@@ -1,0 +1,29 @@
+<form [formGroup]="formGroup" autocomplete="off" novalidate>
+<ngb-tabset #tabSet="ngbTabset" class="ngbTabset support-case-senstivity-tabs"
+[activeId]="selectedTab" (tabChange)="onTabChange($event)">
+    <ngb-tab id="payroll-cycle">
+        <ng-template ngbTabTitle>A. Payroll Cycle<span *ngIf="!groupIsValid('payrollCycle')" class="has-errors"></span></ng-template>
+        <ng-template ngbTabContent>
+            <app-step-4-payroll-cycle [groupTrace]="[groupId]"></app-step-4-payroll-cycle>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab id="payroll-processing">
+        <ng-template ngbTabTitle>B. Payroll Processing<span *ngIf="!groupIsValid('payrollProcessing')" class="has-errors"></span></ng-template>
+        <ng-template ngbTabContent>
+            <app-step-4-payroll-processing [groupTrace]="[groupId]"></app-step-4-payroll-processing>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab id="payroll-structure">
+        <ng-template ngbTabTitle>C. Payroll Structure<span *ngIf="!groupIsValid('payrollStructure')" class="has-errors"></span></ng-template>
+        <ng-template ngbTabContent>
+            <app-step-4-payroll-structure [groupTrace]="[groupId]"></app-step-4-payroll-structure>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab id="payroll-reports">
+      <ng-template ngbTabTitle>D. Payroll Reports<span *ngIf="!groupIsValid('payrollReports')" class="has-errors"></span></ng-template>
+      <ng-template ngbTabContent>
+          <app-step-4-payroll-reports [groupTrace]="[groupId]"></app-step-4-payroll-reports>
+      </ng-template>
+  </ngb-tab>
+</ngb-tabset>
+</form>

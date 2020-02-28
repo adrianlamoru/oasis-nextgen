@@ -1,0 +1,400 @@
+<div class="reports-container earnings-summary-report {{pageSource === 'employeeReports'? 'employee-custom-report-margin': ''}}">
+  <div class="section">
+    <div class="row breadcrumb-container-reports" *ngIf="pageSource !== 'employeeReports'">
+      <div class="col-12">
+        <div class="breadcrumb-component">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item back-link">
+              <a (click)="goToBack()">Reports</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              <span class="breadcrumb-item-active">Earnings Summary</span>
+            </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-7 report-title align-self-center">
+        <span>Earnings Summary</span>
+        <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-5 align-self-center">
+        <button class="btn btn-outline-primary back-button" (click)="goToBack()">Back</button>
+      </div>
+    </div>
+    <div class="row">
+          <div class="custom-left-margin-col col-6 col-xl-2">
+            <label>Start Date</label>
+            <div class="custom-date-picker">
+              <div class="input-icon icon icon-calendar"></div>
+                <input
+                  class="form-control custom-input-field"
+                  placeholder="Month dd, yyyy"
+                  name="selectedBeginningDate"
+                  [(ngModel)]="selectedBeginningDate"
+                  (ngModelChange)="enableViewReportButton()"
+                  ngbDatepicker
+                  [dayTemplate]="effectiveDate"
+                  [displayMonths]="2"
+                  [navigation]="'arrows'"
+                  [firstDayOfWeek]="7"
+                  #beginningEffectiveDate="ngbDatepicker">
+                <button
+                  class="btn input-btn icon-shape"
+                  (click)="beginningEffectiveDate.toggle(); openedBeginning = !openedBeginning"
+                  type="button">
+                </button>
+            </div>
+          </div>
+            <div class="col-6 col-xl-2">
+              <label>End Date</label>
+              <div class="custom-date-picker">
+                <div class="input-icon icon icon-calendar"></div>
+                <input
+                  class="form-control custom-input-field"
+                  placeholder="Month dd, yyyy"
+                  name="endDate"
+                  [(ngModel)]="selectedEndDate"
+                  (ngModelChange)="enableViewReportButton()"
+                  ngbDatepicker [dayTemplate]="customDay"
+                  [displayMonths]="2"
+                  [navigation]="'arrows'"
+                  [firstDayOfWeek]="7"
+                  #endDate="ngbDatepicker">
+                <button
+                  class="btn input-btn icon-shape"
+                  (click)="endDate.toggle(); opened = !opened"
+                  type="button">
+                </button>
+              </div>
+            </div>
+            <div class="col-6 col-xl-2">
+              <label>Location</label>
+              <div 
+                ngbDropdown class="d-inline-block custom-dropdown-component" 
+                [ngClass]="selectedLocationCode ? 'ca-report-custom-dd': ''" 
+                #ddstatus="ngbDropdown">
+                  <button
+                        type="button"
+                        class="btn btn-form-control form-control-dropdown text-left"
+                        ngbDropdownToggle
+                        (click)="isOpened = !isOpened">
+                      <span *ngIf="!selectedLocationCode">
+                        {{ selectedLocationCode.Text }}
+                        <i class="icon  icon-shape float-right"></i>
+                      </span>
+                      <div *ngIf="selectedLocationCode">
+                      {{ selectedLocationCode.Text }}
+                      </div>
+                      <i *ngIf="selectedLocationCode" class="custom-chevron-i icon  icon-shape float-right"></i>
+                  </button>
+                  <div 
+                    ngbDropdownMenu aria-labelledby="ddstatus" 
+                    class="custom-dropdown-years ca-report-custom-dd-menu">
+                      <button
+                        type="button"
+                        class="dropdown-item"
+                        *ngFor="let l of locationCodes"
+                        (click)="selectLocation(l)">{{l.Text}}
+                      </button>
+                  </div>
+              </div>
+            </div>
+            <div class="col-6 col-xl-2">
+              <label>Division</label>
+              <div 
+                ngbDropdown class="d-inline-block custom-dropdown-component" 
+                [ngClass]="selectedDivisionCodes ? 'ca-report-custom-dd': ''" 
+                #ddstatus="ngbDropdown">
+                  <button
+                        type="button"
+                        class="btn btn-form-control form-control-dropdown text-left"
+                        ngbDropdownToggle
+                        (click)="isOpened = !isOpened">
+                      <span *ngIf="!selectedDivisionCodes">
+                        {{ selectedDivisionCodes.Text }}
+                        <i class="icon  icon-shape float-right"></i>
+                      </span>
+                      <div *ngIf="selectedDivisionCodes">
+                      {{ selectedDivisionCodes.Text }}
+                      </div>
+                      <i *ngIf="selectedDivisionCodes" class="custom-chevron-i icon  icon-shape float-right"></i>
+                  </button>
+                  <div 
+                    ngbDropdownMenu aria-labelledby="ddstatus" 
+                    class="custom-dropdown-years ca-report-custom-dd-menu">
+                      <button
+                        type="button"
+                        class="dropdown-item"
+                        *ngFor="let d of divisionCodes"
+                        (click)="selectDivision(d)">{{d.Text}}
+                      </button>
+                  </div>
+              </div>
+            </div>
+          <div class="col-6 col-xl-2">
+          <label>Department</label>
+            <div 
+              ngbDropdown class="d-inline-block custom-dropdown-component" 
+              [ngClass]="selectedDepartmentCode ? 'ca-report-custom-dd': ''" 
+              #ddstatus="ngbDropdown">
+                <button
+                      type="button"
+                      class="btn btn-form-control form-control-dropdown text-left"
+                      ngbDropdownToggle
+                      (click)="isOpened = !isOpened">
+                    <span *ngIf="!selectedDepartmentCode">
+                      {{ selectedDepartmentCode.Text }}
+                      <i class="icon  icon-shape float-right"></i>
+                    </span>
+                    <div *ngIf="selectedDepartmentCode">
+                    {{ selectedDepartmentCode.Text }}
+                    </div>
+                    <i *ngIf="selectedDepartmentCode" class="custom-chevron-i icon  icon-shape float-right"></i>
+                </button>
+              <div 
+                ngbDropdownMenu aria-labelledby="ddstatus" 
+                class="custom-dropdown-years ca-report-custom-dd-menu">
+                  <button
+                    type="button"
+                    class="dropdown-item"
+                    *ngFor="let dc of departmentCodes"
+                    (click)="selectDepartment(dc)">{{dc.Text}}
+                  </button>
+              </div>
+          </div>
+        </div>
+        <div class="col-6 col-xl-2">
+          <label>Pay Code</label>
+            <div 
+              ngbDropdown class="d-inline-block custom-dropdown-component" 
+              [ngClass]="selectedPayCode ? 'ca-report-custom-dd': ''" 
+              #ddstatus="ngbDropdown">
+                <button
+                      type="button"
+                      class="btn btn-form-control form-control-dropdown text-left"
+                      ngbDropdownToggle
+                      (click)="isOpened = !isOpened">
+                    <span *ngIf="!selectedPayCode">
+                      {{ selectedPayCode.Text }}
+                      <i class="icon  icon-shape float-right"></i>
+                    </span>
+                    <div *ngIf="selectedPayCode">
+                    {{ selectedPayCode.Text }}
+                    </div>
+                    <i *ngIf="selectedPayCode" class="custom-chevron-i icon  icon-shape float-right"></i>
+                </button>
+              <div 
+                ngbDropdownMenu aria-labelledby="ddstatus" 
+                class="custom-dropdown-years ca-report-custom-dd-menu">
+                  <button
+                    type="button"
+                    class="dropdown-item"
+                    *ngFor="let p of payCodes"
+                    (click)="selectPayCode(p)">{{p.Text}}
+                  </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="row">
+        <div class="col-12 summary-report-row">
+            <div class="row float-right">          
+              <h4 class="summary-reports-label">Detailed Pay Code Summary</h4>
+              <div class="yes-no-checkbox-group" id="checkboxGroup">
+                <dx-check-box 
+                  [(ngModel)]="detailedPayCodeCheckboxGroup.yes" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('summaryCheckboxGroup', 'yes', $event)">
+                </dx-check-box>
+              </div>
+              <button class="btn btn-primary align-self-center view-report-button" (click)="getFilteredData()" [disabled]="disableViewReportButton">View Report</button>
+            </div>
+        </div>
+      </div>
+      <div class="custom-grid pt-3 mb-0">
+        <hr class="m-0 mb-1 p-0"/>
+        <div class="col-12" *ngIf="isLoading">
+          <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+        </div>
+        <div class="row date-range-row p-0 {{pageSource === 'employeeReports'? 'employee-date-range-row': ''}}" *ngIf="!isLoading">
+          <div class="col-12 align-self-center">
+            <div class="float-right section-title {{pageSource === 'employeeReports'? 'section-title-employee': ''}}">
+              <button 
+                type="button" 
+                class="btn btn-link btn-link-icon p-0 mr-2"
+                (click)="print()">
+                <span class="icon icon-pint"></span>
+                <span>PRINT</span>
+              </button>
+              <div ngbDropdown  *ngIf="pageSource === 'employeeReports'" class="d-inline-block custom-dropdown mr-0" placement="bottom-right">
+                  <button 
+                    class="btn btn-light" 
+                    id="downloadDD" 
+                    ngbDropdownToggle>
+                      <span>
+                        Download
+                        <i class="icon icon-shape"></i>
+                      </span>
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="Download">
+                    <button 
+                      type="button" 
+                      class="dropdown-item" 
+                      *ngFor="let item of dropdownOptions[0].items" 
+                      (click)="selectedDownloadOption(item); downloadDD.close()">
+                      {{item.name}}
+                    </button>
+                  </div>
+                </div>
+              <div ngbDropdown  *ngIf="pageSource !== 'employeeReports'" class="d-inline-block reports-custom-dd" placement="bottom-right">
+                <button 
+                  class="btn btn-light" 
+                  id="downloadDD" 
+                  ngbDropdownToggle>
+                    <span>
+                      Download
+                      <i class="icon icon-shape"></i>
+                    </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="Download">
+                  <button 
+                    type="button" 
+                    class="dropdown-item" 
+                    *ngFor="let item of dropdownOptions[0].items" 
+                    (click)="selectedDownloadOption(item); downloadDD.close()">
+                    {{item.name}}
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div id="contentToRender">
+        <div class="row" *ngIf="!isLoading && !detailedPayCodeCheckboxGroup.yes">
+          <div class="col-12 custom-grid">
+            <dx-data-grid 
+              id="gridContainer"
+              class="pair-row-color-gray-100"
+              [dataSource]="filteredEarningsSummaryReportData"
+              [columnAutoWidth]="true"
+              [wordWrapEnabled]="true">
+              <dxo-paging [enabled]="false"></dxo-paging>
+              <dxi-column dataField="locationDesc" [allowSorting]="false" caption="Location"></dxi-column>
+              <dxi-column dataField="deptDesc" [allowSorting]="false" caption="Department"></dxi-column>
+              <dxi-column dataField="divisionDesc" [allowSorting]="false" caption="Division"></dxi-column>
+              <dxi-column dataField="empName" [allowSorting]="false" caption="Employee Name"></dxi-column>
+              <dxi-column dataField="empSsn" [groupIndex]="0" [allowSorting]="false" caption="Soc. Sec. Num"></dxi-column>
+              <dxi-column dataField="payCodeID" [allowSorting]="false" caption="Pay Code"></dxi-column>
+              <dxi-column dataField="payCodeDesc" [allowSorting]="false" caption="Pay Code Description"></dxi-column>
+              <dxi-column dataField="hoursUnits" [allowSorting]="false" caption="Hours / Units"></dxi-column>
+              <dxi-column dataField="amountPaid" [allowSorting]="false" caption="Amount Paid">
+                <dxo-format type="currency" [precision]="2"></dxo-format>
+              </dxi-column>
+              <dxo-summary [calculateCustomSummary]="calculateSelectedRow">
+                <dxi-group-item
+                  column="locationDesc"
+                  summaryType="custom"
+                  displayFormat="Totals for Soc-Sec Number"
+                  [showInGroupFooter]="true">
+                </dxi-group-item>
+                <dxi-group-item
+                  name="SelectedRowsSummary"
+                  showInColumn="deptDesc"
+                  summaryType="custom"
+                  displayFormat="{0}"
+                  [showInGroupFooter]="true">
+                </dxi-group-item> 
+                <dxi-group-item
+                  column="hoursUnits"
+                  summaryType="sum"
+                  displayFormat="{0}"
+                  [precision]="2"
+                  alignment="right"
+                  [showInGroupFooter]="true"
+                  [alignByColumn]="true">
+                </dxi-group-item>
+                <dxi-group-item
+                  column="amountPaid"
+                  summaryType="sum"
+                  displayFormat="{0}"
+                  valueFormat="currency"
+                  [precision]="2"
+                  alignment="right"
+                  [showInGroupFooter]="true"
+                  [alignByColumn]="true">
+                </dxi-group-item>
+              </dxo-summary>
+              <div *dxTemplate="let cellData of 'dateCell'">
+                {{cellData.value | date: 'MM/dd/yyyy'}}
+              </div>
+            </dx-data-grid>
+          </div>
+        </div>
+        <div class="row" *ngIf="!isLoading && detailedPayCodeCheckboxGroup.yes">
+          <div class="col-12 custom-grid">
+            <dx-data-grid 
+              id="gridContainer"
+              class="pair-row-color-gray-100 grid-head-font-weight-500 dx-data-grid-tab-title"
+              [dataSource]="filteredEarningsDetailReportData"
+              [columnAutoWidth]="true"
+              [wordWrapEnabled]="true">
+              <dxo-paging [enabled]="false"></dxo-paging>
+              <dxi-column dataField="locationDesc" [allowSorting]="false" caption="Location"></dxi-column>
+              <dxi-column dataField="deptDesc" [allowSorting]="false" caption="Department"></dxi-column>
+              <dxi-column dataField="divisionDesc" [allowSorting]="false" caption="Division"></dxi-column>
+              <dxi-column dataField="empName" [allowSorting]="false" caption="Employee Name"></dxi-column>
+              <dxi-column dataField="empSsn" [groupIndex]="0" [allowSorting]="false" caption="Soc. Sec. Num"></dxi-column>
+              <dxi-column dataField="payCodeID" [allowSorting]="false" caption="Pay Code"></dxi-column>
+              <dxi-column dataField="payCodeDesc" [allowSorting]="false" caption="Pay Code Description"></dxi-column>
+              <dxi-column dataField="hoursUnits" [allowSorting]="false" caption="Hours / Units"></dxi-column>
+              <dxi-column dataField="amountPaid" [allowSorting]="false" caption="Amount Paid">
+                <dxo-format type="currency" [precision]="2"></dxo-format>
+              </dxi-column>
+              <dxo-summary [calculateCustomSummary]="calculateSelectedRow">
+                <dxi-group-item
+                  column="locationDesc"
+                  summaryType="custom"
+                  displayFormat="Totals for Soc-Sec Number"
+                  [showInGroupFooter]="true">
+                </dxi-group-item>
+                <dxi-group-item
+                  name="SelectedRowsSummary"
+                  showInColumn="deptDesc"
+                  summaryType="custom"
+                  displayFormat="{0}"
+                  [showInGroupFooter]="true">
+                </dxi-group-item> 
+                <dxi-group-item
+                  column="hoursUnits"
+                  summaryType="sum"
+                  displayFormat="{0}"
+                  [precision]="2"
+                  alignment="right"
+                  [showInGroupFooter]="true"
+                  [alignByColumn]="true">
+                </dxi-group-item>
+                <dxi-group-item
+                  column="amountPaid"
+                  summaryType="sum"
+                  displayFormat="{0}"
+                  valueFormat="currency"
+                  [precision]="2"
+                  alignment="right"
+                  [showInGroupFooter]="true"
+                  [alignByColumn]="true">
+                </dxi-group-item>
+              </dxo-summary>
+              <div *dxTemplate="let cellData of 'dateCell'">
+                {{cellData.value | date: 'MM/dd/yyyy'}}
+              </div>
+            </dx-data-grid>
+          </div>
+        </div>
+        </div>
+      </div>
+  </div>
+</div>

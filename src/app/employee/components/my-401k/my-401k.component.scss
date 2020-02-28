@@ -1,0 +1,217 @@
+@import "~bootstrap/scss/functions"; 
+@import '~sass/variables';
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+
+.my-401k {
+    background-color: $white;
+    
+    .my-401k-header {
+        font-size: 12px;
+        font-weight: 900;
+        
+        h3 {
+            font-size: 16px;
+            line-height: 18px;
+            letter-spacing: 0;
+            font-weight: 500;
+        }
+
+        .my-401k-header-right{
+            a {
+                font-size: 11px;
+                font-weight: bold;
+                color: #005dc1 !important;
+                display: table;
+                float: right;
+                
+                .icon {
+                    display: table-cell;
+                    vertical-align: middle;
+                }
+            }
+            .left-pos {
+                padding-right: 3px;
+            }
+        }
+    }
+
+    .my-401k-body {
+        margin-bottom: 0;
+        padding-top: 26px;
+
+        .my401kChartData {
+            margin-top: 14px;
+            
+            @include media-breakpoint-between(xs, sm) {
+                padding-right: 25%;
+                padding-left: 25%;
+                margin-bottom: 10px;
+            }
+        }
+
+        input[type="password"] {
+            background-color: transparent;
+            color: $gray-700;     
+            border: 0;  
+            
+            &.black {
+                color: $gray-800;
+            }
+        }
+        input[type="text"] {
+            background-color: transparent;
+            border: 0;        
+        }
+
+        .my-401k-amount {            
+            letter-spacing: -0.7px;           
+           
+            .form-control {
+                padding: 0;
+                height: 40px;
+
+                &:disabled {
+                    &.disabled-black {
+                        color: #3E434D !important;
+                    }
+                }
+            }
+
+            input[type="password"] {
+                background-color: $white;
+                border: 0;    
+                color: $gray-700;   
+                font-size: 14px !important;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: normal;
+                letter-spacing: normal;      
+                text-align: center;
+
+                @include media-breakpoint-up(md) {
+                    text-align: left;
+                }
+            }
+
+            input[type="text"] {
+                font-size: 38px !important;
+                background-color: $white;
+                border: 0; 
+                text-align: center;  
+                
+                @include media-breakpoint-up(md) {
+                    text-align: left;
+                }
+
+                @include media-breakpoint-between(md, lg) {
+                    font-size: 30px !important;
+                }               
+            }    
+        }
+
+        .my-401k-balance {
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+
+            @include media-breakpoint-up(md) {
+                text-align: left;
+            }
+        }
+        .text-muted {
+            color: $gray-700 !important;
+        }
+
+        .contribution-data {
+            margin: 10px 0 30px 0;
+            padding: 12px 15px;
+            border-radius: 4px;
+            background-color: #f3f5f7;
+            max-width: 240px;
+            
+            .contribution-data-title, .contribution-data-title input[type="text"] {
+                font-size: 12px;
+                font-weight: bold;
+            }
+
+            hr {
+                margin: 7px 0 6px 0;                
+            }
+
+            .contribution-data-body {
+                font-size: rem(12);
+                font-weight: $font-weight-base + 100;
+                margin-top: 6px;
+                margin-bottom: 3px;
+                
+                .text-muted {
+                    font-weight: 500;
+                }
+            }
+
+            .icon-info:before {
+                color: #c7cad1;
+                font-size: 14px;
+            }
+
+            .icon-info:hover:before {
+                cursor: pointer;
+                color: $primary-text-color !important;
+            }
+
+        }
+    }
+
+    .my-401k-footer {
+        a {
+            font-family: $font-family-sans-serif-secondary;
+            color: $blue;
+            text-transform: uppercase;
+            font-size: 11px;
+            line-height: 14px;
+            font-weight: bolder;
+           
+
+            .icon-arrow  {
+                font-size: 9px;
+            }
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: #004b9b;
+
+            .icon-arrow::before {
+                margin-left: 5px;
+                transition: margin-left 500ms;
+            }
+            
+        }
+    }
+    .fix-height-component {
+        .my-401k-footer {
+            position: absolute;
+            bottom: 25px;
+        }
+    }
+}
+.my-401K-tooltip {
+    .text-muted {
+        font-weight: 500 !important;
+    }
+}
+#my401kChart {
+    height: 190px;
+    margin: 0 auto;
+
+    .dxc-arg-elements {
+        text {
+            font-weight: 500 !important;
+            fill: #969ba8 !important;
+            font-size: 11px !important;
+            font-family: "Roboto", "Adobe Blank", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+        }
+    }
+}

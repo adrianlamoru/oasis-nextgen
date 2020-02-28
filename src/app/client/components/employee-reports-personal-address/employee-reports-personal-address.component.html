@@ -1,0 +1,233 @@
+<div class="employee-reports-container employee-reports-personal-information">
+  <div class="section">
+    <div class="pt-3 mb-0">
+      <div class="col-12" *ngIf="isLoading">
+        <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <div class="row col-12 p-0 m-0" *ngIf="!isLoading">
+        <h3 class="col-9 align-self-center pl-0 m-0 font-weight-bold" [ngStyle]="{'height': (allTabSelected)? '30px': 'initial'}">Home Address</h3>
+        <div class="col-3 align-self-center pr-0" *ngIf="!allTabSelected">
+          <div class="float-right">
+            <button 
+              type="button" 
+              class="btn btn-link btn-link-icon p-0 mr-2"
+              (click)="requestedFunction('print')">
+            <span class="icon icon-pint"></span>
+            <span>PRINT</span>
+            </button>
+            <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+              <button 
+                class="btn btn-light" 
+                id="downloadDD" 
+                ngbDropdownToggle>
+                  <span>
+                    Download
+                    <i class="icon icon-shape"></i>
+                  </span>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="Download">
+                <button 
+                  type="button" 
+                  class="dropdown-item" 
+                  *ngFor="let item of dropdownOptions[0].items" 
+                  (click)="selectedDownloadOption(item); downloadDD.close()">
+                  {{item.name}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!isLoading">
+        <div class="col-8">
+          <div class="row employee-information-first-row" *ngFor="let ddItem of filteredEmployeeReportsPersonalAddressReport[0].employeeAddress">
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Home Address</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.homeAdd">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Apt/Suite</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.apt">
+              </div>
+            </div>
+
+            <div class="col-4"></div>
+
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>City</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.city">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding custom-margin-bottom">
+              <div class="form-group">
+                <label>State</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.state">
+              </div>
+            </div>
+            <div class="col-4 pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Zip Code</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.zip">
+              </div>
+            </div>
+
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Email</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.email">
+              </div>
+            </div>
+          </div>
+
+          <hr/>
+
+          <!-- Section -2 -- Mailing Address -->
+          <div class="row col-12 section-title2 p-0 m-0">
+            <h3 class="align-self-center pl-0 m-0 font-weight-bold">Mailing Address</h3>
+          </div>
+          <div class="row employee-information-row" *ngFor="let ddItem of filteredEmployeeReportsPersonalAddressReport[0].employeeAddress">
+            <div class="col-12 p-0" >
+              <div class="row employee-information-first-row pl-0">
+
+                <div class="col-4 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Mailing Address</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.mailingAdd">
+                  </div>
+                </div>
+                <div class="col-4 employee-information-field-padding pr-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Apt/Suite</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.mailApt">
+                  </div>
+                </div>
+
+                <div class="col-4"></div>
+
+                <div class="col-4 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>City</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [ngModel]="ddItem.mailCity">
+                  </div>
+                </div>
+                <div class="col-4 employee-information-field-padding custom-margin-bottom">
+                  <div class="form-group">
+                    <label>State</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.mailState">
+                  </div>
+                </div>
+                <div class="col-4 pr-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Zip Code</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.mailZip">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr/>
+
+            <!-- Section -3 -- W2 Address -->
+          <div class="row col-12 section-title2 p-0 m-0">
+            <h3 class="align-self-center pl-0 m-0 font-weight-bold">W-2 Address</h3>
+          </div>
+          <div class="row employee-information-row" *ngFor="let ddItem of filteredEmployeeReportsPersonalAddressReport[0].employeeAddress">
+            <div class="col-12 p-0" >
+              <div class="row employee-information-first-row pl-0">
+
+                <div class="col-4 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Mailing Address</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.w2MailingAdd">
+                  </div>
+                </div>
+                <div class="col-4 employee-information-field-padding pr-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Apt/Suite</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.w2Apt">
+                  </div>
+                </div>
+
+                <div class="col-4"></div>
+
+                <div class="col-4 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>City</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [ngModel]="ddItem.w2City">
+                  </div>
+                </div>
+                <div class="col-4 employee-information-field-padding custom-margin-bottom">
+                  <div class="form-group">
+                    <label>State</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.w2State">
+                  </div>
+                </div>
+                <div class="col-4 pr-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Zip Code</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.w2Zip">
+                  </div>
+                </div>
+              </div>
+              <hr class="hr-custom" *ngIf="allTabSelected"/>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>
+  </div>
+</div>

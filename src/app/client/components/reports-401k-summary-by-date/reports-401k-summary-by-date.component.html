@@ -1,0 +1,161 @@
+<div class="reports-container reports-401k-summary-by-date">
+  <div class="section">
+    <div class="row breadcrumb-container-reports">
+        <div class="col-12">
+          <div class="breadcrumb-component">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item back-link">
+                  <a (click)="goToBack()">Reports</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  <span class="breadcrumb-item-active">Employee 401(k) Summary By Date Range</span>
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 report-title align-self-center">
+            <span>Employee 401(k) Summary By Date Range</span>
+            <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-9" >
+        <div class="form-inline form-group">
+            <div class="form-group">
+              <h4>Start Pay Date</h4>
+              <div class="d-inline-flex">
+                  <div class="custom-date-picker custom-date-picker-size">
+                      <div class="input-icon icon icon-calendar"></div>
+                      <input
+                        class="form-control custom-input-field"
+                        placeholder="Month dd, yyyy"
+                        name="selectedBeginningDate"
+                        [(ngModel)]="selectedBeginningDate"
+                        (ngModelChange)="enableViewReportButton()"
+                        ngbDatepicker
+                        [dayTemplate]="effectiveDate"
+                        [displayMonths]="2"
+                        [navigation]="'arrows'"
+                        [firstDayOfWeek]="7"
+                        #beginningEffectiveDate="ngbDatepicker">
+                      <button
+                        class="btn input-btn icon-shape"
+                        (click)="beginningEffectiveDate.toggle(); openedBeginning = !openedBeginning"
+                        type="button">
+                    </button>
+                  </div>
+              </div>
+            </div>
+            <div class="form-group">
+                <h4>End Pay Date</h4>
+                <div class="d-inline-flex">
+                    <div class="custom-date-picker custom-date-picker-size">
+                        <div class="input-icon icon icon-calendar"></div>
+                        <input
+                          class="form-control custom-input-field"
+                          placeholder="Month dd, yyyy"
+                          name="endDate"
+                          [(ngModel)]="selectedEndDate"
+                          (ngModelChange)="enableViewReportButton()"
+                          ngbDatepicker [dayTemplate]="customDay"
+                          [displayMonths]="2"
+                          [navigation]="'arrows'"
+                          [firstDayOfWeek]="7"
+                          #endDate="ngbDatepicker">
+                        <button
+                          class="btn input-btn icon-shape"
+                          (click)="endDate.toggle(); opened = !opened"
+                          type="button">
+                        </button>
+                    </div>
+                    <button class="btn btn-primary" (click)="getFilteredData()" [disabled]="disableViewReportButton">View Report</button>
+                </div>
+            </div>
+        </div>
+      </div>
+      </div>
+      <div class="custom-grid pt-3 mb-0">
+        <hr class="m-0 mb-1 p-0"/>
+        <div class="col-12" *ngIf="isLoading">
+            <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+        </div>
+        <div *ngIf="!isLoading">
+          <div class="row date-range-row">
+            <div class="col-12">
+              <span class="report-date-range-label">Date Range</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+                <span class="report-data-range-selected">
+                  From: {{ selectedBeginningDate.month }}/{{ selectedBeginningDate.day }}/{{ selectedBeginningDate.year }} -
+                  To: {{ selectedEndDate.month }}/{{ selectedEndDate.day }}/{{ selectedEndDate.year }} {{ selectedEndDate.stringDate }} {{ selectedEndDate.stringTime }}
+                </span>
+            </div>
+            <div class="col-6">
+              <div class="float-right section-title section-title-buttons">
+                <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                        (click)="requestedFunction('print')">
+                    <span class="icon icon-pint"></span>
+                    <span>PRINT</span>
+                </button>
+                <button type="button" class="btn btn-link btn-link-icon p-0 ml-1 "
+                        (click)="requestedFunction('download')">
+                    <span class="icon icon-square-upload"></span>
+                    <span>DOWNLOAD</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <dx-data-grid
+                [dataSource]="reports401kSummaryByDateReport"
+                class="pair-row-color-gray-100 grid-head-font-weight-500 dx-data-grid-tab-title"
+                [columnAutoWidth]="true"
+                [wordWrapEnabled]="true"
+                keyExpr="iD">
+                <dxo-paging [enabled]="false"></dxo-paging>
+                <dxi-column dataField="iD" caption="ID" alignment="left" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="name" caption="Name" alignment="left" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="base401kEarnings" caption="Base 401(k) Earnings" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+                <dxi-column dataField="eeContributionPreTax" caption="EE Contribution Pre-Tax" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+                <dxi-column dataField="eeContributionPostTax" caption="EE Contribution Post-Tax" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+                <dxi-column dataField="employerNonElectedContrib" caption="Employer Non-Elected Contributions" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+                <dxi-column dataField="rothDeduction" caption="ROTH Deduction" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+                <dxi-column dataField="rothCatchup" caption="ROTH CatchUp" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+                <dxi-column dataField="catchupContrib" caption="CatchUp Contribution" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+                <dxi-column dataField="loanPayments" caption="401(k) Loan Payments" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+                <dxi-column dataField="employerMatchConditions" caption="Employer Match Conditions" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+                <dxi-column dataField="peoMatchContributions" caption="PEO Match Contributions" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+                </dx-data-grid>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

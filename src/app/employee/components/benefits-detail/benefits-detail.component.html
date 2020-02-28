@@ -1,0 +1,64 @@
+<div class="left-panel-container benefits-detail card" *ngIf="benefitsDetail">
+    <div class="dashboard-benefit-detail-header">
+        <h5>MY BENEFITS</h5>
+    </div>
+    <div class="dashboard-benefit-detail-body">
+        <div class="card-display-value row" onmouseover="this.style.backgroundColor='#e6e8ea'" onmouseout="this.style.backgroundColor='#f3f5f7'">
+            <div class="col-2 align-self-center text-center">
+                <i class="icon icon-hospital"></i>
+            </div>
+            <div class="col-10">
+                <div class="value text-muted">
+                    Health Insurance
+                </div>
+                <div class="display">
+                    {{ benefitsDetail?.medicalInsurance }}
+                </div>
+                <div class="value">
+                    POS 2000-80
+                </div>
+                <div class="value">
+                    <div class="group-value"><span class="text-muted">Group No:</span> 3W2345</div> <div class="group-value"><span class="text-muted">Member ID:</span> 789012875</div>
+                </div>
+            </div>
+        </div>
+        <div class="card-display-value row"  onmouseover="this.style.backgroundColor='#e6e8ea'" onmouseout="this.style.backgroundColor='#f3f5f7'">
+            <div class="col-2 align-self-center text-center">
+                <i class="icon icon-tooth"></i>
+            </div>
+            <div class="col-10">
+                <div class="value text-muted">Dental Insurance</div>
+                <div class="display">
+                        {{ benefitsDetail?.dentalInsurance }}
+                </div>
+                <div class="value">
+                    Pan B (EXCL MS MT TX)
+                </div>
+                <div class="value">
+                    <div class="group-value"><span class="text-muted">Group No:</span> 3W2345</div> <div class="group-value"><span class="text-muted">Member ID:</span> 789012875</div>
+                </div>
+            </div>
+        </div>        
+        <div class="card-display-value row"  onmouseover="this.style.backgroundColor='#e6e8ea'" onmouseout="this.style.backgroundColor='#f3f5f7'">
+            <div class="col-2 align-self-center text-center">
+                <i class="icon icon-glasses"></i>
+            </div>
+            <div class="col-10">
+                <div class="value text-muted">Vision</div>
+                <div class="display">
+                        {{ benefitsDetail?.visionInsurance }}
+                </div>
+                <div class="value">
+                    Eye 4455 PPO
+                </div>
+                <div class="value">
+                    <div class="group-value"><span class="text-muted">Group No:</span> 3W2345</div> <div class="group-value"><span class="text-muted">Member ID:</span> 789012875</div>
+                </div>
+            </div>
+        </div>
+      <br/>    
+    </div>
+    <div class="dashboard-benefit-detail-footer">
+        <a href="javascript:void(0)">Compare Plans <i class="icon icon-arrow"></i></a>
+    </div>
+  </div>

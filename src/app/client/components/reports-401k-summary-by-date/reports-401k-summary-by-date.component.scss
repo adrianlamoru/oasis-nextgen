@@ -1,0 +1,29 @@
+@import '~sass/variables';
+
+.reports-401k-summary-by-date{
+
+    .section{
+        .section-title{
+            margin-bottom: 15px;
+       }
+
+        .back-button{
+            margin-top: 17px;
+        }
+        
+      .date-range-row{
+          padding-top: 14px;
+      }
+
+      .custom-date-picker-size{
+          width: 208px;
+          margin-right: 10px;
+
+          .custom-input-field{
+              width: 208px;
+              font-weight: 500;
+              line-height: 1.29;
+          }
+      }
+    }
+}

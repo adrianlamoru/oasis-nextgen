@@ -1,0 +1,67 @@
+<div class="custom-modal-window #employeeDetailsPTOSummaryModal">
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">Paid Time Off</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+      <span class="icon icon-close"></span>
+    </button>
+  </div>
+  <div class="modal-body custom-modal-body-padding">
+    <!--{{diagnosticEmployee}}-->
+    <!--Existing Recurring Deduction List-->
+    <div class="custom-grid">
+      <div class="row">
+        <div class="col-12">
+          <div class="custom-grid-header pb-1">
+            <div class="row">
+              <div class="col-4">
+                <h3 class="display-3 pl-0 table-title">Paid Time Off Detail</h3>
+              </div>
+              <div class="col-12" *ngIf="isLoading">
+                <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+              </div>
+              <div class="col-8 text-right mt-1">
+                <div class="d-flex float-right">
+                  <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                          (click)="requestedFunction('print')">
+                      <span class="icon icon-pint"></span>
+                      <span>PRINT</span>
+                  </button>
+                  <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+                    <button class="btn btn-light" id="downloadDD" ngbDropdownToggle>
+                      <span>Download
+                          <i class="icon icon-shape"></i>
+                      </span>
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="Download">
+                      <button type="button" class="dropdown-item" *ngFor="let item of dropdownOptions[0].items" (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-1" *ngIf="!isLoading">
+        <div class="col-lg-12 mt-2">
+          <dx-data-grid [dataSource]="employeePTOSummary" [columnAutoWidth]="true" >
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="referenceNumber" caption="Reference" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="effectiveDate" caption="Date" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="absenceCode" caption="Code" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="absenceDescription" caption="Description" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="hoursAbsent" caption="Hours Absent" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="hoursAccrued" caption="Hours Accrued" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="hoursCarriedOver" caption="Hours Carried Over" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="comment" caption="Comment" [allowSorting]="false"></dxi-column>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+    <br />
+  </div>
+  <div class="modal-footer">
+    <!--<button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="c('Close click')">Submit</button>-->
+  </div>
+</div>

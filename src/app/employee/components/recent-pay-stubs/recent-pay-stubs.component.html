@@ -1,0 +1,59 @@
+<div class="main-area-container recent-pay-stubs">
+  <div class="recent-pay-stubs-header">
+    <div class="row">
+      <div class="col-6">
+          <h3 class="text-left">Recent Pay Stubs</h3>
+      </div>
+      <div class="col-6">
+        <h3 class="text-right">
+          <a href="javascript:void(0)" (click)="togglePay()" *ngIf="togglePayValue">
+            <span class="icon icon-eye-hide icon-mr"></span>
+            <span>HIDE PAY</span>
+          </a>
+          <a href="javascript:void(0)" (click)="togglePay()" *ngIf="!togglePayValue"> 
+            <span class="icon icon-eye-show icon-mr"></span>
+            <span>SHOW PAY</span>
+          </a>
+        </h3> 
+      </div>
+    </div>        
+  </div>
+  <div class="recent-pay-stubs-body">
+    <div class="custom-grid">
+      <div class="row">
+        <div class="col-lg-12">
+          <dx-data-grid #recentPayStubsDataGrid [dataSource]="recentPaySumaries" [columnAutoWidth]="true" keyExpr="id"
+            class="grid-head-font-weight-500 dx-data-grid-tab-title remove-header-border">
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="amount" caption="Amount" alignment="left" [allowSorting]="false" 
+              format="currency" precision="2" cellTemplate="amountTemplate">
+                <div *dxTemplate="let data of 'amountTemplate'">
+                    <div *ngIf="togglePayValue" class="dx-amount-item">
+                      {{ amountDisplayText(data) }}
+                    </div>
+                    <div *ngIf="!togglePayValue" class="dx-hide-value">
+                      ●●●●●
+                    </div>
+                  </div>
+            </dxi-column>
+            <dxi-column dataField="date" caption="Date" alignment="left" [allowSorting]="false"></dxi-column>
+            <dxi-column cellTemplate="editTemplate" alignment="right" [width]="105" [minWidth]="105">
+              <div *dxTemplate="let data of 'editTemplate'">
+                  <div class="dx-custom-command-edit">
+                      <a class="dx-link dx-link-edit" [href]="data.data.link" tabindex="0" target="_blank">
+                        <span class="icon icon-square-upload icon-mr"></span>
+                        <span class="btn-link-text">Download</span>
+                      </a>
+                  </div>
+              </div>
+            </dxi-column>           
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="recent-pay-stubs-footer">  
+    <a [routerLink]="['/employee/compensation/payStubs']">See All Pay Stubs <span class="icon icon-arrow"></span></a>
+  </div>   
+</div>
+  

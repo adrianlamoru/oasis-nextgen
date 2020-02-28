@@ -1,0 +1,12 @@
+<div class="card product-card">
+	<span class="badge badge-label-{{card.tag}} mb-2 mr-1" tabindex="0">{{getTagText(card.tag)}}</span>
+	<img class="card-img-top" src="{{card.image}}" alt="Card image cap">
+	<div class="card-body">
+		<span class="card-title">{{card.companyName}}</span>
+		<p #cardText class="card-text">{{card.description}}</p>
+		<button type="button" class="btn btn-link">
+			<span class="btn-link-text">See Discount</span>
+			<span class="icon icon-arrow"></span>
+		</button>
+	</div>
+</div>

@@ -1,0 +1,48 @@
+<div class="page-main-footer">
+	<span class="footer-copy-rights">Copyright &copy; Oasis Outsourcing. All Rights Reserved.&nbsp;&nbsp;|&nbsp;</span>
+	<span class="footer-link">&nbsp;<a href="javascript: void(0)" (click)="openModalSecurity('xl')">Security</a></span>
+	<span class="footer-link">&nbsp;<a href="javascript: void(0)" (click)="openModalPrivacy('xl')">Privacy</a></span>
+	<span class="footer-link">&nbsp;<a href="javascript: void(0)" (click)="openModalLegal('xl')">Legal</a></span>
+	<span class="footer-link">&nbsp;<a href="javascript: void(0)" (click)="openModalAgreement('xl')">Agreement</a></span>
+	<span class="footer-link">&nbsp;<a href="javascript: void(0)" (click)="openModalRequirements('xl')">Requirements</a></span>
+</div>
+
+<ng-template #footerLegal let-c="close" let-d="dismiss">
+	<app-footer-legal [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-footer-legal>
+</ng-template>
+
+<ng-template #footerLegalEmployee let-c="close" let-d="dismiss">
+	<app-footer-legal-employee [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-footer-legal-employee>
+</ng-template>
+
+<ng-template #footerPrivacy let-c="close" let-d="dismiss">
+	<app-footer-privacy [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-footer-privacy>
+</ng-template>
+
+<ng-template #footerPrivacyEmployee let-c="close" let-d="dismiss">
+	<app-footer-privacy-employee [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-footer-privacy-employee>
+</ng-template>
+
+<ng-template #footerRequirements let-c="close" let-d="dismiss">
+	<app-footer-requirements [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-footer-requirements>
+</ng-template>
+
+<ng-template #footerRequirementsEmployee let-c="close" let-d="dismiss">
+	<app-footer-requirements-employee [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-footer-requirements-employee>
+</ng-template>
+
+<ng-template #footerAgreement let-c="close" let-d="dismiss">
+	<app-footer-agreement [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-footer-agreement>
+</ng-template>
+
+<ng-template #footerAgreementEmployee let-c="close" let-d="dismiss">
+	<app-footer-agreement-employee [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-footer-agreement-employee>
+</ng-template>
+
+<ng-template #footerSecurity let-c="close" let-d="dismiss">
+	<app-footer-security [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-footer-security>
+</ng-template>
+
+<ng-template #footerSecurityEmployee let-c="close" let-d="dismiss">
+	<app-footer-security-employee [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-footer-security-employee>
+</ng-template>

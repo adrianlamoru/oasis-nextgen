@@ -1,0 +1,19 @@
+
+<div class="card benefits-card dashboard-card">
+  	<div class="card-body">
+  		<div class="row ex-margin-bottom">
+  			<div class="col-12 align-self-center">
+			    <h3 class="benefits-card-title">{{marketplaceWidgetData.chartTitle}}</h3>			    
+  			</div>
+  		</div> 
+		<div class="row ex-margin-bottom">
+			<div class="col-12">
+				<app-spider-chart [dataSource]="marketplaceWidgetData.spiderDataSource" [height]="250"></app-spider-chart>
+			</div>
+		</div>
+		<button type="button" class="btn btn-link btn-abs-position" (click)="openMarketplace()">
+            <span class="btn-link-text">View BizVault</span>
+            <span class="icon icon-arrow"></span>
+        </button>
+	</div>
+</div>

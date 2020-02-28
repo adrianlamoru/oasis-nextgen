@@ -1,0 +1,1156 @@
+<div class="employee-reports-container employee-reports-information-inquiry">
+  <div class="section">
+    <div class="row">
+      <div class="col-9 report-title align-self-center">
+        <span>Employee Information Inquiry</span>
+        <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-3 report-title align-self-center">                   
+        <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+      </div>
+    </div>
+    <div class="pt-3 mb-0">
+      <hr class="m-0 mb-1 p-0"/>
+      <div class="col-12" *ngIf="isLoading">
+        <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <div class="row col-12 section-title p-0 m-0">
+        <h3 class="col-9 align-self-center pl-0 m-0 font-weight-bold">Employee General Information</h3>
+        <div class="col-3 align-self-center pr-0">
+          <div class="float-right">
+            <button 
+              type="button" 
+              class="btn btn-link btn-link-icon p-0 mr-2"
+              (click)="requestedFunction('print')">
+            <span class="icon icon-pint"></span>
+            <span>PRINT</span>
+            </button>
+            <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+                <button 
+                  class="btn btn-light" 
+                  id="downloadDD" 
+                  ngbDropdownToggle>
+                    <span>
+                      Download
+                      <i class="icon icon-shape"></i>
+                    </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="Download">
+                  <button 
+                    type="button" 
+                    class="dropdown-item" 
+                    *ngFor="let item of dropdownOptions[0].items" 
+                    (click)="selectedDownloadOption(item); downloadDD.close()">
+                    {{item.name}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-8">
+          <div class="row employee-information-first-row">
+            <div class="col-6 pl-0">
+              <div class="form-group">
+                <label for="socsecnum">Social Security Number</label>
+                <input 
+                  id="socsecnum"
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].ssn">
+              </div>
+            </div>
+            <div class="col-6 employee-information-field-padding pr-0">
+              <div class="form-group">
+                <label for="employeeid">Employee ID</label>
+                <input 
+                  id="employeeid"
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeId">
+              </div>
+            </div>
+          </div>
+          <div class="row employee-information-row">
+            <div class="col-4 pl-0">
+              <div class="form-group">
+                <label for="firstname">First Name</label>
+                <input 
+                  id="firstname"
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].firstName">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding">
+              <div class="form-group">
+                <label for="middleinitial">Middle Initial</label>
+                <input 
+                  id="middleinitial"
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].middleName">
+              </div>
+            </div>
+            <div class="col-4 pr-0">
+              <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input 
+                  id="lastname"
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].lastName">
+              </div>
+            </div>
+          </div>
+          <div class="row employee-information-row">
+              <div class="col-3 pl-0">
+                <div class="form-group">
+                  <label for="addr1">Address One</label>
+                  <input 
+                    id="addr1"
+                    disabled="true"
+                    class="form-control truncate-text"
+                    [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].address1">
+                </div>
+              </div>
+              <div class="col-2 employee-information-field-padding">
+                <div class="form-group">
+                  <label for="addr2">Address Two</label>
+                  <input 
+                    id="addr2"
+                    disabled="true"
+                    class="form-control truncate-text"
+                    [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].address2">
+                </div>
+              </div>
+              <div class="col-3 employee-information-field-padding2">
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input 
+                    id="city"
+                    disabled="true"
+                    class="form-control truncate-text"
+                    [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].city">
+                </div>
+              </div>
+              <div class="col-2 employee-information-field-padding2">
+                <div class="form-group">
+                  <label for="state">State</label>
+                  <input 
+                    id="state"
+                    disabled="true"
+                    class="form-control truncate-text"
+                    [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].state">
+                </div>
+              </div>
+              <div class="col-2 pr-0">
+                <div class="form-group">
+                  <label for="zipcode">Zip Code</label>
+                  <input 
+                    id="zipcode"
+                    disabled="true"
+                    class="form-control truncate-text"
+                    [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].zip">
+                </div>
+              </div>
+            </div>
+            <div class="row employee-information-row">
+                <div class="col-3 pl-0">
+                  <div class="form-group">
+                    <label for="homephone">Home Phone</label>
+                    <input 
+                      id="homephone"
+                      disabled="true"
+                      type="text"
+                      class="form-control truncate-text"
+                      aria-describedby="homephone" 
+                      [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].homePhone">
+                  </div>
+                </div>
+                <div class="col-2 employee-information-field-padding">
+                  <div class="form-group">
+                    <label for="peostart">PEO Start</label>
+                    <input 
+                      id="peostart"
+                      disabled="true"
+                      type="text"
+                      class="form-control truncate-text"
+                      value="{{ filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].peoStartDate | date:'MM/dd/yy' }}">
+                  </div>
+                </div>
+                <div class="col-2 employee-information-field-padding2">
+                  <div class="form-group">
+                    <label for="clientstart">Client Start</label>
+                    <input 
+                      id="clientstart"
+                      disabled="true"
+                      type="text"
+                      class="form-control truncate-text"
+                      value="{{ filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].clientStartDate | date:'MM/dd/yy' }}">
+                  </div>
+                </div>
+                <div class="col-3 employee-information-field-padding2">
+                  <div class="form-group">
+                    <label for="employeestatus">Employee Status</label>
+                    <input 
+                      id="employeestatus"
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].status">
+                  </div>
+                </div>
+                <div class="col-2 pr-0">
+                    <div class="form-group">
+                      <label for="employeestatusdate">Employee Status Date</label>
+                      <input 
+                        id="employeestatusdate"
+                        disabled="true"
+                        type="text"
+                        class="form-control truncate-text"
+                        value="{{ filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].statusDate | date:'MM/dd/yy' }}">
+                    </div>
+                  </div>
+              </div>
+              <div class="row employee-information-row">
+                <div class="col-3 pl-0">
+                  <div class="form-group">
+                    <label for="emptype">Employment Type</label>
+                    <input 
+                      id="emptype"
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].employeeType">
+                  </div>
+                </div>
+                <div class="col-3 employee-information-field-padding">
+                  <div class="form-group">
+                    <label for="curpayper">Current Pay Period</label>
+                    <input 
+                      id="curpayper"
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].currentPayPeriod">
+                  </div>
+                </div>
+                <div class="col-3 employee-information-field-padding2">
+                  <div class="form-group">
+                    <label for="curpayrate">Current Pay Rate</label>
+                    <input 
+                      id="curpayrate"
+                      disabled="true"
+                      type="text"
+                      class="form-control truncate-text currency"
+                      value="{{filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].currentPayRate | currency}}">
+                  </div>
+                </div>
+                <div class="col-3 pr-0">
+                  <div class="form-group">
+                    <label for="paymethod">Pay Method</label>
+                    <input 
+                      id="paymethod"
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].payMethod">
+                  </div>
+                </div>
+              </div>
+              <div class="row employee-information-row">
+                <div class="col-4 pl-0">
+                  <div class="form-group">
+                    <label for="curannualpay">Current Annualized Pay</label>
+                    <input 
+                      id="curannualpay"
+                      disabled="true"
+                      type="text"
+                      class="form-control truncate-text"
+                      value="{{ filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].currentAnnualizedPay | currency }}">
+                  </div>
+                </div>
+                <div class="col-4 employee-information-field-padding">
+                  <div class="form-group">
+                    <label for="paygroup">Pay Group</label>
+                    <input 
+                      id="paygroup"
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].payGroup">
+                  </div>
+                </div>
+                <div class="col-4 pr-0">
+                  <div class="form-group">
+                    <label for="workshift">Work Shift</label>
+                    <input 
+                      id="workshift"
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].workShift">
+                  </div>
+                </div>
+              </div>
+              <div class="row employee-information-row">
+                  <div class="col-3 pl-0">
+                    <div class="form-group">
+                      <label for="locationcode">Location Code</label>
+                      <input 
+                        id="locationcode"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].locationCode">
+                    </div>
+                  </div>
+                  <div class="col-3 employee-information-field-padding">
+                    <div class="form-group">
+                      <label for="benefitcode">Benefit Code</label>
+                      <input 
+                        id="benefitcode"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].benefitCode">
+                    </div>
+                  </div>
+                  <div class="col-3 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="divisioncode">Division Code</label>
+                      <input 
+                        id="divisioncode"
+                        disabled="true"
+                        class="form-control truncate-text currency"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].divisionCode">
+                    </div>
+                  </div>
+                  <div class="col-3 pr-0">
+                    <div class="form-group">
+                      <label for="deptcode">Department Code</label>
+                      <input 
+                        id="deptcode"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].departmentCode">
+                    </div>
+                  </div>
+                </div>
+                <div class="row employee-information-row">
+                  <div class="col-3 pl-0">
+                    <div class="form-group">
+                      <label for="employerid">Employer ID</label>
+                      <input 
+                        id="employerid"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].employerID">
+                    </div>
+                  </div>
+                  <div class="col-3 employee-information-field-padding">
+                    <div class="form-group">
+                      <label for="jobcode">Job Code</label>
+                      <input 
+                        id="jobcode"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].jobCode">
+                    </div>
+                  </div>
+                  <div class="col-3 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="projectcode">Project Code</label>
+                      <input 
+                        id="projectcode"
+                        disabled="true"
+                        class="form-control truncate-text currency"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].projectCode">
+                    </div>
+                  </div>
+                  <div class="col-3 pr-0">
+                    <div class="form-group">
+                      <label for="employeenumber">Employee Number</label>
+                      <input 
+                        id="employeenumber"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].employeeNumber">
+                    </div>
+                  </div>
+                </div>
+                <div class="row employee-information-row">
+                  <div class="col-3 pl-0">
+                    <div class="form-group">
+                      <label for="birthdate">Birth Date</label>
+                      <input 
+                        id="birthdate"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        type="text"
+                        value="{{ filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].birthDate | date:'MM/dd/yy' }}">
+                    </div>
+                  </div>
+                  <div class="col-3 employee-information-field-padding">
+                    <div class="form-group">
+                      <label for="gender">Gender</label>
+                      <input 
+                        id="gender"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].gender">
+                    </div>
+                  </div>
+                  <div class="col-3 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="ethnicity">Ethnicity</label>
+                      <input 
+                        id="ethnicity"
+                        disabled="true"
+                        class="form-control truncate-text currency"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].ethnicity">
+                    </div>
+                  </div>
+                  <div class="col-3 pr-0">
+                    <div class="form-group">
+                      <label for="maritalStatus">Marital Status</label>
+                      <input 
+                        id="maritalStatus"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].maritalStatus">
+                    </div>
+                  </div>
+                </div>
+                <div class="row employee-information-row">
+                  <div class="col-3 pl-0">
+                    <div class="form-group">
+                      <label for="unioncode">Union Code</label>
+                      <input 
+                        id="unioncode"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].unionCode">
+                    </div>
+                  </div>
+                  <div class="col-3 employee-information-field-padding">
+                    <div class="form-group">
+                      <label for="stdhours">Standard Hours</label>
+                      <input 
+                        id="stdhours"
+                        disabled="true"
+                        type="text"
+                        class="form-control truncate-text"
+                        value="{{ filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].standardHours | number:'1.2-2'}}">
+                    </div>
+                  </div>
+                  <div class="col-3 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="autoacceptts">Auto Accept T/S</label>
+                      <input 
+                        id="autoacceptts"
+                        disabled="true"
+                        class="form-control truncate-text currency"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].autoAcceptTS">
+                    </div>
+                  </div>
+                  <div class="col-3 pr-0">
+                    <div class="form-group">
+                      <label for="defaulttshours">Default T/S Hours</label>
+                      <input 
+                        id="defaulttshours"
+                        disabled="true"
+                        type="text"
+                        class="form-control truncate-text"
+                        value="{{ filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].defaultTSHours | number:'1.2-2' }}">
+                    </div>
+                  </div>
+                </div>
+                <div class="row employee-information-row">
+                  <div class="col-4 pl-0">
+                    <div class="form-group">
+                      <label for="emailaddress">Email Address</label>
+                      <input 
+                        id="emailaddress"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].emailAddress">
+                    </div>
+                  </div>
+                  <div class="col-4 employee-information-field-padding">
+                    <div class="form-group">
+                      <label for="dailytimesheet">Daily Timesheets</label>
+                      <input 
+                        id="dailytimesheet"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].dailyTimesheets">
+                    </div>
+                  </div>
+                  <div class="col-4 pr-0">
+                    <div class="form-group">
+                      <label for="termreason">Term Reason</label>
+                      <input 
+                        id="termreason"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeGeneralInformation[0].termReason">
+                    </div>
+                  </div>
+                </div>
+              <div class="row col-12 section-title2 p-0 m-0">
+                <h3 class="align-self-center pl-0 m-0 font-weight-bold">Direct Deposit</h3>
+              </div>
+              <div class="row employee-information-row">
+                <div class="row col-12 employee-information-row2 p-0" *ngFor="let ddItem of filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeDirectDeposit">
+                    <div class="col-3 pl-0">
+                      <div class="form-group">
+                        <label for="ddtype">Type</label>
+                        <input 
+                          id="ddtype"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="ddItem.type">
+                      </div>
+                    </div>
+                    <div class="col-3 employee-information-field-padding">
+                      <div class="form-group">
+                        <label for="ddaccount">Account</label>
+                        <input 
+                          id="ddaccount"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="ddItem.account">
+                      </div>
+                    </div>
+                    <div class="col-3 employee-information-field-padding2">
+                      <div class="form-group">
+                        <label for="ddamount">Amount</label>
+                        <input 
+                          id="ddamount"
+                          disabled="true"
+                          type="text"
+                          class="form-control truncate-text currency"
+                          value="{{ddItem.amount | currency}}">
+                      </div>
+                    </div>
+                    <div class="col-3 pr-0">
+                      <div class="form-group">
+                        <label for="ddstatus">Status</label>
+                        <input 
+                          id="ddstatus"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="ddItem.status">
+                      </div>
+                    </div>
+                  </div>
+              </div>
+              <div class="row col-12 section-title2 p-0 m-0">
+                <h3 class="align-self-center pl-0 m-0 font-weight-bold">State Government</h3>
+              </div>
+              <div class="row employee-information-row">
+                <div class="row col-12 employee-information-row2 p-0" *ngFor="let sgItem of filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeStateGovernment; let i = index;">
+                  <div class="row col-12 p-0 m-0">
+                      <div class="col-4 pl-0">
+                        <div class="form-group">
+                          <label for="sgstate">State {{ i + 1 }}</label>
+                          <input 
+                            id="sgstate"
+                            disabled="true"
+                            class="form-control truncate-text"
+                            [(ngModel)]="sgItem.state">
+                        </div>
+                      </div>
+                      <div class="col-4 employee-information-field-padding">
+                        <div class="form-group">
+                          <label for="sgfilingstatus">Filing Status {{ i + 1 }}</label>
+                          <input 
+                            id="sgfilingstatus"
+                            disabled="true"
+                            class="form-control truncate-text"
+                            [(ngModel)]="sgItem.filingStatus">
+                        </div>
+                      </div>
+                      <div class="col-4 pr-0">
+                        <div class="form-group">
+                          <label for="sgaltcalc">Alt Calc {{ i + 1 }}</label>
+                          <input 
+                            id="sgaltcalc"
+                            disabled="true"
+                            class="form-control truncate-text"
+                            [(ngModel)]="sgItem.altCalc">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row employee-information-row2 col-12 pl-0 pr-0">
+                      <div class="col-3 pl-0">
+                          <div class="form-group">
+                            <label for="sgallowances">Allowances {{ i + 1 }}</label>
+                            <input 
+                              id="sgallowances"
+                              disabled="true"
+                              class="form-control truncate-text"
+                              [(ngModel)]="sgItem.allowances">
+                          </div>
+                        </div>
+                      <div class="col-3 employee-information-field-padding">
+                        <div class="form-group">
+                          <label for="sgsecallowances">Secondary Allowances {{ i + 1 }}</label>
+                          <input 
+                            id="sgsecallowances"
+                            disabled="true"
+                            class="form-control truncate-text"
+                            [(ngModel)]="sgItem.secondaryAllowances">
+                        </div>
+                      </div>
+                      <div class="col-2 employee-information-field-padding2">
+                        <div class="form-group">
+                          <label for="sgexemption">Exemption {{ i + 1 }}</label>
+                          <input 
+                            id="sgexemption"
+                            disabled="true"
+                            class="form-control truncate-text"
+                            [(ngModel)]="sgItem.exemption">
+                        </div>
+                      </div>
+                      <div class="col-2 employee-information-field-padding2">
+                        <div class="form-group">
+                          <label for="sgsuppexemption">Supplementary Exemption {{ i + 1 }}</label>
+                          <input 
+                            id="sgsuppexemption"
+                            disabled="true"
+                            class="form-control truncate-text"
+                            [(ngModel)]="sgItem.supplementaryExemption">
+                        </div>
+                      </div>
+                      <div class="col-2 pr-0">
+                        <div class="form-group">
+                          <label for="sgnrcert">Non Res Cert {{ i + 1 }}</label>
+                          <input 
+                            id="sgnrcert"
+                            disabled="true"
+                            class="form-control truncate-text"
+                            [(ngModel)]="sgItem.nrCertificate">
+                        </div>
+                      </div>
+                    </div>
+                  <div class="row employee-information-row2 col-12 pl-0 pr-0">
+                    <div class="col-3 pl-0">
+                        <div class="form-group">
+                          <label for="sgoverridetype">Override Type {{ i + 1 }}</label>
+                          <input 
+                            id="sgoverridetype"
+                            disabled="true"
+                            class="form-control truncate-text"
+                            [(ngModel)]="sgItem.overrideType">
+                        </div>
+                      </div>
+                    <div class="col-3 employee-information-field-padding">
+                      <div class="form-group">
+                        <label for="sgoverridenumber">Override Number {{ i + 1 }}</label>
+                        <input 
+                          id="sgoverridenumber"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="sgItem.overrideNumber">
+                      </div>
+                    </div>
+                    <div class="col-3 employee-information-field-padding2">
+                      <div class="form-group">
+                        <label for="sgw4filed">W4 Filed {{ i + 1 }}</label>
+                        <input 
+                          id="sgw4filed"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="sgItem.w4Filed">
+                      </div>
+                    </div>
+                    <div class="col-3 pr-0">
+                      <div class="form-group">
+                        <label for="sgw4year">W4 Year {{ i + 1 }}</label>
+                        <input 
+                          id="sgw4year"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="sgItem.w4Year">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row col-12 section-title2 p-0 m-0">
+                <h3 class="align-self-center pl-0 m-0 font-weight-bold">Federal Government</h3>
+              </div>
+              <div class="row employee-information-row">
+                <div class="row col-12 employee-information-row2 p-0">
+                  <div class="col-3 pl-0">
+                    <div class="form-group">
+                      <label for="fgfilingstatus">Filing Status</label>
+                      <input 
+                        id="fgfilingstatus"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].filingStatus">
+                    </div>
+                  </div>
+                  <div class="col-2 employee-information-field-padding">
+                    <div class="form-group">
+                      <label for="fgwithholding">Withholding</label>
+                      <input 
+                        id="fgwithholding"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].withHolding">
+                    </div>
+                  </div>
+                  <div class="col-2 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="fgoverridetype">Override Type</label>
+                      <input 
+                        id="fgoverridetype"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].overrideType">
+                    </div>
+                  </div>
+                  <div class="col-3 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="fgoverrideamt">Override Amount</label>
+                      <input 
+                        id="fgoverrideamt"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        type="text"
+                        value="{{ filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].overrideAmount | currency }}">
+                    </div>
+                  </div>
+                  <div class="col-2 pr-0">
+                    <div class="form-group">
+                      <label for="fgeicstatus">EIC File Status</label>
+                      <input 
+                        id="fgeicstatus"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].eicFileStatus">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row employee-information-row">
+                <div class="row col-12 employee-information-row2 p-0 mt-0">
+                  <div class="col-2 pl-0">
+                    <div class="form-group">
+                      <label for="fgi9forminfo">I-9 Form Info</label>
+                      <input 
+                        id="fgi9forminfo"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].i9FormInfo">
+                    </div>
+                  </div>
+                  <div class="col-2 employee-information-field-padding">
+                    <div class="form-group">
+                      <label for="fgi9formcompleted">INS I-9 Form Completed</label>
+                      <input 
+                        id="fgi9formcompleted"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].insI9FormCompleted">
+                    </div>
+                  </div>
+                  <div class="col-3 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="fgicrcaid">IRCA ID Number</label>
+                      <input 
+                        id="fgicrcaid"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].ircaIdNumber">
+                    </div>
+                  </div>
+                  <div class="col-3 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="fgalienreg">Alien Registration Number</label>
+                      <input 
+                        id="fgalienreg"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        type="text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].alienRegistrationNumber">
+                    </div>
+                  </div>
+                  <div class="col-2 pr-0">
+                    <div class="form-group">
+                      <label for="fgircaelig">IRCA Eligibility Document</label>
+                      <input 
+                        id="fgircaelig"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].ircaEligibilityDocument">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row employee-information-row">
+                <div class="row col-12 employee-information-row2 p-0 mt-0">
+                  <div class="col-2 pl-0">
+                    <div class="form-group">
+                      <label for="fgw4filed">W-4 Filed</label>
+                      <input 
+                        id="fgw4filed"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].w4Filed">
+                    </div>
+                  </div>
+                  <div class="col-2 employee-information-field-padding">
+                    <div class="form-group">
+                      <label for="fgw4year">W-4 Year</label>
+                      <input 
+                        id="fgw4year"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].w4Year">
+                    </div>
+                  </div>
+                  <div class="col-2 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="fgw5filed">W-5 Filed</label>
+                      <input 
+                        id="fgw5filed"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].w5Filed">
+                    </div>
+                  </div>
+                  <div class="col-2 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="fgw5year">W-5 Year</label>
+                      <input 
+                        id="fgw5year"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        type="text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].w5Year">
+                    </div>
+                  </div>
+                  <div class="col-2 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="fgrenewdate">Renew Date</label>
+                      <input 
+                        id="fgrenewdate"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        type="text"
+                        value="{{ filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].renewDate | date:'MM/dd/yy' }}">
+                    </div>
+                  </div>
+                  <div class="col-2 pr-0">
+                    <div class="form-group">
+                      <label for="fgficaexempt">FICA Exempt</label>
+                      <input 
+                        id="fgficaexempt"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeFederalGovernment[0].ficaExempt">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row col-12 section-title2 p-0 m-0">
+                <h3 class="align-self-center pl-0 m-0 font-weight-bold">Emergency Information</h3>
+              </div>
+              <div class="row employee-information-row">
+                <div class="row col-12 employee-information-row2 p-0">
+                  <div class="col-4 pl-0">
+                    <div class="form-group">
+                      <label for="eicontact">Contact Name</label>
+                      <input 
+                        id="eicontact"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeEmergencyInformation[0].contactName">
+                    </div>
+                  </div>
+                  <div class="col-4 employee-information-field-padding">
+                    <div class="form-group">
+                      <label for="eirelation">Relation</label>
+                      <input 
+                        id="eirelation"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeEmergencyInformation[0].relation">
+                    </div>
+                  </div>
+                  <div class="col-4 pr-0">
+                    <div class="form-group">
+                      <label for="eitelephone">Telephone</label>
+                      <input 
+                        id="eitelephone"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeEmergencyInformation[0].telephone">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row col-12 section-title2 p-0 m-0">
+                <h3 class="align-self-center pl-0 m-0 font-weight-bold">Other Items</h3>
+              </div>
+              <div class="row employee-information-row">
+                <div class="row col-12 employee-information-row2 p-0">
+                  <div class="col-2 pl-0">
+                    <div class="form-group">
+                      <label for="oihandicapped">Handicapped</label>
+                      <input 
+                        id="oihandicapped"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].handicapped">
+                    </div>
+                  </div>
+                  <div class="col-2 employee-information-field-padding">
+                    <div class="form-group">
+                      <label for="oismoker">Smoker</label>
+                      <input 
+                        id="oismoker"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].smoker">
+                    </div>
+                  </div>
+                  <div class="col-2 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="oicourtordmed">Court Ordered Medical</label>
+                      <input 
+                        id="oicourtordmed"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].courtOrderedMedical">
+                    </div>
+                  </div>
+                  <div class="col-2 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="oihimedwaiver">Hawaii Medical Waiver</label>
+                      <input 
+                        id="oihimedwaiver"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].hawaiiMedicalWaiver">
+                    </div>
+                  </div>
+                  <div class="col-2 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="oimailcheck">Mail Check Home</label>
+                      <input 
+                        id="oimailcheck"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].mailCheckHome">
+                    </div>
+                  </div>
+                  <div class="col-2 pr-0">
+                    <div class="form-group">
+                      <label for="oiofficer">Officer</label>
+                      <input 
+                        id="oiofficer"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].officer">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row employee-information-row">
+                <div class="row col-12 employee-information-row2 p-0 mt-0">
+                  <div class="col-2 pl-0">
+                    <div class="form-group">
+                      <label for="oicitizenship">Citizenship</label>
+                      <input 
+                        id="oicitizenship"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].citizenship">
+                    </div>
+                  </div>
+                  <div class="col-2 employee-information-field-padding">
+                    <div class="form-group">
+                      <label for="oilicenseplatenumber">License Plate Number</label>
+                      <input 
+                        id="oilicenseplatenumber"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].licensePlateNumber">
+                    </div>
+                  </div>
+                  <div class="col-2 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="oidriverlicensenumber">Driver License Number</label>
+                      <input 
+                        id="oidriverlicensenumber"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].driverLicenseNumber">
+                    </div>
+                  </div>
+                  <div class="col-2 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="oilicenseexpires">License Expires Date</label>
+                      <input 
+                        id="oilicenseexpires"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        type="text"
+                        value="{{ filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].licenseExpiresDate | date:'MM/dd/yy' }}">
+                    </div>
+                  </div>
+                  <div class="col-2 employee-information-field-padding2">
+                    <div class="form-group">
+                      <label for="oistateissuinglicense">State Issuing License</label>
+                      <input 
+                        id="oistateissuinglicense"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].stateIssuingLicense">
+                    </div>
+                  </div>
+                  <div class="col-2 pr-0">
+                    <div class="form-group">
+                      <label for="oiservicemedalvet">Service Medal Vet</label>
+                      <input 
+                        id="oiservicemedalvet"
+                        disabled="true"
+                        class="form-control truncate-text"
+                        [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].serviceMedalVet">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row employee-information-row">
+                  <div class="row col-12 employee-information-row2 p-0 mt-0">
+                    <div class="col-2 pl-0">
+                      <div class="form-group">
+                        <label for="oiblind">Blind</label>
+                        <input 
+                          id="oiblind"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].blind">
+                      </div>
+                    </div>
+                    <div class="col-2 employee-information-field-padding">
+                      <div class="form-group">
+                        <label for="oidisabledvet">Disabled Vet</label>
+                        <input 
+                          id="oidisabledvet"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].disabledVet">
+                      </div>
+                    </div>
+                    <div class="col-2 employee-information-field-padding2">
+                      <div class="form-group">
+                        <label for="oitaxcreditemployee">Tax Credit Employee</label>
+                        <input 
+                          id="oitaxcreditemployee"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].taxCreditEmployee">
+                      </div>
+                    </div>
+                    <div class="col-2 employee-information-field-padding2">
+                      <div class="form-group">
+                        <label for="oiohioform">Ohio Form C112 Signed</label>
+                        <input 
+                          id="oiohioform"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].ohioFormC112Signed">
+                      </div>
+                    </div>
+                    <div class="col-2 employee-information-field-padding2">
+                      <div class="form-group">
+                        <label for="oiscorp">S-Corp Principal</label>
+                        <input 
+                          id="oiscorp"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].sCorpPrincipal">
+                      </div>
+                    </div>
+                    <div class="col-2 pr-0">
+                      <div class="form-group">
+                        <label for="oivietnamvet">Vietnam Vet</label>
+                        <input 
+                          id="oivietnamvet"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].vietnamVet">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row employee-information-row">
+                  <div class="row col-12 employee-information-row2 p-0 mt-0">
+                    <div class="col-2 pl-0">
+                      <div class="form-group">
+                        <label for="oihandbookmailed">HandBook Mailed</label>
+                        <input 
+                          id="oihandbookmailed"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].handbookMailed">
+                      </div>
+                    </div>
+                    <div class="col-2 employee-information-field-padding">
+                      <div class="form-group">
+                        <label for="oihandbookreceived">HandBook Received</label>
+                        <input 
+                          id="oihandbookreceived"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].handbookReceived">
+                      </div>
+                    </div>
+                    <div class="col-2 employee-information-field-padding2">
+                      <div class="form-group">
+                        <label for="oimaxgarnishment">Max Garnishment %</label>
+                        <input 
+                          id="oimaxgarnishment"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].maxGarnishmentPercent">
+                      </div>
+                    </div>
+                    <div class="col-2 employee-information-field-padding2">
+                      <div class="form-group">
+                        <label for="oiclocknumber">Clock Number</label>
+                        <input 
+                          id="oiclocknumber"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].clockNumber">
+                      </div>
+                    </div>
+                    <div class="col-2 employee-information-field-padding2">
+                      <div class="form-group">
+                        <label for="oinewlysepvet">Newly Separated Vet</label>
+                        <input 
+                          id="oinewlysepvet"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].newlySeparatedVet">
+                      </div>
+                    </div>
+                    <div class="col-2 pr-0">
+                      <div class="form-group">
+                        <label for="oiactivedutyvet">Active Duty Badge Vet</label>
+                        <input 
+                          id="oiactivedutyvet"
+                          disabled="true"
+                          class="form-control truncate-text"
+                          [(ngModel)]="filteredEmployeeReportEmployeeInformationInquiryReport[0].employeeOtherItems[0].activeDutyBadgeVet">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>

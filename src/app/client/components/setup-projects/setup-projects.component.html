@@ -1,0 +1,89 @@
+<div class="row projects-component setup-container-content">
+    <div class="col-12 custom-grid">
+        <div class="row">
+            <div class="col-12">
+                <div class="custom-grid-header">
+                    <h3 class="display-3 table-title">Projects</h3>
+                    <dx-button text="Add Code" class="btn btn-primary pull-right" (onClick)="addCode()"></dx-button>
+                </div>
+
+                <!-- DataGrid -->
+                <dx-data-grid id="departmentsGrid" [dataSource]="projectsDataRows" (onCellClick)="onCellButtonClick($event)">
+
+                    <dxo-paging [enabled]="false"></dxo-paging>
+
+                    <dxi-column dataField="projectCode" caption="Project Code" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="projectDescription" caption="Project Description" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="certifiedPayroll" caption="Certified Payroll" alignment="left" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="projectLocation" caption="Project Location" [allowSorting]="false"></dxi-column>
+                    <dxi-column dataField="projectContractNumber" caption="Certified Contractor Name" [allowSorting]="false"></dxi-column>
+                    <dxi-column [allowSorting]="false" cellTemplate="cellEditTemplate" [width]="51"></dxi-column>
+
+                    <div *dxTemplate="let d of 'cellEditTemplate'" class="custom-cell">
+                        <button id="edit-button-departmentCode" tabindex="0" type="button" class="btn btn-link cell-button" >
+                            <span class="btn-link-text">Edit</span>
+                        </button>
+                    </div>
+
+                </dx-data-grid>
+                <!-- END DataGrid -->
+
+                <!-- ADD/EDIT Popup -->
+                <dx-popup
+                    class="custom-dx-popup"
+                    #popupEditProjectCode
+                    [showTitle]="false"
+                    [width]="383"
+                    [height]="'auto'"
+                    [position]="{ my: 'middle', at: 'middle', of: window }"
+                    [showCloseButton]="false"
+                    [dragEnabled]="false"
+                    [closeOnOutsideClick]="true"
+                    [(visible)]="editPopupVisible">
+                    <div *dxTemplate="let data of 'content'">
+
+                        <div class="custom-modal-window" ngForm #pCodeForm="ngForm">
+                          <div class="modal-header">
+                            <h4 class="modal-title modal-title-capitalize align-self-center float-left">{{popupTitle}}</h4>
+                            <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="onCancelClick()">
+                              <span class="icon icon-close"></span>
+                            </button>
+                          </div>
+
+                          <div class="modal-body">
+                            <div class="form-group">
+                                <h4>Project Code</h4>
+                                <input [disabled]="actionTypeSelected === 'EDIT'" id="projectCodeInput" name="projectCodeInput" placeholder="Project Code"  type="text" class="form-control" required [(ngModel)]="currentSelectedRow.projectCode" #projectCodeInput="ngModel">
+                            </div>
+                            <div class="form-group">
+                              <h4>Project Description</h4>
+                              <input id="projectDescriptionInput" name="projectDescriptionInput" placeholder="Project Description"  type="text" class="form-control" required [(ngModel)]="currentSelectedRow.projectDescription" #projectDescriptionInput="ngModel">
+                            </div>
+                            <div class="form-group">
+                              <h4>Certified Payroll</h4>
+                              <dx-check-box [(value)]="currentSelectedRow.certifiedPayroll"></dx-check-box>
+                            </div>
+                            <div class="form-group">
+                              <h4>Project Location</h4>
+                              <input id="projectLocation" name="projectLocation" placeholder="Project Location"  type="text" class="form-control" [(ngModel)]="currentSelectedRow.projectLocation">
+                            </div>
+                            <div class="form-group">
+                              <h4>Certified Contractor Name</h4>
+                              <input id="projectContractNumber" name="projectContractNumber" placeholder="Certified Contractor Name"  type="text" class="form-control" [(ngModel)]="currentSelectedRow.projectContractNumber">
+                            </div>
+                          </div>
+
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-primary" (click)="onCancelClick()">Cancel</button>
+                            <button type="button" [disabled]="pCodeForm.invalid" class="btn btn-primary" (click)="onSubmitClick()">Confirm</button>
+                          </div>
+                        </div>
+
+                    </div>
+                </dx-popup>
+                <!-- END ADD/EDIT Popup -->
+
+            </div>
+        </div>
+    </div>
+</div>

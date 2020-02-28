@@ -1,0 +1,43 @@
+
+<div class="finalize-submit-component">
+  <div class="row">
+    <div class="col-8">
+      <div class="row">
+        <div class="form-group col-12">
+          <label class="vertical-sub mb-0">Do you need to submit additional information?</label>
+          <button class="btn btn-primary float-right" (click)="openUploadModal('lg', uploadModal)">Upload</button>
+        </div>
+        <ng-template #uploadModal let-c="close" let-d="dismiss">
+          <app-upload [modalCloseFunc]="this.c" [modalDismissFunc]="this.d" [isTypeModal]="true"></app-upload>
+        </ng-template>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="horizontal-separator"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-127">
+          <div class="taxes-paragraph">
+            The information you provide to Oasis on this portal is at your discretion, and Oasis accepts no liability for the content of uploads. 
+            You take full responsibility for the legality and appropriateness of materials uploaded and agree to only upload material that is proper and related to the particular service. 
+            You warrant that you have all of the necessary rights in the content you upload, that your content is not defamatory and that it does not infringe any law. 
+            You warrant that you have scanned and conducted any other necessary steps to ensure documents or information being uploaded to the portal are free from any viruses,
+            corrupted files, or any other similar software or programs that may damage the operation of another's computer. 
+            You agree to indemnify Oasis against any all legal fees, damages and other expenses that may be incurred as a result of a breach of the above warranties. 
+            By uploading documents or information to this portal, you are accepting the conditions above.
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="horizontal-separator"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div  style="display: none">
+  <img class="custom-image" src="/assets/images/getting-started/confirmation-journey-min.png" alt="" width="400">
+</div>

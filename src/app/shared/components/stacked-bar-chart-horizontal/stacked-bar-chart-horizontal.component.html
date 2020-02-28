@@ -1,0 +1,62 @@
+<div class="chart-container">
+    <dx-chart
+        [dataSource]="dataSource"
+        [barWidth]="0.43"
+        [rotated]="true"      
+        [equalBarWidth]="true"
+        [customizePoint]="customizePoint"
+        [customizeLabel]="customizeLabel">
+      
+      <dxi-series 
+        valueField="new" 
+        name="New"
+        color="#9D006B">
+      </dxi-series>
+      <dxi-series 
+        valueField="open" 
+        name="Open"
+        color="#1a52ce"></dxi-series>
+      <dxi-series 
+        valueField="complete" 
+        name="Complete"
+        color="#33bf96">
+      </dxi-series>
+      <dxi-series 
+        valueField="in_progress"
+        name="In Progress"
+        color="#cacdd3">
+      </dxi-series>
+        
+      <dxi-value-axis>
+          <dxo-label [visible]="false"></dxo-label>
+          <dxo-grid [visible]="false"></dxo-grid>
+      </dxi-value-axis>
+      
+      <dxo-common-series-settings       
+          argumentField="support"
+          [innerRadius]="0.3"
+          type="fullStackedBar">
+          <dxo-label [visible]="true"></dxo-label>
+      </dxo-common-series-settings>
+      
+      <dxo-legend 
+        [customizeText]="customizeLegendText"   
+        horizontalAlignment="right"
+        [columnCount]="1"
+        [markerSize]="8"
+        [rowItemSpacing]="5">
+        <dxo-margin [left]="40" [top]="48"></dxo-margin>
+      </dxo-legend>
+      
+      <dxo-export 
+        [enabled]="false">
+      </dxo-export>
+      <dxo-tooltip
+          [enabled]="false">
+      </dxo-tooltip>
+      <dxo-size *ngIf="height" [height]="height"></dxo-size>
+      <dxo-size *ngIf="width && !height" [width]="width"></dxo-size>
+      <dxo-size *ngIf="width && height" [height]="height" [width]="width"></dxo-size>  
+  </dx-chart>
+</div>
+  

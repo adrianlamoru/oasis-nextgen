@@ -1,0 +1,109 @@
+    <div class="row">
+        <div class="col" style="padding: 0; margin-top: -30px;">
+            <app-enrichment-area></app-enrichment-area>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <app-messages [messages]="messages"></app-messages>
+        </div>
+    </div>
+    <div class="dashboard-component-area">
+        
+        <div class="row" *ngIf="widgetsAvailables <= 2">    
+            <div class="col-lg-6 fix-height-component" *ngIf="myPayEnabled">
+                <app-pay-summary (loadedPaySummary)="loadedPaySummary($event)"></app-pay-summary>
+            </div>  
+            <div class="col-lg-6 fix-height-component" *ngIf="myPayEnabledSummaries">
+                <app-recent-pay-stubs (loadedPaySummaries)="loadedPaySummaries($event)"></app-recent-pay-stubs>
+            </div>  
+            <div class="col-lg-6" *ngIf="leaveTrackerEnabled" [ngClass]="{'fix-height-component': myPayEnabled != myPayEnabledSummaries }">
+                <app-my-leave-tracker [leaveTracker]="leaveTracker"></app-my-leave-tracker>
+            </div>    
+            <div class="col-lg-6" *ngIf="my401kEnabled" [ngClass]="{'fix-height-component': myPayEnabled != myPayEnabledSummaries }">
+                <app-my-401k [my401kData]="my401kData"></app-my-401k>
+            </div>
+        </div>
+        
+        <div *ngIf="widgetsAvailables == 3">
+            <div *ngIf="myPayEnabledSummaries && myPayEnabled">
+                <div class="row fix-height-component">    
+                    <div class="col-lg-6">
+                        <app-pay-summary (loadedPaySummary)="loadedPaySummary($event)"></app-pay-summary>
+                    </div>  
+                    <div class="col-lg-6">
+                        <app-recent-pay-stubs (loadedPaySummaries)="loadedPaySummaries($event)"></app-recent-pay-stubs>
+                    </div>  
+                </div>
+                <div class="row">    
+                    <div class="col-lg-6 fix-height-component" *ngIf="leaveTrackerEnabled">
+                        <div class="mt-30">
+                            <app-my-leave-tracker [leaveTracker]="leaveTracker"></app-my-leave-tracker>
+                        </div>
+                    </div>    
+                    <div class="col-lg-6 fix-height-component" *ngIf="my401kEnabled">
+                        <div class="mt-30">
+                            <app-my-401k [my401kData]="my401kData"></app-my-401k>
+                        </div>                
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="!myPayEnabledSummaries">
+                <div class="row fix-height-component">    
+                    <div class="col-lg-6">
+                        <app-pay-summary (loadedPaySummary)="loadedPaySummary($event)"></app-pay-summary>
+                    </div>  
+                    <div class="col-lg-6">
+                        <app-my-leave-tracker [leaveTracker]="leaveTracker"></app-my-leave-tracker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mt-30">
+                            <app-my-401k [my401kData]="my401kData"></app-my-401k>
+                        </div>               
+                    </div>
+                </div>
+            </div>
+            
+            <div *ngIf="!myPayEnabled">
+                <div class="row fix-height-component">    
+                    <div class="col-lg-6">
+                        <app-recent-pay-stubs (loadedPaySummaries)="loadedPaySummaries($event)"></app-recent-pay-stubs>
+                    </div>  
+                    <div class="col-lg-6">
+                        <app-my-leave-tracker [leaveTracker]="leaveTracker"></app-my-leave-tracker>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="mt-30">
+                            <app-my-401k [my401kData]="my401kData"></app-my-401k>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row fix-height-component" *ngIf="widgetsAvailables > 3">    
+            <div class="col-lg-6">
+                <app-pay-summary (loadedPaySummary)="loadedPaySummary($event)"></app-pay-summary>
+            </div>  
+            <div class="col-lg-6">
+                <app-recent-pay-stubs (loadedPaySummaries)="loadedPaySummaries($event)"></app-recent-pay-stubs>
+            </div>         
+        </div>
+        <div class="row" *ngIf="widgetsAvailables > 3">
+            <div class="col-lg-6">
+                <div class="mt-30">
+                    <app-my-leave-tracker [leaveTracker]="leaveTracker"></app-my-leave-tracker>
+                </div>
+            </div>
+            <div class="col-lg-6">        
+                <div class="mt-30">   
+                    <app-my-401k [my401kData]="my401kData"></app-my-401k>                
+                </div>
+            </div>
+        </div>
+    </div>

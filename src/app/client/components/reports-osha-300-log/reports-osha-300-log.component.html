@@ -1,0 +1,116 @@
+<div class="reports-container reports-osha-300-log">
+  <div class="section" >
+    <div class="row breadcrumb-container-reports">
+      <div class="col-12">
+        <div class="breadcrumb-component">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item back-link">
+                <a (click)="goToBack()">Reports</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <span class="breadcrumb-item-active">OSHA 300 Log</span>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-7 report-title align-self-center">
+        <span>OSHA 300 Log</span>
+        <span class="report-title-date-time align-self-center" *ngIf="reportGeneratedDate">Report generated on {{ reportGeneratedDate }}</span>
+      </div>
+      <div class="col-5 align-self-center">                   
+        <button type="button" class="btn btn-outline-primary float-right" (click)="goToBack()">BACK</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="d-inline-flex">
+          <div ngbDropdown class="d-inline-block custom-dropdown-component" #ddYear="ngbDropdown">
+            <button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddYearBtn ngbDropdownToggle>
+              <span>
+                {{selectedYearDisplay || 'Select Year'}}
+                <i class="icon icon-shape float-right"></i>
+              </span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="Year">
+              <button type="button" class="dropdown-item" *ngFor="let year of simpleYears" (click)="onSelectionChanged(year); ddYear.close()">{{year}}</button>
+            </div>
+          </div>
+          <button class="btn btn-primary" (click)="getFilteredData()" [disabled]="disableViewReportButton">View Report</button>
+        </div>  
+      </div>
+    </div> 
+
+    <div class="custom-grid pt-4 mt-1 mb-0">
+      <hr class="m-0 mb-1 p-0"/>
+      <div class="col-12" *ngIf="isLoading">
+        <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <div class="row pt-3 mb-0" *ngIf="!isLoading">
+        <div class="col-8">
+          <p class="taxes-paragraph">
+            The information provided may be used to assist you in filling out your OSHA 300 log.<br>
+            The information provided does not contain all information required on the OSHA 300 log.<br>
+            The columns highlighted in ** indicate which fields you must complete.<br>
+            You may obtain a log by visiting the OSHA website at <a target="_blank" href="http://www.osha.gov/recordkeeping/index.html">http://www.osha.gov/recordkeeping/index.html</a>.
+          </p>
+        </div>
+      
+        <div class="col-4">
+          <div class="float-right custom-margin-bottom-dropdown">
+            <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                    (click)="requestedFunction('print')">
+              <span class="icon icon-pint"></span>
+              <span>PRINT</span>
+            </button>
+            <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+              <button class="btn btn-light" id="downloadDD" ngbDropdownToggle>
+                  <span>Download
+                      <i class="icon icon-shape"></i>
+                  </span>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="Download">
+                <button type="button" class="dropdown-item" *ngFor="let item of dropdownOptions[0].items" (click)="selectedDownloadOption(item); downloadDD.close()">{{item.name}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+     
+      <div class="row mt-3" *ngIf="!isLoading">
+        <div class="col-lg-12">
+          <dx-data-grid 
+            [dataSource]="filteredOsha300LogReportData" 
+            class="pair-row-color-gray-100"
+            [columnAutoWidth]="true" 
+            [wordWrapEnabled]="true">
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="caseNo" caption="Case NO." [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="empName" caption="Employee Name" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="jobTitle" caption="**Job Title" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="dateInjury" caption="Date Of Injury" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="eventOccured" caption="**Where The Event Occured" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="descLoss" caption="Description Of Loss" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="death" caption="**Death" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="daysAway" caption="**Days Away From Work" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="jobTrans" caption="**Job Trans Or Restriction"  [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="otherCases" caption="**Other Recordable Cases" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="onJobTrans" caption="**On Job Trans Or Restriction(No Of Days)"  [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="awayHome" caption="**Away From Home(No Of Days)" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="injury" caption="**Injury" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="skinDisorder" caption="**Skin Disorder" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="respitory" caption="**Respitory" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="otherIllness" caption="**All Other Illness" [allowSorting]="false"></dxi-column>
+            </dx-data-grid>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

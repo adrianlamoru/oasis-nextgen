@@ -1,0 +1,21 @@
+@import "~bootstrap/scss/functions"; 
+@import '~sass/variables';
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.reports-garnishments-history {
+    margin-top: 20px;
+
+    .custom-dropdown {
+        width: 100px!important;
+    }
+
+    .custom-margin-bottom-dropdown {
+        margin-bottom: 12px;
+        margin-top: 10px;
+    }
+
+    .custom-grid-padding {
+        margin-top: 4px;
+    }
+}

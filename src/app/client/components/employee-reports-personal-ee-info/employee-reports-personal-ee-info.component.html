@@ -1,0 +1,303 @@
+<div class="employee-reports-container employee-reports-personal-information">
+  <div class="section">
+    <div class="pt-3 mb-0">
+      <div class="col-12" *ngIf="isLoading">
+        <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+      </div>
+      <div class="row col-12 p-0 m-0" *ngIf="!isLoading">
+        <h3 class="col-9 align-self-center pl-0 m-0 font-weight-bold">Primary Information</h3>
+        <div class="col-3 align-self-center pr-0">
+          <div class="float-right">
+            <button 
+              type="button" 
+              class="btn btn-link btn-link-icon p-0 mr-2"
+              (click)="requestedFunction('print')">
+            <span class="icon icon-pint"></span>
+            <span>PRINT</span>
+            </button>
+            <div ngbDropdown class="d-inline-block custom-dropdown" placement="bottom-right">
+                <button 
+                  class="btn btn-light" 
+                  id="downloadDD" 
+                  ngbDropdownToggle>
+                    <span>
+                      Download
+                      <i class="icon icon-shape"></i>
+                    </span>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="Download">
+                  <button 
+                    type="button" 
+                    class="dropdown-item" 
+                    *ngFor="let item of dropdownOptions[0].items" 
+                    (click)="selectedDownloadOption(item); downloadDD.close()">
+                    {{item.name}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <!-- Section -1 -- Primary Information -->
+      <div class="row" *ngIf="!isLoading">
+        <div class="col-8">
+          <div class="row employee-information-first-row" *ngFor="let ddItem of filteredEmployeeReportsEeInfoReport[0].employeeGeneralInformation">
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Social Security Number</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.ssn">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Employee ID</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="filteredEmployeeReportsEeInfoReport[0].employeeId">
+              </div>
+            </div>
+
+            <div class="col-4"> </div>
+
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>First Name</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.firstName">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding custom-margin-bottom">
+              <div class="form-group">
+                <label>Last Name</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.lastName">
+              </div>
+            </div>
+            <div class="col-4 pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Middle Initial</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.middleName">
+              </div>
+            </div>
+
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Email Address</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.emailAddress">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Home Phone</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.homePhone">
+              </div>
+            </div>
+
+            <div class="col-4"> </div>
+
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Home Address</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.address1">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Apt/Suite</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.address2">
+              </div>
+            </div>
+
+            <div class="col-4"> </div>
+
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Zip Code</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.zip">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding custom-margin-bottom">
+              <div class="form-group">
+                <label>City</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.city">
+              </div>
+            </div>
+            <div class="col-4 pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>State</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.state">
+              </div>
+            </div>
+
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Nickname</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.nickname">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding custom-margin-bottom">
+              <div class="form-group">
+                <label>Date of Birth</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [ngModel]="ddItem.birthDate  | date:'MM-dd-yyyy'">
+              </div>
+            </div>
+            <div class="col-4 pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Age</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.age">
+              </div>
+            </div>
+
+            <div class="col-4 pl-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Ethnicity</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.ethnicity">
+              </div>
+            </div>
+            <div class="col-4 employee-information-field-padding custom-margin-bottom">
+              <div class="form-group">
+                <label>Gender</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.gender">
+              </div>
+            </div>
+            <div class="col-4 pr-0 custom-margin-bottom">
+              <div class="form-group">
+                <label>Marital Status</label>
+                <input 
+                  disabled="true"
+                  class="form-control truncate-text"
+                  [(ngModel)]="ddItem.maritalStatus">
+              </div>
+            </div>
+          </div>
+          
+          <hr/>
+          <!-- Section -2 -- Emergency Contact -->
+          <div class="row col-12 section-title2 p-0 m-0">
+            <h3 class="align-self-center pl-0 m-0 font-weight-bold">Emergency Contact</h3>
+          </div>
+          <div class="row employee-information-row" *ngFor="let ddItem of filteredEmployeeReportsEeInfoReport[0].employeeEmergencyInformation">
+            <div class="col-12 p-0" >
+              <div class="row employee-information-first-row pl-0">
+                
+                <div class="col-4 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Contact Name</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.contactName">
+                  </div>
+                </div>
+                <div class="col-4 employee-information-field-padding custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Relationship</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [ngModel]="ddItem.relation">
+                  </div>
+                </div>
+                <div class="col-4 pr-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Contact Phone</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.telephone">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <hr class="hr-custom" *ngIf="allTabSelected"/>
+          <!-- <div class="row employee-information-row">
+            <div class="col-8">
+              <div class="row col-12 employee-information-row2 p-0" *ngFor="let ddItem of filteredEmployeeReportsEeInfoReport[0].employeeEmergencyInformation">
+                <div class="col-4 pl-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Contact Name</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.contactName">
+                  </div>
+                </div>
+                <div class="col-4 employee-information-field-padding custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Relationship</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.relation">
+                  </div>
+                </div>
+                <div class="col-4 pr-0 custom-margin-bottom">
+                  <div class="form-group">
+                    <label>Contact Phone</label>
+                    <input 
+                      disabled="true"
+                      class="form-control truncate-text"
+                      [(ngModel)]="ddItem.telephone">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  

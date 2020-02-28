@@ -1,0 +1,120 @@
+@import "~bootstrap/scss/functions"; 
+@import '~sass/variables';
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+
+.oasis-newsletter {
+    background-color: #f2f4f7;
+    min-height: 453px;
+    @include media-breakpoint-up(lg) {
+        min-height: 250px;
+    }
+    .row {
+        height: 453px;
+        text-align: center;
+        background: url("/assets/images/oasis-enrichment-area-mobile.jpg") no-repeat;
+        background-position: bottom left;
+
+        @include media-breakpoint-up(lg) {
+            background: url("/assets/images/oasis-enrichment-area.png");
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            max-height: 250px;
+            background-position-x: -40px;
+        }
+
+        .col-lg-4 {
+            padding-left: 0;
+            padding-right: 0;
+
+            @include media-breakpoint-only(md) {
+                padding-right: 10%;
+            }
+        }
+
+        .col-lg-7 {
+            text-align: center;
+            
+            @include media-breakpoint-up(lg) {
+                text-align: left;
+            }
+        }
+    }
+
+    &-icon {
+        padding-top: 12px;
+        height: 270 px;
+        width: 250px;
+
+        @include media-breakpoint-up(lg) {
+            padding: 0;
+            padding-top:12px !important;
+        }
+    }
+
+    &-header {
+        font-family: Roboto;
+        font-size: 26px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.08;
+        letter-spacing: -0.5px;
+        text-align: center;
+
+        @include media-breakpoint-up(lg) {
+            line-height: 1;
+            text-align: left;
+        }
+ 
+    }
+
+    &-body {
+        opacity: 0.7;
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.43;
+        letter-spacing: normal;
+        text-align: center;
+        
+        @include media-breakpoint-up(lg) {
+            text-align: left;
+        }
+    }
+
+    .btn-learn-more {
+        border-radius: 5px;
+        border: solid 2px $blue;
+        height: 36px;
+        font-family: $font-family-sans-serif-secondary;
+        font-size: 10px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 0.5px;
+        text-align: center;
+        color: $white;
+    }
+
+    .btn-learn-more:hover {
+        border: solid 2px #004b9b;
+    }
+
+    .close-btn {
+        font-size: 20px;
+        margin-top: 20px;
+        margin-right: 20px;
+
+        @include media-breakpoint-up(lg) {
+            margin-top: 30px;
+            margin-right: 25px; 
+        }
+    }
+}

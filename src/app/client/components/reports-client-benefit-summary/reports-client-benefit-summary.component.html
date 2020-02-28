@@ -1,0 +1,128 @@
+<div class="reports-container reports-client-benefit-summary">
+  <div class="section">
+      <div class="row breadcrumb-container-reports">
+          <div class="col-12">
+            <div class="breadcrumb-component">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item back-link">
+                    <a (click)="goToBack()">Reports</a>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    <span class="breadcrumb-item-active">Client Benefit Summary</span>
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-12 report-title align-self-center">
+          <span>Client Benefit Summary</span>
+          <span *ngIf="reportGeneratedDate" class="report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</span>
+        </div>
+      </div>
+    <div class="form-group">
+        <h4>Effective Date</h4>
+        <div class="d-inline-flex">
+            <div class="custom-date-picker custom-date-picker-size">
+                <div class="input-icon icon icon-calendar"></div>
+                <input
+                  class="form-control custom-input-field"
+                  placeholder="Month dd, yyyy"
+                  name="endDate"
+                  [(ngModel)]="selectedEffectiveDate"
+                  (ngModelChange)="enableViewReportButton()"
+                  ngbDatepicker [dayTemplate]="customDay"
+                  [displayMonths]="2"
+                  [navigation]="'arrows'"
+                  [firstDayOfWeek]="7"
+                  #endDate="ngbDatepicker">
+                <button
+                  class="btn input-btn icon-shape"
+                  (click)="endDate.toggle(); opened = !opened"
+                  type="button">
+                </button>
+            </div>
+            <button class="btn btn-primary" (click)="getFilteredData()" [disabled]="disableViewReportButton">View Report</button>
+        </div>
+    </div>
+   <div class="custom-grid pt-3 mb-0">
+        <hr class="m-0 mb-1 p-0"/>
+        <div class="col-12" *ngIf="isLoading">
+            <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+        </div>
+        <div *ngIf="!isLoading">
+          <div class="row date-range-row">
+              <div class="col-12">
+                <span class="report-date-range-label">Effective Date Selected</span>
+              </div>
+          </div>
+          <div class="row year-print-download-row">
+              <div class="col-6 align-self-center">
+                  <span class="report-data-range-selected">
+                    Effective Date: {{ selectedEffectiveDate.month }}/{{ selectedEffectiveDate.day }}/{{ selectedEffectiveDate.year }}</span>
+              </div>
+              <div class="col-6 align-self-center">
+                <div class="float-right section-title">
+                  <button type="button" class="btn btn-link btn-link-icon p-0 mr-2"
+                          (click)="requestedFunction('print')">
+                      <span class="icon icon-pint"></span>
+                      <span>PRINT</span>
+                  </button>
+                  <button type="button" class="btn btn-link btn-link-icon p-0 ml-1 "
+                          (click)="requestedFunction('download')">
+                      <span class="icon icon-square-upload"></span>
+                      <span>DOWNLOAD</span>
+                  </button>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <dx-data-grid [dataSource]="clientBenefitSummaryReport"
+              class="pair-row-color-gray-100 grid-head-font-weight-500 dx-data-grid-tab-title"
+              [columnAutoWidth]="true"
+              [wordWrapEnabled]="true"
+              keyExpr="iD">
+                <dxo-paging [enabled]="false"></dxo-paging>
+                <dxi-column dataField="reportDate" caption="Report Date" alignment="left" [allowSorting]="false" dataType="date"></dxi-column>
+                <dxi-column dataField="location" caption="Location" alignment="left" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="iD" caption="ID" alignment="left" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="name" caption="Name" alignment="left" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="status" caption="Status" alignment="center" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="ftPT" caption="FT/PT" alignment="center" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="birthday" caption="Birthday" alignment="left" [allowSorting]="false" dataType="date"></dxi-column>
+                <dxi-column dataField="benClass" caption="Class" alignment="center" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="planType" caption="Plan Type" alignment="left" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="benefitPlan" caption="Benefit Plan" alignment="left" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="benefitDescription" caption="Benefit Description" alignment="left" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="coverageCode" caption="Coverage Code" alignment="center" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="coverageDescription" caption="Coverage Description" alignment="left" [allowSorting]="false"></dxi-column>
+                <dxi-column dataField="coverageDate" caption="Coverage Date" alignment="left" [allowSorting]="false" dataType="date"></dxi-column>
+                <dxi-column dataField="checkEEPremium" caption="Check EE Premium" alignment="right" [allowSorting]="false" dataType="currency">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+                <dxi-column dataField="checkERPremium" caption="Check ER Premium" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+                <dxi-column dataField="checkTTIPremium" caption="Check TTI Premium" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+                <dxi-column dataField="monthEEPremium" caption="Month EE Premium" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+                <dxi-column dataField="monthERPremium" caption="Month ER Premium" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+                <dxi-column dataField="monthTTIPremium" caption="Month TTI Premium" alignment="right" [allowSorting]="false">
+                    <dxo-format type="currency" [precision]="2"></dxo-format>
+                </dxi-column>
+              </dx-data-grid>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>

@@ -1,0 +1,288 @@
+<div class="client-detail card" *ngIf="clientDetail">
+  <div class="dashboard-client-detail-header">
+    <h5>My Profile</h5>
+  </div>
+  <div class="dashboard-client-detail-body">
+    <div class="card-names">
+      <div class="client-name">{{ clientDetail?.name }}</div>
+      <div class="client-title">{{ clientDetail?.title }}</div>
+      <div class="badge badge-pill badge-success client-department">{{ clientDetail?.department }}</div>
+    </div>
+    <br/>
+  </div>
+  <div class="dashboard-client-detail-footer">
+    <a href="javascript:void(0)" (click)="openMyProfileModal(myProfile)">View My Profile <span class="icon icon-arrow"></span></a>
+  </div>
+</div>
+
+<ng-template #myProfile let-c="close" let-d="dismiss">
+  <div class="my-profile-modal">
+      <div class="modal-header profile-modal-header">
+          <h4 class="modal-title align-self-center">My Profile</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span class="icon icon-close"></span>
+          </button>
+      </div>
+      <div class="modal-body profile-modal-body">
+        <ngb-tabset type="pills">
+          <ngb-tab title="Account">
+            <ng-template ngbTabContent>
+              <div class="profile-modal-body-content">
+                <div class="row b30-row">
+                  <div class="col-md-6">
+                    <h2>Account</h2>
+                  </div>
+                  <div class="col-md-6 align-self-center text-right">
+                    <a href="javascript:void(0)" (click)="profileEdit('account')" [ngClass]="{'edit-disabled': editAccount === true }"><i class="icon icon-pencil" [ngClass]="{'icon-pencil-blue': editAccount === false }"></i> EDIT</a>
+                  </div>
+                </div>
+                <div class="row body-row">
+                  <div class="col-md-6">
+                    <div class="row col-md-12 text-muted">User Name</div>
+                    <div class="row col-md-12 form-input"><input type="text" class="text" name="username" value="ralexander2018" disabled/></div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row col-md-12 text-muted">Password</div>
+                    <div class="row col-md-12 form-input">
+                      <input type="password" class="text" name="password" value="1234687" [disabled]="!editAccount"/>
+                      <a href="javascript:void(0)" class="text-right align-self-center" style="position: absolute; right: 0; padding-right: 19px;" [hidden]="!editAccount">Reset password</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="row body-row">
+                  <div class="col-md-6">
+                    <div class="row col-md-12 text-muted">Employee ID</div>
+                    <div class="row col-md-12 form-input"><input type="text" class="text" name="employeeId" value="D73135" disabled/></div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row col-md-12 text-muted">Client ID</div>
+                    <div class="row col-md-12 form-input"><input type="text" class="text" name="clientId" value="3769" disabled/></div>
+                  </div>
+                </div>
+                <div class="row body-row fixed-bottom" *ngIf="editAccount">
+                  <div class="col-md-12 text-right no-padding">
+                    <button class="btn btn-outline-primary btn-transparent btn-lg btn-cancel" (click)="profileEdit('account')">CANCEL</button>
+                    <button class="btn btn-primary btn-transparent btn-lg">SAVE</button>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="Address">
+              <ng-template ngbTabContent>
+                <div class="profile-modal-body-content m20-row">
+                  <div class="row b30-row">
+                    <div class="col-md-6">
+                      <h2>Home Address</h2>
+                    </div>
+                    <div class="col-md-6 align-self-center text-right">
+                      <a href="javascript:void(0)" (click)="profileEdit('homeAddress')" [ngClass]="{'edit-disabled': editHomeAddress === true }"><i class="icon icon-pencil" [ngClass]="{'icon-pencil-blue': editHomeAddress === false }"></i> EDIT</a>
+                    </div>
+                  </div>
+                  <div class="row body-row">
+                    <div class="col-md-8">
+                      <div class="row col-md-12 text-muted">Street Address</div>
+                      <div class="row col-md-12 form-input"><input type="text" class="text" name="street" value="315 Linden St" [disabled]="!editHomeAddress"/></div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="row col-md-12 text-muted">Apt/Unit</div>
+                      <div class="row col-md-12 form-input"><input type="text" class="text" name="apt" value="2041" size="4" [disabled]="!editHomeAddress"/></div>
+                    </div>
+                  </div>
+                  <div class="row body-row b30-row">
+                    <div class="col-md-8">
+                      <div class="row">
+                        <div class="col-md-8">
+                            <div class="row col-md-12 text-muted">City</div>
+                            <div class="row col-md-12 form-input"><input type="text" class="text" name="city" value="San Francisco" [disabled]="!editHomeAddress"/></div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row col-md-12 text-muted">State</div>
+                            <div class="row col-md-12 form-input"><input type="text" class="text" name="state" value="CA" size="4" [disabled]="!editHomeAddress"/></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="row col-md-12 text-muted">ZIP Code</div>
+                      <div class="row col-md-12 form-input"><input type="text" class="text" name="zip" value="33411" size="4" [disabled]="!editHomeAddress"/></div>
+                    </div>
+                  </div>
+                  <div class="row body-row m20-row">
+
+                    <div class="row col-md-12 custom-control custom-checkbox"  *ngIf="mailingAddress === true">
+                      <input type="checkbox" class="custom-control-input" id="mailingAddress" (click)="toggle('mailingAddress')" [checked]="mailingAddress">
+                      <label class="custom-control-label" for="mailingAddress">Mailing Address same as Home Address</label>
+                    </div>
+                    <div class="row body-row col-md-12 line-def-top line-def-bottom" *ngIf="mailingAddress === false">
+                      <div class="row b30-row col-md-12" style="margin-bottom: 0;">
+                        <div class="col-md-6 no-padding">
+                          <h2>Mailing Address</h2>
+                        </div>
+                        <div class="col-md-6 no-padding align-self-center text-right">
+                          <a href="javascript:void(0)" (click)="profileEdit('mailingAddress')" [ngClass]="{'edit-disabled': editMailingAddress === true }"><i class="icon icon-pencil" [ngClass]="{'icon-pencil-blue': editMailingAddress === false }"></i> EDIT</a>
+                        </div>
+                      </div>
+                      <div class="row col-md-12 custom-control custom-checkbox" style="margin-bottom: 20px;">
+                        <input type="checkbox" class="custom-control-input" id="mailingAddress" (click)="toggle('mailingAddress')" [checked]="mailingAddress">
+                        <label class="custom-control-label" for="mailingAddress">Mailing Address same as Home Address</label>
+                      </div>
+                      <div class="row body-row col-md-12">
+                        <div class="col-md-8 no-padding-left">
+                          <div class="row col-md-12 text-muted">Street Address</div>
+                          <div class="row col-md-12 form-input"><input type="text" class="text" name="street" value="315 Linden St" [disabled]="!editMailingAddress"/></div>
+                        </div>
+                        <div class="col-md-4 no-padding-right">
+                          <div class="row col-md-12 text-muted">Apt/Unit</div>
+                          <div class="row col-md-12 form-input"><input type="text" class="text" name="apt" value="2041" size="4" [disabled]="!editMailingAddress"/></div>
+                        </div>
+                      </div>
+                      <div class="row body-row b30-row col-md-12">
+                        <div class="col-md-8">
+                          <div class="row">
+                            <div class="col-md-8 no-padding-left">
+                                <div class="row col-md-12 text-muted">City</div>
+                                <div class="row col-md-12 form-input"><input type="text" class="text" name="city" value="San Francisco" [disabled]="!editMailingAddress"/></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row col-md-12 text-muted">State</div>
+                                <div class="row col-md-12 form-input"><input type="text" class="text" name="state" value="CA" size="4" [disabled]="!editMailingAddress"/></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4 no-padding-right">
+                          <div class="row col-md-12 text-muted">ZIP Code</div>
+                          <div class="row col-md-12 form-input"><input type="text" class="text" name="zip" value="33411" size="4" [disabled]="!editMailingAddress"/></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row col-md-12 custom-control custom-checkbox" *ngIf="w2Address === true">
+                      <input type="checkbox" class="custom-control-input" id="w2Address" (click)="toggle('w2Address')" [checked]="w2Address">
+                      <label class="custom-control-label" for="w2Address">W-2 Address same as Home Address</label>
+                    </div>
+                    <div class="row body-row col-md-12 line-def-bottom" *ngIf="w2Address === false" [ngClass]="{'line-def-top': mailingAddress === true}">
+                      <div class="row b30-row col-md-12" style="margin-bottom: 0;">
+                        <div class="col-md-6 no-padding">
+                          <h2>W-2 Address</h2>
+                        </div>
+                        <div class="col-md-6 no-padding align-self-center text-right">
+                          <a href="javascript:void(0)" (click)="profileEdit('w2Address')" [ngClass]="{'edit-disabled': editW2Address === true }"><i class="icon icon-pencil" [ngClass]="{'icon-pencil-blue': editW2Address === false }"></i> EDIT</a>
+                        </div>
+                      </div>
+                      <div class="row col-md-12 custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="w2Address" (click)="toggle('w2Address')" [checked]="w2Address">
+                        <label class="custom-control-label" for="w2Address">W-2 Address same as Home Address</label>
+                      </div>
+                      <div class="row col-md-12 custom-control custom-checkbox" style="margin-bottom: 20px;">
+                        <input type="checkbox" class="custom-control-input" id="electronicW2" (click)="toggle('electronicW2')" [checked]="electronicW2">
+                        <label class="custom-control-label" for="electronicW2">Send an electronic copy of my W-2 to my primary email address</label>
+                      </div>
+                      <div class="row body-row col-md-12">
+                        <div class="col-md-8 no-padding-left">
+                          <div class="row col-md-12 text-muted">Street Address</div>
+                          <div class="row col-md-12 form-input"><input type="text" class="text" name="street" value="315 Linden St" [disabled]="!editW2Address"/></div>
+                        </div>
+                        <div class="col-md-4 no-padding-right">
+                          <div class="row col-md-12 text-muted">Apt/Unit</div>
+                          <div class="row col-md-12 form-input"><input type="text" class="text" name="apt" value="2041" size="4" [disabled]="!editW2Address"/></div>
+                        </div>
+                      </div>
+                      <div class="row body-row b30-row col-md-12">
+                        <div class="col-md-8 no-padding-left">
+                          <div class="row">
+                            <div class="col-md-8">
+                                <div class="row col-md-12 text-muted">City</div>
+                                <div class="row col-md-12 form-input"><input type="text" class="text" name="city" value="San Francisco" [disabled]="!editW2Address"/></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row col-md-12 text-muted">State</div>
+                                <div class="row col-md-12 form-input"><input type="text" class="text" name="state" value="CA" size="4" [disabled]="!editW2Address"/></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4 no-padding-right">
+                          <div class="row col-md-12 text-muted">ZIP Code</div>
+                          <div class="row col-md-12 form-input"><input type="text" class="text" name="zip" value="33411" size="4" [disabled]="!editW2Address"/></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row col-md-12 custom-control custom-checkbox" *ngIf="w2Address === true">
+                      <input type="checkbox" class="custom-control-input" id="electronicW2" (click)="toggle('electronicW2')" [checked]="electronicW2">
+                      <label class="custom-control-label" for="electronicW2">Send an electronic copy of my W-2 to my primary email address</label>
+                    </div>
+                  </div>
+                  <div class="row body-row fixed-bottom" *ngIf="editAddresses">
+                    <div class="col-md-12 text-right no-padding">
+                      <button class="btn btn-outline-primary btn-transparent btn-lg btn-cancel" (click)="profileEdit('editAddresses')">CANCEL</button>
+                      <button class="btn btn-primary btn-transparent btn-lg">SAVE</button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+          </ngb-tab>
+          <ngb-tab title="Contact">
+              <ng-template ngbTabContent>
+                <div class="profile-modal-body-content">
+                  <div class="row b30-row">
+                    <div class="col-md-6">
+                      <h2>Contact</h2>
+                    </div>
+                    <div class="col-md-6 align-self-center text-right text-muted">
+                      <a href="javascript:void(0)" (click)="profileEdit('primaryContact')" [ngClass]="{'edit-disabled': editPrimaryContact === true }"><i class="icon icon-pencil" [ngClass]="{'icon-pencil-blue': editPrimaryContact === false }"></i> EDIT</a>
+                    </div>
+                  </div>
+                  <div class="row body-row">
+                    <div class="col-md-6">
+                      <div class="row col-md-12 text-muted">Primary Phone Number</div>
+                      <div class="row col-md-12 form-input"><input type="text" pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" class="text" name="priPhone" value="(123) 456-7890" [disabled]="!editPrimaryContact"/></div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row col-md-12 text-muted">Secondary Phone Number</div>
+                      <div class="row col-md-12 form-input"><input pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" type="text" class="text" name="secPhone" value="(246) 810-1214" [disabled]="!editPrimaryContact"/></div>
+                    </div>
+                  </div>
+                  <div class="row body-row">
+                    <div class="col-md-6">
+                      <div class="row col-md-12 text-muted">Primary Email Address</div>
+                      <div class="row col-md-12 form-input"><input type="email" class="text" name="priEmail" value="ralexander2@gmail.com" [disabled]="!editPrimaryContact"/></div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row col-md-12 text-muted">Work Email Address</div>
+                      <div class="row col-md-12 form-input"><input type="email" class="text" name="workEmail" value="alexander@gmail.com" [disabled]="!editPrimaryContact"/></div>
+                    </div>
+                  </div>
+                  <div class="row b30-row">
+                    <div class="col-md-6">
+                      <h2>Emergency Contact</h2>
+                    </div>
+                    <div class="col-md-6 align-self-center text-right text-muted">
+                      <a href="javascript:void(0)" (click)="profileEdit('emergencyContact')" [ngClass]="{'edit-disabled': editEmergencyContact === true }"><i class="icon icon-pencil" [ngClass]="{'icon-pencil-blue': editEmergencyContact === false }"></i> EDIT</a>
+                    </div>
+                  </div>
+                  <div class="row body-row">
+                    <div class="col-md-6">
+                      <div class="row col-md-12 text-muted">Emergency Contact Name</div>
+                      <div class="row col-md-12 form-input"><input type="text" class="text" name="emeContName" value="Sarah Alexander" [disabled]="!editEmergencyContact"/></div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row col-md-12 text-muted">Emergency Contact Phone Number</div>
+                      <div class="row col-md-12 form-input"><input type="text" pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" class="text" name="emeContPhone" value="(246) 123-4567" [disabled]="!editEmergencyContact"/></div>
+                    </div>
+                  </div>
+                  <div class="row body-row fixed-bottom" *ngIf="editContacts">
+                    <div class="col-md-12 text-right no-padding">
+                      <button class="btn btn-outline-primary btn-transparent btn-lg btn-cancel" (click)="profileEdit('editContacts')">CANCEL</button>
+                      <button class="btn btn-primary btn-transparent btn-lg">SAVE</button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+      <!-- <div class="profile-modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+      </div> -->
+  </div>
+</ng-template>

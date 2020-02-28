@@ -1,0 +1,52 @@
+@import "~bootstrap/scss/functions"; 
+@import '~sass/variables';
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.reports-garnishments-docket-info {
+    margin-top: 24px;
+    
+    .custom-print-margin-bottom {
+        margin-bottom: 19px;
+    }
+
+    .custom-margins {
+        @include media-breakpoint-only(xl) {
+            &[class*="col-"] {
+    
+                &:nth-child(4n+1) {
+                    padding-left: 14px !important;
+                    
+                }
+
+                &:nth-child(4n) {
+                    padding-right: 14px !important
+                }
+
+                margin-bottom: 14px;
+                padding-right: 9px !important;
+                padding-left: 9px !important;
+            }
+        }
+    
+        @include media-breakpoint-down(lg) {
+            &[class*="col-"] {
+    
+                &:nth-child(3n+1) {
+                    padding-left: 14px !important;
+                }
+
+                &:nth-child(3n) {
+                    padding-right: 14px !important
+                }
+
+                margin-bottom: 14px;
+                padding-right: 9px !important;
+                padding-left: 9px !important;
+            }
+        }
+        
+    }
+    
+}
+

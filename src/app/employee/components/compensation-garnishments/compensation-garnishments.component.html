@@ -1,0 +1,56 @@
+<div class="container-section">
+
+    <div class="reports-container">
+
+        <div class="section">
+
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="content-title">Garnishments</h3>
+                </div>
+
+            </div>
+        </div>
+        <div class="section pdng-top-20">
+            <div class="row">
+                <div class="col-auto">
+                    <div class="d-inline-flex">
+                        <div ngbDropdown class="d-inline-block custom-dropdown-component" #ddYear="ngbDropdown">
+                            <button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddYearBtn ngbDropdownToggle>
+                <span id="garnischmentsDropDown">{{selectedDisplayDocket}}<i class="icon icon-shape float-right"></i>
+                </span>
+              </button>
+                            <div ngbDropdownMenu aria-labelledby="Year">
+                                <button type="button" class="dropdown-item" *ngFor="let dID of docktetsIDS" (click)="onSelectionChanged(dID); ddYear.close()">{{dID}}</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" (click)="getFilteredData()" [disabled]="disableViewReportButton">
+							View Report
+						</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section pdng-top-20">
+
+            <ul class="nav nav-tabs" (onresize)="onResize()">
+                <ng-container *ngFor="let option of subNavMenuConfig; let i = index">
+                    <li class="nav-item">
+                        <a class="nav-link active" *ngIf="option.active!=null">{{option.name}}</a>
+                        <a class="nav-link" *ngIf="option.active==null" (click)="changeActive(i)">{{option.name}}</a>
+                    </li>
+                </ng-container>
+
+            </ul>
+
+            <div class="col-12" *ngIf="isLoading">
+                <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+            </div>
+
+            <app-compensation-garnishments-docket-report *ngIf="subNavMenuConfig[0].active!=null&&!isLoading" [selectedDocket]="selectedDisplayDocket"></app-compensation-garnishments-docket-report>
+
+
+            <app-compensation-garnishments-docket-history *ngIf="subNavMenuConfig[1].active!=null&&!isLoading" [selectedDocket]="selectedDisplayDocket"></app-compensation-garnishments-docket-history>
+        </div>
+    </div>
+</div>

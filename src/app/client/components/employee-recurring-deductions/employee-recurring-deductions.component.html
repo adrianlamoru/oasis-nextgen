@@ -1,0 +1,217 @@
+<div class="custom-modal-window #employeeRecurringDeductionComponent">
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">Payroll - Recurring Deductions - {{ selectedEmployeeName | middleTruncate: 50 }}</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+      <span class="icon icon-close"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!--{{diagnosticEmployee}}-->
+    <!--Existing Recurring Deduction List-->
+    <div class="custom-grid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="custom-grid-header">
+            <h3 class="display-3 table-title"><!--Existing Recurring Deductions--></h3>
+            <dx-button text="Add Recurring Deduction" class="btn btn-primary pull-right" (onClick)="addLoan()"></dx-button>
+          </div>
+          <br />
+          <dx-data-grid #recurringDeductionsDataGrid [dataSource]="clientEmployeeRecurringDeductionList" [columnAutoWidth]="true" keyExpr="id"
+                        (onEditingStart)="onEditingStart($event)">
+
+            <div *dxTemplate="let data of 'gridHeader'">
+              <div class="custom-grid-header">
+                <h3 class="display-3 table-title"><!--Existing Recurring Deductions--></h3>
+                <dx-button text="Add Loan" class="btn btn-primary pull-right" (onClick)="addLoan()"></dx-button>
+              </div>
+            </div>
+
+            <dxo-paging [enabled]="false"></dxo-paging>
+            <dxi-column dataField="deductionType.code" caption="Deduction Code" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="deductionType.name" caption="Description" [allowSorting]="false"></dxi-column>
+            <dxi-column dataField="amount" [allowSorting]="false" format="currency" precision="2" alignment="right"></dxi-column>
+            <dxi-column dataField="periods" [allowSorting]="false" cellTemplate="ctPeriodCell" alignment="right"></dxi-column>
+
+            <dxi-column dataField="deductionType.id" [allowSorting]="false" [visible]="false">
+              <dxo-lookup [dataSource]="clientEmployeeRecurringDeductionTypeList" displayExpr="name" valueExpr="id"></dxo-lookup>
+            </dxi-column>
+
+            <dxi-column cellTemplate="editTemplate" alignment="right" [width]="105" [minWidth]="105">
+                <div *dxTemplate="let data of 'editTemplate'">
+                    <div class="dx-custom-command-edit">
+                        <a class="dx-link dx-link-edit" tabindex="0" (click)="onEditRow(data)" (keydown)="onEditKeyDown($event, data)">Edit</a>
+                        <a class="dx-link dx-link-delete" tabindex="0"  (click)="onDeleteRow(data)" (keydown)="onDeleteKeyDown($event, data)">Delete</a>
+                    </div>
+                </div>
+            </dxi-column>
+
+            <dxo-editing mode="popup" [allowAdding]="false" [width]="200" ></dxo-editing>
+
+            <div *dxTemplate="let data of 'ctPeriodCell'">
+              <span *ngFor="let period of data.value; let first = first; let last = last">
+                {{ period.name }}
+                <span *ngIf="!last">,&nbsp;</span>
+              </span>
+            </div>
+          </dx-data-grid>
+        </div>
+      </div>
+    </div>
+    <br />
+
+  </div>
+  <div class="modal-footer">
+    <!--<button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="c('Close click')">Submit</button>-->
+  </div>
+</div>
+
+
+
+
+<!--Form-->
+<ng-template #editEmployeeRecurringDeductionModal let-c="close" let-d="dismiss">
+  <!--{{diagnostic}}-->
+  <!--{{selectedPeriodsTreeBoxValue}}-->
+  <form #editEmployeeRecurringDeductionForm="ngForm" [formGroup]="editEmployeeRecurringDeductionFormGroup" ngNativeValidate novalidate (ngSubmit)="saveForm(editEmployeeRecurringDeductionForm)">
+    <div class="custom-modal-window editEmployeeRecurringDeductionModal">
+      <div class="modal-header">
+        <h4 class="modal-title align-self-center float-left">{{formTitle}}</h4>
+        <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="d('Cross click')">
+          <span class="icon icon-close"></span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="formStep === 1">
+          <div class="form-group">
+            <h4 for="deductionType">Deduction Type</h4>
+            <select class="custom-select custom-select" id="deductionType" formControlName="deductionType" [compareWith]="compareByIdFn" [ngModel]="selectedClientEmployeeRecurringDeductionModel.deductionType" (ngModelChange)="selectedClientEmployeeRecurringDeductionModel.deductionType = $event; formStep = selectedClientEmployeeRecurringDeductionModel.deductionType.id > 0 ? 2 : 1 ">
+              <option *ngFor="let deductionType of clientEmployeeRecurringDeductionTypeList" [ngValue]="deductionType">{{deductionType.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div *ngIf="formStep === 2">
+          <input type="hidden" class="form-control" id="deductionType" formControlName="deductionType" [(ngModel)]="selectedClientEmployeeRecurringDeductionModel.deductionType.id" />
+          <input type="hidden" class="form-control" id="periods" formControlName="periods" [(ngModel)]="selectedClientEmployeeRecurringDeductionModel.periods" />
+          <input type="hidden" class="form-control" id="basis" formControlName="basis" [(ngModel)]="selectedClientEmployeeRecurringDeductionModel.basis" />
+
+          <div class="form-group">
+            <h4 for="deductionType.name">Deduction Type</h4>
+            <p>
+              {{selectedClientEmployeeRecurringDeductionModel.deductionType.name}}
+            </p>
+
+          </div>
+          <div class="form-group">
+            <h4 for="deductionType.code">Deduction Code</h4>
+            <p>
+              {{selectedClientEmployeeRecurringDeductionModel.deductionType.code}}
+            </p>
+          </div>
+          <div class="form-group">
+            <h4 for="amount">Amount</h4>
+            <input type="number" class="form-control" id="amount" [(ngModel)]="selectedClientEmployeeRecurringDeductionModel.amount" formControlName="amount" aria-describedby="amount" placeholder="Enter Amount">
+          </div>
+          <div class="form-group">
+            <h4 for="periods">Periods</h4>
+            <dx-drop-down-box class="custom-multi-select"
+                              [(value)]="selectedPeriodsTreeBoxValue"
+                              [dataSource]="clientEmployeeRecurringDeductionPeriodList"
+                              valueExpr="id"
+                              displayExpr="name"
+                              placeholder="Select Periods"
+                              [showClearButton]="false"
+                              (onValueChanged)="syncTreeViewOfAvailableDeductionSelection()"
+                              [(opened)]="isDropDownBoxOpened" 
+                              (onKeyDown)="onEnterKeyDown($event)">
+              <div *dxTemplate="let contentData of 'content'">
+                <dx-tree-view class="custom-multi-select-dropdown"
+                              #treeViewAvailableDeductionPeriods
+                              [dataSource]="clientEmployeeRecurringDeductionPeriodList"
+                              dataStructure="plain"
+                              keyExpr="id"
+                              selectionMode="multiple"
+                              showCheckBoxesMode="selectAll"
+                              selectAllText="All Periods"
+                              [selectNodesRecursive]="true"
+                              displayExpr="name"
+                              [selectByClick]="false"
+                              (onContentReady)="syncTreeViewOfAvailableDeductionSelection($event)"
+                              (onSelectionChanged)="treeViewAvailableDeductionPeriods_itemSelectionChanged($event)"
+                              (onItemSelectionChanged)="treeViewAvailableDeductionPeriods_itemSelectionChanged($event)">
+                </dx-tree-view>
+                <!--(onSelectionChanged)="treeViewAvailableDeductionPeriods_itemSelectionChanged($event)"-->
+              </div>
+              <div *dxTemplate="let data of 'dropDownButton'">
+                <i class="icon icon-shape icon-rotate"></i>
+              </div>
+            </dx-drop-down-box>
+          </div>
+          <div class="form-group">
+            <h4>Details</h4>
+            <dx-radio-group [items]="['Yes', 'No']"
+                            [value]="selectedClientEmployeeRecurringDeductionModel.hasDetails ? 'Yes' : 'No'"
+                            layout="horizontal"
+                            (onValueChanged)="radioButtonHasDetails_valueChanged($event)">
+            </dx-radio-group>
+          </div>
+        </div>
+        <div *ngIf="formStep === 2 && selectedClientEmployeeRecurringDeductionModel.hasDetails">
+          <div class="form-group">
+            <h4 for="limit">Limit</h4>
+            <input type="number" class="form-control" id="limit" [(ngModel)]="selectedClientEmployeeRecurringDeductionModel.limit" formControlName="limit" aria-describedby="limit" placeholder="Enter Limit">
+          </div>
+          <div class="form-group">
+            <h4 for="maximum">Maximum</h4>
+            <input type="number" class="form-control" id="maximum" [(ngModel)]="selectedClientEmployeeRecurringDeductionModel.maximum" formControlName="maximum" aria-describedby="maximum" placeholder="Enter Maximum">
+          </div>
+          <div class="form-group">
+            <h4 for="basis">Basis</h4>
+            <div ngbDropdown class="d-inline-block" #ddBasis="ngbDropdown">
+              <button type="button" class="btn btn-light" ngbDropdownToggle>
+                <span>
+                  {{selectedClientEmployeeRecurringDeductionModel.basis?.name}}
+                  <i class="icon icon-shape"></i>
+                </span>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="Basis">
+                <button type="button" class="dropdown-item" *ngFor="let basis of clientEmployeeRecurringDeductionFrequencyList" (click)="ChangeBasis(basis); ddBasis.close()">{{basis.name}}</button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <h4>Track Arrears</h4>
+            <dx-check-box [(value)]="selectedClientEmployeeRecurringDeductionModel.trackArrears" text="Yes"></dx-check-box>
+          </div>
+          <div class="form-group">
+            <h4 for="startDate">Start Date</h4>
+            <div class="custom-date-picker">
+              <div class="input-icon icon icon-calendar"></div>
+              <input class="form-control custom-input-field" placeholder="Month dd, yyyy" formControlName="startDate" [(ngModel)]="selectedClientEmployeeRecurringDeductionModel.startDatePicker" ngbDatepicker
+                     [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #dpStartDate="ngbDatepicker">
+              <button class="btn input-btn {{dpStartDate.opened ? 'icon-shape-reverse' : 'icon-shape'}}" tabindex="-1" (click)="dpStartDate.toggle(); dpStartDate.opened = !dpStartDate.opened" type="button"></button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <h4 for="endDate">End Date</h4>
+            <div class="custom-date-picker">
+              <div class="input-icon icon icon-calendar"></div>
+              <input class="form-control custom-input-field" placeholder="Month dd, yyyy" formControlName="endDate" [(ngModel)]="selectedClientEmployeeRecurringDeductionModel.endDatePicker" ngbDatepicker
+                     [dayTemplate]="customDay" [displayMonths]="2" [navigation]="'arrows'" [firstDayOfWeek]="7" #dpEndDate="ngbDatepicker">
+              <button class="btn input-btn {{dpEndDate.opened ? 'icon-shape-reverse' : 'icon-shape'}}" tabindex="-1" (click)="dpEndDate.toggle(); dpEndDate.opened = !dpEndDate.opened" type="button"></button>
+            </div>
+          </div>
+          <div class="form-group">
+            <h4 for="GLOverrideAccount">G/L Override Account</h4>
+            <input type="text" class="form-control" id="GLOverrideAccount" [(ngModel)]="selectedClientEmployeeRecurringDeductionModel.GLOverrideAccount" formControlName="GLOverrideAccount" aria-describedby="GLOverrideAccount" placeholder="Enter GL Override Account">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" (click)="c('Close click')">Cancel</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!editEmployeeRecurringDeductionForm.valid">Confirm</button>
+      </div>
+    </div>
+  </form>
+</ng-template>

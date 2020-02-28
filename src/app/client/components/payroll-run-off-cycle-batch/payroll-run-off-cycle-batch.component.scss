@@ -1,0 +1,13 @@
+.payroll-run-off-cycle-batch-modal {
+    .modal-body-scroll {
+        overflow-y: visible;
+        max-height: inherit;
+    }
+
+    .custom-date-picker {
+        width: 100%;
+        .custom-input-field {
+            width: 100%;
+        }
+    }
+}

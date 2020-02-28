@@ -1,0 +1,17 @@
+@import "~sass/variables";
+
+
+.setup-container-content {
+    margin: 2px 15px;
+    padding: 13px 15px 25px;
+    border-radius: 10px;
+    background-color: $white;
+    box-shadow: 0 6px 16px 0 rgba(32, 44, 86, 0.04);
+    min-height: 100px;
+
+    .custom-grid {
+        .custom-grid-header {
+            padding-bottom: 5px !important;
+        }
+    }
+}

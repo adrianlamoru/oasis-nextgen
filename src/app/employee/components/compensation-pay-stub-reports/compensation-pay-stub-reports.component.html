@@ -1,0 +1,75 @@
+<div class="container-section">
+    <div class="reports-container">
+        <div class="section">
+            <div class="row">
+                <div class="col-6">
+                    <h3 class="content-title">Pay Stubs</h3>
+                </div>
+                <div class="col-6">
+                    <div class="float-right max-lg-margin-bottom-10">
+                        <!--<button class="btn btn-outline-primary" (click)="openActionModal('xl', payStubModal)">View details</button>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row pdng-top-20">
+                <div class="col-auto">
+                    <div class="d-inline-flex">
+                        <div ngbDropdown class="d-inline-block custom-dropdown-component" #ddYear="ngbDropdown">
+                            <button type="button" class="btn btn-form-control form-control-dropdown text-left" #ddYearBtn ngbDropdownToggle>
+                      <span>
+                        {{selectedYearDisplay || 'Select Year'}}
+                        <i class="icon icon-shape float-right"></i>
+                      </span>
+                    </button>
+                            <div ngbDropdownMenu aria-labelledby="Year">
+                                <button type="button" class="dropdown-item" *ngFor="let year of simpleYears" (click)="onSelectionChanged(year); ddYear.close()">{{year}}</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" (click)="getFilteredData()" [disabled]="disableViewReportButton">View Report</button>
+                    </div>
+                </div>
+                <div class="col-auto pading-l-20 report-title-date-time align-self-center">Report generated on {{ reportGeneratedDate }}</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <hr class="m-0 margin-top-15 p-0" />
+            <div class="custom-grid mb-0">
+                <div class="col-12" *ngIf="isLoading">
+                    <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+                </div>
+                <div class="row date-range-row pt-2" *ngIf="!isLoading">
+                    <div class="col-12">
+                        <span class="report-date-range-label pt-0">Year Selected</span>
+                    </div>
+                </div>
+                <div class="row year-print-download-row" *ngIf="!isLoading">
+                    <div class="col-6 align-self-center">
+                        <span class="report-data-range-selected">
+                    Year: {{ selectedYear }}
+                  </span>
+                    </div>
+                </div>
+                <div class="row" *ngIf="!isLoading">
+                    <div class="col-lg-12">
+                        <dx-data-grid id="gridContainer" class="pair-row-color-gray-100 grid-head-font-weight-500 dx-data-grid-tab-title grid-last-cell-actions" [dataSource]="payStubs" [columnAutoWidth]="true" [wordWrapEnabled]="true" keyExpr="checkNumber">
+                            <dxo-paging [enabled]="false"></dxo-paging>
+                            <dxi-column dataField="checkNumber" alignment="left" [allowSorting]="false"></dxi-column>
+                            <dxi-column dataField="checkDate" alignment="left" [allowSorting]="false" format="MM/dd/yyyy"></dxi-column>
+                            <dxi-column dataField="netPay" alignment="center" [allowSorting]="false" format="currency" [precision]="2"></dxi-column>
+                            <dxi-column dataField="" [allowFiltering]="false" [allowSorting]="false" cellTemplate="actionTemplate" [allowEditing]="false" alignment="right"></dxi-column>
+                            <div *dxTemplate="let data of 'actionTemplate'">
+                                <dx-menu id="actionMenu" #menu [dataSource]="dropdownActions" displayExpr="name" orientation="horizontal" submenuDirection="auto" [hideSubmenuOnMouseLeave]="false" (onItemClick)="onDropdownClick($event, data, menu)" tabindex="0">
+                                </dx-menu>
+                            </div>
+                        </dx-data-grid>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<ng-template #payStubModal let-c="close" let-d="dismiss">
+    <app-compensation-pay-stub [modalCloseFunc]="this.c" [modalDismissFunc]="this.d"></app-compensation-pay-stub>
+</ng-template>

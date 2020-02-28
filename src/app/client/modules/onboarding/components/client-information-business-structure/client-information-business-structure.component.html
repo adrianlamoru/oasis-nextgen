@@ -1,0 +1,460 @@
+<div class="client-information-component">
+  <form [formGroup]="formGroup" autocomplete="off">      
+      <div class="row">
+        <div class="col-8">
+          <div class="row">
+            <div class="form-group col-6 d-inline-block pr-3">
+              <app-custom-select [title]="'Business Type'"
+                                 [placeholder]="'Select one'"
+                                 [items]="businessTypesDropdown"
+                                 formControlName="businessType"
+                                 (selected)="businessTypeSelected($event)"></app-custom-select>
+            </div>
+            <div class="form-group col-6 d-inline-block float-right">
+              <label for="fieldTitle">Owner(s)</label>
+              <input type="text" class="form-control" id="owner" formControlName="owner" placeholder="Names separated by commas" [disableControl]="!showOwnerFields" autocomplete="off">
+            </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <label for="fieldTitle">2% Shareholder(s)</label>
+            <input type="text" class="form-control" id="shareholders" formControlName="shareholder" placeholder="Names separated by commas" [disableControl]="!showOwnerFields" autocomplete="off">
+          </div>
+          <div class="form-group col-6 d-inline-block float-right">
+            <label for="fieldTitle">Partner(s)</label>
+            <input type="text" class="form-control" id="partners" formControlName="partner" placeholder="Names separated by commas" [disableControl]="!showOwnerFields" autocomplete="off">
+          </div>
+        </div>
+        <div class="row mt--9">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 d-inline-block pr-3">
+            <p class="taxes-paragraph">
+              *Self-employed individuals, including partners in a partnership, more than 2% shareholders in a Subchapter S Corporation,
+              outside directors and members of an LLC are not eligible to participate in benefits under our Flex Plan.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+          <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <label for="fieldTitle">NAICS Code</label>
+            <input formControlName="naicsCode" type="text" class="form-control" id="naicsCode">
+          </div>
+          <div class="form-group col-6 d-inline-block float-right">
+            <label for="fieldTitle">SIC Code</label>
+            <input formControlName="sicCode" type="text" class="form-control" id="sicCode">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 d-inline-block pr-3">
+            <label for="fieldTitle" class="mb-19">Confirm all of your additional FEINs/Entities</label>
+            <div class="row">
+              <div class="col-12 d-inline-block pr-3">
+                <dx-data-grid #dxDataGrid
+                              [dataSource]="feinEntitiesDataRows"
+                              [columnAutoWidth]="true"
+                              class="payroll-batch-grid row-edited-data-grid"
+                              keyExpr="ID">
+                  <dxo-paging [enabled]="false"></dxo-paging>
+                  <dxo-editing mode="batch"
+                                [allowUpdating]="true"></dxo-editing>
+                  <dxi-column dataField="Fein"
+                              alignment="left"
+                              [allowSorting]="false"
+                              [showEditorAlways]="true">
+                  </dxi-column>
+                  <dxi-column dataField="EntityName"
+                              alignment="left"
+                              [allowSorting]="false"
+                              [showEditorAlways]="true">
+                  </dxi-column>
+                  <dxi-column cellTemplate="editTemplate"
+                              alignment="left"
+                              [width]="60" [minWidth]="60">
+                    <div *dxTemplate="let data of 'editTemplate'">
+                      <div class="dx-custom-command-edit">
+                        <a *ngIf="data.data.inserting"
+                            class="dx-link dx-link-edit"
+                            tabindex="0"
+                            (click)="onAddRow(data)"
+                            (keydown)="onAddKeyDown($event, data)">ADD</a>
+                        <a *ngIf="!data.data.inserting"
+                            class="dx-link dx-link-delete"
+                            tabindex="0"
+                            (click)="onDeleteRow(data)"
+                            (keydown)="onDeleteKeyDown($event, data)">REMOVE</a>
+                      </div>
+                    </div>
+                  </dxi-column>
+                </dx-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group form-group-checkbox-margin col-8 d-inline-block pr-3">
+            <label class="vertical-sub mb-0">Do you have joint employer and/or related enterprises (Controlled Group)?</label>
+          </div>
+          <div class="form-group form-group-checkbox-margin col-4 d-inline-block float-right">
+            <div formGroupName="jointEmployerGroup" class="form-checkbox-width">
+              <dx-check-box 
+                formControlName="jointEmployerYes" 
+                text="Yes" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('jointEmployerYes', 'jointEmployerGroup', $event)">
+              </dx-check-box>
+              <dx-check-box 
+                class="mr-0"
+                formControlName="jointEmployerNo" 
+                text="No" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('jointEmployerNo', 'jointEmployerGroup', $event)">
+              </dx-check-box>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group form-group-checkbox-margin col-6 d-inline-block pr-3">
+            <label class="vertical-sub mb-0">Are you related to a current Oasis entity?</label>
+          </div>
+          <div class="form-group form-group-checkbox-margin col-6 d-inline-block float-right">
+            <!-- <dx-check-box [(ngModel)]="relatedEntityCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('relatedEntityCheckboxGroup', 'yes', $event)"></dx-check-box>
+            <dx-check-box [(ngModel)]="relatedEntityCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('relatedEntityCheckboxGroup', 'no', $event)"></dx-check-box> -->
+            <div formGroupName="relatedToOasisGroup" class="form-checkbox-width">
+              <dx-check-box 
+                formControlName="relatedToOasisYes" 
+                text="Yes" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('relatedToOasisYes', 'relatedToOasisGroup', $event)"></dx-check-box>
+              
+              <dx-check-box 
+                class="mr-0"
+                formControlName="relatedToOasisNo" 
+                text="No" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('relatedToOasisNo', 'relatedToOasisGroup', $event)"></dx-check-box>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <label for="fieldTitle">Provide the entity ID(s)</label>
+            <input type="text" class="form-control" id="entityId" placeholder="Names separated by comma" [disabled]="relatedToOasisGroupName !== 'relatedToOasisYes'">
+          </div>
+          <div class="form-group col-6 d-inline-block float-right">
+            <label for="fieldTitle">Which entity is the primary company?</label>
+            <input type="text" class="form-control" id="primaryCompany" placeholder="Primary company account" [disabled]="relatedToOasisGroupName !== 'relatedToOasisYes'">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group form-group-checkbox-margin col-6 d-inline-block pr-3">
+            <label class="vertical-sub mb-0">Do you want to join this entity to the primary company?</label>
+          </div>
+          <div class="form-group form-group-checkbox-margin col-6 d-inline-block float-right">
+            <!-- <dx-check-box [(ngModel)]="relatedEntityCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('relatedEntityCheckboxGroup', 'yes', $event)"></dx-check-box>
+            <dx-check-box [(ngModel)]="relatedEntityCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('relatedEntityCheckboxGroup', 'no', $event)"></dx-check-box> -->
+            <div formGroupName="joinEntityPrimaryCompanyGroup" class="form-checkbox-width">
+              <dx-check-box 
+                [disabled]="relatedToOasisGroupName !== 'relatedToOasisYes'"
+                formControlName="joinEntityPrimaryCompanyYes" 
+                text="Yes" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('joinEntityPrimaryCompanyYes', 'joinEntityPrimaryCompanyGroup', $event)"></dx-check-box>
+              
+              <dx-check-box 
+                class="mr-0"
+                [disabled]="relatedToOasisGroupName !== 'relatedToOasisYes'"
+                formControlName="joinEntityPrimaryCompanyNo" 
+                text="No" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('joinEntityPrimaryCompanyNo', 'joinEntityPrimaryCompanyGroup', $event)"></dx-check-box>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group form-group-checkbox-margin col-6 d-inline-block pr-3">
+            <label class="vertical-sub mb-0">Are employees shared to ensure proper overtime calculation?</label>
+          </div>
+          <div class="form-group form-group-checkbox-margin col-6 d-inline-block float-right">
+            <!-- <dx-check-box [(ngModel)]="relatedEntityCheckboxGroup.yes" text="Yes" (onOptionChanged)="onGroupedCheckBoxChanged('relatedEntityCheckboxGroup', 'yes', $event)"></dx-check-box>
+            <dx-check-box [(ngModel)]="relatedEntityCheckboxGroup.no" text="No" (onOptionChanged)="onGroupedCheckBoxChanged('relatedEntityCheckboxGroup', 'no', $event)"></dx-check-box> -->
+            <div formGroupName="overtimeCalculationGroup" class="form-checkbox-width">
+              <dx-check-box 
+                [disabled]="relatedToOasisGroupName !== 'relatedToOasisYes'"
+                formControlName="overtimeCalculationYes" 
+                text="Yes" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('overtimeCalculationYes', 'overtimeCalculationGroup', $event)"></dx-check-box>
+              
+              <dx-check-box 
+                class="mr-0"
+                [disabled]="relatedToOasisGroupName !== 'relatedToOasisYes'"
+                formControlName="overtimeCalculationNo" 
+                text="No" 
+                (onOptionChanged)="onGroupedCheckBoxChanged('overtimeCalculationNo', 'overtimeCalculationGroup', $event)"></dx-check-box>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+              <h3 class="display-3 worksite-location">Worksite Locations</h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator-title"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <label for="fieldTitle" class="mb-19">Confirm the states in which you are currently conducting business</label>
+            <div class="row">
+              <div class="col-12">
+                <dx-data-grid #dxStatesDataGrid [dataSource]="statesList" [columnAutoWidth]="true" class="payroll-batch-grid row-edited-data-grid"
+                  keyExpr="ID">
+
+                  <dxo-paging [enabled]="false"></dxo-paging>
+
+                  <dxo-editing mode="batch" [allowUpdating]="true">
+                  </dxo-editing>
+
+                  <dxi-column dataField="Name" caption="State" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+                  </dxi-column>
+                  <dxi-column cellTemplate="editTemplate" alignment="left" [width]="60" [minWidth]="60">
+                    <div *dxTemplate="let data of 'editTemplate'">
+                      <div class="dx-custom-command-edit">
+                        <a *ngIf="data.data.inserting" class="dx-link dx-link-edit" tabindex="0" (click)="onStateAddRow(data)" (keydown)="onStateAddKeyDown($event, data)">ADD</a>
+                        <a *ngIf="!data.data.inserting" class="dx-link dx-link-delete" tabindex="0" (click)="onStateDeleteRow(data)" (keydown)="onStateDeleteKeyDown($event, data)">REMOVE</a>
+                      </div>
+                    </div>
+                  </dxi-column>
+
+                </dx-data-grid>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt--9">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>        
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10">
+        <label for="fieldTitle" class="mb-19">Confirm your physical worksite location information</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10">
+        <div class="row">
+          <div class="col-12">
+            <dx-data-grid #dxLocationDataGrid 
+                          [dataSource]="physicalLocations" 
+                          [columnAutoWidth]="true" 
+                          class="payroll-batch-grid row-edited-data-grid"
+                          keyExpr="ID">
+
+              <dxo-paging [enabled]="false"></dxo-paging>
+
+              <dxo-editing mode="batch" [allowUpdating]="true">
+              </dxo-editing>
+
+              <dxi-column dataField="Code" caption="CODE" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+              </dxi-column>
+              <dxi-column dataField="Name" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+              </dxi-column>
+              <dxi-column dataField="Address1" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+              </dxi-column>
+              <dxi-column dataField="Address2" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+              </dxi-column>
+              <dxi-column dataField="City" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+              </dxi-column>
+              <dxi-column dataField="Township" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+              </dxi-column>
+              <dxi-column dataField="State" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+              </dxi-column>
+              <dxi-column dataField="ZipCode" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+              </dxi-column>
+              <dxi-column dataField="ContactName" alignment="left" [allowSorting]="false" [showEditorAlways]="true">
+              </dxi-column>
+              <dxi-column 
+                dataField="ContactNumber" 
+                alignment="left" 
+                [allowSorting]="false" 
+                [showEditorAlways]="true"
+                [editorOptions]="{ 
+                  mask: '(X00) 000-0000',
+                  maskRules: phoneRules,
+                  useMaskedValue: true,
+                  placeholder: ''}">
+                  <dxi-validation-rule 
+                    type="pattern"
+                    [pattern]="phonePattern">
+                  </dxi-validation-rule>
+                </dxi-column>
+              <dxi-column cellTemplate="editTemplate" alignment="left" [width]="60" [minWidth]="60">
+                <div *dxTemplate="let data of 'editTemplate'">
+                  <div class="dx-custom-command-edit">
+                    <a *ngIf="data.data.inserting" class="dx-link dx-link-edit" tabindex="0" (click)="onLocationAddRow(data)" (keydown)="onLocationAddKeyDown($event, data)">ADD</a>
+                    <a *ngIf="!data.data.inserting" class="dx-link dx-link-delete" tabindex="0" (click)="onLocationDeleteRow(data)" (keydown)="onLocationDeleteKeyDown($event, data)">REMOVE</a>
+                  </div>
+                </div>
+              </dxi-column>
+            </dx-data-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <p class="taxes-paragraph">
+              The taxes could be subject to city, county, occupational, or school district. The employee will need to provide detailed information during the onboarding to ensure the set up of these taxes are correct.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+        <div class="row payment-method-requested-section">
+          <div class="form-group payment-method-label col-4 d-inline-block">
+            <label class="vertical-sub mb-0 pt-2">Payment Method Requested</label>
+          </div>
+          <div class="form-group col-8 d-inline-block">
+            <div formGroupName="paymentMethod" class="form-checkbox-width">
+              <dx-check-box class="mb-19"
+                            formControlName="achDebit"
+                            text="ACH Debit (Payroll must be submitted at least 48 hours before pay date.)"
+                            (onOptionChanged)="onGroupedCheckBoxChanged('achDebit', 'paymentMethod', $event)"></dx-check-box>
+              <dx-check-box class="mb-19"
+                            formControlName="wireTransfer"
+                            text="Wire Transfer (Payroll must be submitted at least 72 hours before pay date and the wire received at least two days before pay date.)"
+                            (onOptionChanged)="onGroupedCheckBoxChanged('wireTransfer', 'paymentMethod', $event)"></dx-check-box>
+            </div>
+            <button type="button" class="btn btn-link" [disabled]="paymentMethodName !== 'wireTransfer'" (click)="openWireTransferInstructions()">
+              <span class="btn-link-text">Click here for Wire transfer instructions</span>
+              <span class="icon icon-arrow"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-10">
+        <div class="row">
+          <div class="col-12">
+            <dx-data-grid #dxPaymentDataGrid
+                          [dataSource]="paymentAccounts"
+                          [columnAutoWidth]="true"
+                          class="payroll-batch-grid row-edited-data-grid"
+                          [disabled]="paymentMethodName !== 'achDebit'"
+                          keyExpr="ID">
+              <dxo-paging [enabled]="false"></dxo-paging>
+              <dxo-editing mode="batch" [allowUpdating]="true"></dxo-editing>
+              <dxi-column dataField="BankName"
+                          alignment="left"
+                          [allowSorting]="false"
+                          [showEditorAlways]="true"></dxi-column>
+              <dxi-column dataField="RoutingNumber"
+                          alignment="left"
+                          [allowSorting]="false"
+                          [showEditorAlways]="true"></dxi-column>
+              <dxi-column dataField="ConfirmRoutingNumber"
+                          alignment="left"
+                          [allowSorting]="false"
+                          [showEditorAlways]="true"></dxi-column>
+              <dxi-column dataField="AccountNumber"
+                          alignment="left"
+                          [allowSorting]="false"
+                          [showEditorAlways]="true"></dxi-column>
+              <dxi-column dataField="ConfirmAccountNumber"
+                          alignment="left"
+                          [allowSorting]="false"
+                          [showEditorAlways]="true"></dxi-column>
+              <dxi-column dataField="AllocationCode"
+                          alignment="left"
+                          [allowSorting]="false"
+                          [showEditorAlways]="true"></dxi-column>
+              <dxi-column dataField="AllocationDescription"
+                          alignment="left"
+                          [allowSorting]="false"
+                          [showEditorAlways]="true"></dxi-column>
+              <dxi-column cellTemplate="editTemplate"
+                          alignment="left" [width]="60" [minWidth]="60">
+                <div *dxTemplate="let data of 'editTemplate'">
+                  <div class="dx-custom-command-edit">
+                    <a *ngIf="data.data.inserting"
+                       class="dx-link dx-link-edit"
+                       tabindex="0"
+                       (click)="onPaymentMethodAddRow(data)"
+                       (keydown)="onPaymentMethodAddKeyDown($event, data)">ADD</a>
+                    <a *ngIf="!data.data.inserting"
+                       class="dx-link dx-link-delete"
+                       tabindex="0"
+                       (click)="onPaymentMethodDeleteRow(data)"
+                       (keydown)="onPaymentMethodDeleteKeyDown($event, data)">REMOVE</a>
+                  </div>
+                </div>
+              </dxi-column>
+            </dx-data-grid>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="horizontal-separator"></div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,288 @@
+@import "~sass/variables";
+
+.container-content {
+	margin: 10px -15px 0 -15px;
+	.custom-col-card {
+		margin-bottom: 30px;
+		min-width: 350px;
+	}
+}
+
+.benefits-modal-link{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.43;
+    color: $blue;
+    
+    &:hover{
+        font-weight: bold;
+        cursor: pointer;  
+    }
+}
+
+.product-card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 9px;
+}
+
+.offer-card-coupon-code {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 9px;
+    color: $gray-700;
+
+    .offer-card-coupon-text {
+        color: $gray-800 !important;
+    }
+}
+
+.product-card-description {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.43;
+    color: $gray-700 !important;
+}
+
+.product-card-features {
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    color: $gray-600;
+    text-transform: uppercase;
+    margin-top: 30px;
+    margin-bottom: 8px;
+
+    &.additional-info {
+        margin-top: 20px !important;
+    }
+}
+
+.additional-info-list {
+    margin-top: 11px;
+
+    a:link {
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        line-height: 1.43 !important;
+    }
+
+    ul {
+        padding: 0px;
+        list-style-type: none;
+
+        hr {
+            margin-top: 10px;
+            margin-bottom: 9px;
+            width: 100%;
+            margin-left: 0;
+        }
+    }
+}
+
+.features-items {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.43;
+    color: $gray-800;
+
+    ul {
+        padding: 0px;
+        vertical-align: middle;
+        line-height: 25px;
+    }
+
+    &.features-with-borders {
+        .media {
+            padding-bottom: 0;
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid $gray-400;
+
+            &.a-link {
+                cursor: pointer;
+                color: $gray-800;
+                font-weight: 500;
+                width: 100%;
+            }
+
+            &.xl-padding {
+                height: 50px;
+                line-height: 50px;
+
+                .custom-features-bullet-icon-2 {
+                    line-height: 50px;
+                }
+            }
+
+            &.xxl-padding {
+                height: 60px;
+                line-height: 60px;
+
+                .custom-features-bullet-icon-2 {
+                    line-height: 60px;
+                }
+            }
+
+            .media-body-review {
+                line-height: 1.1;
+                align-self: center;
+
+                .media-body-date {
+                    font-size: 11px;
+                    color: $gray-700;
+                    position: relative;
+
+                    .divider {
+                        font-size: 20px;
+                        line-height: 0;
+                        position: absolute;
+                        top: 2px;
+                    }
+                }
+            }
+        }
+    }
+
+    .link {
+        cursor: pointer;
+    }
+}
+
+.custom-features-bullet-icon {
+    margin-top: 9px;
+    margin-right: 7px;
+    font-size: 9px;
+    vertical-align: middle !important;
+}
+
+.custom-features-bullet-icon-2 {
+    margin-right: 10px;
+    font-size: 9px;
+    line-height: 40px;
+
+    &.icon-single-content {
+        margin-right: 20px;
+        font-size: 16px;
+    }
+
+    &.icon-profile {
+        margin-right: 12px;
+        font-size: 32px;
+
+        &:before {
+            color: $gray-500;
+        }
+    }
+
+    &.icon-side-chevron:before {
+        color: $gray-800;
+    }
+
+    &.icon-square-upload {
+        font-size: 12px;
+    }
+}
+
+.benefits-item {
+    margin-left: 2%;
+    margin-right: 2%;
+
+
+    .item-header {
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.38;
+        text-align: left;
+    }
+
+    .item-body {
+        margin-top: 10px;
+        height: 40px;
+        overflow: hidden;
+        font-size: 14px;
+        line-height: 1.6;
+        text-align: left;
+    }
+
+    .readLess {
+        height: 40px;
+        overflow: hidden;
+    }
+
+    .readMore {
+        height: auto;
+    }
+
+    .item-footer {
+        margin-top: 2px;
+
+        a {
+            font-size: 0.6875rem;
+            font-weight: 700;
+        }
+
+        .icon {
+            margin-left: 2px;
+            font-size: 10px;
+        }
+
+        .readLessIcon {
+            p {
+                margin-left: 2px;
+            }
+        }
+    }
+
+    .item-footer a {
+        font-family: $font-family-sans-serif-secondary;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .item-footer .readLessIcon {
+        .rotate-180 {
+            padding-top: 2px;
+            transform: rotate(180deg) !important;
+            display: inline-block;
+        }
+    }
+
+    hr {
+        margin-top: 27px;
+        margin-bottom: 24px;
+    }
+
+    &.benefits-item-parent-padding {
+        margin: 15px 0 0;
+        padding: 0 1.875rem;
+
+        .product-card-description {
+            padding-top: 13px;
+        }
+    }
+}
+
+.offer-card-item {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.employee-cost{
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 2px;
+    line-height: 1.1;
+    .month{
+        font-size: 14px;
+        font-weight: 400;
+    }
+}
+
+.benefits-features-items {
+    margin-bottom: 0 !important;
+}
+
+.mb-30{
+    margin-bottom: 30px;
+}

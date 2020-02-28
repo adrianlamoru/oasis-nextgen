@@ -1,0 +1,12 @@
+
+<button type="button" class="btn btn-link btn-link-icon p-0 float-right"
+        (click)="clicked();"
+        [ngClass]="{
+        'edit-disabled': isDisabled === false
+        }">
+  <span class="icon icon-pencil"
+        [ngClass]="{
+                  'icon-pencil-blue': isDisabled === true
+                  }"></span>
+  <span class="{{isDisabled ? 'btn-link-text-blue' : 'btn-link-text' }}">EDIT</span>
+</button>

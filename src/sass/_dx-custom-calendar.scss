@@ -1,0 +1,108 @@
+.dx-datebox-wrapper-calendar {
+  margin: 0px 15px 15px 15px;
+
+  .dx-calendar {
+    margin: 0px 15px 15px 15px;
+
+    .dx-calendar-body {
+      font-size: 25px;
+      font: $font-family-sans-serif;
+      bottom: 15px;
+
+      .dx-calendar-views-wrapper {
+        th {
+          color: $blue;
+          font-size: 0;
+          box-shadow: none;
+          width: 32px;
+          height: 32px;
+        }
+
+        th::first-letter {
+          font-size: 14px;
+        }
+
+        .dx-calendar-cell {
+          font-size: 14px;
+          font: $font-family-sans-serif;
+          font-weight: 500;
+          border-radius: 0px;
+          border: 0px;
+          width: 32px;
+          height: 32px;
+
+          &.dx-calendar-selected-date {
+            border: 0px;
+          }
+        }
+      }
+    }
+
+    .dx-calendar-navigator {
+      border: 0px;
+      box-shadow: none;
+
+      .dx-button {
+        border: none;
+        box-shadow: none;
+        position: unset;
+      }
+
+      .dx-calendar-caption-button {
+        font-size: 14px;
+
+        &.dx-button-has-text {
+          .dx-button-content {
+            .dx-button-text {
+              line-height: 0px;
+            }
+          }
+        }
+      }
+
+      .dx-calendar-navigator-previous-view {
+        border-radius: 0px;
+      }
+    }
+  }
+}
+
+
+.dx-datebox-calendar {
+  .dx-dropdowneditor-input-wrapper {
+    .dx-texteditor-container {
+      /*.dx-placeholder:before {
+        content: "\e941";
+        margin-left: 5px;
+        font-size: 0.875rem;
+        font-family: $font-family-icomoon;
+      }*/
+
+      .dx-texteditor-input {
+        /*margin-left: 22px;*/
+      }
+
+      .dx-dropdowneditor-icon:before {
+        content: "\e941";
+        color: $gray-600;
+        margin-right: 15px;
+        font-size: 0.875rem;
+        font-family: $font-family-icomoon;
+      }
+    }
+  }
+
+  &.dx-texteditor-empty {
+    &.dx-state-focused {
+      .dx-placeholder {
+        display: inline-block !important;
+      }
+    }
+  }
+
+  .dx-state-invisible {
+    display: inline-block !important;
+  }
+}
+
+

@@ -1,0 +1,66 @@
+<div class="job-costing-component">
+  <div class="row">
+    <div class="col-8">
+      <div class="checkboxes">
+        <div class="row row-checkboxes">
+          <div class="form-group col-9 p-0">
+            <div class="question-class">{{question}}</div>
+          </div>
+          <div class="form-group col-3 p-0">
+              <dx-check-box 
+                [(ngModel)]="questionCheckboxGroup.no" 
+                text="No"
+                class="float-right"
+                (onOptionChanged)="onGroupedCheckBoxChanged('questionCheckboxGroup', 'no', $event)">
+              </dx-check-box>
+              <dx-check-box 
+                  [(ngModel)]="questionCheckboxGroup.yes" 
+                  text="Yes" 
+                  class="float-right"
+                  (onOptionChanged)="onGroupedCheckBoxChanged('questionCheckboxGroup', 'yes', $event)">
+              </dx-check-box>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="questionCheckboxGroup.yes">
+        <div class="row">
+            <div class="col-12">
+              <div class="bs-component">
+                <ul class="nav nav-tabs">
+                  <li class="nav-item">
+                    <a href="javascript: void(0)" class="nav-link {{selectedTab === tabDivitions? 'active' : ''}}" data-toggle="tab" (click)="updateSelectedTab(tabDivitions)">Divisions</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="javascript: void(0)" class="nav-link {{selectedTab === tabDepartments? 'active' : ''}}" data-toggle="tab" (click)="updateSelectedTab(tabDepartments)">Departments</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="javascript: void(0)" class="nav-link {{selectedTab === tabProjects? 'active' : ''}}" data-toggle="tab" (click)="updateSelectedTab(tabProjects)">Projects</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="javascript: void(0)" class="nav-link {{selectedTab === tabShifts? 'active' : ''}}" data-toggle="tab" (click)="updateSelectedTab(tabShifts)">Shifts</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <p class="ex-margin-top">Select those that apply:</p>
+          <div class="row">
+            <div class="col-12">
+              <div *ngIf="selectedTab === tabDepartments">
+                  <app-job-costing-departments></app-job-costing-departments>
+              </div>
+              <div *ngIf="selectedTab === tabDivitions">
+                  <app-job-costing-divisions></app-job-costing-divisions>
+              </div>
+              <div *ngIf="selectedTab === tabProjects">
+                  <app-job-costing-projects></app-job-costing-projects>
+              </div>
+              <div *ngIf="selectedTab === tabShifts">
+                  <app-job-costing-shifts></app-job-costing-shifts>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

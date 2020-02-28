@@ -1,0 +1,70 @@
+<div class="payroll-run-wizard">
+    <app-payroll-run-breadcrumb [batchNumber]="roster.batchNumber" [rosterId]="roster.id"></app-payroll-run-breadcrumb>
+    <app-payroll-navbar></app-payroll-navbar>
+    <div class="payroll-run-content">
+        <div class="row header">
+            <div class="col-6">
+                <!-- <span class="payroll-type">Payroll Type</span> -->
+                <span class="title">{{tabTitle}}</span>
+                <span class="title-date" *ngIf="!roster?.isManual && !roster?.isOffCycle">{{tabTitleDate || formatDate}}</span>                        
+            </div>
+            <div class="col-6">
+                <div class="buttons pull-right">
+                    <button type="button" class="btn btn-link" (click)="tryCancelBatch()">
+                        <span class="btn-link-text">CANCEL BATCH</span>
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" (click)="goToBack()">BACK</button>
+                    <button type="button" class="btn btn-outline-primary" (click)="saveAndExit()" *ngIf="!roster?.isManual">SAVE AND EXIT</button>
+                    <button type="button" class="btn btn-primary" (click)="submitPayroll()">SUBMIT</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <ngb-tabset #tabSet="ngbTabset" class="ngbTabset ngbTabset-hide-tab-header" *ngIf="roster.isManual">
+                    <ngb-tab title="Summary" id="tab-personal">
+                        <ng-template ngbTabContent>
+                            <app-payroll-run-manual-review-submit-summary></app-payroll-run-manual-review-submit-summary>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+                <ngb-tabset #tabSet="ngbTabset" class="ngbTabset" *ngIf="!roster.isManual">
+                    <ngb-tab title="Quick Summary" id="tab-personal">
+                        <ng-template ngbTabContent>
+                            <app-payroll-run-review-submit-quick-summary></app-payroll-run-review-submit-quick-summary>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="PTO Over Limit" id="tab-pto">
+                        <ng-template ngbTabContent>
+                            <app-payroll-run-review-submit-pto-over-limit></app-payroll-run-review-submit-pto-over-limit>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab title="EE Defaults" id="tab-employee-reports">
+                        <ng-template ngbTabContent>
+                            <app-payroll-run-review-submit-ee-defaults></app-payroll-run-review-submit-ee-defaults>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+            </div>
+        </div>
+
+        <!-- DELETE Popup Start -->
+        <dx-popup class="custom-dx-popup" #popupDeleteGLCode [showTitle]="false" [width]="350" [height]="150" [position]="{ my: 'middle', at: 'middle', of: window }"
+            [showCloseButton]="false" [dragEnabled]="false" [closeOnOutsideClick]="true" [(visible)]="deletePopupVisible">
+            <div *dxTemplate="let data of 'content'">
+                <div class="custom-modal-window">
+                    <div class="modal-body">
+                        <div class="form-group d-flex justify-content-center">
+                            <h4>Are you sure you want to cancel this batch?</h4>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-outline-primary" (click)="onNoClick()">No</button>
+                        <button type="button" class="btn btn-primary" (click)="cancelBatch()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </dx-popup>
+        <!-- DELETE Popup End -->
+    </div>
+</div>

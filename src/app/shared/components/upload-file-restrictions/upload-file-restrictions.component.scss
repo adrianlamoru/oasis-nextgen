@@ -1,0 +1,86 @@
+.modal-body {
+    .file-upload-area {
+        border: dashed 2px #c0c2c7;
+        height: 80px;
+        padding-left: 25.5%;
+        padding-top: 20px;
+
+        .custom-file-input-button::-webkit-file-upload-button {
+            visibility: hidden;
+        }
+        .custom-file-input-button::before {
+            content: 'Choose files';
+            display: inline-block;
+            border-radius: 5px;
+            white-space: nowrap;
+            cursor: pointer;
+            height: 2.25rem;
+            border: 2px solid #005DC1;
+            font-size: 10pt;
+            font-size: 0.6875rem;
+            font-weight: 900 !important;
+            letter-spacing: 0.5px;
+            font-family: "Roboto", "Adobe Blank", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            -webkit-transition: none;
+            transition: none;
+            padding: 0.625rem 1.1rem;
+            font-size: 0.688rem;
+            line-height: 0.75rem;
+            border-radius: 5px;
+            color: #005DC1;
+            background-color: transparent;
+            background-image: none;
+            display: inline-block;
+            font-weight: 700;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    
+        .custom-file-input-button:hover::before {
+            color: #fff;
+            background-color: #005DC1; 
+        }
+    
+        .custom-file-input-button:active::before {
+            background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+        }
+
+        &.in-drag-zone {
+            border: dashed 2px #005DC1;
+
+            .custom-file-input-button::before {
+                color: #D0D3D9;
+                background: #F5F7F9;
+                border: 2px solid #F5F7F9;
+            }
+
+            .custom-drop-files-label {
+                color: #D0D3D9;
+            }
+        }
+    }
+
+    .close .icon-close, {
+        width: 12px;
+        height: 8px;
+        background-size: 12px 12px;
+        font-size: 11px;
+        line-height: 10px;
+    }
+
+    .icon.icon-folder {
+        background-size: 14px 16px;
+        width: 14px;
+        height: 16px;
+        line-height: 20px;
+        left: 0;
+        top: 10px;
+    }
+}

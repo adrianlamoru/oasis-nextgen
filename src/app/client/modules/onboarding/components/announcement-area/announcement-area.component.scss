@@ -1,0 +1,74 @@
+.hide-announcement {
+    display: none;
+    
+}
+.announcement-container {
+    padding: 0;
+    min-width: 0;
+    .bg-white{
+        background-color: #ffffff;
+    }
+    .announcement-title {
+        margin-top:39px;
+        width: 323px;
+        height: 18px;
+        font-family: Roboto;
+        font-size: 20px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 0.9;
+        letter-spacing: normal;
+        color: #3e434d;
+    }
+    .announcement-text {
+        margin: 9px 0 0 0;
+        font-family: Roboto;
+        font-size: 14px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.43;
+        letter-spacing: normal;
+        color: #8993ab;
+    }
+
+    .announcement-button {
+        margin-top:15px;
+        width: 170px;
+        height: 36px;
+        border-radius: 5px;
+        background-color: #005dc1;
+        a {
+            width: 100%;
+            font-family: Roboto;
+            font-size: 10px;
+            font-weight: 900;
+            font-style: normal;
+            font-stretch: normal;
+            line-height: normal;
+            letter-spacing: 0.5px;
+            text-align: center;
+            color: #ffffff;
+        }
+    }
+    
+    .img-container {
+        background: url('../../../../../../assets/images/GSW_banner.png');
+        background-size: cover;
+        height: 199px;
+        mix-blend-mode: multiply;
+    }
+
+    .close-col-icon {
+        padding: 0;
+        .custom-close {
+            width: 20px;
+            height: 20px;
+            margin-top: 31px;
+            cursor:pointer;
+            margin-left: 60%;
+        }
+    }
+    
+}

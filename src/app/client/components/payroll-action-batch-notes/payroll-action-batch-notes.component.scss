@@ -1,0 +1,40 @@
+@import '~sass/variables';
+
+.payroll-action-notes {
+    .custom-grid .dx-datagrid .dx-row.dx-edit-row > td:first-child {
+        padding-left: 0px;
+    }
+
+    textarea.dx-texteditor-input {
+        height: 106px;
+        padding: 13px 15px;
+        font-family: $font-family-sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.29;
+        letter-spacing: normal;
+        color: $gray-800;
+    }
+
+    label.note-custom-label {
+        font-family: $font-family-sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.29;
+        letter-spacing: normal;
+        color: $gray-800;
+    }
+
+    dx-text-area.dx-textarea {
+        margin-bottom: 2px;
+    }
+    #tx-area-note{
+        .dx-placeholder:before {
+            padding: 13px 15px;
+        }
+    }
+}

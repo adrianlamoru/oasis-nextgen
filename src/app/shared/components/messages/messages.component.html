@@ -1,0 +1,12 @@
+<div class="messages-component" *ngIf="messages">
+  <p *ngFor="let message of messages">
+    <ngb-alert [type]="message?.type" (close)="closeMessage(message)">
+      <span class="icon" [ngClass]="'icon-' + message.type"></span>
+      <span class="message">
+        {{ message?.text }}  <a [href]="message.actionUrl" target="_blank" class="alert-link">{{ message.actionText }}</a>
+      </span>
+
+    </ngb-alert>
+  </p>
+</div>
+<!--{{diagnosticMessages}}-->

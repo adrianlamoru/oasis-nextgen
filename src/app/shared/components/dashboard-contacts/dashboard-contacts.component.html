@@ -1,0 +1,40 @@
+<div class="left-panel-container docu-form-search">
+    <div>
+      <h5 class="header">CONTACTS</h5>
+    </div>
+    <div class="contacts-container dashboard-list-container">
+      <div class="list">
+        <div *ngFor="let contact of contacts?.slice(0, 2)" class="list-item">
+          <span class="title">{{ contact.firstName }} {{ contact.lastName }}</span>
+          <p class="description">{{ contact.title }}</p>
+          <p><i class="icon-phone2"></i> <b>{{ contact.phone }}</b></p>
+        </div>
+      </div>
+    </div>
+    <button class="see-all-btn btn btn-link" (click)="openModal(seeAllModal, 'sm')">
+      <span class="btn-link-text">SEE ALL CONTACTS <i class="icon icon-arrow"></i></span>
+    </button>
+  </div>
+
+  <ng-template #seeAllModal let-c="close" let-d="dismiss">
+    <div class="see-all-modal">
+      <div class="modal-header">
+        <h4 class="modal-title align-self-center">All Contacts</h4>
+        <button type="button" class="close align-self-center" aria-label="Close" (click)="d('Cross click')">
+          <span class="icon icon-close"></span>
+        </button>
+      </div>
+      <div class="modal-body see-all-modal-body dashboard-list-container" id="see-all-scrollbar">
+        <div class="list">
+          <div *ngFor="let contact of contacts" class="list-item">
+            <span class="title">{{ contact.firstName }} {{ contact.lastName }}</span>
+            <p class="description">{{ contact.title }}</p>
+            <p><i class="icon-phone2"></i> <b>{{ contact.phone }}</b></p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" aria-label="Close" (click)="d('Cross click')">Close</button>
+      </div>
+    </div>
+  </ng-template>

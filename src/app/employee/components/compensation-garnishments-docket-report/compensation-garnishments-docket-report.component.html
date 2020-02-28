@@ -1,0 +1,50 @@
+<h3 class="content-title">
+    Docket Report
+</h3>
+
+
+<div class="col-12" *ngIf="isLoading">
+    <app-oasis-loader [isLoading]="isLoading"></app-oasis-loader>
+</div>
+<div class="reports-container" *ngIf="!isLoading && showOldData">
+    <div class="section">
+
+        <div class="row" *ngFor="let item of obtainKeys()">
+            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 right-alignment-text">
+                <strong>{{item}}</strong>
+            </div>
+            <div class="col-xl-9 col-lg-8 col-md-8 col-sm-8">
+                {{innerData[item]}}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="reports-container docket-report" *ngIf="!isLoading">
+
+
+    <dx-form [(formData)]="finalInnerData" labelLocation="top" [readOnly]="true" [showColonAfterLabel]="false">
+        <dxi-item itemType="group" [colCount]="3">
+            <dxi-item dataField="docketNumber" [label]="{text: 'Docket Number'}"></dxi-item>
+            <dxi-item dataField="receipetDate" [label]="{text: 'Receipt Date'}"></dxi-item>
+            <dxi-item dataField="issuingAuthoriry" [label]="{text: 'Issuing Authority'}"></dxi-item>
+            <dxi-item dataField="category" [label]="{text: 'Category'}"></dxi-item>
+            <dxi-item dataField="garnishmentLimit" [label]="{text: 'Garnishment Limit'}"></dxi-item>
+            <dxi-item dataField="flatAmount" [label]="{text: 'Flat Amount'}"></dxi-item>
+            <dxi-item dataField="startDate" [label]="{text: 'Start Date'}"></dxi-item>
+            <dxi-item dataField="stopDate" [label]="{text: 'Stop Date'}"></dxi-item>
+            <dxi-item dataField="payPeriodLimit" [label]="{text: 'Pay Period Limit'}"></dxi-item>
+            <dxi-item dataField="payeeID" [label]="{text: 'Payee ID'}"></dxi-item>
+            <dxi-item dataField="deductionCode" [label]="{text: 'Deduction Code'}"></dxi-item>
+            <dxi-item dataField="garnishmentsFee" [label]="{text: 'Garnishments Fee'}"></dxi-item>
+            <dxi-item dataField="maximumGarnishmentPer" [label]="{text: 'Maximum Garnishment %'}"></dxi-item>
+            <dxi-item dataField="maximumBasis" [label]="{text: 'Maximum Basis'}"></dxi-item>
+            <dxi-item dataField="supressPayTypes" [label]="{text: 'Supress Pay Types'}"></dxi-item>
+            <dxi-item dataField="annotation" [label]="{text: 'Annotation'}"></dxi-item>
+            <dxi-item dataField="overrideAmount" [label]="{text: 'Override Ammount'}"></dxi-item>
+            <dxi-item dataField="overrideStartDate" [label]="{text: 'Override Start Date'}"></dxi-item>
+            <dxi-item dataField="overrideStopDate" [label]="{text: 'Override Stop Date'}"></dxi-item>
+        </dxi-item>
+    </dx-form>
+</div>

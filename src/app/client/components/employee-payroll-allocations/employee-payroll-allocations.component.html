@@ -1,0 +1,45 @@
+<div class="custom-modal-window">
+  <div class="modal-header">
+    <h4 class="modal-title align-self-center float-left">Employee Allocations - {{ selectedEmployeeName | middleTruncate: 25 }}</h4>
+    <button type="button" class="close align-self-center float-right" aria-label="Close" (click)="modalCloseFunc('Cross click')">
+        <span class="icon icon-close"></span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <div class="row">
+          <div class="col-12">
+            <dx-form [(formData)]="allocationsData" labelLocation="top">
+                <dxi-item
+                    dataField="locationCode"
+                    editorType="dxSelectBox"
+                    [editorOptions]="{ dataSource: locationDataDriven, displayExpr: 'Text', valueExpr: 'ID' }">
+                </dxi-item>
+                <dxi-item
+                    dataField="divisionCode"
+                    editorType="dxSelectBox"
+                    [editorOptions]="{ dataSource: divisionDataDriven, displayExpr: 'Text', valueExpr: 'ID' }">
+                </dxi-item>
+                <dxi-item
+                    dataField="departmentCode"
+                    editorType="dxSelectBox"
+                    [editorOptions]="{ dataSource: departmentDataDriven, displayExpr: 'Text', valueExpr: 'ID' }">
+                </dxi-item>
+                <dxi-item
+                    dataField="projectCode"
+                    editorType="dxSelectBox"
+                    [editorOptions]="{ dataSource: projectDataDriven, displayExpr: 'Text', valueExpr: 'ID' }">
+                </dxi-item>
+                <dxi-item
+                    dataField="shiftCode"
+                    editorType="dxSelectBox"
+                    [editorOptions]="{ dataSource: shiftDataDriven, displayExpr: 'Text', valueExpr: 'ID' }">
+                </dxi-item>
+            </dx-form>
+          </div>
+      </div>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-primary" (click)="modalCloseFunc('Cross click')">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="submitModal()">Confirm</button>
+  </div>
+</div>

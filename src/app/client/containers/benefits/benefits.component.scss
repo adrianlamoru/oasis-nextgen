@@ -1,0 +1,21 @@
+@import "~sass/variables";
+
+.container-content {
+	margin: 0 -15px;
+	.custom-col-card {
+		margin-bottom: 30px;
+		min-width: 350px;
+	}
+}
+
+.benefits-modal-link{
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.43;
+    color: $blue;
+    
+    &:hover{
+        font-weight: bold;
+        cursor: pointer;  
+    }
+}

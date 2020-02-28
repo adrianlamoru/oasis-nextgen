@@ -1,0 +1,387 @@
+<div class="payroll-processing-component">
+  <form [formGroup]="formGroup" autocomplete="off">
+    <div class="row">
+      <div class="form-group col-8">
+
+        <div class="row" id="preferredday">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <app-custom-select [title]="'Preferred Processing Day'"
+              id="processingDay"
+              [placeholder]="'Select One'"
+              [items]="processingDayDropDown"
+              formControlName="preferredProcessingDay"
+              (selected)="preferredProcessingDaySelected($event)"></app-custom-select>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+              <div class="horizontal-separator"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <p class="info-box">
+                To ensure sufficient time for direct deposits and shipment of paychecks, payroll must be received by Oasis prior to 11 a.m. EST/PST,
+                a minimum of 2 business days prior to check date. Clients paying via wire require a minimum of 3 business days prior to check date.
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+              <div class="horizontal-separator"></div>
+          </div>
+        </div>
+
+        <div class="row checkbox-row">
+          <div class="form-group col-8 d-inline-block p-0">
+            <label class="mb-0">Do you have any out-of-cycle payroll runs?</label>
+          </div>
+          <div class="form-group col-4 checkbox-section p-0">
+            <!-- <dx-check-box [value]="outOfCyclePayrollYes" text="Yes" (onValueChanged)="clickOutOfCyclePayroll($event)"></dx-check-box>
+            <dx-check-box [value]="outOfCyclePayrollNo" text="No" (onValueChanged)="clickOutOfCyclePayroll($event)"></dx-check-box> -->
+          
+            <div formGroupName="outofcyclePayrollGroup" class="form-checkbox-width">
+                <dx-check-box 
+                  formControlName="outofcyclePayrollYes" 
+                  text="Yes" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('outofcyclePayrollYes', 'outofcyclePayrollGroup', $event)"></dx-check-box>
+                
+                <dx-check-box 
+                  class="mr-0"
+                  formControlName="outofcyclePayrollNo" 
+                  text="No" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('outofcyclePayrollNo', 'outofcyclePayrollGroup', $event)"></dx-check-box>
+              </div>
+          
+          </div>
+        </div>
+
+        <div class="mt-2">
+          <label for="detailsinputrow">Please provide details</label>
+          <div class="row" id="detailsinputrow">
+            <div class="form-group col-12 input-field-margin" >
+             <textarea class="form-control" name="detailsinput" id="details" rows="3" [disabled]="outofcyclePayrollName != 'outofcyclePayrollYes'"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+              <div class="horizontal-separator"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <app-custom-select [title]="'Preferred Oasis processing method'"
+              id="oasisProcessingMethod"
+              [placeholder]="'Select One'"
+              [items]="processingMethodDropDown"
+              formControlName="preferredProcessingMethod"
+              (selected)="preferredProcessingMethodSelected($event)"></app-custom-select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+              <div class="horizontal-separator"></div>
+          </div>
+        </div>
+
+        <!-- Direct Submit Via CSW Timesheet (ID=1) -->
+
+        <div class="row" formGroupName="timeSheetSortedGroup" class="col-12">
+          <div class="form-group label-align col-7 d-inline-block p-0">
+            <label class="label-margin">Would you like your timesheet sorted by</label>
+          </div>
+            <div class="col-12">
+              <div class="row mb-19">
+                <div class="col-4 p-0 checkbox-margin">
+                  <dx-check-box 
+                    [disabled]="!showDirectSubmit  && !showFaxTimeSheet"
+                    formControlName="timeSheetSortedEmployeeLastName" 
+                    text="Employee Last Name" 
+                    class="ee-last-name-checkbox"
+                    (onOptionChanged)="onGroupedCheckBoxChanged('timeSheetSortedEmployeeLastName', 'timeSheetSortedGroup', $event)"></dx-check-box>
+                </div>
+                <div class="col-3 p-0">
+                    <dx-check-box 
+                    [disabled]="!showDirectSubmit  && !showFaxTimeSheet"
+                    formControlName="timeSheetSortedLocation" 
+                    text="Location" 
+                    class="location-checkbox"
+                    (onOptionChanged)="onGroupedCheckBoxChanged('timeSheetSortedLocation', 'timeSheetSortedGroup', $event)"></dx-check-box>
+                </div>
+              </div>
+
+              <div class="row mb-19">
+                <div class="col-4 p-0 checkbox-margin2">
+                  <dx-check-box 
+                    [disabled]="!showDirectSubmit  && !showFaxTimeSheet"
+                    formControlName="timeSheetSortedDepartment" 
+                    text="Department" 
+                    class="department-checkbox"
+                    (onOptionChanged)="onGroupedCheckBoxChanged('timeSheetSortedDepartment', 'timeSheetSortedGroup', $event)"></dx-check-box>
+                </div>
+                <div class="col-3 p-0">
+                  <dx-check-box 
+                    [disabled]="!showDirectSubmit && !showFaxTimeSheet"
+                    formControlName="timeSheetSortedDivision" 
+                    text="Division "
+                    class="division-checkbox"
+                    (onOptionChanged)="onGroupedCheckBoxChanged('timeSheetSortedDivision', 'timeSheetSortedGroup', $event)"></dx-check-box>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <!-- Timeclock Import (ID=2) Selected -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="horizontal-separator"></div>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-6 d-inline-block pr-3">
+            <label for="timeclockproduct">Provide Product Name:</label>
+            <input type="text" class="form-control" id="timeclockproductname" placeholder="Provide Product Name" [disabled]="!showTimeClockImport">
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-12">
+              <div class="horizontal-separator"></div>
+          </div>
+        </div>
+
+        <div class="row checkbox-row">
+          <div class="form-group label-align col-3 d-inline-block p-0 mb-0">
+            <label>Is Overtime</label>
+          </div>
+          <div class="form-group col-9 d-inline-block float-right overtime-checkboxes radio-button-row mb-0 pr-0">
+              <!-- <dx-check-box [value]="selectOvertimeIncluded" text="Included in all hours worked" (onValueChanged)="clickOvertime($event)"></dx-check-box>
+              <dx-check-box [value]="selectOvertimeSeparate" text="Separate from all hours worked" (onValueChanged)="clickOvertime($event)"></dx-check-box> -->
+              <div formGroupName="isOverTimeGroup" class="form-checkbox-width">
+                  <dx-check-box 
+                    [disabled]="!showTimeClockImport"
+                    formControlName="includedInHours" 
+                    text="Included in all hours worked" 
+                    (onOptionChanged)="onGroupedCheckBoxChanged('includedInHours', 'isOverTimeGroup', $event)"></dx-check-box>
+                  
+                  <dx-check-box 
+                    [disabled]="!showTimeClockImport"
+                    class="mr-0"
+                    formControlName="separateFromHours" 
+                    text="Separate from all hours worked" 
+                    (onOptionChanged)="onGroupedCheckBoxChanged('separateFromHours', 'isOverTimeGroup', $event)"></dx-check-box>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="horizontal-separator"></div>
+            </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="taxes-disclamer upload-disclaimer">
+              Please upload a sample file for review and compatability testing prior to completion
+              <div class="d-inline align-self-center">
+                <button class="btn btn-primary float-right" (click)="openUploadModal('lg', uploadModal)" [disabled]="!showTimeClockImport && !showCustomSheet">Upload</button>
+              </div>
+            </div>         
+           <ng-template #uploadModal let-c="close" let-d="dismiss">
+            <app-upload [modalCloseFunc]="this.c" [modalDismissFunc]="this.d" [isTypeModal]="true"></app-upload>
+           </ng-template>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-12">
+              <div class="horizontal-separator"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+              <h3 class="display-3 section-title">Tips</h3>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator-title"></div>
+          </div>
+        </div>
+
+        <!-- <label class="tips-label" for="paytipsrow">Tips</label> -->
+        <div class="row checkbox-row3">
+          <div class="form-group col-8 d-inline-block mb-0 p-0">
+            <label class="mb-0">Do you pay out tips in any form?</label>
+          </div>
+          <div class="form-group col-4 d-inline-block float-right overtime-label radio-button-row mb-0 pr-0">
+            <!-- <dx-check-box [value]="selectTipsPaidYes" text="Yes" (onValueChanged)="clickTipsPaid($event)"></dx-check-box>
+            <dx-check-box [value]="selectTipsPaidNo" text="No" (onValueChanged)="clickTipsPaid($event)"></dx-check-box> -->
+            <div formGroupName="payOutTipsGroup" class="form-checkbox-width">
+                <dx-check-box 
+                  formControlName="payOutTipsYes" 
+                  text="Yes" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('payOutTipsYes', 'payOutTipsGroup', $event)"></dx-check-box>
+                
+                <dx-check-box 
+                  class="mr-0"
+                  formControlName="payOutTipsNo" 
+                  text="No" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('payOutTipsNo', 'payOutTipsGroup', $event)"></dx-check-box>
+              </div>
+            </div>
+        </div>
+
+        <!-- Pay Out Tips selected Yes -->
+        
+        <div class="row">
+          <div class="col-12">
+            <div class="horizontal-separator"></div>
+          </div>
+        </div>
+  
+
+        <div class="row">
+          <div class="col-12">
+            <p class="info-box">
+                Charge tips are to be paid on Oasis issued check and cash tips are for reporting only.
+                If your pay frequency is greater than weekly, hours and tips are required to be reported on a
+                weekly basis for accuracy of half-time calculations.
+            </p>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-12">
+              <div class="horizontal-separator"></div>
+          </div>
+        </div>
+
+        <div class="row checkbox-row4">
+          <div class="form-group col-8 mb-0 p-0">
+            <label class="mb-0">Charge Tips?</label>
+          </div>
+          <div class="form-group col-4 d-inline-block float-right overtime-label radio-button-row mb-0 pr-0">
+            <!-- <dx-check-box [value]="selectChargeTipsYes" text="Yes" (onValueChanged)="clickChargeTips($event)"></dx-check-box>
+            <dx-check-box [value]="selectChargeTipsNo" text="No" (onValueChanged)="clickChargeTips($event)"></dx-check-box> -->
+          
+            <div formGroupName="selectChargeTipsGroup" class="form-checkbox-width">
+                <dx-check-box 
+                  [disabled]="payOutTipsName !== 'payOutTipsYes'"
+                  formControlName="selectChargeTipsYes" 
+                  text="Yes" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('selectChargeTipsYes', 'selectChargeTipsGroup', $event)"></dx-check-box>
+                
+                <dx-check-box 
+                  class="mr-0"
+                  [disabled]="payOutTipsName !== 'payOutTipsYes'"
+                  formControlName="selectChargeTipsNo" 
+                  text="No" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('selectChargeTipsNo', 'selectChargeTipsGroup', $event)"></dx-check-box>
+              </div>
+          
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+              <div class="horizontal-separator"></div>
+          </div>
+        </div>
+
+        <div class="row checkbox-row4">
+          <div class="form-group col-8 mb-0 p-0">
+            <label class="mb-0">Cash Tips?</label>
+          </div>
+          <div class="form-group col-4 d-inline-block float-right overtime-label radio-button-row mb-0 pr-0">
+            <!-- <dx-check-box [value]="selectCashTipsYes" text="Yes" (onValueChanged)="clickCashTips($event)"></dx-check-box>
+            <dx-check-box [value]="selectCashTipsNo" text="No" (onValueChanged)="clickCashTips($event)"></dx-check-box> -->
+          
+            <div formGroupName="cashTipsGroup" class="form-checkbox-width">
+                <dx-check-box 
+                  [disabled]="payOutTipsName !== 'payOutTipsYes'"
+                  formControlName="cashTipsYes" 
+                  text="Yes" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('cashTipsYes', 'cashTipsGroup', $event)"></dx-check-box>
+                
+                <dx-check-box 
+                  class="mr-0"
+                  [disabled]="payOutTipsName !== 'payOutTipsYes'"
+                  formControlName="cashTipsNo" 
+                  text="No" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('cashTipsNo', 'cashTipsGroup', $event)"></dx-check-box>
+              </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+              <div class="horizontal-separator"></div>
+          </div>
+        </div>
+
+
+        <div class="row checkbox-row5">
+          <div class="form-group col-8 mb-0 p-0">
+            <label>Service charge?</label>
+          </div>
+          <div class="form-group col-4 d-inline-block float-right overtime-label radio-button-row pr-0">
+            <!-- <dx-check-box [value]="selectServiceChargeYes" text="Yes" (onValueChanged)="clickServiceCharge($event)"></dx-check-box>
+            <dx-check-box [value]="selectServiceChargeNo" text="No" (onValueChanged)="clickServiceCharge($event)"></dx-check-box> -->
+          
+            <div formGroupName="serviceChargeGroup" class="form-checkbox-width">
+                <dx-check-box 
+                  formControlName="serviceChargeYes" 
+                  text="Yes" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('serviceChargeYes', 'serviceChargeGroup', $event)"></dx-check-box>
+                
+                <dx-check-box 
+                  class="mr-0"
+                  formControlName="serviceChargeNo" 
+                  text="No" 
+                  (onOptionChanged)="onGroupedCheckBoxChanged('serviceChargeNo', 'serviceChargeGroup', $event)"></dx-check-box>
+              </div>
+          </div>
+        </div>
+
+          <!-- Service Charge selected Yes -->
+          <!-- <div *ngIf="serviceChargeName === 'serviceChargeYes'"> -->
+          <div class="row">
+            <div class="col-12">
+                <div class="horizontal-separator"></div>
+            </div>
+          </div>
+
+          <div class="row" >
+            <div class="col-12">
+              <p class="info-box">
+                  Service Charges are mandatory amounts designated by a company to be included in the billing for the actual service.
+                  These are considered amount owed by the customer and not a voluntary gratuity
+                  (i.e. an 18% automatic service charge is included on a restaurant bill).
+              </p>
+            </div>
+          </div>
+        </div>
+      <!-- </div> -->
+    </div>
+  </form>
+</div>
+
+<ng-template #uploadModal let-c="close" let-d="dismiss">
+      <app-upload [modalCloseFunc]="this.c" [modalDismissFunc]="this.d" [isTypeModal]="true"></app-upload>
+</ng-template>
